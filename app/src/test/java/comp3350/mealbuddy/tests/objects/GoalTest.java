@@ -6,6 +6,7 @@ import comp3350.mealbuddy.objects.QuantityGoal;
 import comp3350.mealbuddy.objects.Goal;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 public class GoalTest {
@@ -24,6 +25,7 @@ public class GoalTest {
             fail("Expected Exception");
         }
         catch (IllegalArgumentException e){
+            assertTrue(true);
         }
 
     }
@@ -40,6 +42,7 @@ public class GoalTest {
             fail("Expected Exception");
         }
         catch (IllegalArgumentException e){
+            assertTrue(true);
         }
     }
 
@@ -55,6 +58,7 @@ public class GoalTest {
             fail("Expected Exception");
         }
         catch (NullPointerException e){
+            assertTrue(true);
         }
     }
 
@@ -70,6 +74,7 @@ public class GoalTest {
             fail("Expected Exception");
         }
         catch (IllegalArgumentException e){
+            assertTrue(true);
         }
     }
 
@@ -85,6 +90,7 @@ public class GoalTest {
             fail("Expected Exception");
         }
         catch (IllegalArgumentException e){
+            assertTrue(true);
         }
     }
 
