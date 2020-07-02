@@ -15,7 +15,7 @@ public class RatioGoalTracker implements GoalTracker {
 
     @Override
     public boolean isAchieved() {
-        float amount = calculatePercent();
+        double amount = calculatePercent();
         int lowerBound = goal.targetAmount - goal.variance;
         int upperBound = goal.targetAmount + goal.variance;
         return (amount>=lowerBound && amount<=upperBound);
