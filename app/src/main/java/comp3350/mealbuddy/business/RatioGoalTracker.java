@@ -22,9 +22,9 @@ public class RatioGoalTracker implements GoalTracker {
     }
 
     //Returns in percent form (50.5 instead of .505)
-    private float calculatePercent(){
-        float total = foodEatenManager.getTotalAmount();
-        float amount = foodEatenManager.getAmount(goal.nameOfTracked);
+    private double calculatePercent(){
+        double total = foodEatenManager.getTotalAmount();
+        double amount = foodEatenManager.getAmount(goal.nameOfTracked);
         return 100*amount/total;
     }
 
