@@ -13,10 +13,7 @@ public abstract class Goal {
     }
 
     private void validateInput(int amount, int variance, String name) {
-        if (amount < 0) {
-            throw new IllegalArgumentException("Amount can not be " + amount);
-        }
-        if (variance < 0) {
+        if (amount < 0 || variance < 0) {
             throw new IllegalArgumentException("Amount can not be " + amount);
         }
         if (name == null) {
