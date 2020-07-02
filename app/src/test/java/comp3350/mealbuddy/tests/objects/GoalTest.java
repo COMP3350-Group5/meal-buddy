@@ -13,17 +13,18 @@ public class GoalTest {
 
 
     @Test
-    public void test_constructor_negativeAmount_throwException() {
+    public void test_constructor_negativeLowerBound_throwException() {
         //arrange
-        int targetAmount = -3;
-        int variance = 42;
+        int lowerBound = -3;
+        int upperBound = 42;
         String nameOfTracked = "Fat";
 
         //act
         try {
-            Goal goal = new QuantityGoal(targetAmount, variance, nameOfTracked);
+            Goal goal = new QuantityGoal(lowerBound, upperBound, nameOfTracked);
             fail("Expected Exception");
         }
+        //assert
         catch (IllegalArgumentException e){
             assertTrue(true);
         }
@@ -31,16 +32,18 @@ public class GoalTest {
     }
 
     @Test
-    public void test_constructor_negativeVariance_throwException() {
+    public void test_constructor_negativeUpperBound_throwException() {
         //arrange
-        int targetAmount = 50;
-        int variance = -42;
+        int lowerBound = 50;
+        int upperBound = -42;
         String nameOfTracked = "Fat";
 
+        //act
         try{
-            Goal goal = new QuantityGoal(targetAmount, variance, nameOfTracked);
+            Goal goal = new QuantityGoal(lowerBound, upperBound, nameOfTracked);
             fail("Expected Exception");
         }
+        //assert
         catch (IllegalArgumentException e){
             assertTrue(true);
         }
@@ -49,14 +52,16 @@ public class GoalTest {
     @Test
     public void test_constructor_nullName_throwException() {
         //arrange
-        int targetAmount = 50;
-        int variance = 42;
+        int lowerBound = 50;
+        int upperBound = 55;
         String nameOfTracked = null;
 
+        //act
         try{
-            Goal goal = new QuantityGoal(targetAmount, variance, nameOfTracked);
+            Goal goal = new QuantityGoal(lowerBound, upperBound, nameOfTracked);
             fail("Expected Exception");
         }
+        //assert
         catch (NullPointerException e){
             assertTrue(true);
         }
@@ -65,30 +70,34 @@ public class GoalTest {
     @Test
     public void test_constructor_emptyName_throwException() {
         //arrange
-        int targetAmount = 50;
-        int variance = 3;
+        int lowerBound = 50;
+        int upperBound = 55;
         String nameOfTracked = "";
 
+        //act
         try{
-            Goal goal = new QuantityGoal(targetAmount, variance, nameOfTracked);
+            Goal goal = new QuantityGoal(lowerBound, upperBound, nameOfTracked);
             fail("Expected Exception");
         }
+        //assert
         catch (IllegalArgumentException e){
             assertTrue(true);
         }
     }
 
     @Test
-    public void test_constructor_tooBigVariance_throwException() {
+    public void test_constructor_lowerLargerThanUpper_throwException() {
         //arrange
-        int targetAmount = 40;
-        int variance = 42;
+        int lowerBound = 100;
+        int upperBound = 50;
         String nameOfTracked = "Fat";
 
+        //act
         try{
-            Goal goal = new QuantityGoal(targetAmount, variance, nameOfTracked);
+            Goal goal = new QuantityGoal(lowerBound, upperBound, nameOfTracked);
             fail("Expected Exception");
         }
+        //assert
         catch (IllegalArgumentException e){
             assertTrue(true);
         }

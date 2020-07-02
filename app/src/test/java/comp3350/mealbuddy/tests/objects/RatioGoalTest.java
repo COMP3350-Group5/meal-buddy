@@ -3,41 +3,33 @@ package comp3350.mealbuddy.tests.objects;
 import org.junit.Test;
 
 import comp3350.mealbuddy.objects.Goal;
-import comp3350.mealbuddy.objects.QuantityGoal;
 import comp3350.mealbuddy.objects.RatioGoal;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 public class RatioGoalTest {
 
 
     @Test
-    public void test_constructor_tooSmallVariance_varianceSetTo1() {
+    public void test_constructor_equalLowerUpperBound_errorThrown() {
         //arrange
-        int targetAmount = 50;
-        int variance = 0;
+        int lowerBound = 50;
+        int upperBound = 50;
         String nameOfTracked = "Fat";
 
         //act
-        Goal goal = new RatioGoal(targetAmount, variance, nameOfTracked);
-
+        try {
+            Goal goal = new RatioGoal(lowerBound, upperBound, nameOfTracked);
+            fail();
+        }
         //assert
-        assertEquals(goal.variance, 1);
+        catch (IllegalArgumentException e){
+            assertTrue(true);
+        }
+
     }
 
-    @Test
-    public void test_constructor_normalVariance_varianceUnchanged() {
-        //arrange
-        int targetAmount = 50;
-        int variance = 42;
-        String nameOfTracked = "Fat";
-
-        //act
-        Goal goal = new RatioGoal(targetAmount, variance, nameOfTracked);
-
-        //assert
-        assertEquals(goal.variance, 42);
-    }
 
 }

@@ -1,29 +1,29 @@
 package comp3350.mealbuddy.objects;
 
 public abstract class Goal {
-    public int targetAmount;
-    public int variance;
+    public int lowerBound;
+    public int upperBound;
     public String nameOfTracked;
 
-    public Goal(int targetAmount, int variance, String nameOfTracked) {
-        validateInput(targetAmount, variance, nameOfTracked);
-        this.targetAmount = targetAmount;
-        this.variance = variance;
+    public Goal(int lowerBound, int upperBound, String nameOfTracked) {
+        validateInput(lowerBound, upperBound, nameOfTracked);
+        this.lowerBound = lowerBound;
+        this.upperBound = upperBound;
         this.nameOfTracked = nameOfTracked;
     }
 
-    private void validateInput(int amount, int variance, String name) {
-        if (amount < 0 || variance < 0) {
-            throw new IllegalArgumentException("Amount can not be " + amount);
+    private void validateInput(int lowerBound, int upperBound, String nameOfTracked) {
+        if (lowerBound < 0 || upperBound < 0) {
+            throw new IllegalArgumentException("target goals cannot be negative");
         }
-        if (name == null) {
+        if (nameOfTracked == null) {
             throw new NullPointerException("Name can not be null for trackable item");
         }
-        if (name.isEmpty()) {
-            throw new IllegalArgumentException("The Goal must be given a name");
+        if (nameOfTracked.isEmpty()) {
+            throw new IllegalArgumentException("The Goal must be given a name of an item to track");
         }
-        if (variance > amount) {
-            throw new IllegalArgumentException("Variance can not exceed target amount");
+        if (lowerBound > upperBound) {
+            throw new IllegalArgumentException("Lower bound can not exceed upper bound");
         }
 
     }

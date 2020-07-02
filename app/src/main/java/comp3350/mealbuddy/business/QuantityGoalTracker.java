@@ -16,9 +16,7 @@ public class QuantityGoalTracker implements GoalTracker{
     @Override
     public boolean isAchieved() {
         int amount = foodEatenManager.getAmount(goal.nameOfTracked);
-        int lowerBound = goal.targetAmount - goal.variance;
-        int upperBound = goal.targetAmount + goal.variance;
-        return (amount>=lowerBound && amount<=upperBound);
+        return (amount>=goal.lowerBound && amount<=goal.upperBound);
     }
 
 }
