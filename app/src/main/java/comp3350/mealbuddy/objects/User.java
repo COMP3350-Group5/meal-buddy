@@ -2,8 +2,6 @@ package comp3350.mealbuddy.objects;
 
 public class User {
 
-
-
     private String name;
     private int height;
 

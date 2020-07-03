@@ -5,7 +5,6 @@ import java.util.EnumMap;
 
 public class Macros {
 
-
     private static EnumMap<nutrients, Integer>dictionary;
 
     public enum nutrients{
