@@ -1,8 +1,7 @@
 package comp3350.mealbuddy.objects;
 
 import androidx.annotation.NonNull;
-
-import comp3350.mealbuddy.objects.MicroFactory.Micros;
+import comp3350.mealbuddy.objects.Edible.Micros;
 
 public class MicroGoal extends Goal {
 

@@ -1,8 +1,8 @@
 package comp3350.mealbuddy.objects;
+import comp3350.mealbuddy.objects.Edible.Macros;
+
 
 import androidx.annotation.NonNull;
-
-import comp3350.mealbuddy.objects.MacroFactory.Macros;
 
 public class MacroGoal extends Goal {
 
