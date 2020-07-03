@@ -3,6 +3,7 @@ package comp3350.mealbuddy.objects;
 import java.util.EnumMap;
 
 public class Micros {
+    
 
     private static EnumMap<Micros.nutrients, Integer>dictionary;
 
