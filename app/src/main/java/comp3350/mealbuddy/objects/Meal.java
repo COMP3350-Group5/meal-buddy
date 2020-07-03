@@ -3,6 +3,7 @@ package comp3350.mealbuddy.objects;
 import java.util.ArrayList;
 
 public class Meal {
+
     private String name;
     private ArrayList<Food>food;
 

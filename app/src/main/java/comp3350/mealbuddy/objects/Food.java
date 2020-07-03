@@ -9,6 +9,7 @@ import java.util.Hashtable;
 
 public class Food {
 
+
     private String name;
 
     private ArrayList<String>labels;

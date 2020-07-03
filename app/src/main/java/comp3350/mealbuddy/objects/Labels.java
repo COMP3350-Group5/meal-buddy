@@ -3,6 +3,7 @@ package comp3350.mealbuddy.objects;
 import java.util.ArrayList;
 
 public class Labels {
+
     private static final ArrayList<String>label = new ArrayList<String>();
 
     private Labels() {
