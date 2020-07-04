@@ -1,21 +1,26 @@
 package comp3350.mealbuddy.presentation;
 
 import comp3350.mealbuddy.R;
-import androidx.appcompat.app.AppCompatActivity;
+import comp3350.mealbuddy.business.AccessAccount;
+import comp3350.mealbuddy.objects.Account;
 
+import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 public class HomeActivity extends AppCompatActivity {
-
+    private AccessAccount accessAccount = new AccessAccount();
     private EditText username;
     private EditText password;
     private Button login;
-    private Button createAccount;
+    private TextView createAccount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +31,7 @@ public class HomeActivity extends AppCompatActivity {
         username = (EditText) findViewById(R.id.etUsername);
         password = (EditText) findViewById(R.id.etPassword);
         login = (Button) findViewById(R.id.btnLogin);
-        createAccount = (Button) findViewById(R.id.btnCreateAcc);
+        createAccount = (TextView) findViewById(R.id.tvCreateAccount);
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -34,10 +39,19 @@ public class HomeActivity extends AppCompatActivity {
                 checkLogin(username.getText(), password.getText());
             }
         });
+
+        createAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(HomeActivity.this, SignUpActivity.class);
+                HomeActivity.this.startActivity(intent);
+            }
+        });
     }
 
     public void checkLogin(Editable user, Editable pass) {
-        if((user.toString()).equals("Admin") && (pass.toString()).equals("1234")){
+        Account account = accessAccount.validateLogin(user.toString(), pass.toString());
+        if(account != null){
             Intent intent = new Intent(HomeActivity.this, TimelineActivity.class);
             HomeActivity.this.startActivity(intent);
         }
