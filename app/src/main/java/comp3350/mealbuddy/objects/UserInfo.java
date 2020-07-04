@@ -1,6 +1,6 @@
 package comp3350.mealbuddy.objects;
 
-public class User {
+public class UserInfo {
 
     public enum Sex {
       MALE, FEMALE,
@@ -18,7 +18,7 @@ public class User {
     public ActivityLevel activityLevel;
     public Sex sex;
 
-    public User(String fullname, String username, String password, double weight, double height, ActivityLevel activityLevel, Sex sex) {
+    public UserInfo(String fullname, String username, String password, double weight, double height, ActivityLevel activityLevel, Sex sex) {
         this.fullname = fullname;
         this.username = username;
         this.password = password;

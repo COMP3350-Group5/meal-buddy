@@ -6,9 +6,10 @@ public class Exercise {
         Low, Medium, High,
     }
 
+    public String name;
     public double duration;
 
-    public Exercise() {
-
+    public Exercise(String name) {
+        this.name = name;
     }
 }
