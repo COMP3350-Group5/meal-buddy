@@ -9,10 +9,10 @@ import java.util.Objects;
 
 public class LabelGoal extends Goal {
 
-    String id;
+    public String id;
 
-    public LabelGoal(int lowerBound, int upperBound, String id) {
-        super(lowerBound, upperBound);
+    public LabelGoal(int lowerBound, int upperBound, GoalType goalType, String id) {
+        super(lowerBound, upperBound, goalType);
         this.id = id;
     }
 

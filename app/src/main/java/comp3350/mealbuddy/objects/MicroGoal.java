@@ -11,10 +11,10 @@ import comp3350.mealbuddy.objects.Edible.Micros;
 
 public class MicroGoal extends Goal {
 
-    Micros id;
+    public Micros id;
 
-    public MicroGoal(int lowerBound, int upperBound, Micros id) {
-        super(lowerBound, upperBound);
+    public MicroGoal(int lowerBound, int upperBound, GoalType goalType, Micros id) {
+        super(lowerBound, upperBound, goalType);
         this.id = id;
     }
 
