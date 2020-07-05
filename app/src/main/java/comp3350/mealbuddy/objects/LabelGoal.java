@@ -34,9 +34,4 @@ public class LabelGoal extends Goal {
         return id.equals(labelGoal.id);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)  //requires api 19 Marshmallow is 23
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
 }

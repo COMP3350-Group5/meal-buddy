@@ -37,9 +37,4 @@ public class MacroGoal extends Goal {
         return id == macroGoal.id;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)  //Kitkat is api 19 marshmallow is 23
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
 }

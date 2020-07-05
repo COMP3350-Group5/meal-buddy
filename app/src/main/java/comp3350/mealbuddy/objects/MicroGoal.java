@@ -36,9 +36,4 @@ public class MicroGoal extends Goal {
         return id == microGoal.id;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)  //requires api 19 marshmallow is 23
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
 }
