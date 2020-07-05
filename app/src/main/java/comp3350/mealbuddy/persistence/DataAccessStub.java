@@ -143,7 +143,7 @@ public class DataAccessStub {
 
     public Account validateLogin(String username, String password){
         for (Account a : accounts){
-            if (a.user.username.equals(username) && a.user.password.equals(password))
+            if (a.user.username.equalsIgnoreCase(username) && a.user.password.equals(password))
                 return a;
         }
         return null;
