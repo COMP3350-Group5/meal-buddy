@@ -1,12 +1,14 @@
 package comp3350.mealbuddy.persistence;
 
 import comp3350.mealbuddy.objects.Account;
+import comp3350.mealbuddy.objects.Day;
 import comp3350.mealbuddy.objects.Edible;
 import comp3350.mealbuddy.objects.Exercise;
 import comp3350.mealbuddy.objects.Food;
 import comp3350.mealbuddy.objects.Meal;
 import comp3350.mealbuddy.objects.UserInfo;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -92,6 +94,7 @@ public class DataAccessStub {
         String[] exerciseList = {
             "Outdoor Run", "Bench Press", "Push Ups", "Sit Ups"
         };
+
         for (String e : exerciseList){
             exercises.add(new Exercise(e));
         }
@@ -147,6 +150,10 @@ public class DataAccessStub {
                 return a;
         }
         return null;
+    }
+
+    public Day getDay(Account a, LocalDate LD){
+        return a.getDay(LD);
     }
 
 

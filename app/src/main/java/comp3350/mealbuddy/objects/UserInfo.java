@@ -4,11 +4,11 @@ public class UserInfo {
 
     public enum Sex {
       MALE, FEMALE,
-    };
+    }
 
     public enum ActivityLevel {
         LOW, MEDIUM, HIGH,
-    };
+    }
 
     public String fullname;
     public String username;

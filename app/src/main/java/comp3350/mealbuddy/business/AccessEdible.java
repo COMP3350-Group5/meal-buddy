@@ -14,7 +14,7 @@ public class AccessEdible {
         database_t = DataAccessStub.Database_t.EDIBLES;
     }
 
-    public void AddEdible(Edible e){
+    public void addEdible(Edible e){
         DAS.addToDB(database_t, e);
     }
 

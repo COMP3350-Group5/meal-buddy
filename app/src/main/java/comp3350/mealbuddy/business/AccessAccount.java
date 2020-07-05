@@ -1,8 +1,11 @@
 package comp3350.mealbuddy.business;
 
+import java.time.LocalDate;
+
 import comp3350.mealbuddy.application.Main;
 import comp3350.mealbuddy.application.Services;
 import comp3350.mealbuddy.objects.Account;
+import comp3350.mealbuddy.objects.Day;
 import comp3350.mealbuddy.objects.UserInfo;
 import comp3350.mealbuddy.persistence.DataAccessStub;
 
@@ -36,4 +39,7 @@ public class AccessAccount {
         return DAS.validateLogin(username, password);
     }
 
+    public Day getDay(Account a, LocalDate day){
+        return DAS.getDay(a, day);
+    }
 }
