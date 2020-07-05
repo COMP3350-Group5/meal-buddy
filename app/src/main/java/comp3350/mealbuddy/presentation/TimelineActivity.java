@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import android.os.Bundle;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.time.LocalDate;
@@ -36,22 +37,35 @@ public class TimelineActivity extends AppCompatActivity {
 
     private void initializeCards(){
         CardView totals = (CardView) findViewById(R.id.cardTotals);
-        TextView cardTotalsTitle = (TextView) totals.getChildAt(0);
+        RelativeLayout totalsLayout = (RelativeLayout) totals.getChildAt(0);
+        TextView cardTotalsTitle = (TextView) totalsLayout.getChildAt(0);
         cardTotalsTitle.setText("Totals");
 
         CardView breakfast = (CardView) findViewById(R.id.cardBreakfast);
-        TextView cardBreakfastTitle = (TextView) breakfast.getChildAt(0);
+        RelativeLayout breakfastLayout = (RelativeLayout) breakfast.getChildAt(0);
+        TextView cardBreakfastTitle = (TextView) breakfastLayout.getChildAt(0);
         cardBreakfastTitle.setText("Breakfast");
+        TextView txtBreakfast = (TextView) breakfastLayout.getChildAt(1);
+        txtBreakfast.setText(day.getMeal(Day.MealTime_t.BREAKFAST));
 
         CardView lunch = (CardView) findViewById(R.id.cardLunch);
-        TextView cardLunchTitle = (TextView) lunch.getChildAt(0);
+        RelativeLayout lunchLayout = (RelativeLayout) lunch.getChildAt(0);
+        TextView cardLunchTitle = (TextView) lunchLayout.getChildAt(0);
         cardLunchTitle.setText("Lunch");
+        TextView txtLunch = (TextView) lunchLayout.getChildAt(1);
+        txtLunch.setText(day.getMeal(Day.MealTime_t.LUNCH));
 
         CardView dinner = (CardView) findViewById(R.id.cardDinner);
-        TextView cardDinnerTitle = (TextView) dinner.getChildAt(0);
+        RelativeLayout dinnerLayout = (RelativeLayout) dinner.getChildAt(0);
+        TextView cardDinnerTitle = (TextView) dinnerLayout.getChildAt(0);
         cardDinnerTitle.setText("Dinner");
+        TextView txtDinner = (TextView) dinnerLayout.getChildAt(1);
+        txtDinner.setText(day.getMeal(Day.MealTime_t.DINNER));
 
         CardView snacks = (CardView) findViewById(R.id.cardSnacks);
-        TextView cardSnacksTitle = (TextView) snacks.getChildAt(0);
+        RelativeLayout snacksLayout = (RelativeLayout) snacks.getChildAt(0);
+        TextView cardSnacksTitle = (TextView) snacksLayout.getChildAt(0);
         cardSnacksTitle.setText("Snacks");
+        TextView txtSnacks = (TextView) snacksLayout.getChildAt(1);
+        txtSnacks.setText(day.getMeal(Day.MealTime_t.SNACK));
     }}

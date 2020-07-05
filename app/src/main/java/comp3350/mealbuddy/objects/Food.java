@@ -16,6 +16,6 @@ public class Food extends Edible{
 
     @Override
     public String toString(){
-        return name + weight;
+        return name + " " + weight + "g";
     }
 }
