@@ -1,6 +1,11 @@
 package comp3350.mealbuddy.objects;
 
+import android.os.Build;
+
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+
+import java.util.Objects;
 
 public class LabelGoal extends Goal {
 
@@ -19,5 +24,19 @@ public class LabelGoal extends Goal {
                 ", lowerBound=" + lowerBound +
                 ", upperBound=" + upperBound +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof LabelGoal)) return false;
+        LabelGoal labelGoal = (LabelGoal) o;
+        return id.equals(labelGoal.id);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)  //requires api 19 Marshmallow is 23
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }
