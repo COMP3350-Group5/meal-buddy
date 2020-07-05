@@ -158,7 +158,7 @@ public class DataAccessStub {
 
     public Account getAccount(String username){
         for (Account a : accounts){
-            if (a.user.username.equals(username))
+            if (a.user.username.equalsIgnoreCase(username))
                 return a;
         }
         return null; //this should never happen as long as you validate the login first.
