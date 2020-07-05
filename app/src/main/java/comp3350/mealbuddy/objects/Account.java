@@ -11,7 +11,7 @@ public class Account {
     }
 
     public void addGoal(Goal g) {
-        if(goals.contains(g))
+        if(!goals.contains(g))
             goals.add(g);
     }
 

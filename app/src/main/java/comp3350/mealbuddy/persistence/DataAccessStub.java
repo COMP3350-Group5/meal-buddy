@@ -46,7 +46,7 @@ public class DataAccessStub {
         Food edible;
         Meal meal = new Meal("Burger", new ArrayList<String>());
         Object[][] foods = {
-            {"Beef Burger", new ArrayList<String>()},
+            {"Beef Patty", new ArrayList<String>()},
             {"Cheese", new ArrayList<>(Arrays.asList("dairy", "vegetarian"))},
             {"Burger Bun", new ArrayList<>(Arrays.asList("vegetarian", "vegan"))},
         };
@@ -143,7 +143,7 @@ public class DataAccessStub {
 
     public Account validateLogin(String username, String password){
         for (Account a : accounts){
-            if (a.user.username.equals(username) && a.user.password.equals(password))
+            if (a.user.username.equalsIgnoreCase(username) && a.user.password.equals(password))
                 return a;
         }
         return null;
