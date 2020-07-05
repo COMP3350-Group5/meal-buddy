@@ -152,8 +152,8 @@ public class DataAccessStub {
         return null;
     }
 
-    public Day getDay(Account a, LocalDate LD){
-        return a.getDay(LD);
+    public Day getDay(Account a, int day){
+        return a.getDay(day);
     }
 
 

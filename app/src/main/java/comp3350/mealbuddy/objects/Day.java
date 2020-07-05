@@ -1,22 +1,21 @@
 package comp3350.mealbuddy.objects;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.sql.Time;
 import java.util.HashMap;
 
 public class Day {
     public enum MealTime_t {
         BREAKFAST, LUNCH, DINNER, SNACK
     }
-    public LocalDate LD; //the local date: e.g. 2020-07-04
+    public int day; // represented as day-of-year (1-365)
     //lists of food TIMESTAMPED by local time: (e.g., 10:15:20 -> Banana)
-    private HashMap<LocalTime, Edible> breakfast;
-    private HashMap<LocalTime, Edible> lunch;
-    private HashMap<LocalTime, Edible> dinner;
-    private HashMap<LocalTime, Edible> snack;
+    private HashMap<Time, Edible> breakfast;
+    private HashMap<Time, Edible> lunch;
+    private HashMap<Time, Edible> dinner;
+    private HashMap<Time, Edible> snack;
 
-    public Day (LocalDate LD) {
-        this.LD = LD;
+    public Day (int day) {
+        this.day = day;
         this.breakfast = new HashMap<>();
         this.lunch = new HashMap<>();
         this.dinner = new HashMap<>();
@@ -24,7 +23,7 @@ public class Day {
     }
 
     //keys are unique, so adding also updates... I think.
-    public void addFood(MealTime_t MT, LocalTime LT, Edible e){
+    public void addFood(MealTime_t MT, Time LT, Edible e){
         switch(MT) {
             case BREAKFAST:
                 breakfast.put(LT, e);
@@ -41,7 +40,7 @@ public class Day {
         }
     }
 
-    public void removeFood(MealTime_t MT, LocalTime LT){
+    public void removeFood(MealTime_t MT, Time LT){
         switch(MT) {
             case BREAKFAST:
                 breakfast.remove(LT);
