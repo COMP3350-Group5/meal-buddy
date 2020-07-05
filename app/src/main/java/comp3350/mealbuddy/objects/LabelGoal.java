@@ -1,6 +1,11 @@
 package comp3350.mealbuddy.objects;
 
+import android.os.Build;
+
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+
+import java.util.Objects;
 
 public class LabelGoal extends Goal {
 
@@ -20,4 +25,13 @@ public class LabelGoal extends Goal {
                 ", upperBound=" + upperBound +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof LabelGoal)) return false;
+        LabelGoal labelGoal = (LabelGoal) o;
+        return id.equals(labelGoal.id);
+    }
+
 }

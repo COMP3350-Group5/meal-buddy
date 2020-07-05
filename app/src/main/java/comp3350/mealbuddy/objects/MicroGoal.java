@@ -1,6 +1,12 @@
 package comp3350.mealbuddy.objects;
 
+import android.os.Build;
+
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+
+import java.util.Objects;
+
 import comp3350.mealbuddy.objects.Edible.Micros;
 
 public class MicroGoal extends Goal {
@@ -21,4 +27,12 @@ public class MicroGoal extends Goal {
                 ", upperBound=" + upperBound +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof MicroGoal)) return false;
+        return id == ((MicroGoal) o).id;
+    }
+
 }

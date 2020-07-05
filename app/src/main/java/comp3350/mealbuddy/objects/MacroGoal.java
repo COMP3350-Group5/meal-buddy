@@ -1,8 +1,13 @@
 package comp3350.mealbuddy.objects;
+import android.os.Build;
+
 import comp3350.mealbuddy.objects.Edible.Macros;
 
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+
+import java.util.Objects;
 
 public class MacroGoal extends Goal {
 
@@ -22,4 +27,14 @@ public class MacroGoal extends Goal {
                 ", upperBound=" + upperBound +
                 '}';
     }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof MacroGoal)) return false;
+        MacroGoal macroGoal = (MacroGoal) o;
+        return id == macroGoal.id;
+    }
+
 }
