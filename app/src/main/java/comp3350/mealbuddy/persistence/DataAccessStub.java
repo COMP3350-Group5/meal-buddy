@@ -46,7 +46,7 @@ public class DataAccessStub {
         Food edible;
         Meal meal = new Meal("Burger", new ArrayList<String>());
         Object[][] foods = {
-            {"Beef Burger", new ArrayList<String>()},
+            {"Beef Patty", new ArrayList<String>()},
             {"Cheese", new ArrayList<>(Arrays.asList("dairy", "vegetarian"))},
             {"Burger Bun", new ArrayList<>(Arrays.asList("vegetarian", "vegan"))},
         };
