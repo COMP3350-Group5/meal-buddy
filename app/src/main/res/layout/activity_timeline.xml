@@ -6,4 +6,107 @@
     android:layout_height="match_parent"
     tools:context=".presentation.TimelineActivity">
 
+    <TextView
+        android:id="@+id/txtTimeline"
+        android:layout_width="54dp"
+        android:layout_height="19dp"
+        android:layout_marginTop="16dp"
+        android:text="Timeline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardTotals"
+        android:layout_width="500dp"
+        android:layout_height="75dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtTimeline"
+        app:layout_constraintBottom_toTopOf="@+id/cardBreakfast">
+        <TextView
+            android:id="@+id/txtTotalCardTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
+    </androidx.cardview.widget.CardView>
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardBreakfast"
+        android:layout_width="500dp"
+        android:layout_height="75dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardTotals"
+        app:layout_constraintBottom_toTopOf="@+id/cardLunch"
+        >
+        <TextView
+            android:id="@+id/txtBreakfastCardTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
+    </androidx.cardview.widget.CardView>
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardLunch"
+        android:layout_width="500dp"
+        android:layout_height="75dp"
+        app:layout_constraintBottom_toTopOf="@+id/cardDinner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardBreakfast">
+        <TextView
+            android:id="@+id/txtLunchCardTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardDinner"
+        android:layout_width="500dp"
+        android:layout_height="75dp"
+        app:layout_constraintBottom_toTopOf="@+id/cardSnacks"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardLunch">
+        <TextView
+            android:id="@+id/txtDinenrCardTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardSnacks"
+        android:layout_width="500dp"
+        android:layout_height="75dp"
+        app:layout_constraintBottom_toTopOf="@+id/coordinatorLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardDinner">
+        <TextView
+            android:id="@+id/txtSnacksCardTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
+    </androidx.cardview.widget.CardView>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/coordinatorLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_editor_absoluteX="0dp">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/floatingActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:clickable="true"
+            android:focusable="true"
+            app:srcCompat="@android:drawable/ic_input_add" />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

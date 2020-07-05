@@ -52,6 +52,7 @@ public class HomeActivity extends AppCompatActivity {
         Account account = accessAccount.validateLogin(user.toString(), pass.toString());
         if(account != null){
             Intent intent = new Intent(HomeActivity.this, TimelineActivity.class);
+            intent.putExtra("username", user.toString());
             HomeActivity.this.startActivity(intent);
         }
         else {
