@@ -7,15 +7,15 @@ public class Day {
     public enum MealTime_t {
         BREAKFAST, LUNCH, DINNER, SNACK
     }
-    public int day; // represented as day-of-year (1-365)
+    public int dayOfYear; // represented as day-of-year (1-365)
     //lists of food TIMESTAMPED by local time: (e.g., 10:15:20 -> Banana)
     private HashMap<Time, Edible> breakfast;
     private HashMap<Time, Edible> lunch;
     private HashMap<Time, Edible> dinner;
     private HashMap<Time, Edible> snack;
 
-    public Day (int day) {
-        this.day = day;
+    public Day (int dayOfYear) {
+        this.dayOfYear = dayOfYear;
         this.breakfast = new HashMap<>();
         this.lunch = new HashMap<>();
         this.dinner = new HashMap<>();
