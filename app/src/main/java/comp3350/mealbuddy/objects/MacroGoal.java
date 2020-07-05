@@ -11,10 +11,10 @@ import java.util.Objects;
 
 public class MacroGoal extends Goal {
 
-    Macros id;
+    public Macros id;
 
-    public MacroGoal(int lowerBound, int upperBound, Macros id) {
-        super(lowerBound, upperBound);
+    public MacroGoal(int lowerBound, int upperBound, GoalType goalType, Macros id) {
+        super(lowerBound, upperBound, goalType);
         this.id = id;
     }
 
