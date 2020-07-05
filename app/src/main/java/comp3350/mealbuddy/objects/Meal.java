@@ -19,4 +19,13 @@ public class Meal extends Edible{
     public void removeFood(Food toRemove) {
         foodInMeal.remove(toRemove);
     }
+
+    @Override
+    public String toString(){
+        String meal = name + ": ";
+        for (HashMap.Entry<Food, Integer> food : foodInMeal.entrySet()) {
+            meal += (food.getKey().toString() + " quantity: " + food.getValue().toString());
+        }
+        return meal;
+    }
 }
