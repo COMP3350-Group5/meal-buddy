@@ -32,8 +32,7 @@ public class MicroGoal extends Goal {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof MicroGoal)) return false;
-        MicroGoal microGoal = (MicroGoal) o;
-        return id == microGoal.id;
+        return id == ((MicroGoal) o).id;
     }
 
 }
