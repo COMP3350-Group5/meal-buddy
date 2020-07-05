@@ -18,41 +18,31 @@ public class GoalTracker {
      */
     public static List<Goal> getPassedGoals(Calculator calc, List<Goal> goals){
         ArrayList<Goal> passedGoals = new ArrayList<>();
-        int actualVal, upperVal, lowerVal;
-        for (Goal g: goals){
-            //determine what kind of goal it is and set values accordingly
-            if (g instanceof MacroGoal){
-                MacroGoal macGoal = (MacroGoal)g;
-                actualVal = calc.getMacroCalories(macGoal.id);
-                upperVal = macGoal.upperBound;
-                lowerVal = macGoal.lowerBound;
-            } else if (g instanceof MicroGoal){
-                MicroGoal micGoal = (MicroGoal) g;
-                actualVal = calc.getMicroCalories(micGoal.id);
-                upperVal = micGoal.upperBound;
-                lowerVal = micGoal.lowerBound;
-            } else {
-                LabelGoal labGoal = (LabelGoal)g;
-                actualVal = calc.getLabelCalories(labGoal.id);
-                upperVal = labGoal.upperBound;
-                lowerVal = labGoal.lowerBound;
-            }
-
+        for (Goal g : goals){
             //if its a ratio, convert to ratio
-            actualVal = Goal.GoalType.RATIO == g.goalType
-                    ? (int)(100 * (actualVal /(double)calc.getTotalCalories()))
-                    : actualVal;
+            int actualVal = (Goal.GoalType.RATIO == g.goalType)
+                    ? (int)(100 * (getAmount(calc, g)/(double)calc.getTotalCalories()))
+                    : getAmount(calc, g);
 
             //add the goal to the list if it passes
-            if (withinBounds(actualVal, lowerVal, upperVal))
+            if (withinBounds(actualVal, g.lowerBound, g.upperBound))
                 passedGoals.add(g);
         }
-
         return passedGoals;
     }
 
     private static boolean withinBounds(int val, int lowerBound, int upperBound){
         return (val >= lowerBound && val <= upperBound);
+    }
+
+    private static int getAmount(Calculator calc, Goal g){
+        //determine what kind of goal it is and set values accordingly
+        if (g instanceof MacroGoal)
+            return calc.getMacroCalories(((MacroGoal)g).id);
+        else if (g instanceof MicroGoal)
+            return calc.getMicroAmount(((MicroGoal)g).id);
+        else
+            return calc.getLabelCalories(((LabelGoal)g).id);
     }
 }
 

@@ -22,7 +22,7 @@ public class Calculator {
         return 3;
     }
 
-    public int getMicroCalories(Edible.Micros micro) {
+    public int getMicroAmount(Edible.Micros micro) {
         return 2;
     }
 
