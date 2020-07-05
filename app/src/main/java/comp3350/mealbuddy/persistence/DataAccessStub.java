@@ -11,6 +11,7 @@ import comp3350.mealbuddy.objects.UserInfo;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 
 public class DataAccessStub {
     public enum Database_t {
@@ -22,6 +23,7 @@ public class DataAccessStub {
     private ArrayList<Edible> edibles;
     private ArrayList<Account> accounts;
     private ArrayList<Exercise> exercises;
+    private Day day;
 
     public DataAccessStub(String name){
         this.name = name;
@@ -34,8 +36,9 @@ public class DataAccessStub {
         exercises = new ArrayList<>();
 
         //initialize the data
-        initAccounts();
         initEdibles();
+        initDay();
+        initAccounts();
         initExercises();
         System.out.println("Opened Database " + name);
     }
@@ -60,6 +63,25 @@ public class DataAccessStub {
             edibles.add(edible);
             meal.updateFood(edible, 1);
         }
+        edibles.add(meal);
+    }
+    private void initDay() {
+        Calendar calendar = Calendar.getInstance();
+        day = new Day(calendar.get(Calendar.DAY_OF_YEAR));
+        for (Edible edible:edibles) {
+            day.addFood(Day.MealTime_t.BREAKFAST, edible);
+        }
+        for (Edible edible:edibles) {
+            day.addFood(Day.MealTime_t.LUNCH, edible);
+        }
+        for (Edible edible:edibles) {
+            day.addFood(Day.MealTime_t.DINNER, edible);
+        }
+        for (Edible edible:edibles) {
+            day.addFood(Day.MealTime_t.SNACK, edible);
+        }
+
+
     }
 
     private void initAccounts(){
@@ -72,6 +94,7 @@ public class DataAccessStub {
             {"Jamie Lannister", "k1ngsl4yer", "alwayspaymydebts", 230.0, 200.0, UserInfo.ActivityLevel.HIGH, UserInfo.Sex.MALE},
             {"Daenerys Targaryen", "motherOfDragzz", "123123", 150.0, 160.0, UserInfo.ActivityLevel.MEDIUM, UserInfo.Sex.FEMALE},
             {"Catelyn Stark", "stoneheart", "909090", 154.4, 160.0, UserInfo.ActivityLevel.LOW, UserInfo.Sex.FEMALE},
+            {"Richard Hendricks", "piedpiper", "alwaysblue", 100.0, 180.0, UserInfo.ActivityLevel.LOW, UserInfo.Sex.MALE},
             {"Admin", "admin", "group5", 14.2, 400.3, UserInfo.ActivityLevel.LOW, UserInfo.Sex.MALE}
         };
 
@@ -86,6 +109,7 @@ public class DataAccessStub {
                     (UserInfo.Sex)user[6]
             );
             acc = new Account(userInfo);
+            acc.addDay(day);
             accounts.add(acc);
         }
     }
