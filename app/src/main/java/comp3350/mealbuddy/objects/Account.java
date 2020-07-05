@@ -9,6 +9,8 @@ public class Account {
     private ArrayList<Day> daysTracked;
     public Account(UserInfo user) {
         this.user = user;
+        daysTracked = new ArrayList<Day>();
+        goals = new ArrayList<Goal>();
     }
 
     public void addGoal(Goal g) {
@@ -35,7 +37,7 @@ public class Account {
 
     public Day getDay(int day) {
         for (Day d : daysTracked){
-            if (d.day == day)
+            if (d.dayOfYear == day)
                 return d;
         }
         //create a day in the daysTracked list if we request it so the timeline doesnt crash on unrecorded days
