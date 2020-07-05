@@ -42,4 +42,6 @@ public class AccessAccount {
     public Day getDay(Account a, int day){
         return DAS.getDay(a, day);
     }
+
+    public Account getAccount(String username) { return DAS.getAccount(username); }
 }
