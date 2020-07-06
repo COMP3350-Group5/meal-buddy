@@ -65,22 +65,67 @@ public class DataAccessStub {
         }
         edibles.add(meal);
     }
+
     private void initDay() {
         Calendar calendar = Calendar.getInstance();
         day = new Day(calendar.get(Calendar.DAY_OF_YEAR));
-        for (Edible edible:edibles) {
+
+        Object[][] breakfast = {
+            {"Egg", new ArrayList<>(Arrays.asList("vegetarian", "protein")), 50, Edible.Macros.Omega3, 45},
+            {"Bagel", new ArrayList<>(Arrays.asList("vegetarian")), 100, Edible.Macros.Carbohydrates, 6},
+        };
+
+        Object[][] lunch = {
+            {"Beef Patty", new ArrayList<>(Arrays.asList("protein")), 50, Edible.Macros.Protein, 5},
+            {"Cheese", new ArrayList<>(Arrays.asList("dairy", "vegetarian")), 33, Edible.Macros.Fat, 4},
+        };
+
+        Object[][] dinner = {
+            {"Chicken", new ArrayList<>(Arrays.asList("protein")), 23, Edible.Macros.Saturated, 14},
+            {"Rice", new ArrayList<>(Arrays.asList("dairy", "vegetarian")), 44, Edible.Macros.Trans, 10},
+        };
+
+        Object[][] snack = {
+            {"Chocolate Bar", new ArrayList<>(Arrays.asList("bad foods")), 13, Edible.Macros.Sugar, 33},
+            {"Nutri-grain", new ArrayList<>(Arrays.asList("multi-grain")), 12, Edible.Macros.Omega6, 5},
+        };
+        //we have to do snack differently :( since its a micro
+
+        for (Object[] food : breakfast) {
+            Food edible = new Food(
+                    (String) food[0],
+                    (ArrayList) food[1]
+            );
+            edible.addMacro((Edible.Macros) food[2], (int) food[3]);
             day.addFood(Day.MealTime_t.BREAKFAST, edible);
         }
-        for (Edible edible:edibles) {
+
+        for (Object[] food : lunch) {
+            Food edible = new Food(
+                    (String) food[0],
+                    (ArrayList) food[1]
+            );
+            edible.addMacro((Edible.Macros) food[2], (int) food[3]);
             day.addFood(Day.MealTime_t.LUNCH, edible);
         }
-        for (Edible edible:edibles) {
+
+        for (Object[] food : dinner) {
+            Food edible = new Food(
+                    (String) food[0],
+                    (ArrayList) food[1]
+            );
+            edible.addMacro((Edible.Macros) food[2], (int) food[3]);
             day.addFood(Day.MealTime_t.DINNER, edible);
         }
-        for (Edible edible:edibles) {
+
+        for (Object[] food : snack) {
+            Food edible = new Food(
+                    (String) food[0],
+                    (ArrayList) food[1]
+            );
+            edible.addMacro((Edible.Macros) food[2], (int) food[3]);
             day.addFood(Day.MealTime_t.SNACK, edible);
         }
-
 
     }
 
