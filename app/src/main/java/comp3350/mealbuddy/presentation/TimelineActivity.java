@@ -2,14 +2,20 @@ package comp3350.mealbuddy.presentation;
 
 import comp3350.mealbuddy.R;
 import comp3350.mealbuddy.business.AccessAccount;
+import comp3350.mealbuddy.business.Calculator;
 import comp3350.mealbuddy.objects.Day;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.time.LocalDate;
 import java.time.Month;
@@ -27,19 +33,33 @@ public class TimelineActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeline);
-        String username = this.getIntent().getStringExtra("username");
+        final String username = this.getIntent().getStringExtra("username");
         Calendar calendar = Calendar.getInstance();
         accessAccount = new AccessAccount();
         day = accessAccount.getDay(accessAccount.getAccount(username), calendar.get(Calendar.DAY_OF_YEAR));
         System.err.println(day.dayOfYear);
         initializeCards();
+        FloatingActionButton addFood = (FloatingActionButton) findViewById(R.id.btnAddFood);
+        addFood.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(TimelineActivity.this, AddFoodActivity.class);
+                intent.putExtra("dayOfYear", day.dayOfYear);
+                intent.putExtra("username", username);
+                TimelineActivity.this.startActivity(intent);
+            }
+        });
     }
 
     private void initializeCards(){
+        
+        Calculator calculator = new Calculator(day);
         CardView totals = (CardView) findViewById(R.id.cardTotals);
         RelativeLayout totalsLayout = (RelativeLayout) totals.getChildAt(0);
         TextView cardTotalsTitle = (TextView) totalsLayout.getChildAt(0);
         cardTotalsTitle.setText("Totals");
+        TextView totalsCals = (TextView) totalsLayout.getChildAt(1);
+        totalsCals.setText(calculator.getTotalCalories() + " Cals");
 
         CardView breakfast = (CardView) findViewById(R.id.cardBreakfast);
         RelativeLayout breakfastLayout = (RelativeLayout) breakfast.getChildAt(0);
@@ -47,6 +67,8 @@ public class TimelineActivity extends AppCompatActivity {
         cardBreakfastTitle.setText("Breakfast");
         TextView txtBreakfast = (TextView) breakfastLayout.getChildAt(1);
         txtBreakfast.setText(day.getMeal(Day.MealTime_t.BREAKFAST));
+        TextView txtBreakfastCals = (TextView) breakfastLayout.getChildAt(2);
+        txtBreakfastCals.setText(calculator.getMealTimeCalories(Day.MealTime_t.BREAKFAST) + " Cals");
 
         CardView lunch = (CardView) findViewById(R.id.cardLunch);
         RelativeLayout lunchLayout = (RelativeLayout) lunch.getChildAt(0);
@@ -54,6 +76,8 @@ public class TimelineActivity extends AppCompatActivity {
         cardLunchTitle.setText("Lunch");
         TextView txtLunch = (TextView) lunchLayout.getChildAt(1);
         txtLunch.setText(day.getMeal(Day.MealTime_t.LUNCH));
+        TextView txtLunchCals = (TextView) lunchLayout.getChildAt(2);
+        txtLunchCals.setText(calculator.getMealTimeCalories(Day.MealTime_t.LUNCH) + " Cals");
 
         CardView dinner = (CardView) findViewById(R.id.cardDinner);
         RelativeLayout dinnerLayout = (RelativeLayout) dinner.getChildAt(0);
@@ -61,6 +85,8 @@ public class TimelineActivity extends AppCompatActivity {
         cardDinnerTitle.setText("Dinner");
         TextView txtDinner = (TextView) dinnerLayout.getChildAt(1);
         txtDinner.setText(day.getMeal(Day.MealTime_t.DINNER));
+        TextView txtDinnerCals = (TextView) dinnerLayout.getChildAt(2);
+        txtDinnerCals.setText(calculator.getMealTimeCalories(Day.MealTime_t.DINNER) + " Cals");
 
         CardView snacks = (CardView) findViewById(R.id.cardSnacks);
         RelativeLayout snacksLayout = (RelativeLayout) snacks.getChildAt(0);
@@ -68,4 +94,6 @@ public class TimelineActivity extends AppCompatActivity {
         cardSnacksTitle.setText("Snacks");
         TextView txtSnacks = (TextView) snacksLayout.getChildAt(1);
         txtSnacks.setText(day.getMeal(Day.MealTime_t.SNACK));
+        TextView txtSnackCals = (TextView) snacksLayout.getChildAt(2);
+        txtSnackCals.setText(calculator.getMealTimeCalories(Day.MealTime_t.SNACK) + " Cals");
     }}
