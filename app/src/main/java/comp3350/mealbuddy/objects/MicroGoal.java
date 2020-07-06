@@ -30,14 +30,10 @@ public class MicroGoal extends Goal {
 
     @Override
     public boolean equals(Object o) {
-        boolean isEquals = false;
-        if( o instanceof Edible.Micros)
-            isEquals = (Micros)o == id;
-        else if( o instanceof MicroGoal) {
-            MicroGoal microGoal = (MicroGoal)o;
-            isEquals = microGoal.id == this.id;
-        }
-        return isEquals;
+        if (this == o) return true;
+        if (!(o instanceof MicroGoal)) return false;
+        MicroGoal microGoal = (MicroGoal) o;
+        return id == microGoal.id;
     }
-
+    
 }
