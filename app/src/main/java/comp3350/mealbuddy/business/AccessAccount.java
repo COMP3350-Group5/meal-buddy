@@ -26,7 +26,7 @@ public class AccessAccount {
     }
 
     public void updateAccount(Account a){
-        DAS.updateDB(database_type, a);
+        DAS.updateDB(databaseType, a);
     }
 
     public void removeAccount(Account a){
