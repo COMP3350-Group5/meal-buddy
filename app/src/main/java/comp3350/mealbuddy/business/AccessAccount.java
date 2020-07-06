@@ -30,7 +30,7 @@ public class AccessAccount {
     }
 
     public void removeAccount(Account a){
-        DAS.removeFromDB(database_type, a);
+        DAS.removeFromDB(databaseType, a);
     }
 
     public Account validateLogin(String username, String password){
