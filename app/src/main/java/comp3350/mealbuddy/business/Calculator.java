@@ -63,21 +63,7 @@ public class Calculator {
     }
 
     public int getMealTimeCalories(Day.MealTime_t mealTime) {
-        int totalCalories = 0;
-        switch(mealTime) {
-            case BREAKFAST:
-                totalCalories = getListCalories(day.breakfast);
-                break;
-            case LUNCH:
-                totalCalories = getListCalories(day.lunch);
-                break;
-            case DINNER:
-                totalCalories = getListCalories(day.dinner);
-                break;
-            case SNACK:
-                totalCalories = getListCalories(day.snack);
-        }
-        return totalCalories;
+        return getListCalories(day.getMealTimeList(mealTime));
     }
 
     public int getMealTimeMacros(Day.MealTime_t mealTime, Edible.Macros macro) {
