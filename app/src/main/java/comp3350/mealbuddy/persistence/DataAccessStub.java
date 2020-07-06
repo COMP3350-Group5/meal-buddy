@@ -155,7 +155,8 @@ public class DataAccessStub {
                     (double)user[3],
                     (double)user[4],
                     (UserInfo.ActivityLevel)user[5],
-                    (UserInfo.Sex)user[6]
+                    (UserInfo.Sex)user[6],
+                    (int)user[7]
             );
             acc = new Account(userInfo);
             acc.addDay(day);

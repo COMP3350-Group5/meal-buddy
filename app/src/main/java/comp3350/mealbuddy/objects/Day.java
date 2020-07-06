@@ -84,5 +84,18 @@ public class Day {
         return meal;
     }
 
+    public ArrayList<Edible> getMealTimeList(MealTime_t MT){
+        switch(MT){
+            case BREAKFAST:
+                return breakfast;
+            case LUNCH:
+                return lunch;
+            case DINNER:
+                return dinner;
+            case SNACK:
+                return snack;
+        }
+        return null;
+    }
 
 }
