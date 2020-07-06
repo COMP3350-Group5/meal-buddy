@@ -11,7 +11,7 @@ import java.util.Set;
 
 public class Meal extends Edible{
 
-    public Set<Pair<Food, Integer>> foodInMeal;
+    public Set<FoodIntPair> foodInMeal;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     public Meal(String name, List<String> labels) {
@@ -20,7 +20,7 @@ public class Meal extends Edible{
     }
 
     public void updateFood(Food toAdd, int quantity){
-        foodInMeal.add(new Pair<toAdd, quantity>);
+        foodInMeal.add(new FoodIntPair(toAdd, quantity));
     }
 
     public void removeFood(Food toRemove) {

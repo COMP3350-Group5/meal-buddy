@@ -3,28 +3,15 @@ package comp3350.mealbuddy.business;
 import androidx.core.util.Pair;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import comp3350.mealbuddy.objects.Day;
 import comp3350.mealbuddy.objects.Edible;
 import comp3350.mealbuddy.objects.Food;
+import comp3350.mealbuddy.objects.FoodIntPair;
 import comp3350.mealbuddy.objects.Meal;
 
-import static comp3350.mealbuddy.objects.Edible.Macros.Alcohol;
-import static comp3350.mealbuddy.objects.Edible.Macros.Carbohydrates;
-import static comp3350.mealbuddy.objects.Edible.Macros.Fat;
-import static comp3350.mealbuddy.objects.Edible.Macros.Fibre;
-import static comp3350.mealbuddy.objects.Edible.Macros.Omega3;
-import static comp3350.mealbuddy.objects.Edible.Macros.Omega6;
-import static comp3350.mealbuddy.objects.Edible.Macros.Protein;
-import static comp3350.mealbuddy.objects.Edible.Macros.Saturated;
-import static comp3350.mealbuddy.objects.Edible.Macros.Sugar;
-import static comp3350.mealbuddy.objects.Edible.Macros.Trans;
-import static comp3350.mealbuddy.objects.Edible.Macros.Unsaturated;
-
+import static comp3350.mealbuddy.objects.Edible.Macros.*;
 
 public class Calculator {
 
@@ -40,8 +27,6 @@ public class Calculator {
     }
 
     public int getTotalCalories() {
-        //Assuming Macros are stored in calories
-        //1g protein = 4 calories; 1g carbohydrates = 4 calories; 1g Fat = 9 calories
         int totalCalories = 0;
         totalCalories += getListCalories(day.breakfast);
         totalCalories += getListCalories(day.lunch);
@@ -51,22 +36,30 @@ public class Calculator {
     }
 
     public int getLabelCalories(String label) {
-        //Takes a label, every food has a list of labels, so you check
-        //Which foods contain this label
-        return 4;
+        int totalCalories = 0;
+        totalCalories += getListLabelCalories(day.breakfast, label);
+        totalCalories += getListLabelCalories(day.lunch, label);
+        totalCalories += getListLabelCalories(day.dinner, label);
+        totalCalories += getListLabelCalories(day.snack, label);
+        return totalCalories;
     }
 
     public int getMacroCalories(Edible.Macros macro) {
         int totalCalories = 0;
-        for (Edible edible: ) {
-
-        }
+        totalCalories += getListMacroCalories(day.breakfast, macro);
+        totalCalories += getListMacroCalories(day.lunch, macro);
+        totalCalories += getListMacroCalories(day.dinner, macro);
+        totalCalories += getListMacroCalories(day.snack, macro);
         return totalCalories;
     }
 
-    public int getMicroAmount(Edible.Micros micro) {
-        //Return sum
-        return 2;
+    public int getMicroMgs(Edible.Micros micro) {
+        int totalMgs = 0;
+        totalMgs += getListMicroMgs(day.breakfast, micro);
+        totalMgs += getListMicroMgs(day.lunch, micro);
+        totalMgs += getListMicroMgs(day.dinner, micro);
+        totalMgs += getListMicroMgs(day.snack , micro);
+        return totalMgs;
     }
 
     public int getMealTimeCalories(Day.MealTime_t mealTime) {
@@ -87,13 +80,67 @@ public class Calculator {
         return totalCalories;
     }
 
+    public int getMealTimeMacros(Day.MealTime_t mealTime, Edible.Macros macro) {
+        int totalCalories = 0;
+        switch(mealTime) {
+            case BREAKFAST:
+                totalCalories = getListMacroCalories(day.breakfast, macro);
+                break;
+            case LUNCH:
+                totalCalories = getListMacroCalories(day.lunch, macro);
+                break;
+            case DINNER:
+                totalCalories = getListMacroCalories(day.dinner, macro);
+                break;
+            case SNACK:
+                totalCalories = getListMacroCalories(day.snack, macro);
+        }
+        return totalCalories;
+    }
+
+    public int getMealTimeLabelCalories(Day.MealTime_t mealTime, String label) {
+        int totalCalories = 0;
+        switch(mealTime) {
+            case BREAKFAST:
+                totalCalories = getListLabelCalories(day.breakfast, label);
+                break;
+            case LUNCH:
+                totalCalories = getListLabelCalories(day.lunch, label);
+                break;
+            case DINNER:
+                totalCalories = getListLabelCalories(day.dinner, label);
+                break;
+            case SNACK:
+                totalCalories = getListLabelCalories(day.snack, label);
+        }
+        return totalCalories;
+    }
+
+    public int getMealTimeMicroMgs(Day.MealTime_t mealTime, Edible.Micros micro) {
+        int totalMgs = 0;
+        switch(mealTime) {
+            case BREAKFAST:
+                totalMgs = getListMicroMgs(day.breakfast, micro);
+                break;
+            case LUNCH:
+                totalMgs = getListMicroMgs(day.lunch, micro);
+                break;
+            case DINNER:
+                totalMgs = getListMicroMgs(day.dinner, micro);
+                break;
+            case SNACK:
+                totalMgs = getListMicroMgs(day.snack, micro);
+        }
+        return totalMgs;
+    }
+
     private int getListCalories(ArrayList<Edible> foodList) {
         int totalCalories = 0;
         for (Edible edible: foodList) {
-            if (edible instanceof Food) { //edible is a singular food item
+            if (edible instanceof Food) {
                 totalCalories += getFoodCalories((Food)edible);
             }
-            else { //edible is a meal consisting of multiple food
+            else {
                 totalCalories += getMealCalories((Meal)edible);
             }
         }
@@ -111,13 +158,23 @@ public class Calculator {
 
     private int getMealCalories(Meal meal) {
         int totalCalories = 0;
-        for (Pair<Food, Integer> foodQuantityPair: meal.foodInMeal) {
-            int quantity = foodQuantityPair.second;
-            Map<Edible.Macros, Integer> macroValuePairs = foodQuantityPair.first.macros;
-            totalCalories += quantity * PROTEIN_CONVERSION * macroValuePairs.get(Protein);
-            totalCalories += quantity * CARBOHYDRATE_CONVERSION * macroValuePairs.get(Carbohydrates);
-            totalCalories += quantity * FAT_CONVERSION * macroValuePairs.get(Fat);
-            totalCalories += quantity * ALCOHOL_CONVERSION * macroValuePairs.get(Alcohol);
+        for (FoodIntPair foodQuantityPair: meal.foodInMeal) {
+            int foodQuantity = foodQuantityPair.quantity;
+            Food food = foodQuantityPair.food;
+            totalCalories += foodQuantity * getFoodCalories(food);
+        }
+        return totalCalories;
+    }
+
+    private int getListMacroCalories(ArrayList<Edible> foodList, Edible.Macros macro) {
+        int totalCalories = 0;
+        for (Edible edible: foodList) {
+            if (edible instanceof Food) {
+                totalCalories += getFoodMacroCalories((Food)edible, macro);
+            }
+            else {
+                totalCalories += getMealMacroCalories((Meal)edible, macro);
+            }
         }
         return totalCalories;
     }
@@ -127,28 +184,85 @@ public class Calculator {
         return conversionFactor * food.macros.get(macro);
     }
 
+    private int getMealMacroCalories(Meal meal, Edible.Macros macro) {
+        int totalCalories = 0;
+        for (FoodIntPair foodQuantityPair: meal.foodInMeal) {
+            int foodQuantity = foodQuantityPair.quantity;
+            Food food = foodQuantityPair.food;
+            totalCalories += foodQuantity * getFoodMacroCalories(food, macro);
+        }
+        return totalCalories;
+    }
+
     private int getConversionFactor(Edible.Macros macro) {
         int conversionFactor = -1;
-        if (isCarbohydrate(macro)) {
-            conversionFactor = CARBOHYDRATE_CONVERSION;
-        }
-        else if (isFat(macro)) {
-            conversionFactor = FAT_CONVERSION;
-        }
-        else if (macro == Protein) {
-            conversionFactor = PROTEIN_CONVERSION;
-        }
-        else if (macro == Alcohol) {
-            conversionFactor = ALCOHOL_CONVERSION;
+        switch(macro) {
+            case Fat:
+                conversionFactor = FAT_CONVERSION;
+                break;
+            case Protein:
+                conversionFactor = PROTEIN_CONVERSION;
+                break;
+            case Carbohydrates:
+                conversionFactor = CARBOHYDRATE_CONVERSION;
+                break;
+            case Alcohol:
+                conversionFactor = ALCOHOL_CONVERSION;
         }
         return conversionFactor;
     }
 
-    private boolean isCarbohydrate(Edible.Macros macro) {
-        return (macro == Carbohydrates || macro == Sugar || macro == Fibre);
+    private int getListMicroMgs(ArrayList<Edible> foodList, Edible.Micros micro) {
+        int totalMg = 0;
+        for (Edible edible: foodList) {
+            if (edible instanceof Food) {
+                totalMg += ((Food)edible).micros.get(micro);
+            }
+            else {
+                totalMg += getMealMicroMgs((Meal)edible, micro);
+            }
+        }
+        return totalMg;
     }
 
-    private boolean isFat(Edible.Macros macro) {
-        return (macro == Fat || macro == Omega3 || macro == Omega6 || macro == Saturated || macro == Trans || macro == Unsaturated);
+    private int getMealMicroMgs (Meal meal, Edible.Micros micro) {
+        int totalMg = 0;
+        for (FoodIntPair foodQuantityPair: meal.foodInMeal) {
+            int foodQuantity = foodQuantityPair.quantity;
+            int microQuantity = foodQuantityPair.food.micros.get(micro);
+            totalMg += foodQuantity * microQuantity;
+        }
+        return totalMg;
+    }
+
+    private int getListLabelCalories(ArrayList<Edible> foodList, String label) {
+        int totalCalories = 0;
+        for (Edible edible: foodList) {
+            if (edible instanceof Food) {
+                totalCalories += getFoodLabelCalories((Food)edible, label);
+            }
+            else {
+                totalCalories += getMealLabelCalories((Meal)edible, label);
+            }
+        }
+        return totalCalories;
+    }
+
+    private int getFoodLabelCalories(Food food, String label) {
+        int totalCalories = 0;
+        if (food.labels.contains(label)) {
+            totalCalories += getFoodCalories(food);
+        }
+        return totalCalories;
+    }
+
+    private int getMealLabelCalories(Meal meal, String label) {
+        int totalCalories = 0;
+        for (FoodIntPair foodQuantityPair: meal.foodInMeal) {
+            Food food = foodQuantityPair.food;
+            int foodQuantity = foodQuantityPair.quantity;
+            totalCalories += foodQuantity * getFoodLabelCalories(food, label);
+        }
+        return totalCalories;
     }
 }

@@ -10,7 +10,7 @@ public class Day {
         BREAKFAST, LUNCH, DINNER, SNACK
     }
     public LocalDate LD; //the local date: e.g. 2020-07-04
-    //lists of food TIMESTAMPED by local time: (e.g., 10:15:20 -> Banana)
+
     public ArrayList<Edible> breakfast;
     public ArrayList<Edible> lunch;
     public ArrayList<Edible> dinner;
@@ -18,43 +18,43 @@ public class Day {
 
     public Day (LocalDate LD) {
         this.LD = LD;
-        this.breakfast = new HashMap<>();
-        this.lunch = new HashMap<>();
-        this.dinner = new HashMap<>();
-        this.snack = new HashMap<>();
+        this.breakfast = new ArrayList<>();
+        this.lunch = new ArrayList<>();
+        this.dinner = new ArrayList<>();
+        this.snack = new ArrayList<>();
     }
 
     //keys are unique, so adding also updates... I think.
-    public void addFood(MealTime_t MT, LocalTime LT, Edible e){
+    public void addFood(MealTime_t MT, Edible e){
         switch(MT) {
             case BREAKFAST:
-                breakfast.put(LT, e);
+                breakfast.add(e);
                 break;
             case LUNCH:
-                lunch.put(LT, e);
+                lunch.add(e);
                 break;
             case DINNER:
-                dinner.put(LT, e);
+                dinner.add(e);
                 break;
             case SNACK:
-                snack.put(LT, e);
+                snack.add(e);
                 break;
         }
     }
 
-    public void removeFood(MealTime_t MT, LocalTime LT){
+    public void removeFood(MealTime_t MT, Edible e){
         switch(MT) {
             case BREAKFAST:
-                breakfast.remove(LT);
+                breakfast.remove(e);
                 break;
             case LUNCH:
-                lunch.remove(LT);
+                lunch.remove(e);
                 break;
             case DINNER:
-                dinner.remove(LT);
+                dinner.remove(e);
                 break;
             case SNACK:
-                snack.remove(LT);
+                snack.remove(e);
                 break;
         }
     }
