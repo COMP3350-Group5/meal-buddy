@@ -3,8 +3,6 @@ package comp3350.mealbuddy.business;
 import java.util.ArrayList;
 import java.util.List;
 
-import comp3350.mealbuddy.objects.Day;
-import comp3350.mealbuddy.objects.Edible;
 import comp3350.mealbuddy.objects.Goal;
 import comp3350.mealbuddy.objects.LabelGoal;
 import comp3350.mealbuddy.objects.MacroGoal;
@@ -40,7 +38,7 @@ public class GoalTracker {
         if (g instanceof MacroGoal)
             return calc.getMacroCalories(((MacroGoal)g).id);
         else if (g instanceof MicroGoal)
-            return calc.getMicroAmount(((MicroGoal)g).id);
+            return calc.getMicroMgs(((MicroGoal)g).id);
         else
             return calc.getLabelCalories(((LabelGoal)g).id);
     }

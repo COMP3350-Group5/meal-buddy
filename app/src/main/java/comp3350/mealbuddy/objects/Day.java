@@ -1,62 +1,77 @@
 package comp3350.mealbuddy.objects;
 
+import java.util.ArrayList;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.HashMap;
+import java.util.List;
 
 public class Day {
     public enum MealTime_t {
         BREAKFAST, LUNCH, DINNER, SNACK
     }
     public LocalDate LD; //the local date: e.g. 2020-07-04
-    //lists of food TIMESTAMPED by local time: (e.g., 10:15:20 -> Banana)
-    private HashMap<LocalTime, Edible> breakfast;
-    private HashMap<LocalTime, Edible> lunch;
-    private HashMap<LocalTime, Edible> dinner;
-    private HashMap<LocalTime, Edible> snack;
+
+    public ArrayList<Edible> breakfast;
+    public ArrayList<Edible> lunch;
+    public ArrayList<Edible> dinner;
+    public ArrayList<Edible> snack;
 
     public Day (LocalDate LD) {
         this.LD = LD;
-        this.breakfast = new HashMap<>();
-        this.lunch = new HashMap<>();
-        this.dinner = new HashMap<>();
-        this.snack = new HashMap<>();
+        this.breakfast = new ArrayList<>();
+        this.lunch = new ArrayList<>();
+        this.dinner = new ArrayList<>();
+        this.snack = new ArrayList<>();
     }
 
     //keys are unique, so adding also updates... I think.
-    public void addFood(MealTime_t MT, LocalTime LT, Edible e){
+    public void addFood(MealTime_t MT, Edible e){
         switch(MT) {
             case BREAKFAST:
-                breakfast.put(LT, e);
+                breakfast.add(e);
                 break;
             case LUNCH:
-                lunch.put(LT, e);
+                lunch.add(e);
                 break;
             case DINNER:
-                dinner.put(LT, e);
+                dinner.add(e);
                 break;
             case SNACK:
-                snack.put(LT, e);
+                snack.add(e);
                 break;
         }
     }
 
-    public void removeFood(MealTime_t MT, LocalTime LT){
+    public void removeFood(MealTime_t MT, Edible e){
         switch(MT) {
             case BREAKFAST:
-                breakfast.remove(LT);
+                breakfast.remove(e);
                 break;
             case LUNCH:
-                lunch.remove(LT);
+                lunch.remove(e);
                 break;
             case DINNER:
-                dinner.remove(LT);
+                dinner.remove(e);
                 break;
             case SNACK:
-                snack.remove(LT);
+                snack.remove(e);
                 break;
         }
     }
 
+    public ArrayList<Edible> getMealTimeList(MealTime_t MT){
+        switch(MT){
+            case BREAKFAST:
+                return breakfast;
+            case LUNCH:
+                return lunch;
+            case DINNER:
+                return dinner;
+            case SNACK:
+                return snack;
+        }
+        return null;
+    }
 
 }
