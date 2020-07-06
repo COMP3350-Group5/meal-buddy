@@ -9,7 +9,6 @@ public class Day {
         BREAKFAST, LUNCH, DINNER, SNACK
     }
     public int dayOfYear; // represented as day-of-year (1-365)
-    //lists of food TIMESTAMPED by local time: (e.g., 10:15:20 -> Banana)
     private ArrayList<Edible> breakfast;
     private ArrayList<Edible> lunch;
     private ArrayList<Edible> dinner;
