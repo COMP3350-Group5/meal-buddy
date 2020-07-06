@@ -3,6 +3,7 @@ package comp3350.mealbuddy.presentation;
 import androidx.appcompat.app.AppCompatActivity;
 import comp3350.mealbuddy.R;
 import comp3350.mealbuddy.business.AccessAccount;
+import comp3350.mealbuddy.business.AccessEdible;
 import comp3350.mealbuddy.objects.Account;
 import comp3350.mealbuddy.objects.Day;
 import comp3350.mealbuddy.objects.Edible;
@@ -11,8 +12,6 @@ import comp3350.mealbuddy.objects.Food;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -29,7 +28,9 @@ public class AddFoodActivity extends AppCompatActivity {
 
         int dayOfYear = this.getIntent().getIntExtra("dayOfYear", -1);
         final String username = this.getIntent().getStringExtra("username");
+
         AccessAccount accessAccount = new AccessAccount();
+        final AccessEdible accessEdible = new AccessEdible(); //needed so we can add the food to the DB
         Account account = accessAccount.getAccount(username);
         final Day day = accessAccount.getDay(account, dayOfYear);
 
@@ -65,7 +66,8 @@ public class AddFoodActivity extends AppCompatActivity {
                 else
                     MT = Day.MealTime_t.SNACK;
 
-                day.addFood(MT, food);
+                day.addFood(MT, food); //this adds the food to the USERS day
+                accessEdible.addEdible(food); //this adds the food to the foods database.
 
                 Intent intent = new Intent(AddFoodActivity.this, TimelineActivity.class);
                 intent.putExtra("username", username);
