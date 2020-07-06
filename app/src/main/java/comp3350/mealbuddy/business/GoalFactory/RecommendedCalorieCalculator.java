@@ -12,13 +12,14 @@ import static comp3350.mealbuddy.objects.UserInfo.Sex.MALE;
 
 public class RecommendedCalorieCalculator {
 
-    static public int getTotalRecCalories(double weight, double height, ActivityLevel activityLevel, Sex sex, int age){
-        return  (sex == MALE)
-                ?   getMaleTotalCalorieRecAmnt(weight, height, activityLevel, sex, age)
-                :    getFemaleTotalCalorieRecAmnt(weight, height, activityLevel, sex, age);
+    public static int getTotalRecommendedCalories(UserInfo info){
+        validateDate(info);
+        return  (info.sex == MALE)
+                ?   getMaleTotalCalorieRecAmnt(info.weight, info.height, info.activityLevel, info.age)
+                :    getFemaleTotalCalorieRecAmnt(info.weight, info.height, info.activityLevel, info.age);
     }
 
-    static private int getMaleTotalCalorieRecAmnt(double weight, double height, ActivityLevel activityLevel, Sex sex, int age){
+    private static int getMaleTotalCalorieRecAmnt(double weight, double height, ActivityLevel activityLevel, int age){
         double mBaseAmount = 66.47;
         double mWeightCoefficient = 6.24;
         double mHeightCoefficient = 12.7;
@@ -30,19 +31,19 @@ public class RecommendedCalorieCalculator {
         return (int) recommendedCalories;
     }
 
-    static private int getFemaleTotalCalorieRecAmnt(double weight, double height, ActivityLevel activityLevel, Sex sex, int age){
-        double mBaseAmount = 655.1;
-        double mWeightCoefficient = 4.35;
-        double mHeightCoefficient = 4.7;
-        double mAgeCoefficient = 4.7;
+    private static int getFemaleTotalCalorieRecAmnt(double weight, double height, ActivityLevel activityLevel, int age){
+        double fBaseAmount = 655.1;
+        double fWeightCoefficient = 4.35;
+        double fHeightCoefficient = 4.7;
+        double fAgeCoefficient = 4.7;
         double activityCoefficient = getActivityCoefficient(activityLevel);
-        double recommendedCalories = mBaseAmount + (mWeightCoefficient*weight) +
-                (mHeightCoefficient*height) - (mAgeCoefficient*age);
+        double recommendedCalories = fBaseAmount + (fWeightCoefficient*weight) +
+                (fHeightCoefficient*height) - (fAgeCoefficient*age);
         recommendedCalories *= activityCoefficient;
         return (int)recommendedCalories;
     }
 
-    static private double getActivityCoefficient(UserInfo.ActivityLevel activityLevel) {
+    private static double getActivityCoefficient(UserInfo.ActivityLevel activityLevel) {
         double activityCoefficient = -1;
         switch (activityLevel) {
             case LOW:
@@ -56,6 +57,15 @@ public class RecommendedCalorieCalculator {
                 break;
         }
         return activityCoefficient;
+    }
+
+    private static void validateDate(UserInfo user){
+        if(user.activityLevel == null || user.sex == null){
+            throw new IllegalArgumentException("Null value passed in");
+        }
+        if(user.height <= 0 || user.weight <= 0 || user.age <=0 ){
+            throw new IllegalArgumentException("Height and weight must be greater than 0");
+        }
     }
 
 

@@ -9,6 +9,8 @@ import androidx.annotation.RequiresApi;
 
 import java.util.Objects;
 
+import javax.crypto.Mac;
+
 public class MacroGoal extends Goal {
 
     public Macros id;
@@ -31,10 +33,14 @@ public class MacroGoal extends Goal {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof MacroGoal)) return false;
-        MacroGoal macroGoal = (MacroGoal) o;
-        return id == macroGoal.id;
+        boolean isEquals = false;
+        if( o instanceof Macros)
+            isEquals = (Macros)o == id;
+        else if( o instanceof MacroGoal) {
+            MacroGoal macroGoal = (MacroGoal)o;
+            isEquals = macroGoal.id == this.id;
+        }
+        return isEquals;
     }
 
 }

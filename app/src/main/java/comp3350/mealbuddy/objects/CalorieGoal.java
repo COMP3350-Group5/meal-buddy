@@ -4,8 +4,8 @@ import androidx.annotation.Nullable;
 
 public class CalorieGoal extends Goal {
 
-    public CalorieGoal(int lowerBound, int upperBound, GoalType goalType) {
-        super(lowerBound, upperBound, goalType);
+    public CalorieGoal(int lowerBound, int upperBound) {
+        super(lowerBound, upperBound, GoalType.QUANTITY);
     }
 
     @Override

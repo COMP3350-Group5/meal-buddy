@@ -48,7 +48,7 @@ public class DefaultGoalFactory extends GoalFactory {
         };
 
         for( Object[] goal: goals){
-            goalList.add(new MicroGoal((int)goal[0], (int)goal[1], GoalType.QUANTITY, (Micros)goal[2]));
+            goalList.add(new MicroGoal((int)goal[0], (int)goal[1], (Micros)goal[2]));
         }
     }
 
@@ -56,5 +56,7 @@ public class DefaultGoalFactory extends GoalFactory {
     protected void addLabelGoals(UserInfo userInfo, List<Goal> goalList) {
         //Do nothing.  We dont want any label goals here
     }
+
+
 
 }

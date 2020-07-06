@@ -13,8 +13,8 @@ public class MicroGoal extends Goal {
 
     public Micros id;
 
-    public MicroGoal(int lowerBound, int upperBound, GoalType goalType, Micros id) {
-        super(lowerBound, upperBound, goalType);
+    public MicroGoal(int lowerBound, int upperBound, Micros id) {
+        super(lowerBound, upperBound, GoalType.QUANTITY);
         this.id = id;
     }
 
@@ -30,9 +30,14 @@ public class MicroGoal extends Goal {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof MicroGoal)) return false;
-        return id == ((MicroGoal) o).id;
+        boolean isEquals = false;
+        if( o instanceof Edible.Micros)
+            isEquals = (Micros)o == id;
+        else if( o instanceof MicroGoal) {
+            MicroGoal microGoal = (MicroGoal)o;
+            isEquals = microGoal.id == this.id;
+        }
+        return isEquals;
     }
 
 }

@@ -8,8 +8,6 @@ import comp3350.mealbuddy.objects.Goal.GoalType;
 import comp3350.mealbuddy.objects.Goal;
 import comp3350.mealbuddy.objects.UserInfo;
 
-import static comp3350.mealbuddy.objects.UserInfo.Sex.MALE;
-
 
 public abstract class GoalFactory {
 
@@ -20,6 +18,7 @@ public abstract class GoalFactory {
     }
 
     public List<Goal> makeGoals(){
+        validateDate(userInfo);
         List<Goal> goalList = new ArrayList<>();
         addTotalCalorieGoal(userInfo, goalList);
         addMacroGoals(userInfo, goalList);
@@ -33,11 +32,18 @@ public abstract class GoalFactory {
     protected abstract void addLabelGoals(UserInfo userInfo, List<Goal> goalList);
 
     private void addTotalCalorieGoal(UserInfo userInfo, List<Goal> goalList){
-        int recCalAmnt = RecommendedCalorieCalculator.getTotalRecCalories(
-                userInfo.weight, userInfo.height, userInfo.activityLevel, userInfo.sex, userInfo.age
-        );
+        int recCalAmnt = RecommendedCalorieCalculator.getTotalRecommendedCalories(userInfo);
         int goalBuffer = 200;   //set the goal acheived if plus or minus 200 from the recomended amount
-        goalList.add(new CalorieGoal(recCalAmnt-goalBuffer, recCalAmnt+goalBuffer, GoalType.QUANTITY));
+        goalList.add(new CalorieGoal(recCalAmnt-goalBuffer, recCalAmnt+goalBuffer));
+    }
+
+    private void validateDate(UserInfo user){
+        if(user.activityLevel == null || user.sex == null){
+            throw new IllegalArgumentException("Null value passed in");
+        }
+        if(user.height <= 0 || user.weight <= 0 || user.age <=0 ){
+            throw new IllegalArgumentException("Height and weight must be greater than 0");
+        }
     }
 
 }
