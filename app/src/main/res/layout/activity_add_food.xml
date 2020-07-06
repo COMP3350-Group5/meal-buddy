@@ -85,13 +85,12 @@
         app:layout_constraintTop_toBottomOf="@+id/etProtein" />
 
     <Spinner
-        android:id="@+id/planets_spinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:id="@+id/spnMealtimes"
+        android:layout_width="519dp"
+        android:layout_height="49dp"
         android:layout_marginBottom="124dp"
+        android:entries="@array/mealtimes_array"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="0dp"
-        android:entries="@array/mealtimes_array">
-    </Spinner>
+        tools:layout_editor_absoluteX="41dp"></Spinner>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
