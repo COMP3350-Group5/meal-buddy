@@ -85,21 +85,7 @@ public class Calculator {
     }
 
     public int getMealTimeLabelCalories(Day.MealTime_t mealTime, String label) {
-        int totalCalories = 0;
-        switch(mealTime) {
-            case BREAKFAST:
-                totalCalories = getListLabelCalories(day.breakfast, label);
-                break;
-            case LUNCH:
-                totalCalories = getListLabelCalories(day.lunch, label);
-                break;
-            case DINNER:
-                totalCalories = getListLabelCalories(day.dinner, label);
-                break;
-            case SNACK:
-                totalCalories = getListLabelCalories(day.snack, label);
-        }
-        return totalCalories;
+        return getListLabelCalories(day.getMealTimeList(mealTime), label);
     }
 
     public int getMealTimeMicroMgs(Day.MealTime_t mealTime, Edible.Micros micro) {
