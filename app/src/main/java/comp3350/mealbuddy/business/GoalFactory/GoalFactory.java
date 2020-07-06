@@ -55,10 +55,10 @@ public abstract class GoalFactory {
     }
 
     private int getFemaleTotalCalorieRecAmnt(UserInfo userInfo){
-        double mBaseAmount = 66.47;
-        double mWeightCoefficient = 6.24;
-        double mHeightCoefficient = 12.7;
-        double mAgeCoefficient = 6.755;
+        double mBaseAmount = 655.1;
+        double mWeightCoefficient = 4.35;
+        double mHeightCoefficient = 4.7;
+        double mAgeCoefficient = 4.7;
         double activityCoefficient = getActivityCoefficient(userInfo.activityLevel);
         double recommendedCalories = mBaseAmount + (mWeightCoefficient*userInfo.weight) +
                 (mHeightCoefficient*userInfo.height) - (mAgeCoefficient*userInfo.age);
