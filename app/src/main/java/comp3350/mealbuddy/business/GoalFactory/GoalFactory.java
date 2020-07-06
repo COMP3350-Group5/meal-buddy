@@ -34,7 +34,7 @@ public abstract class GoalFactory {
     private void addTotalCalorieGoal(UserInfo userInfo, List<Goal> goalList){
         int recCalAmount = (userInfo.sex == MALE) 
             ?   getMaleTotalCalorieRecAmnt(userInfo)
-            :    getFemaleTotalCalorieRecAmnt(userInfo)
+            :    getFemaleTotalCalorieRecAmnt(userInfo);
         int calVariance = 200;
         goalList.add(new CalorieGoal(recCalAmount-calVariance, recCalAmount+calVariance, Goal.GoalType.QUANTITY));
     }
