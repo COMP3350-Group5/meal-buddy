@@ -1,11 +1,6 @@
-package comp3350.mealbuddy.objects;
-
-import android.os.Build;
+package comp3350.mealbuddy.objects.goals;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
-
-import java.util.Objects;
 
 public class LabelGoal extends Goal {
 

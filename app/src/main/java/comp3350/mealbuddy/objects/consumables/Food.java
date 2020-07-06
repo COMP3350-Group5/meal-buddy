@@ -1,9 +1,9 @@
-package comp3350.mealbuddy.objects;
+package comp3350.mealbuddy.objects.consumables;
 
 import java.util.List;
 
 
-public class Food extends Edible{
+public class Food extends Edible {
     public int weight; //grams & ml
 
     public Food(String name, List<String> labels) {

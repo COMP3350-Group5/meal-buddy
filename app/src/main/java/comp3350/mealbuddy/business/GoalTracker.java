@@ -3,12 +3,10 @@ package comp3350.mealbuddy.business;
 import java.util.ArrayList;
 import java.util.List;
 
-import comp3350.mealbuddy.objects.Day;
-import comp3350.mealbuddy.objects.Edible;
-import comp3350.mealbuddy.objects.Goal;
-import comp3350.mealbuddy.objects.LabelGoal;
-import comp3350.mealbuddy.objects.MacroGoal;
-import comp3350.mealbuddy.objects.MicroGoal;
+import comp3350.mealbuddy.objects.goals.Goal;
+import comp3350.mealbuddy.objects.goals.LabelGoal;
+import comp3350.mealbuddy.objects.goals.MacroGoal;
+import comp3350.mealbuddy.objects.goals.MicroGoal;
 
 public class GoalTracker {
 

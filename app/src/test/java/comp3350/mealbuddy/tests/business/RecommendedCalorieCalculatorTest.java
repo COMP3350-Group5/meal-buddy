@@ -4,8 +4,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import comp3350.mealbuddy.business.GoalFactory.RecommendedCalorieCalculator;
-import comp3350.mealbuddy.objects.CalorieGoal;
+import comp3350.mealbuddy.business.goalfactory.RecommendedCalorieCalculator;
 import comp3350.mealbuddy.objects.UserInfo;
 import comp3350.mealbuddy.objects.UserInfo.ActivityLevel;
 import comp3350.mealbuddy.objects.UserInfo.Sex;

@@ -1,15 +1,9 @@
-package comp3350.mealbuddy.objects;
-import android.os.Build;
+package comp3350.mealbuddy.objects.goals;
 
-import comp3350.mealbuddy.objects.Edible.Macros;
+import comp3350.mealbuddy.objects.consumables.Edible.Macros;
 
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
-
-import java.util.Objects;
-
-import javax.crypto.Mac;
 
 public class MacroGoal extends Goal {
 

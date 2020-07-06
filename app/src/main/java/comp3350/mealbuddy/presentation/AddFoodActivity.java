@@ -6,12 +6,11 @@ import comp3350.mealbuddy.business.AccessAccount;
 import comp3350.mealbuddy.business.AccessEdible;
 import comp3350.mealbuddy.objects.Account;
 import comp3350.mealbuddy.objects.Day;
-import comp3350.mealbuddy.objects.Edible;
-import comp3350.mealbuddy.objects.Food;
+import comp3350.mealbuddy.objects.consumables.Edible;
+import comp3350.mealbuddy.objects.consumables.Food;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -53,16 +52,16 @@ public class AddFoodActivity extends AppCompatActivity {
                 food.addMacro(Edible.Macros.Fat, Integer.parseInt(fat.getText().toString()));
                 food.addMacro(Edible.Macros.Carbohydrates, Integer.parseInt(carbs.getText().toString()));
 
-                Day.MealTime_t MT;
+                Day.MealTimeType MT;
                 String spnString = spinner.getSelectedItem().toString();;
                 if (spnString.equals("Breakfast"))
-                    MT = Day.MealTime_t.BREAKFAST;
+                    MT = Day.MealTimeType.BREAKFAST;
                 else if(spnString.equals("Lunch"))
-                    MT = Day.MealTime_t.LUNCH;
+                    MT = Day.MealTimeType.LUNCH;
                 else if(spnString.equals("Dinner"))
-                    MT = Day.MealTime_t.DINNER;
+                    MT = Day.MealTimeType.DINNER;
                 else
-                    MT = Day.MealTime_t.SNACK;
+                    MT = Day.MealTimeType.SNACK;
 
                 day.addFood(MT, food); //this adds the food to the USERS day
                 accessEdible.addEdible(food); //this adds the food to the foods database.

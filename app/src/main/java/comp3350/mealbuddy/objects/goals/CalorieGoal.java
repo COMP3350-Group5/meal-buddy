@@ -1,4 +1,4 @@
-package comp3350.mealbuddy.objects;
+package comp3350.mealbuddy.objects.goals;
 
 import androidx.annotation.Nullable;
 

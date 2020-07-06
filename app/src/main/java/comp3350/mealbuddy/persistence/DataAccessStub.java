@@ -2,19 +2,18 @@ package comp3350.mealbuddy.persistence;
 
 import comp3350.mealbuddy.objects.Account;
 import comp3350.mealbuddy.objects.Day;
-import comp3350.mealbuddy.objects.Edible;
+import comp3350.mealbuddy.objects.consumables.Edible;
 import comp3350.mealbuddy.objects.Exercise;
-import comp3350.mealbuddy.objects.Food;
-import comp3350.mealbuddy.objects.Meal;
+import comp3350.mealbuddy.objects.consumables.Food;
+import comp3350.mealbuddy.objects.consumables.Meal;
 import comp3350.mealbuddy.objects.UserInfo;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 
 public class DataAccessStub {
-    public enum Database_t {
+    public enum DatabaseType {
         EDIBLES, ACCOUNTS, EXERCISES
     }
     public String name;
@@ -71,7 +70,7 @@ public class DataAccessStub {
         day = new Day(calendar.get(Calendar.DAY_OF_YEAR));
 
         Object[][] breakfast = {
-            {"Egg", new ArrayList<>(Arrays.asList("vegetarian", "protein")), 50, Edible.Macros.Omega3, 45},
+            {"Egg", new ArrayList<>(Arrays.asList("vegetarian", "protein")), 50, Edible.Macros.Protein, 45},
             {"Bagel", new ArrayList<>(Arrays.asList("vegetarian")), 100, Edible.Macros.Carbohydrates, 6},
         };
 
@@ -81,13 +80,13 @@ public class DataAccessStub {
         };
 
         Object[][] dinner = {
-            {"Chicken", new ArrayList<>(Arrays.asList("protein")), 23, Edible.Macros.Saturated, 14},
-            {"Rice", new ArrayList<>(Arrays.asList("dairy", "vegetarian")), 44, Edible.Macros.Trans, 10},
+            {"Chicken", new ArrayList<>(Arrays.asList("protein")), 23, Edible.Macros.Fat, 14},
+            {"Rice", new ArrayList<>(Arrays.asList("dairy", "vegetarian")), 44, Edible.Macros.Fat, 10},
         };
 
         Object[][] snack = {
-            {"Chocolate Bar", new ArrayList<>(Arrays.asList("bad foods")), 13, Edible.Macros.Sugar, 33},
-            {"Nutri-grain", new ArrayList<>(Arrays.asList("multi-grain")), 12, Edible.Macros.Omega6, 5},
+            {"Chocolate Bar", new ArrayList<>(Arrays.asList("bad foods")), 13, Edible.Macros.Fat, 33},
+            {"Nutri-grain", new ArrayList<>(Arrays.asList("multi-grain")), 12, Edible.Macros.Fat, 5},
         };
         //we have to do snack differently :( since its a micro
 
@@ -98,7 +97,7 @@ public class DataAccessStub {
             );
             edible.setWeight((int)food[2]);
             edible.addMacro((Edible.Macros) food[3], (int) food[4]);
-            day.addFood(Day.MealTime_t.BREAKFAST, edible);
+            day.addFood(Day.MealTimeType.BREAKFAST, edible);
         }
 
         for (Object[] food : lunch) {
@@ -108,7 +107,7 @@ public class DataAccessStub {
             );
             edible.setWeight((int)food[2]);
             edible.addMacro((Edible.Macros) food[3], (int) food[4]);
-            day.addFood(Day.MealTime_t.LUNCH, edible);
+            day.addFood(Day.MealTimeType.LUNCH, edible);
         }
 
         for (Object[] food : dinner) {
@@ -118,7 +117,7 @@ public class DataAccessStub {
             );
             edible.setWeight((int)food[2]);
             edible.addMacro((Edible.Macros) food[3], (int) food[4]);
-            day.addFood(Day.MealTime_t.DINNER, edible);
+            day.addFood(Day.MealTimeType.DINNER, edible);
         }
 
         for (Object[] food : snack) {
@@ -128,7 +127,7 @@ public class DataAccessStub {
             );
             edible.setWeight((int)food[2]);
             edible.addMacro((Edible.Macros) food[3], (int) food[4]);
-            day.addFood(Day.MealTime_t.SNACK, edible);
+            day.addFood(Day.MealTimeType.SNACK, edible);
         }
 
     }
@@ -174,7 +173,7 @@ public class DataAccessStub {
         }
     }
 
-    public void addToDB(Database_t DT, Object o){
+    public void addToDB(DatabaseType DT, Object o){
         switch (DT) {
             case ACCOUNTS:
                 accounts.add((Account)o);
@@ -187,7 +186,7 @@ public class DataAccessStub {
                 break;
         }
     }
-    public void updateDB(Database_t DT, Object o){
+    public void updateDB(DatabaseType DT, Object o){
         int index;
         switch (DT) {
             case ACCOUNTS:
@@ -204,7 +203,7 @@ public class DataAccessStub {
                 break;
         }
     }
-    public void removeFromDB(Database_t DT, Object o){
+    public void removeFromDB(DatabaseType DT, Object o){
         switch (DT) {
             case ACCOUNTS:
                 accounts.remove((Account)o);

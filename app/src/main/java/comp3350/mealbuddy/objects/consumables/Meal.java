@@ -1,37 +1,36 @@
-package comp3350.mealbuddy.objects;
+package comp3350.mealbuddy.objects.consumables;
 
 import android.os.Build;
 import android.util.ArraySet;
 
 import androidx.annotation.RequiresApi;
-import androidx.core.util.Pair;
 
 import java.util.List;
 import java.util.Set;
 
-public class Meal extends Edible{
+public class Meal extends Edible {
 
-    public Set<FoodIntPair> foodInMeal;
+    public Set<FoodIntPair> ediblesInMeal;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     public Meal(String name, List<String> labels) {
         super(name, labels);
-        foodInMeal = new ArraySet<>();
+        ediblesInMeal = new ArraySet<>();
     }
 
     public void updateFood(Food toUpdate, int quantity){
-        if (quantity <= 0) foodInMeal.remove(toUpdate);
-        else foodInMeal.add(new FoodIntPair(toUpdate, quantity));
+        if (quantity <= 0) ediblesInMeal.remove(toUpdate);
+        else ediblesInMeal.add(new FoodIntPair(toUpdate, quantity));
     }
 
     public void removeFood(Food toRemove) {
-        foodInMeal.remove(toRemove);
+        ediblesInMeal.remove(toRemove);
     }
 
     @Override
     public String toString(){
         String meal = name + ": ";
-        for (FoodIntPair pair: foodInMeal) {
+        for (FoodIntPair pair: ediblesInMeal) {
             meal += (pair.quantity + " " + pair.food + " ");
         }
         return meal;

@@ -4,20 +4,19 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import comp3350.mealbuddy.business.GoalFactory.DefaultGoalFactory;
-import comp3350.mealbuddy.business.GoalFactory.GoalFactory;
-import comp3350.mealbuddy.objects.CalorieGoal;
-import comp3350.mealbuddy.objects.Edible.Macros;
-import comp3350.mealbuddy.objects.Goal;
-import comp3350.mealbuddy.objects.Goal.GoalType;
-import comp3350.mealbuddy.objects.MacroGoal;
-import comp3350.mealbuddy.objects.MicroGoal;
+import comp3350.mealbuddy.business.goalfactory.DefaultGoalFactory;
+import comp3350.mealbuddy.business.goalfactory.GoalFactory;
+import comp3350.mealbuddy.objects.goals.CalorieGoal;
+import comp3350.mealbuddy.objects.consumables.Edible.Macros;
+import comp3350.mealbuddy.objects.goals.Goal;
+import comp3350.mealbuddy.objects.goals.Goal.GoalType;
+import comp3350.mealbuddy.objects.goals.MacroGoal;
+import comp3350.mealbuddy.objects.goals.MicroGoal;
 import comp3350.mealbuddy.objects.UserInfo;
 
-import static comp3350.mealbuddy.objects.Edible.Micros.Zinc;
+import static comp3350.mealbuddy.objects.consumables.Edible.Micros.Zinc;
 import static org.junit.Assert.fail;
 
 public class DefaultGoalFactorTest {

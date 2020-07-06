@@ -2,7 +2,6 @@ package comp3350.mealbuddy.presentation;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -65,9 +64,9 @@ public class TimelineActivity extends AppCompatActivity {
         TextView cardSnacksTitle = (TextView) snacksLayout.getChildAt(0);
         cardSnacksTitle.setText("Snacks");
         TextView txtSnacks = (TextView) snacksLayout.getChildAt(1);
-        txtSnacks.setText(day.getMeal(Day.MealTime_t.SNACK));
+        txtSnacks.setText(day.getMeal(Day.MealTimeType.SNACK));
         TextView txtSnackCals = (TextView) snacksLayout.getChildAt(2);
-        txtSnackCals.setText(calculator.getMealTimeCalories(Day.MealTime_t.SNACK) + " Cals");
+        txtSnackCals.setText(calculator.getMealTimeCalories(Day.MealTimeType.SNACK) + " Cals");
     }
 
     private void initializeDinner() {
@@ -76,9 +75,9 @@ public class TimelineActivity extends AppCompatActivity {
         TextView cardDinnerTitle = (TextView) dinnerLayout.getChildAt(0);
         cardDinnerTitle.setText("Dinner");
         TextView txtDinner = (TextView) dinnerLayout.getChildAt(1);
-        txtDinner.setText(day.getMeal(Day.MealTime_t.DINNER));
+        txtDinner.setText(day.getMeal(Day.MealTimeType.DINNER));
         TextView txtDinnerCals = (TextView) dinnerLayout.getChildAt(2);
-        txtDinnerCals.setText(calculator.getMealTimeCalories(Day.MealTime_t.DINNER) + " Cals");
+        txtDinnerCals.setText(calculator.getMealTimeCalories(Day.MealTimeType.DINNER) + " Cals");
     }
 
     private void initializeLunch() {
@@ -87,9 +86,9 @@ public class TimelineActivity extends AppCompatActivity {
         TextView cardLunchTitle = (TextView) lunchLayout.getChildAt(0);
         cardLunchTitle.setText("Lunch");
         TextView txtLunch = (TextView) lunchLayout.getChildAt(1);
-        txtLunch.setText(day.getMeal(Day.MealTime_t.LUNCH));
+        txtLunch.setText(day.getMeal(Day.MealTimeType.LUNCH));
         TextView txtLunchCals = (TextView) lunchLayout.getChildAt(2);
-        txtLunchCals.setText(calculator.getMealTimeCalories(Day.MealTime_t.LUNCH) + " Cals");
+        txtLunchCals.setText(calculator.getMealTimeCalories(Day.MealTimeType.LUNCH) + " Cals");
     }
 
     private void initializeBreakfast() {
@@ -98,9 +97,9 @@ public class TimelineActivity extends AppCompatActivity {
         TextView cardBreakfastTitle = (TextView) breakfastLayout.getChildAt(0);
         cardBreakfastTitle.setText("Breakfast");
         TextView txtBreakfast = (TextView) breakfastLayout.getChildAt(1);
-        txtBreakfast.setText(day.getMeal(Day.MealTime_t.BREAKFAST));
+        txtBreakfast.setText(day.getMeal(Day.MealTimeType.BREAKFAST));
         TextView txtBreakfastCals = (TextView) breakfastLayout.getChildAt(2);
-        txtBreakfastCals.setText(calculator.getMealTimeCalories(Day.MealTime_t.BREAKFAST) + " Cals");
+        txtBreakfastCals.setText(calculator.getMealTimeCalories(Day.MealTimeType.BREAKFAST) + " Cals");
     }
 
     private void initializeTotals() {
