@@ -18,9 +18,10 @@ public class Meal extends Edible{
         super(name, labels);
         foodInMeal = new ArraySet<>();
     }
-    
-    public void updateFood(Food toAdd, int quantity){
-        foodInMeal.add(new FoodIntPair(toAdd, quantity));
+
+    public void updateFood(Food toUpdate, int quantity){
+        if (quantity <= 0) foodInMeal.remove(toUpdate);
+        else foodInMeal.add(new FoodIntPair(toUpdate, quantity));
     }
 
     public void removeFood(Food toRemove) {
