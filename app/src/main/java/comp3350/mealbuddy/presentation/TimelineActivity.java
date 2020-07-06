@@ -29,6 +29,8 @@ public class TimelineActivity extends AppCompatActivity {
     private Day day;
     private Date today;
     private LocalDate localDate;
+    private Calculator calculator;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +40,7 @@ public class TimelineActivity extends AppCompatActivity {
         accessAccount = new AccessAccount();
         day = accessAccount.getDay(accessAccount.getAccount(username), calendar.get(Calendar.DAY_OF_YEAR));
         System.err.println(day.dayOfYear);
+        Calculator calculator = new Calculator(day);
         initializeCards();
         FloatingActionButton addFood = (FloatingActionButton) findViewById(R.id.btnAddFood);
         addFood.setOnClickListener(new View.OnClickListener() {
@@ -51,43 +54,17 @@ public class TimelineActivity extends AppCompatActivity {
         });
     }
 
+
+
     private void initializeCards(){
-        
-        Calculator calculator = new Calculator(day);
-        CardView totals = (CardView) findViewById(R.id.cardTotals);
-        RelativeLayout totalsLayout = (RelativeLayout) totals.getChildAt(0);
-        TextView cardTotalsTitle = (TextView) totalsLayout.getChildAt(0);
-        cardTotalsTitle.setText("Totals");
-        TextView totalsCals = (TextView) totalsLayout.getChildAt(1);
-        totalsCals.setText(calculator.getTotalCalories() + " Cals");
+        initializeTotals();
+        initializeBreakfast();
+        initializeLunch();
+        initializeDinner();
+        initializeSnacks();
+    }
 
-        CardView breakfast = (CardView) findViewById(R.id.cardBreakfast);
-        RelativeLayout breakfastLayout = (RelativeLayout) breakfast.getChildAt(0);
-        TextView cardBreakfastTitle = (TextView) breakfastLayout.getChildAt(0);
-        cardBreakfastTitle.setText("Breakfast");
-        TextView txtBreakfast = (TextView) breakfastLayout.getChildAt(1);
-        txtBreakfast.setText(day.getMeal(Day.MealTime_t.BREAKFAST));
-        TextView txtBreakfastCals = (TextView) breakfastLayout.getChildAt(2);
-        txtBreakfastCals.setText(calculator.getMealTimeCalories(Day.MealTime_t.BREAKFAST) + " Cals");
-
-        CardView lunch = (CardView) findViewById(R.id.cardLunch);
-        RelativeLayout lunchLayout = (RelativeLayout) lunch.getChildAt(0);
-        TextView cardLunchTitle = (TextView) lunchLayout.getChildAt(0);
-        cardLunchTitle.setText("Lunch");
-        TextView txtLunch = (TextView) lunchLayout.getChildAt(1);
-        txtLunch.setText(day.getMeal(Day.MealTime_t.LUNCH));
-        TextView txtLunchCals = (TextView) lunchLayout.getChildAt(2);
-        txtLunchCals.setText(calculator.getMealTimeCalories(Day.MealTime_t.LUNCH) + " Cals");
-
-        CardView dinner = (CardView) findViewById(R.id.cardDinner);
-        RelativeLayout dinnerLayout = (RelativeLayout) dinner.getChildAt(0);
-        TextView cardDinnerTitle = (TextView) dinnerLayout.getChildAt(0);
-        cardDinnerTitle.setText("Dinner");
-        TextView txtDinner = (TextView) dinnerLayout.getChildAt(1);
-        txtDinner.setText(day.getMeal(Day.MealTime_t.DINNER));
-        TextView txtDinnerCals = (TextView) dinnerLayout.getChildAt(2);
-        txtDinnerCals.setText(calculator.getMealTimeCalories(Day.MealTime_t.DINNER) + " Cals");
-
+    private void initializeSnacks() {
         CardView snacks = (CardView) findViewById(R.id.cardSnacks);
         RelativeLayout snacksLayout = (RelativeLayout) snacks.getChildAt(0);
         TextView cardSnacksTitle = (TextView) snacksLayout.getChildAt(0);
@@ -96,4 +73,47 @@ public class TimelineActivity extends AppCompatActivity {
         txtSnacks.setText(day.getMeal(Day.MealTime_t.SNACK));
         TextView txtSnackCals = (TextView) snacksLayout.getChildAt(2);
         txtSnackCals.setText(calculator.getMealTimeCalories(Day.MealTime_t.SNACK) + " Cals");
-    }}
+    }
+
+    private void initializeDinner() {
+        CardView dinner = (CardView) findViewById(R.id.cardDinner);
+        RelativeLayout dinnerLayout = (RelativeLayout) dinner.getChildAt(0);
+        TextView cardDinnerTitle = (TextView) dinnerLayout.getChildAt(0);
+        cardDinnerTitle.setText("Dinner");
+        TextView txtDinner = (TextView) dinnerLayout.getChildAt(1);
+        txtDinner.setText(day.getMeal(Day.MealTime_t.DINNER));
+        TextView txtDinnerCals = (TextView) dinnerLayout.getChildAt(2);
+        txtDinnerCals.setText(calculator.getMealTimeCalories(Day.MealTime_t.DINNER) + " Cals");
+    }
+
+    private void initializeLunch() {
+        CardView lunch = (CardView) findViewById(R.id.cardLunch);
+        RelativeLayout lunchLayout = (RelativeLayout) lunch.getChildAt(0);
+        TextView cardLunchTitle = (TextView) lunchLayout.getChildAt(0);
+        cardLunchTitle.setText("Lunch");
+        TextView txtLunch = (TextView) lunchLayout.getChildAt(1);
+        txtLunch.setText(day.getMeal(Day.MealTime_t.LUNCH));
+        TextView txtLunchCals = (TextView) lunchLayout.getChildAt(2);
+        txtLunchCals.setText(calculator.getMealTimeCalories(Day.MealTime_t.LUNCH) + " Cals");
+    }
+
+    private void initializeBreakfast() {
+        CardView breakfast = (CardView) findViewById(R.id.cardBreakfast);
+        RelativeLayout breakfastLayout = (RelativeLayout) breakfast.getChildAt(0);
+        TextView cardBreakfastTitle = (TextView) breakfastLayout.getChildAt(0);
+        cardBreakfastTitle.setText("Breakfast");
+        TextView txtBreakfast = (TextView) breakfastLayout.getChildAt(1);
+        txtBreakfast.setText(day.getMeal(Day.MealTime_t.BREAKFAST));
+        TextView txtBreakfastCals = (TextView) breakfastLayout.getChildAt(2);
+        txtBreakfastCals.setText(calculator.getMealTimeCalories(Day.MealTime_t.BREAKFAST) + " Cals");
+    }
+
+    private void initializeTotals() {
+        CardView totals = (CardView) findViewById(R.id.cardTotals);
+        RelativeLayout totalsLayout = (RelativeLayout) totals.getChildAt(0);
+        TextView cardTotalsTitle = (TextView) totalsLayout.getChildAt(0);
+        cardTotalsTitle.setText("Totals");
+        TextView totalsCals = (TextView) totalsLayout.getChildAt(1);
+        totalsCals.setText(calculator.getTotalCalories() + " Cals");
+    }
+}

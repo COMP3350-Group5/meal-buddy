@@ -28,7 +28,6 @@
         android:inputType="textPersonName"
         app:layout_constraintBottom_toTopOf="@+id/etFat"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.564"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etFoodName" />
 
@@ -36,27 +35,27 @@
         android:id="@+id/etFat"
         android:layout_width="446dp"
         android:layout_height="51dp"
+        android:layout_marginTop="92dp"
         android:ems="10"
         android:hint="Fat (g)"
         android:inputType="numberSigned"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.568"
+        app:layout_constraintHorizontal_bias="0.564"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etLabels"
-        app:layout_constraintVertical_bias="0.068" />
+        app:layout_constraintTop_toBottomOf="@+id/etLabels" />
 
     <EditText
         android:id="@+id/etCarbs"
         android:layout_width="447dp"
         android:layout_height="51dp"
+        android:layout_marginTop="76dp"
         android:ems="10"
         android:hint="Carbs (g)"
         android:inputType="numberSigned"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etFat"
-        app:layout_constraintVertical_bias="0.098" />
+        app:layout_constraintTop_toBottomOf="@+id/etFat" />
 
     <EditText
         android:id="@+id/etProtein"
