@@ -90,20 +90,8 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="124dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="0dp">
-        <resources>
-            <string-array android:name="planets_array">
-                <item>Mercury</item>
-                <item>Venus</item>
-                <item>Earth</item>
-                <item>Mars</item>
-                <item>Jupiter</item>
-                <item>Saturn</item>
-                <item>Uranus</item>
-                <item>Neptune</item>
-            </string-array>
-        </resources>
-
+        tools:layout_editor_absoluteX="0dp"
+        android:entries="@array/mealtimes_array">
     </Spinner>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
