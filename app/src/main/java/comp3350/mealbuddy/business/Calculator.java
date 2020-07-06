@@ -89,21 +89,7 @@ public class Calculator {
     }
 
     public int getMealTimeMicroMgs(Day.MealTime_t mealTime, Edible.Micros micro) {
-        int totalMgs = 0;
-        switch(mealTime) {
-            case BREAKFAST:
-                totalMgs = getListMicroMgs(day.breakfast, micro);
-                break;
-            case LUNCH:
-                totalMgs = getListMicroMgs(day.lunch, micro);
-                break;
-            case DINNER:
-                totalMgs = getListMicroMgs(day.dinner, micro);
-                break;
-            case SNACK:
-                totalMgs = getListMicroMgs(day.snack, micro);
-        }
-        return totalMgs;
+        return getListMicroMgs(day.getMealTimeList(mealTime), micro);
     }
 
     private int getListCalories(ArrayList<Edible> foodList) {
