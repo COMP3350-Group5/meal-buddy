@@ -27,24 +27,18 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         //components
-        username = (EditText) findViewById(R.id.etUsername);
-        password = (EditText) findViewById(R.id.etPassword);
-        login = (Button) findViewById(R.id.btnLogin);
-        createAccount = (TextView) findViewById(R.id.tvCreateAccount);
+        username = findViewById(R.id.etUsername);
+        password = findViewById(R.id.etPassword);
+        login = findViewById(R.id.btnLogin);
+        createAccount = findViewById(R.id.tvCreateAccount);
 
-        login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        login.setOnClickListener((view) -> {
                 checkLogin(username.getText(), password.getText());
-            }
         });
 
-        createAccount.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        createAccount.setOnClickListener((view) -> {
                 Intent intent = new Intent(HomeActivity.this, SignUpActivity.class);
                 HomeActivity.this.startActivity(intent);
-            }
         });
     }
 
@@ -52,6 +46,7 @@ public class HomeActivity extends AppCompatActivity {
         Account account = accessAccount.validateLogin(user.toString(), pass.toString());
         if(account != null){
             Intent intent = new Intent(HomeActivity.this, TimelineActivity.class);
+            intent.putExtra("username", user.toString());
             HomeActivity.this.startActivity(intent);
         }
         else {

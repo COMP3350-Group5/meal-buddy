@@ -42,7 +42,7 @@ public abstract class GoalFactory {
             throw new IllegalArgumentException("Null value passed in");
         }
         if(user.height <= 0 || user.weight <= 0 || user.age <=0 ){
-            throw new IllegalArgumentException("Height and weight must be greater than 0");
+            throw new IllegalArgumentException("Height and weight and age must be greater than 0");
         }
     }
 

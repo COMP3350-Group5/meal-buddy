@@ -1,24 +1,21 @@
 package comp3350.mealbuddy.objects;
 
+import java.sql.Time;
 import java.util.ArrayList;
-
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.List;
+import java.util.HashMap;
 
 public class Day {
     public enum MealTime_t {
         BREAKFAST, LUNCH, DINNER, SNACK
     }
-    public LocalDate LD; //the local date: e.g. 2020-07-04
-
+    public int dayOfYear; // represented as day-of-year (1-365)
     public ArrayList<Edible> breakfast;
     public ArrayList<Edible> lunch;
     public ArrayList<Edible> dinner;
     public ArrayList<Edible> snack;
 
-    public Day (LocalDate LD) {
-        this.LD = LD;
+    public Day (int dayOfYear) {
+        this.dayOfYear = dayOfYear;
         this.breakfast = new ArrayList<>();
         this.lunch = new ArrayList<>();
         this.dinner = new ArrayList<>();
@@ -43,21 +40,48 @@ public class Day {
         }
     }
 
-    public void removeFood(MealTime_t MT, Edible e){
+    public void removeFood(MealTime_t MT, Edible edible){
         switch(MT) {
             case BREAKFAST:
-                breakfast.remove(e);
+                breakfast.remove(edible);
                 break;
             case LUNCH:
-                lunch.remove(e);
+                lunch.remove(edible);
                 break;
             case DINNER:
-                dinner.remove(e);
+                dinner.remove(edible);
                 break;
             case SNACK:
-                snack.remove(e);
+                snack.remove(edible);
                 break;
         }
+    }
+
+    public String getMeal(MealTime_t MT) {
+        String meal = "";
+        switch(MT) {
+            case BREAKFAST:
+                for (Edible edible:breakfast) {
+                    meal += edible.toString() + "\n";
+                }
+                break;
+            case LUNCH:
+                for (Edible edible:lunch) {
+                    meal += edible.toString() + "\n";
+                }
+                break;
+            case DINNER:
+                for (Edible edible:dinner) {
+                    meal += edible.toString() + "\n";
+                }
+                break;
+            case SNACK:
+                for (Edible edible:snack) {
+                    meal += edible.toString() + "\n";
+                }
+                break;
+        }
+        return meal;
     }
 
     public ArrayList<Edible> getMealTimeList(MealTime_t MT){

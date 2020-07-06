@@ -1,8 +1,6 @@
 package comp3350.mealbuddy.objects;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class Account {
 
@@ -11,6 +9,8 @@ public class Account {
     private ArrayList<Day> daysTracked;
     public Account(UserInfo user) {
         this.user = user;
+        daysTracked = new ArrayList<Day>();
+        goals = new ArrayList<Goal>();
     }
 
     public void addGoal(Goal g) {
@@ -27,21 +27,21 @@ public class Account {
             daysTracked.add(d);
     }
 
-    public void addDay(LocalDate LD){
-        addDay(new Day(LD));
+    public void addDay(int day){
+        addDay(new Day(day));
     }
 
     public void removeDay(Day d){
         daysTracked.remove(d);
     }
 
-    public Day getDay(LocalDate LD) {
+    public Day getDay(int day) {
         for (Day d : daysTracked){
-            if (d.LD.equals(LD))
+            if (d.dayOfYear == day)
                 return d;
         }
         //create a day in the daysTracked list if we request it so the timeline doesnt crash on unrecorded days
-        Day newDay = new Day(LD);
+        Day newDay = new Day(day);
         daysTracked.add(newDay);
         return newDay;
     }

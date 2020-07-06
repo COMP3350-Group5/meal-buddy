@@ -45,4 +45,20 @@ public abstract class Edible {
         }
         return microMap;
     }
+
+    public void addMacro(Macros macro, int amount){
+        macros.put(macro, amount);
+    }
+
+    public void addMicro(Micros micro, int amount){
+        micros.put(micro, amount);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || ! (o instanceof Edible)) return false;
+        Edible edible = (Edible) o;
+        return name == edible.name ;
+    }
 }
