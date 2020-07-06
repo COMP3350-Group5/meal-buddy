@@ -13,7 +13,7 @@ public class AccessAccount {
 
     public AccessAccount(){
         DAS = Services.openDAS(Main.DATABASE_NAME);
-        database_type = DataAccessStub.DatabaseType.ACCOUNTS;
+        databaseType = DataAccessStub.DatabaseType.ACCOUNTS;
     }
 
     public void addAccount(Account a){
