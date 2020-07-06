@@ -12,6 +12,7 @@ import comp3350.mealbuddy.objects.UserInfo;
 import static comp3350.mealbuddy.objects.Edible.Macros.Fat;
 import static comp3350.mealbuddy.objects.Edible.Macros.Carbohydrates;
 import static comp3350.mealbuddy.objects.Edible.Macros.Protein;
+import static comp3350.mealbuddy.objects.Edible.Macros.Alcohol;
 
 public class DefaultGoalFactory extends GoalFactory {
 
@@ -25,9 +26,11 @@ public class DefaultGoalFactory extends GoalFactory {
         int fatPercent = 25;
         int proteinPercent = 25;
         int carbPercent = 50;
+        int alcoholPercent = 0;
         goalList.add(new MacroGoal(fatPercent-MacroVariance, fatPercent+MacroVariance, GoalType.RATIO, Fat));
         goalList.add(new MacroGoal(proteinPercent-MacroVariance, proteinPercent+MacroVariance, GoalType.RATIO, Protein));
         goalList.add(new MacroGoal(carbPercent-MacroVariance, carbPercent+MacroVariance, GoalType.RATIO, Carbohydrates));
+        goalList.add(new MacroGoal(alcoholPercent-MacroVariance, alcoholPercent+MacroVariance, GoalType.RATIO, Alcohol));
     }
 
     @Override

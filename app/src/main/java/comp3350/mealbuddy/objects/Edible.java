@@ -4,7 +4,6 @@ package comp3350.mealbuddy.objects;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 public abstract class Edible {
 
@@ -14,7 +13,7 @@ public abstract class Edible {
     public Map<Macros, Integer> macros;
 
     public enum Macros{
-        Fat, Omega6, Omega3, Saturated, Trans, Carbohydrates, Sugar, Fibre, Protein, Alcohol
+        Fat, Carbohydrates, Protein, Alcohol
     }
 
     public enum Micros{

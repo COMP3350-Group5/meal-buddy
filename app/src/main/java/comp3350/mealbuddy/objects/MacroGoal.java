@@ -30,17 +30,12 @@ public class MacroGoal extends Goal {
                 '}';
     }
 
-
     @Override
     public boolean equals(Object o) {
-        boolean isEquals = false;
-        if( o instanceof Macros)
-            isEquals = (Macros)o == id;
-        else if( o instanceof MacroGoal) {
-            MacroGoal macroGoal = (MacroGoal)o;
-            isEquals = macroGoal.id == this.id;
-        }
-        return isEquals;
+        if (this == o) return true;
+        if (!(o instanceof MacroGoal)) return false;
+        MacroGoal macroGoal = (MacroGoal) o;
+        return id == macroGoal.id;
     }
 
 }
