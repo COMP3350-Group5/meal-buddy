@@ -28,10 +28,14 @@ public class LabelGoal extends Goal {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof LabelGoal)) return false;
-        LabelGoal labelGoal = (LabelGoal) o;
-        return id.equals(labelGoal.id);
+        boolean isEquals = false;
+        if( o instanceof String)
+            isEquals = o.equals(id);
+        else if( o instanceof LabelGoal) {
+            LabelGoal labelGoal = (LabelGoal)o;
+            isEquals = labelGoal.id.equals(this.id);
+        }
+        return isEquals;
     }
 
 }

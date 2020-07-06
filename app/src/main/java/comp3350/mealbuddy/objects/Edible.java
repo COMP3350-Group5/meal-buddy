@@ -13,11 +13,11 @@ public abstract class Edible {
     public Map<Macros, Integer> macros;
 
     public enum Macros{
-        Fat, Carbohydrates, Protein, Alcohol
+        Fat, Omega6, Omega3, Saturated, Trans, Carbohydrates, Sugar, Fibre, Protein,
     }
 
     public enum Micros{
-        Iron, Zinc, VitaminA, VitaminB12, VitaminC,  VitaminE, 
+        Iron, Zinc, VitaminA, VitaminB12, VitaminC,  VitaminE,
         Calcium, Choline, Magnesium, Sodium, Potassium, Niacin
     }
 

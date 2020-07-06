@@ -17,8 +17,9 @@ public class UserInfo {
     public double height; //in cm
     public ActivityLevel activityLevel;
     public Sex sex;
+    public int age;
 
-    public UserInfo(String fullname, String username, String password, double weight, double height, ActivityLevel activityLevel, Sex sex) {
+    public UserInfo(String fullname, String username, String password, double weight, double height, ActivityLevel activityLevel, Sex sex, int age) {
         this.fullname = fullname;
         this.username = username;
         this.password = password;
@@ -26,5 +27,6 @@ public class UserInfo {
         this.height = height;
         this.activityLevel = activityLevel;
         this.sex = sex;
+        this.age = age;
     }
 }

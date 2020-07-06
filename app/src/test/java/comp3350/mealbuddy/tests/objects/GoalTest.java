@@ -1,35 +1,21 @@
-//package comp3350.mealbuddy.tests.objects;
-//
-//import org.junit.Test;
-//
-//import comp3350.mealbuddy.objects.MacroFactory;
-//import QuantityGoal;
-//
-//import static org.junit.Assert.assertEquals;
-//import static org.junit.Assert.assertTrue;
-//import static org.junit.Assert.fail;
-//
-//public class GoalTest {
-//
-//
-//    @Test
-//    public void test_constructor_negativeLowerBound_throwException() {
-//        //arrange
-//        int lowerBound = -3;
-//        int upperBound = 42;
-//        String nameOfTracked = "Fat";
-//
-//        //act
-//        try {
-//            Goal goal = new QuantityGoal(lowerBound, upperBound, nameOfTracked);
-//            fail("Expected Exception");
-//        }
-//        //assert
-//        catch (IllegalArgumentException e){
-//            assertTrue(true);
-//        }
-//
-//    }
+package comp3350.mealbuddy.tests.objects;
+
+import org.junit.Test;
+
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
+public class GoalTest {
+
+
+    @Test
+    public void test_constructor_negativeLowerBound_throwException() {
+        int[][][] r = new int[2][17][3];
+        r[1][7][2] = 69;
+        System.out.println(r[1][7][2]);
+    }
 //
 //    @Test
 //    public void test_constructor_negativeUpperBound_throwException() {
@@ -111,5 +97,5 @@
 //
 //
 //
-//
-//}
+
+}
