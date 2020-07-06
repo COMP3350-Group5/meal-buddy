@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 public class Day {
     public enum MealTime_t {
@@ -59,5 +60,18 @@ public class Day {
         }
     }
 
+    public ArrayList<Edible> getMealTimeList(MealTime_t MT){
+        switch(MT){
+            case BREAKFAST:
+                return breakfast;
+            case LUNCH:
+                return lunch;
+            case DINNER:
+                return dinner;
+            case SNACK:
+                return snack;
+        }
+        return null;
+    }
 
 }
