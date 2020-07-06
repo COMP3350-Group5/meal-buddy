@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import comp3350.mealbuddy.objects.CalorieGoal;
+import comp3350.mealbuddy.objects.Goal.GoalType;
 import comp3350.mealbuddy.objects.Goal;
 import comp3350.mealbuddy.objects.UserInfo;
 
@@ -32,51 +33,11 @@ public abstract class GoalFactory {
     protected abstract void addLabelGoals(UserInfo userInfo, List<Goal> goalList);
 
     private void addTotalCalorieGoal(UserInfo userInfo, List<Goal> goalList){
-        int recCalAmount = (userInfo.sex == MALE) 
-            ?   getMaleTotalCalorieRecAmnt(userInfo)
-            :    getFemaleTotalCalorieRecAmnt(userInfo);
-        int calVariance = 200;
-        goalList.add(new CalorieGoal(recCalAmount-calVariance, recCalAmount+calVariance, Goal.GoalType.QUANTITY));
-    }
-
-    private int getMaleTotalCalorieRecAmnt(UserInfo userInfo){
-        double mBaseAmount = 66.47;
-        double mWeightCoefficient = 6.24;
-        double mHeightCoefficient = 12.7;
-        double mAgeCoefficient = 6.755;
-        double activityCoefficient = getActivityCoefficient(userInfo.activityLevel);
-        int recommendedCalories = (int) (mBaseAmount + (mWeightCoefficient*userInfo.weight) +
-                (mHeightCoefficient*userInfo.height) - (mAgeCoefficient*userInfo.age));
-        recommendedCalories *= activityCoefficient;
-        return (int) recommendedCalories;
-    }
-
-    private int getFemaleTotalCalorieRecAmnt(UserInfo userInfo){
-        double mBaseAmount = 655.1;
-        double mWeightCoefficient = 4.35;
-        double mHeightCoefficient = 4.7;
-        double mAgeCoefficient = 4.7;
-        double activityCoefficient = getActivityCoefficient(userInfo.activityLevel);
-        double recommendedCalories = mBaseAmount + (mWeightCoefficient*userInfo.weight) +
-                (mHeightCoefficient*userInfo.height) - (mAgeCoefficient*userInfo.age);
-        recommendedCalories *= activityCoefficient;
-        return (int)recommendedCalories;
-    }
-
-    private double getActivityCoefficient(UserInfo.ActivityLevel activityLevel) {
-        double activityCoefficient = -1;
-        switch (activityLevel) {
-            case LOW:
-                activityCoefficient = 1.2;
-                break;
-            case MEDIUM:
-                activityCoefficient = 1.55;
-                break;
-            case HIGH:
-                activityCoefficient = 1.9;
-                break;
-        }
-        return activityCoefficient;
+        int recCalAmnt = RecommendedCalorieCalculator.getTotalRecCalories(
+                userInfo.weight, userInfo.height, userInfo.activityLevel, userInfo.sex, userInfo.age
+        );
+        int goalBuffer = 200;   //set the goal acheived if plus or minus 200 from the recomended amount
+        goalList.add(new CalorieGoal(recCalAmnt-goalBuffer, recCalAmnt+goalBuffer, GoalType.QUANTITY));
     }
 
 }
