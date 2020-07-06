@@ -35,5 +35,5 @@ public class MicroGoal extends Goal {
         MicroGoal microGoal = (MicroGoal) o;
         return id == microGoal.id;
     }
-    
+
 }
