@@ -8,72 +8,68 @@
 
     <EditText
         android:id="@+id/etFoodName"
-        android:layout_width="446dp"
-        android:layout_height="51dp"
-        android:layout_marginTop="44dp"
+        android:layout_width="460dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="50dp"
         android:ems="10"
         android:hint="Food Name"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.564"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/etLabels"
-        android:layout_width="446dp"
-        android:layout_height="55dp"
+        android:layout_width="460dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="50dp"
         android:ems="10"
         android:hint="Labels (comma separated)"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/etFat"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etFoodName" />
 
     <EditText
         android:id="@+id/etFat"
-        android:layout_width="446dp"
-        android:layout_height="51dp"
-        android:layout_marginTop="92dp"
+        android:layout_width="460dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="50dp"
         android:ems="10"
         android:hint="Fat (g)"
         android:inputType="numberSigned"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.564"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etLabels" />
 
     <EditText
         android:id="@+id/etCarbs"
-        android:layout_width="447dp"
-        android:layout_height="51dp"
-        android:layout_marginTop="76dp"
+        android:layout_width="460dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="50dp"
         android:ems="10"
         android:hint="Carbs (g)"
         android:inputType="numberSigned"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etFat" />
 
     <EditText
         android:id="@+id/etProtein"
-        android:layout_width="447dp"
-        android:layout_height="51dp"
-        android:layout_marginTop="0dp"
+        android:layout_width="460dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="50dp"
         android:ems="10"
         android:hint="Protein (g)"
-        android:inputType="numberSigned"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etCarbs" />
 
     <EditText
         android:id="@+id/etWeight"
-        android:layout_width="447dp"
-        android:layout_height="51dp"
-        android:layout_marginTop="48dp"
+        android:layout_width="460dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="50dp"
         android:ems="10"
         android:hint="Weight (g)"
         android:inputType="numberSigned"
@@ -83,22 +79,23 @@
 
     <Spinner
         android:id="@+id/spnMealtimes"
-        android:layout_width="519dp"
-        android:layout_height="49dp"
-        android:layout_marginBottom="188dp"
+        android:layout_width="460dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="20dp"
         android:entries="@array/mealtimes_array"
-        app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="-54dp"></Spinner>
+        app:layout_constraintBottom_toTopOf="@+id/btnAddFood"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
 
     <Button
         android:id="@+id/btnAddFood"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="50dp"
         android:text="Add Food"
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spnMealtimes" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
