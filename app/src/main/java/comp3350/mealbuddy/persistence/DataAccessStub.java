@@ -96,7 +96,8 @@ public class DataAccessStub {
                     (String) food[0],
                     (ArrayList) food[1]
             );
-            edible.addMacro((Edible.Macros) food[2], (int) food[3]);
+            edible.setWeight((int)food[2]);
+            edible.addMacro((Edible.Macros) food[3], (int) food[4]);
             day.addFood(Day.MealTime_t.BREAKFAST, edible);
         }
 
@@ -105,7 +106,8 @@ public class DataAccessStub {
                     (String) food[0],
                     (ArrayList) food[1]
             );
-            edible.addMacro((Edible.Macros) food[2], (int) food[3]);
+            edible.setWeight((int)food[2]);
+            edible.addMacro((Edible.Macros) food[3], (int) food[4]);
             day.addFood(Day.MealTime_t.LUNCH, edible);
         }
 
@@ -114,7 +116,8 @@ public class DataAccessStub {
                     (String) food[0],
                     (ArrayList) food[1]
             );
-            edible.addMacro((Edible.Macros) food[2], (int) food[3]);
+            edible.setWeight((int)food[2]);
+            edible.addMacro((Edible.Macros) food[3], (int) food[4]);
             day.addFood(Day.MealTime_t.DINNER, edible);
         }
 
@@ -123,7 +126,8 @@ public class DataAccessStub {
                     (String) food[0],
                     (ArrayList) food[1]
             );
-            edible.addMacro((Edible.Macros) food[2], (int) food[3]);
+            edible.setWeight((int)food[2]);
+            edible.addMacro((Edible.Macros) food[3], (int) food[4]);
             day.addFood(Day.MealTime_t.SNACK, edible);
         }
 
