@@ -33,6 +33,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="TextView" />
+            <TextView
+                android:id="@+id/txtTotalsCals"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"/>
         </RelativeLayout>
 
     </androidx.cardview.widget.CardView>
@@ -67,6 +75,15 @@
                 app:autoSizeMaxTextSize="18sp"
                 app:autoSizeStepGranularity="1sp"
                 android:text="TextView" />
+
+            <TextView
+                android:id="@+id/txtBreakfastCals"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"/>
         </RelativeLayout>
 
 
@@ -100,6 +117,15 @@
                 app:autoSizeMaxTextSize="18sp"
                 app:autoSizeStepGranularity="1sp"
                 android:text="TextView" />
+
+            <TextView
+                android:id="@+id/txtLunchCals"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"/>
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 
@@ -132,6 +158,14 @@
                 app:autoSizeMaxTextSize="18sp"
                 app:autoSizeStepGranularity="1sp"
                 android:text="TextView" />
+            <TextView
+                android:id="@+id/txtDinnerCals"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"/>
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 
@@ -164,6 +198,14 @@
                 app:autoSizeMaxTextSize="18sp"
                 app:autoSizeStepGranularity="1sp"
                 android:text="TextView" />
+            <TextView
+                android:id="@+id/txtSnacksCals"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"/>
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 
@@ -175,12 +217,14 @@
         app:layout_constraintBottom_toBottomOf="parent">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/floatingActionButton"
+            android:id="@+id/btnAddFood"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:clickable="true"
             android:focusable="true"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
             app:srcCompat="@android:drawable/ic_input_add" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

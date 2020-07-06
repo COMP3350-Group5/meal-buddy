@@ -1,5 +1,7 @@
 package comp3350.mealbuddy.business;
 
+import java.util.ArrayList;
+
 import comp3350.mealbuddy.objects.Day;
 import comp3350.mealbuddy.objects.Edible;
 
@@ -25,5 +27,7 @@ public class Calculator {
     public int getMicroAmount(Edible.Micros micro) {
         return 2;
     }
+
+    public int getMealTimeCalories(Day.MealTime_t mealTime) { return 100; }
 
 }
