@@ -39,7 +39,9 @@ public class AccessAccount {
         return DAS.validateLogin(username, password);
     }
 
-    public Day getDay(Account a, LocalDate day){
+    public Day getDay(Account a, int day){
         return DAS.getDay(a, day);
     }
+
+    public Account getAccount(String username) { return DAS.getAccount(username); }
 }
