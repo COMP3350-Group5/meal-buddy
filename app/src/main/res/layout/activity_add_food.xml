@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presentation.AddFoodActivity">
+
+    <EditText
+        android:id="@+id/etFoodName"
+        android:layout_width="446dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="44dp"
+        android:ems="10"
+        android:hint="Food Name"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.564"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/etLabels"
+        android:layout_width="446dp"
+        android:layout_height="55dp"
+        android:ems="10"
+        android:hint="Labels (comma separated)"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/etFat"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.564"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etFoodName" />
+
+    <EditText
+        android:id="@+id/etFat"
+        android:layout_width="446dp"
+        android:layout_height="51dp"
+        android:ems="10"
+        android:hint="Fat (g)"
+        android:inputType="numberSigned"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.568"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etLabels"
+        app:layout_constraintVertical_bias="0.068" />
+
+    <EditText
+        android:id="@+id/etCarbs"
+        android:layout_width="447dp"
+        android:layout_height="51dp"
+        android:ems="10"
+        android:hint="Carbs (g)"
+        android:inputType="numberSigned"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etFat"
+        app:layout_constraintVertical_bias="0.098" />
+
+    <EditText
+        android:id="@+id/etProtein"
+        android:layout_width="447dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="136dp"
+        android:ems="10"
+        android:hint="Protein (g)"
+        android:inputType="numberSigned"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etCarbs" />
+
+    <EditText
+        android:id="@+id/etWeight"
+        android:layout_width="447dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="84dp"
+        android:ems="10"
+        android:hint="Weight (g)"
+        android:inputType="numberSigned"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etProtein" />
+
+    <Spinner
+        android:id="@+id/planets_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="124dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_editor_absoluteX="0dp">
+        <resources>
+            <string-array android:name="planets_array">
+                <item>Mercury</item>
+                <item>Venus</item>
+                <item>Earth</item>
+                <item>Mars</item>
+                <item>Jupiter</item>
+                <item>Saturn</item>
+                <item>Uranus</item>
+                <item>Neptune</item>
+            </string-array>
+        </resources>
+
+    </Spinner>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
