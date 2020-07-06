@@ -34,19 +34,17 @@ public class AddFoodActivity extends AppCompatActivity {
         Account account = accessAccount.getAccount(username);
         final Day day = accessAccount.getDay(account, dayOfYear);
 
-        Button submit = (Button) findViewById(R.id.btnAddFood);
-        final EditText name = (EditText) findViewById(R.id.etFoodName);
-        final EditText labels = (EditText) findViewById(R.id.etLabels);
-        final EditText protein = (EditText) findViewById(R.id.etProtein);
-        final EditText fat = (EditText) findViewById(R.id.etFat);
-        final EditText carbs = (EditText) findViewById(R.id.etCarbs);
-        final EditText weight = (EditText) findViewById(R.id.etWeight);
+        Button submit = findViewById(R.id.btnAddFood);
+        final EditText name = findViewById(R.id.etFoodName);
+        final EditText labels = findViewById(R.id.etLabels);
+        final EditText protein = findViewById(R.id.etProtein);
+        final EditText fat = findViewById(R.id.etFat);
+        final EditText carbs = findViewById(R.id.etCarbs);
+        final EditText weight = findViewById(R.id.etWeight);
 
-        final Spinner spinner = (Spinner) findViewById(R.id.spnMealtimes);
+        final Spinner spinner = findViewById(R.id.spnMealtimes);
 
-        submit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        submit.setOnClickListener ((view) -> {
                 ArrayList<String> labelList = new ArrayList<>(Arrays.asList(labels.getText().toString().split(",")));
                 Food food = new Food(name.getText().toString(), labelList);
                 food.setWeight(Integer.parseInt(weight.getText().toString()));
@@ -72,8 +70,6 @@ public class AddFoodActivity extends AppCompatActivity {
                 Intent intent = new Intent(AddFoodActivity.this, TimelineActivity.class);
                 intent.putExtra("username", username);
                 AddFoodActivity.this.startActivity(intent);
-
-            }
         });
     }
 }

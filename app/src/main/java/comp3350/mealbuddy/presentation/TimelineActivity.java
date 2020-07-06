@@ -41,14 +41,11 @@ public class TimelineActivity extends AppCompatActivity {
         calculator = new Calculator(day);
         initializeCards();
         FloatingActionButton addFood = (FloatingActionButton) findViewById(R.id.btnAddFood);
-        addFood.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        addFood.setOnClickListener((view) -> {
                 Intent intent = new Intent(TimelineActivity.this, AddFoodActivity.class);
                 intent.putExtra("dayOfYear", day.dayOfYear);
                 intent.putExtra("username", username);
                 TimelineActivity.this.startActivity(intent);
-            }
         });
     }
 
@@ -63,7 +60,7 @@ public class TimelineActivity extends AppCompatActivity {
     }
 
     private void initializeSnacks() {
-        CardView snacks = (CardView) findViewById(R.id.cardSnacks);
+        CardView snacks = findViewById(R.id.cardSnacks);
         RelativeLayout snacksLayout = (RelativeLayout) snacks.getChildAt(0);
         TextView cardSnacksTitle = (TextView) snacksLayout.getChildAt(0);
         cardSnacksTitle.setText("Snacks");
@@ -74,7 +71,7 @@ public class TimelineActivity extends AppCompatActivity {
     }
 
     private void initializeDinner() {
-        CardView dinner = (CardView) findViewById(R.id.cardDinner);
+        CardView dinner = findViewById(R.id.cardDinner);
         RelativeLayout dinnerLayout = (RelativeLayout) dinner.getChildAt(0);
         TextView cardDinnerTitle = (TextView) dinnerLayout.getChildAt(0);
         cardDinnerTitle.setText("Dinner");
@@ -85,7 +82,7 @@ public class TimelineActivity extends AppCompatActivity {
     }
 
     private void initializeLunch() {
-        CardView lunch = (CardView) findViewById(R.id.cardLunch);
+        CardView lunch = findViewById(R.id.cardLunch);
         RelativeLayout lunchLayout = (RelativeLayout) lunch.getChildAt(0);
         TextView cardLunchTitle = (TextView) lunchLayout.getChildAt(0);
         cardLunchTitle.setText("Lunch");
@@ -96,7 +93,7 @@ public class TimelineActivity extends AppCompatActivity {
     }
 
     private void initializeBreakfast() {
-        CardView breakfast = (CardView) findViewById(R.id.cardBreakfast);
+        CardView breakfast = findViewById(R.id.cardBreakfast);
         RelativeLayout breakfastLayout = (RelativeLayout) breakfast.getChildAt(0);
         TextView cardBreakfastTitle = (TextView) breakfastLayout.getChildAt(0);
         cardBreakfastTitle.setText("Breakfast");
@@ -107,7 +104,7 @@ public class TimelineActivity extends AppCompatActivity {
     }
 
     private void initializeTotals() {
-        CardView totals = (CardView) findViewById(R.id.cardTotals);
+        CardView totals = findViewById(R.id.cardTotals);
         RelativeLayout totalsLayout = (RelativeLayout) totals.getChildAt(0);
         TextView cardTotalsTitle = (TextView) totalsLayout.getChildAt(0);
         cardTotalsTitle.setText("Totals");

@@ -14,7 +14,7 @@ public abstract class Edible {
     public Map<Macros, Integer> macros;
 
     public enum Macros{
-        Fat, Omega6, Omega3, Saturated, Trans, Carbohydrates, Sugar, Fibre, Protein,
+        Fat, Omega6, Omega3, Saturated, Trans, Carbohydrates, Sugar, Fibre, Protein, Alcohol
     }
 
     public enum Micros{

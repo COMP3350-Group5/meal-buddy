@@ -31,8 +31,8 @@ public class Meal extends Edible{
     @Override
     public String toString(){
         String meal = name + ": ";
-        for (HashMap.Entry<Food, Integer> food : foodInMeal.entrySet()) {
-            meal += (food.getValue().toString() + " " + food.getKey().toString() + " ");
+        for (FoodIntPair pair: foodInMeal) {
+            meal += (pair.quantity + " " + pair.food + " ");
         }
         return meal;
     }
