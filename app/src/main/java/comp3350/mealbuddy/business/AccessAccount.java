@@ -17,7 +17,7 @@ public class AccessAccount {
     }
 
     public void addAccount(Account a){
-        DAS.addToDB(database_type, a);
+        DAS.addToDB(databaseType, a);
     }
 
     //in case you want to build an account from user info
