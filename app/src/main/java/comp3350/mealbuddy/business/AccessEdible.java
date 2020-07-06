@@ -7,7 +7,7 @@ import comp3350.mealbuddy.persistence.DataAccessStub;
 
 public class AccessEdible {
     private DataAccessStub DAS;
-    private DataAccessStub.DatabaseType database_type;
+    private DataAccessStub.DatabaseType databaseType;
 
     public AccessEdible(){
         DAS = Services.openDAS(Main.DATABASE_NAME);
