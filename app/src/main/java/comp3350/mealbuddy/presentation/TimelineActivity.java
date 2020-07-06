@@ -38,7 +38,7 @@ public class TimelineActivity extends AppCompatActivity {
         accessAccount = new AccessAccount();
         day = accessAccount.getDay(accessAccount.getAccount(username), calendar.get(Calendar.DAY_OF_YEAR));
         System.err.println(day.dayOfYear);
-        Calculator calculator = new Calculator(day);
+        calculator = new Calculator(day);
         initializeCards();
         FloatingActionButton addFood = (FloatingActionButton) findViewById(R.id.btnAddFood);
         addFood.setOnClickListener(new View.OnClickListener() {
