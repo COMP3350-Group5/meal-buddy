@@ -13,11 +13,12 @@ public abstract class Edible {
     public Map<Macros, Integer> macros;
 
     public enum Macros{
-        Fat, Omega6, Omega3, Saturated, Trans, Carbohydrates, Sugar, Fibre, Protein,
+        Fat, Omega6, Omega3, Unsaturated, Saturated, Trans, Carbohydrates, Sugar, Fibre, Protein, Alcohol
     }
 
     public enum Micros{
-        Iron, Zinc, VitaminA, VitaminB12, VitaminC, Choline,
+        Iron, Zinc, VitaminA, VitaminB12, VitaminC, VitaminD, VitaminE, VitaminK,
+        Calcium, Choline, Magnesium, Sodium, Potassium, Iodine
     }
 
     public Edible(String name, List<String> labels) {

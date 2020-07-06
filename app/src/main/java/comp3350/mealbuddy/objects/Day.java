@@ -1,8 +1,9 @@
 package comp3350.mealbuddy.objects;
 
+import java.util.ArrayList;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.HashMap;
 
 public class Day {
     public enum MealTime_t {
@@ -10,10 +11,10 @@ public class Day {
     }
     public LocalDate LD; //the local date: e.g. 2020-07-04
     //lists of food TIMESTAMPED by local time: (e.g., 10:15:20 -> Banana)
-    private HashMap<LocalTime, Edible> breakfast;
-    private HashMap<LocalTime, Edible> lunch;
-    private HashMap<LocalTime, Edible> dinner;
-    private HashMap<LocalTime, Edible> snack;
+    public ArrayList<Edible> breakfast;
+    public ArrayList<Edible> lunch;
+    public ArrayList<Edible> dinner;
+    public ArrayList<Edible> snack;
 
     public Day (LocalDate LD) {
         this.LD = LD;
