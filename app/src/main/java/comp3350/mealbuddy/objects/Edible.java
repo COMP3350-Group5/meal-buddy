@@ -7,6 +7,8 @@ import java.util.Map;
 
 public abstract class Edible {
 
+    public static final String CALORIES = "Calories";
+
     public String name;
     public List<String> labels;
     public Map<Micros, Integer> micros;
@@ -23,6 +25,9 @@ public abstract class Edible {
     public Edible(String name, List<String> labels) {
         this.name = name;
         this.labels = labels;
+        if(!labels.contains(CALORIES)){
+            labels.add(CALORIES);
+        }
         micros = makeMicros();
         macros = makeMacros();
     }

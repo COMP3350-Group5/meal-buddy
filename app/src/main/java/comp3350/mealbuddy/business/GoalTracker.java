@@ -41,8 +41,10 @@ public class GoalTracker {
             return calc.getMacroCalories(((MacroGoal)g).id);
         else if (g instanceof MicroGoal)
             return calc.getMicroAmount(((MicroGoal)g).id);
-        else
+        else if (g instanceof LabelGoal)
             return calc.getLabelCalories(((LabelGoal)g).id);
+        else    //calorie goal
+            return calc.getTotalCalories();
     }
 }
 
