@@ -19,7 +19,8 @@ public abstract class Edible {
     }
 
     public enum Micros{
-        Iron, Zinc, VitaminA, VitaminB12, VitaminC, Choline,
+        Iron, Zinc, VitaminA, VitaminB12, VitaminC, VitaminE,
+        Calcium, Choline, Magnesium, Sodium, Potassium, Niacin
     }
 
     public Edible(String name, List<String> labels) {

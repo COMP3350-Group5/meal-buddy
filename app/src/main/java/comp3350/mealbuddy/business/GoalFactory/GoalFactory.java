@@ -1,39 +1,37 @@
-package comp3350.mealbuddy.business;
+package comp3350.mealbuddy.business.GoalFactory;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import comp3350.mealbuddy.objects.CalorieGoal;
-import comp3350.mealbuddy.objects.Edible;
-import comp3350.mealbuddy.objects.Edible.Macros;
-import comp3350.mealbuddy.objects.Edible.Micros;
 import comp3350.mealbuddy.objects.Goal;
-import comp3350.mealbuddy.objects.Goal.GoalType;
-import comp3350.mealbuddy.objects.MacroGoal;
 import comp3350.mealbuddy.objects.UserInfo;
-import comp3350.mealbuddy.objects.UserInfo.ActivityLevel;
 
-import static comp3350.mealbuddy.objects.Edible.Macros.Fat;
-import static comp3350.mealbuddy.objects.Edible.Macros.Carbohydrates;
-import static comp3350.mealbuddy.objects.Edible.Macros.Protein;
 import static comp3350.mealbuddy.objects.UserInfo.Sex.MALE;
 
-public class DefaultGoalFactory extends GoalFactory {
 
-    private UserInfo userInfo;
+public abstract class GoalFactory {
 
-    public DefaultGoalFactory(UserInfo userInfo) {
+    protected UserInfo userInfo;
+
+    public GoalFactory(UserInfo userInfo) {
         this.userInfo = userInfo;
     }
 
-    @Override
-    public List<Goal> makeGoals() {
-        List<Goal> list = new ArrayList<>();
-
-        return list;
+    public List<Goal> makeGoals(){
+        List<Goal> goalList = new ArrayList<>();
+        addTotalCalorieGoal(userInfo, goalList);
+        addMacroGoals(userInfo, goalList);
+        addMicroGoals(userInfo, goalList);
+        addLabelGoals(userInfo, goalList);
+        return goalList;
     }
 
-    private void generateTotalCalorieGoal(UserInfo userInfo, List<Goal> goalList){
+    protected abstract void addMacroGoals(UserInfo userInfo, List<Goal> goalList);
+    protected abstract void addMicroGoals(UserInfo userInfo, List<Goal> goalList);
+    protected abstract void addLabelGoals(UserInfo userInfo, List<Goal> goalList);
+
+    private void addTotalCalorieGoal(UserInfo userInfo, List<Goal> goalList){
         int recCalAmount;
         int calVariance = 200;
         if(userInfo.sex == MALE){
@@ -41,7 +39,7 @@ public class DefaultGoalFactory extends GoalFactory {
         }else{
             recCalAmount = getFemaleTotalCalorieRecAmnt(userInfo);
         }
-        goalList.add(new CalorieGoal(recCalAmount-calVariance, recCalAmount+calVariance, QUANTITY));
+        goalList.add(new CalorieGoal(recCalAmount-calVariance, recCalAmount+calVariance, Goal.GoalType.QUANTITY));
     }
 
     private int getMaleTotalCalorieRecAmnt(UserInfo userInfo){
@@ -68,7 +66,7 @@ public class DefaultGoalFactory extends GoalFactory {
         return (int)recommendedCalories;
     }
 
-    private double getActivityCoefficient(ActivityLevel activityLevel) {
+    private double getActivityCoefficient(UserInfo.ActivityLevel activityLevel) {
         double activityCoefficient = -1;
         switch (activityLevel) {
             case LOW:
@@ -83,26 +81,5 @@ public class DefaultGoalFactory extends GoalFactory {
         }
         return activityCoefficient;
     }
-
-    private void generateMacroGoals(UserInfo userInfo, List<Goal> goalList){
-        int MacroVariance = 5;
-        int fatPercent = 25;
-        int proteinPercent = 25;
-        int carbPercent = 50;
-        GoalType gType = GoalType.RATIO;
-        goalList.add(new MacroGoal(fatPercent-MacroVariance, fatPercent+MacroVariance, gType, Fat));
-        goalList.add(new MacroGoal(proteinPercent-MacroVariance, proteinPercent+MacroVariance, gType, Protein));
-        goalList.add(new MacroGoal(carbPercent-MacroVariance, carbPercent+MacroVariance, gType, Carbohydrates));
-    }
-
-    private void generateMicroGoals(UserInfo userInfo, List<Goal> goalList){
-
-    }
-
-
-
-
-
-
 
 }
