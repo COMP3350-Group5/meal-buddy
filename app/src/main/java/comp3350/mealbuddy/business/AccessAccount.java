@@ -9,7 +9,7 @@ import comp3350.mealbuddy.persistence.DataAccessStub;
 
 public class AccessAccount {
     private DataAccessStub DAS;
-    private DataAccessStub.DatabaseType database_type;
+    private DataAccessStub.DatabaseType databaseType;
 
     public AccessAccount(){
         DAS = Services.openDAS(Main.DATABASE_NAME);
