@@ -13,7 +13,8 @@ public class Meal extends Edible{
     }
 
     public void updateFood(Food toAdd, int quantity){
-        foodInMeal.put(toAdd, quantity);
+        if (quantity <= 0) foodInMeal.remove(toAdd);
+        else foodInMeal.put(toAdd, quantity);
     }
 
     public void removeFood(Food toRemove) {
