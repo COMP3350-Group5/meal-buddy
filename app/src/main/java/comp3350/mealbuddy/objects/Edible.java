@@ -17,7 +17,7 @@ public abstract class Edible {
     }
 
     public enum Micros{
-        Iron, Zinc, VitaminA, VitaminB12, VitaminC, VitaminD, VitaminE, VitaminK,
+        Iron, Zinc, VitaminA, VitaminB12, VitaminC,  VitaminE, 
         Calcium, Choline, Magnesium, Sodium, Potassium, Iodine
     }
 
