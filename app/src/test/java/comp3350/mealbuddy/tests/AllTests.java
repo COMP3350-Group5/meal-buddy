@@ -2,6 +2,8 @@
 package comp3350.mealbuddy.tests;
 
 
+import comp3350.mealbuddy
+
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 

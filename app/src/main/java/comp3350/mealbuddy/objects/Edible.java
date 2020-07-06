@@ -7,8 +7,6 @@ import java.util.Map;
 
 public abstract class Edible {
 
-    public static final String CALORIES = "Calories";
-
     public String name;
     public List<String> labels;
     public Map<Micros, Integer> micros;
@@ -19,16 +17,13 @@ public abstract class Edible {
     }
 
     public enum Micros{
-        Iron, Zinc, VitaminA, VitaminB12, VitaminC, VitaminE,
+        Iron, Zinc, VitaminA, VitaminB12, VitaminC,  VitaminE,
         Calcium, Choline, Magnesium, Sodium, Potassium, Niacin
     }
 
     public Edible(String name, List<String> labels) {
         this.name = name;
         this.labels = labels;
-        if(!labels.contains(CALORIES)){
-            labels.add(CALORIES);
-        }
         micros = makeMicros();
         macros = makeMacros();
     }
