@@ -32,13 +32,10 @@ public abstract class GoalFactory {
     protected abstract void addLabelGoals(UserInfo userInfo, List<Goal> goalList);
 
     private void addTotalCalorieGoal(UserInfo userInfo, List<Goal> goalList){
-        int recCalAmount;
+        int recCalAmount = (userInfo.sex == MALE) 
+            ?   getMaleTotalCalorieRecAmnt(userInfo)
+            :    getFemaleTotalCalorieRecAmnt(userInfo)
         int calVariance = 200;
-        if(userInfo.sex == MALE){
-            recCalAmount = getMaleTotalCalorieRecAmnt(userInfo);
-        }else{
-            recCalAmount = getFemaleTotalCalorieRecAmnt(userInfo);
-        }
         goalList.add(new CalorieGoal(recCalAmount-calVariance, recCalAmount+calVariance, Goal.GoalType.QUANTITY));
     }
 
