@@ -1,20 +1,17 @@
 
 package comp3350.mealbuddy.tests;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
-
-import comp3350.mealbuddy.tests.business.RatioGoalTrackerTest;
-import comp3350.mealbuddy.tests.objects.GoalTest;
-
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
+
+import comp3350.mealbuddy.tests.business.DefaultGoalFactorTest;
+import comp3350.mealbuddy.tests.business.RecommendedCalorieCalculatorTest;
 
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-        GoalTest.class,
-        RatioGoalTrackerTest.class,
+        DefaultGoalFactorTest.class,
+        RecommendedCalorieCalculatorTest.class
 })
 
 public class AllTests {
