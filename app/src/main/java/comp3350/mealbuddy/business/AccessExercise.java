@@ -19,7 +19,7 @@ public class AccessExercise {
     }
 
     public void updateExercise(Exercise e){
-        DAS.updateDB(database_type, e);
+        DAS.updateDB(databaseType, e);
     }
 
     public void removeExercise(Exercise e){
