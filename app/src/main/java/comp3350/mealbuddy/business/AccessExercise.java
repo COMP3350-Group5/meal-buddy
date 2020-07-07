@@ -23,7 +23,7 @@ public class AccessExercise {
     }
 
     public void removeExercise(Exercise e){
-        DAS.removeFromDB(database_type, e);
+        DAS.removeFromDB(databaseType, e);
     }
 
 }
