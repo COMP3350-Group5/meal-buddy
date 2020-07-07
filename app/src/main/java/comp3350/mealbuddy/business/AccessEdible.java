@@ -23,7 +23,7 @@ public class AccessEdible {
     }
 
     public void removeEdible(Edible e){
-        DAS.removeFromDB(database_type, e);
+        DAS.removeFromDB(databaseType, e);
     }
 
 }
