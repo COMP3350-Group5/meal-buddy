@@ -1,6 +1,7 @@
 package comp3350.mealbuddy.business;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import comp3350.mealbuddy.objects.Day;
 import comp3350.mealbuddy.objects.consumables.Edible;
@@ -20,7 +21,12 @@ public class Calculator {
     public Day day;
 
     public Calculator(Day day) {
-        this.day = day;
+        this.day = (day == null) ? createNewDay() : day;
+    }
+
+    private Day createNewDay() {
+        Calendar calendar = Calendar.getInstance();
+        return new Day(calendar.get(Calendar.DAY_OF_YEAR));
     }
 
     public int getTotalCalories() {
@@ -63,7 +69,7 @@ public class Calculator {
         return getListCalories(day.getMealTimeList(mealTime));
     }
 
-    public int getMealTimeMacros(Day.MealTimeType mealTime, Edible.Macros macro) {
+    public int getMealTimeMacroCalories(Day.MealTimeType mealTime, Edible.Macros macro) {
         return getListMacroCalories(day.getMealTimeList(mealTime), macro);
     }
 

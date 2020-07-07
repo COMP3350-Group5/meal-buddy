@@ -1,4 +1,4 @@
-package comp3350.mealbuddy.business.goalfactory;
+package comp3350.mealbuddy.business.goalFactory;
 
 import comp3350.mealbuddy.objects.UserInfo;
 import comp3350.mealbuddy.objects.UserInfo.ActivityLevel;

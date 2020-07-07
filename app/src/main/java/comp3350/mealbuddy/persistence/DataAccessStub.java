@@ -3,9 +3,9 @@ package comp3350.mealbuddy.persistence;
 import comp3350.mealbuddy.objects.Account;
 import comp3350.mealbuddy.objects.Day;
 import comp3350.mealbuddy.objects.consumables.Edible;
-import comp3350.mealbuddy.objects.Exercise;
 import comp3350.mealbuddy.objects.consumables.Food;
 import comp3350.mealbuddy.objects.consumables.Meal;
+import comp3350.mealbuddy.objects.Exercise;
 import comp3350.mealbuddy.objects.UserInfo;
 
 import java.util.ArrayList;
@@ -96,7 +96,7 @@ public class DataAccessStub {
                     (ArrayList) food[1]
             );
             edible.setWeight((int)food[2]);
-            edible.addMacro((Edible.Macros) food[3], (int) food[4]);
+            edible.updateMacro((Edible.Macros) food[3], (int) food[4]);
             day.addFood(Day.MealTimeType.BREAKFAST, edible);
         }
 
@@ -106,7 +106,7 @@ public class DataAccessStub {
                     (ArrayList) food[1]
             );
             edible.setWeight((int)food[2]);
-            edible.addMacro((Edible.Macros) food[3], (int) food[4]);
+            edible.updateMacro((Edible.Macros) food[3], (int) food[4]);
             day.addFood(Day.MealTimeType.LUNCH, edible);
         }
 
@@ -116,7 +116,7 @@ public class DataAccessStub {
                     (ArrayList) food[1]
             );
             edible.setWeight((int)food[2]);
-            edible.addMacro((Edible.Macros) food[3], (int) food[4]);
+            edible.updateMacro((Edible.Macros) food[3], (int) food[4]);
             day.addFood(Day.MealTimeType.DINNER, edible);
         }
 
@@ -126,7 +126,7 @@ public class DataAccessStub {
                     (ArrayList) food[1]
             );
             edible.setWeight((int)food[2]);
-            edible.addMacro((Edible.Macros) food[3], (int) food[4]);
+            edible.updateMacro((Edible.Macros) food[3], (int) food[4]);
             day.addFood(Day.MealTimeType.SNACK, edible);
         }
 

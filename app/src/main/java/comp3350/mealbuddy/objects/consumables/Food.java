@@ -1,5 +1,6 @@
 package comp3350.mealbuddy.objects.consumables;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -8,6 +9,10 @@ public class Food extends Edible {
 
     public Food(String name, List<String> labels) {
         super(name, labels);
+    }
+
+    public Food(String name) {
+        super(name, new ArrayList<String>());
     }
 
     public void setWeight(int weight){

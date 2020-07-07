@@ -1,4 +1,4 @@
-package comp3350.mealbuddy.business.goalfactory;
+package comp3350.mealbuddy.business.goalFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +32,7 @@ public abstract class GoalFactory {
 
     private void addTotalCalorieGoal(UserInfo userInfo, List<Goal> goalList){
         int recCalAmnt = RecommendedCalorieCalculator.getTotalRecommendedCalories(userInfo);
-        int goalBuffer = 200;   //set the goal acheived if plus or minus 200 from the recomended amount
+        int goalBuffer = 200;   //set the goal achieved if plus or minus 200 from the recommended amount
         goalList.add(new CalorieGoal(recCalAmnt-goalBuffer, recCalAmnt+goalBuffer));
     }
 
