@@ -7,23 +7,23 @@ import comp3350.mealbuddy.persistence.DataAccessStub;
 
 public class AccessExercise {
     private DataAccessStub DAS;
-    private DataAccessStub.Database_t database_t;
+    private DataAccessStub.DatabaseType databaseType;
 
     public AccessExercise(){
         DAS = Services.openDAS(Main.DATABASE_NAME);
-        database_t = DataAccessStub.Database_t.EXERCISES;
+        databaseType = DataAccessStub.DatabaseType.EXERCISES;
     }
 
     public void addExercise(Exercise e){
-        DAS.addToDB(database_t, e);
+        DAS.addToDB(databaseType, e);
     }
 
     public void updateExercise(Exercise e){
-        DAS.updateDB(database_t, e);
+        DAS.updateDB(databaseType, e);
     }
 
     public void removeExercise(Exercise e){
-        DAS.removeFromDB(database_t, e);
+        DAS.removeFromDB(databaseType, e);
     }
 
 }

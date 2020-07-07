@@ -1,17 +1,14 @@
 package comp3350.mealbuddy.business;
 
-import androidx.core.util.Pair;
-
 import java.util.ArrayList;
-import java.util.Map;
 
 import comp3350.mealbuddy.objects.Day;
-import comp3350.mealbuddy.objects.Edible;
-import comp3350.mealbuddy.objects.Food;
-import comp3350.mealbuddy.objects.FoodIntPair;
-import comp3350.mealbuddy.objects.Meal;
+import comp3350.mealbuddy.objects.consumables.Edible;
+import comp3350.mealbuddy.objects.consumables.Food;
+import comp3350.mealbuddy.objects.consumables.FoodIntPair;
+import comp3350.mealbuddy.objects.consumables.Meal;
 
-import static comp3350.mealbuddy.objects.Edible.Macros.*;
+import static comp3350.mealbuddy.objects.consumables.Edible.Macros.*;
 
 public class Calculator {
 
@@ -62,30 +59,30 @@ public class Calculator {
         return totalMgs;
     }
 
-    public int getMealTimeCalories(Day.MealTime_t mealTime) {
+    public int getMealTimeCalories(Day.MealTimeType mealTime) {
         return getListCalories(day.getMealTimeList(mealTime));
     }
 
-    public int getMealTimeMacros(Day.MealTime_t mealTime, Edible.Macros macro) {
+    public int getMealTimeMacros(Day.MealTimeType mealTime, Edible.Macros macro) {
         return getListMacroCalories(day.getMealTimeList(mealTime), macro);
     }
 
-    public int getMealTimeLabelCalories(Day.MealTime_t mealTime, String label) {
+    public int getMealTimeLabelCalories(Day.MealTimeType mealTime, String label) {
         return getListLabelCalories(day.getMealTimeList(mealTime), label);
     }
 
-    public int getMealTimeMicroMgs(Day.MealTime_t mealTime, Edible.Micros micro) {
+    public int getMealTimeMicroMgs(Day.MealTimeType mealTime, Edible.Micros micro) {
         return getListMicroMgs(day.getMealTimeList(mealTime), micro);
     }
 
     private int getListCalories(ArrayList<Edible> foodList) {
         int totalCalories = 0;
-        for (Edible edible: foodList) {
+        for (Edible edible : foodList) {
             if (edible instanceof Food) {
-                totalCalories += getFoodCalories((Food)edible);
+                totalCalories += getFoodCalories((Food) edible);
             }
             else {
-                totalCalories += getMealCalories((Meal)edible);
+                totalCalories += getMealCalories((Meal) edible);
             }
         }
         return totalCalories;
@@ -102,7 +99,7 @@ public class Calculator {
 
     private int getMealCalories(Meal meal) {
         int totalCalories = 0;
-        for (FoodIntPair foodQuantityPair: meal.foodInMeal) {
+        for (FoodIntPair foodQuantityPair: meal.ediblesInMeal) {
             int foodQuantity = foodQuantityPair.quantity;
             Food food = foodQuantityPair.food;
             totalCalories += foodQuantity * getFoodCalories(food);
@@ -112,12 +109,12 @@ public class Calculator {
 
     private int getListMacroCalories(ArrayList<Edible> foodList, Edible.Macros macro) {
         int totalCalories = 0;
-        for (Edible edible: foodList) {
+        for (Edible edible : foodList) {
             if (edible instanceof Food) {
-                totalCalories += getFoodMacroCalories((Food)edible, macro);
+                totalCalories += getFoodMacroCalories((Food) edible, macro);
             }
             else {
-                totalCalories += getMealMacroCalories((Meal)edible, macro);
+                totalCalories += getMealMacroCalories((Meal) edible, macro);
             }
         }
         return totalCalories;
@@ -130,7 +127,7 @@ public class Calculator {
 
     private int getMealMacroCalories(Meal meal, Edible.Macros macro) {
         int totalCalories = 0;
-        for (FoodIntPair foodQuantityPair: meal.foodInMeal) {
+        for (FoodIntPair foodQuantityPair: meal.ediblesInMeal) {
             int foodQuantity = foodQuantityPair.quantity;
             Food food = foodQuantityPair.food;
             totalCalories += foodQuantity * getFoodMacroCalories(food, macro);
@@ -158,12 +155,12 @@ public class Calculator {
 
     private int getListMicroMgs(ArrayList<Edible> foodList, Edible.Micros micro) {
         int totalMg = 0;
-        for (Edible edible: foodList) {
+        for (Edible edible : foodList) {
             if (edible instanceof Food) {
-                totalMg += ((Food)edible).micros.get(micro);
+                totalMg += ((Food) edible).micros.get(micro);
             }
             else {
-                totalMg += getMealMicroMgs((Meal)edible, micro);
+                totalMg += getMealMicroMgs((Meal) edible, micro);
             }
         }
         return totalMg;
@@ -171,7 +168,7 @@ public class Calculator {
 
     private int getMealMicroMgs (Meal meal, Edible.Micros micro) {
         int totalMg = 0;
-        for (FoodIntPair foodQuantityPair: meal.foodInMeal) {
+        for (FoodIntPair foodQuantityPair: meal.ediblesInMeal) {
             int foodQuantity = foodQuantityPair.quantity;
             int microQuantity = foodQuantityPair.food.micros.get(micro);
             totalMg += foodQuantity * microQuantity;
@@ -181,12 +178,12 @@ public class Calculator {
 
     private int getListLabelCalories(ArrayList<Edible> foodList, String label) {
         int totalCalories = 0;
-        for (Edible edible: foodList) {
+        for (Edible edible : foodList) {
             if (edible instanceof Food) {
-                totalCalories += getFoodLabelCalories((Food)edible, label);
+                totalCalories += getFoodLabelCalories((Food) edible, label);
             }
             else {
-                totalCalories += getMealLabelCalories((Meal)edible, label);
+                totalCalories += getMealLabelCalories((Meal) edible, label);
             }
         }
         return totalCalories;
@@ -202,7 +199,7 @@ public class Calculator {
 
     private int getMealLabelCalories(Meal meal, String label) {
         int totalCalories = 0;
-        for (FoodIntPair foodQuantityPair: meal.foodInMeal) {
+        for (FoodIntPair foodQuantityPair: meal.ediblesInMeal) {
             Food food = foodQuantityPair.food;
             int foodQuantity = foodQuantityPair.quantity;
             totalCalories += foodQuantity * getFoodLabelCalories(food, label);

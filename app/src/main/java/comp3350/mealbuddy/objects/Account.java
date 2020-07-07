@@ -2,6 +2,8 @@ package comp3350.mealbuddy.objects;
 
 import java.util.ArrayList;
 
+import comp3350.mealbuddy.objects.goals.Goal;
+
 public class Account {
 
     public UserInfo user;

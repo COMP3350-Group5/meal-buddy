@@ -1,13 +1,8 @@
-package comp3350.mealbuddy.objects;
-
-import android.os.Build;
+package comp3350.mealbuddy.objects.goals;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 
-import java.util.Objects;
-
-import comp3350.mealbuddy.objects.Edible.Micros;
+import comp3350.mealbuddy.objects.consumables.Edible.Micros;
 
 public class MicroGoal extends Goal {
 

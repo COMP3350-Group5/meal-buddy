@@ -1,6 +1,4 @@
-package comp3350.mealbuddy.objects;
-
-import java.util.Objects;
+package comp3350.mealbuddy.objects.consumables;
 
 public class FoodIntPair {
 
