@@ -15,7 +15,7 @@ public class AccessExercise {
     }
 
     public void addExercise(Exercise e){
-        DAS.addToDB(database_type, e);
+        DAS.addToDB(databaseType, e);
     }
 
     public void updateExercise(Exercise e){
