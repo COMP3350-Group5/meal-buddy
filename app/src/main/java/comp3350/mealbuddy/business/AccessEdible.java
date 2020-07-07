@@ -15,7 +15,7 @@ public class AccessEdible {
     }
 
     public void addEdible(Edible e){
-        DAS.addToDB(database_type, e);
+        DAS.addToDB(databaseType, e);
     }
 
     public void updateEdible(Edible e){
