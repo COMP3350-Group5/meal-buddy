@@ -19,7 +19,7 @@ public class AccessEdible {
     }
 
     public void updateEdible(Edible e){
-        DAS.updateDB(database_type, e);
+        DAS.updateDB(databaseType, e);
     }
 
     public void removeEdible(Edible e){
