@@ -11,7 +11,7 @@ public class AccessExercise {
 
     public AccessExercise(){
         DAS = Services.openDAS(Main.DATABASE_NAME);
-        database_type = DataAccessStub.DatabaseType.EXERCISES;
+        databaseType = DataAccessStub.DatabaseType.EXERCISES;
     }
 
     public void addExercise(Exercise e){
