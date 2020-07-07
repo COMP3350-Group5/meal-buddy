@@ -11,7 +11,7 @@ public class AccessEdible {
 
     public AccessEdible(){
         DAS = Services.openDAS(Main.DATABASE_NAME);
-        database_type = DataAccessStub.DatabaseType.EDIBLES;
+        databaseType = DataAccessStub.DatabaseType.EDIBLES;
     }
 
     public void addEdible(Edible e){
