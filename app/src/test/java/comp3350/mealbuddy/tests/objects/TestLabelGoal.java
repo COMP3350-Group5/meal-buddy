@@ -52,7 +52,7 @@ public class TestLabelGoal {
 
     public void testEquals_nullObject_shouldFail() {
         LabelGoal goal = new LabelGoal(lowerBound, upperBound, Goal.GoalType.RATIO, "High Fat");
-        MicroGoal testGoal = null;
+        LabelGoal testGoal = null;
 
         try {
             Assert.assertTrue(goal.equals(testGoal));

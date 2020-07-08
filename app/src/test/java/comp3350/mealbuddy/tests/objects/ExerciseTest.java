@@ -11,7 +11,7 @@ public class ExerciseTest{
     public static final double DURATION_TESTVALUE = 10.00;
     public static final double ASSERT_DELTAPRECISION = 0.000000001;
 
-    public void testExercise() {
+    public void test_exerciseConstructor() {
         Exercise exercise = new Exercise("lunges");
         exercise.duration = 10.00;
 
