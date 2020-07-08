@@ -5,7 +5,6 @@ import comp3350.mealbuddy.objects.goals.Goal;
 
 import org.junit.Assert;
 
-
 public class TestCalorieGoal {
     public static final int lowerBound = 5;
     public static final int upperBound = 10;

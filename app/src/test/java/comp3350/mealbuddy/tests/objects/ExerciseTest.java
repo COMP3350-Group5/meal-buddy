@@ -6,7 +6,6 @@ import org.junit.Test;
 import comp3350.mealbuddy.objects.Exercise;
 
 
-
 public class ExerciseTest{
     public static final double DURATION_TESTVALUE = 10.00;
     public static final double ASSERT_DELTAPRECISION = 0.000000001;

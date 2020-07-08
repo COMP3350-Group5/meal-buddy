@@ -9,10 +9,6 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 
-
-
-
-
 public class TestFoodIntPair {
 
     public void test_Constructor() {

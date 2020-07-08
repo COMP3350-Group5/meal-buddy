@@ -107,13 +107,12 @@ public class DayTest {
     }
 
     public void getMeal_noFoodAdded_get() {
-        Food eddie = new Food("fake food", new ArrayList<>(Arrays.asList("fake")));
         Day.MealTimeType MTT = Day.MealTimeType.DINNER;
         Day day = new Day(1);
 
         String meal = day.getMeal(MTT);
 
-        Assert.assertFalse(meal.equals(""));
+        Assert.assertTrue(meal.equals(""));
     }
 
 

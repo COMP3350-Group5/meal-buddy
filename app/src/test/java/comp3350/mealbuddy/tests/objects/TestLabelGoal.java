@@ -11,7 +11,6 @@ import org.junit.Assert;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class TestLabelGoal {
     public static final int lowerBound = 5;
     public static final int upperBound = 10;

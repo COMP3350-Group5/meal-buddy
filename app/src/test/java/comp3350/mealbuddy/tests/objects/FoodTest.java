@@ -4,12 +4,10 @@ import org.junit.Assert;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import comp3350.mealbuddy.objects.consumables.Edible;
 import comp3350.mealbuddy.objects.consumables.Edible.Macros;
 import comp3350.mealbuddy.objects.consumables.Edible.Micros;
 import comp3350.mealbuddy.objects.consumables.Food;
-
 
 
 public class FoodTest {
