@@ -2,6 +2,7 @@ package comp3350.mealbuddy.tests.objects;
 import org.junit.Assert;
 import comp3350.mealbuddy.objects.UserInfo;
 
+
 public class UserInfoTest {
     public static final double HEIGHT_TESTVALUE = 150.55;
     public static final double WEIGHT_TESTVALUE = 170.61;

@@ -1,5 +1,4 @@
 package comp3350.mealbuddy.tests.objects;
-
 import org.junit.Assert;
 import org.junit.Test;
 

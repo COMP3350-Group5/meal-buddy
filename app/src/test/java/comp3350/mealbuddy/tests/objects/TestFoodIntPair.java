@@ -2,7 +2,6 @@ package comp3350.mealbuddy.tests.objects;
 import comp3350.mealbuddy.objects.consumables.Edible;
 import comp3350.mealbuddy.objects.consumables.FoodIntPair;
 import comp3350.mealbuddy.objects.consumables.Food;
-
 import java.util.ArrayList;
 import java.util.List;
 

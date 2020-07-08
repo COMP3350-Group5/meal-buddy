@@ -6,7 +6,6 @@ import comp3350.mealbuddy.objects.goals.Goal;
 import comp3350.mealbuddy.objects.consumables.Edible.Macros;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.junit.Assert;
 
 public class TestMacroGoal {

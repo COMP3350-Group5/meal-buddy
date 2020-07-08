@@ -1,5 +1,4 @@
 package comp3350.mealbuddy.tests.objects;
-
 import comp3350.mealbuddy.objects.goals.CalorieGoal;
 import comp3350.mealbuddy.objects.goals.Goal;
 

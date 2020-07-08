@@ -6,7 +6,6 @@ import comp3350.mealbuddy.objects.goals.MacroGoal;
 import comp3350.mealbuddy.objects.goals.MicroGoal;
 import comp3350.mealbuddy.objects.goals.Goal;
 import comp3350.mealbuddy.objects.consumables.Edible.Micros;
-
 import org.junit.Assert;
 
 import java.util.ArrayList;
