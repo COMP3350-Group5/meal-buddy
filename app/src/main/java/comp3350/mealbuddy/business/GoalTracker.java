@@ -16,7 +16,7 @@ public class GoalTracker {
      */
     public static List<Goal> getPassedGoals(Calculator calc, List<Goal> goals){
         if (calc == null || goals == null) {
-            return new ArrayList<>();
+            throw new NullPointerException("Calculator and goals must be not null");
         }
 
         ArrayList<Goal> passedGoals = new ArrayList<>();

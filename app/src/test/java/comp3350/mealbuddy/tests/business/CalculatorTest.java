@@ -8,12 +8,12 @@ import java.util.ArrayList;
 
 import comp3350.mealbuddy.business.Calculator;
 import comp3350.mealbuddy.objects.Day;
-import comp3350.mealbuddy.objects.consumables.Edible;
 import comp3350.mealbuddy.objects.consumables.Food;
 import comp3350.mealbuddy.objects.consumables.Meal;
 
 import static comp3350.mealbuddy.objects.consumables.Edible.Macros.*;
 import static comp3350.mealbuddy.objects.consumables.Edible.Micros.*;
+import static org.junit.Assert.fail;
 
 public class CalculatorTest {
 
@@ -37,15 +37,20 @@ public class CalculatorTest {
     }
 
     @Test
-    public void constructor_nullDay_createNewDay() {
+    public void constructor_nullDay_throwException() {
         //arrange
         Day nullDay = null;
-
         //act
-        Calculator newCalculator = new Calculator(nullDay);
-
+        try {
+            Calculator newCalculator = new Calculator(nullDay);
+            Assert.fail();
+            //Food machine broke
+        }
+        catch (NullPointerException npe) {
+            //Understandable, have a good day
+        }
         //assert
-        Assert.assertNotNull(newCalculator.day);
+        Assert.assertTrue(true);
     }
 
     @Test

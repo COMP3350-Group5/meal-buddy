@@ -48,27 +48,36 @@ public class GoalTrackerTest {
     }
 
     @Test
-    public void getPassedGoals_nullGoalList_returnEmptyList() {
+    public void getPassedGoals_nullGoalList_throwException() {
         //arrange
-        List<Goal> emptyList = null;
-
+        List<Goal> nullList = null;
         //act
-        List<Goal> passedGoals = GoalTracker.getPassedGoals(calculator, emptyList);
-
+        try {
+            List<Goal> passedGoals = GoalTracker.getPassedGoals(calculator, nullList);
+            Assert.fail();
+        }
+        catch (NullPointerException npe) {
+            //Nice
+        }
         //assert
-        Assert.assertTrue(passedGoals.isEmpty());
+        Assert.assertTrue(true);
     }
 
     @Test
-    public void getPassedGoals_nullCalculator_returnEmptyList() {
+    public void getPassedGoals_nullCalculator_throwException() {
         //arrange
-        List<Goal> emptyList = null;
-
+        List<Goal> goals = makeQuantityGoalList();
+        Calculator nullCalculator = null;
         //act
-        List<Goal> passedGoals = GoalTracker.getPassedGoals(calculator, emptyList);
-
+        try {
+            List<Goal> passedGoals = GoalTracker.getPassedGoals(nullCalculator, goals);
+            Assert.fail();
+        }
+        catch (NullPointerException npe) {
+            //Nice
+        }
         //assert
-        Assert.assertTrue(passedGoals.isEmpty());
+        Assert.assertTrue(true);
     }
 
     @Test
@@ -112,7 +121,6 @@ public class GoalTrackerTest {
         int expectedPasses = 1;
         int expectedLowerBound = 60;
         int expectedUpperBound = 80;
-
 
         //act
         List<Goal> passedGoals = GoalTracker.getPassedGoals(calculator, ratioGoals);
@@ -165,6 +173,4 @@ public class GoalTrackerTest {
         bigMac.updateMicro(Sodium, 200);
         return bigMac;
     }
-
-
 }

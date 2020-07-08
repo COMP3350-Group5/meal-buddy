@@ -21,12 +21,10 @@ public class Calculator {
     public Day day;
 
     public Calculator(Day day) {
-        this.day = (day == null) ? createNewDay() : day;
-    }
-
-    private Day createNewDay() {
-        Calendar calendar = Calendar.getInstance();
-        return new Day(calendar.get(Calendar.DAY_OF_YEAR));
+        if (day == null) {
+            throw new NullPointerException("Day must not be null");
+        }
+        this.day = day;
     }
 
     public int getTotalCalories() {
