@@ -1,3 +1,8 @@
+/****************************************
+ * Day
+ * stores meals tracked by meal time (breakfast, lunch, dinner, snack) per day.
+ ****************************************/
+
 package comp3350.mealbuddy.objects;
 
 import java.util.ArrayList;
@@ -14,58 +19,76 @@ public class Day {
     public ArrayList<Edible> dinner;
     public ArrayList<Edible> snack;
 
+    /*
+     * Constructor
+     * initializes the day object from a dayOfYear parameter
+     * Parameters:
+     *     @param : {parameter} <-- for each parameter
+     */
     public Day (int dayOfYear) {
-        if (dayOfYear > 0 && dayOfYear < 367)
-            this.dayOfYear = dayOfYear;
-        else
+        if (dayOfYear < 1 && dayOfYear > 365)
             throw new IllegalArgumentException("Must pass valid date");
-
+        this.dayOfYear = dayOfYear;
         this.breakfast = new ArrayList<>();
         this.lunch = new ArrayList<>();
         this.dinner = new ArrayList<>();
         this.snack = new ArrayList<>();
     }
 
-    //keys are unique, so adding also updates... I think.
+    /*
+     * getMealTimeList
+     * takes a mealtime enum and returns the corresponding list.
+     * Parameters:
+     *     @param MT - a mealtime enum value. {BREAKFAST, LUNCH, DINNER, SNACK}
+     * Return:
+     *     returns the corresponding list from the enum
+     */
+    public ArrayList<Edible> getMealTimeList(MealTimeType MT){
+        switch(MT){
+            case BREAKFAST:
+                return breakfast;
+            case LUNCH:
+                return lunch;
+            case DINNER:
+                return dinner;
+            case SNACK:
+                return snack;
+        }
+        return null;
+    }
+
+    /*
+     * addFood
+     * adds an edible (Food, Meal) to the corresponding mealtime
+     * Parameters:
+     *     @param MT - a mealtime enum value. {BREAKFAST, LUNCH, DINNER, SNACK}
+     *     @param e - the edible to add
+     */
     public void addFood(MealTimeType MT, Edible e){
         if (MT == null || e == null)
             return;
-
-        switch(MT) {
-            case BREAKFAST:
-                breakfast.add(e);
-                break;
-            case LUNCH:
-                lunch.add(e);
-                break;
-            case DINNER:
-                dinner.add(e);
-                break;
-            case SNACK:
-                snack.add(e);
-                break;
-            default:
-                break;
-        }
+        getMealTimeList(MT).add(e);
     }
 
+    /*
+     * removeFood
+     * removes a food from the meal time list
+     * Parameters:
+     *     @param MT - a mealtime enum value. {BREAKFAST, LUNCH, DINNER, SNACK}
+     *     @param e - the edible to remove
+     */
     public void removeFood(MealTimeType MT, Edible edible){
-        switch(MT) {
-            case BREAKFAST:
-                breakfast.remove(edible);
-                break;
-            case LUNCH:
-                lunch.remove(edible);
-                break;
-            case DINNER:
-                dinner.remove(edible);
-                break;
-            case SNACK:
-                snack.remove(edible);
-                break;
-        }
+        getMealTimeList(MT).remove(edible);
     }
 
+    /*
+     * getMeal
+     * returns string interpretation of the meal.
+     * Parameters:
+     *     @param MT - a mealtime enum value. {BREAKFAST, LUNCH, DINNER, SNACK}
+     * Return:
+     *     returns the string interpreation.
+     */
     public String getMeal(MealTimeType MT) {
         String meal = "";
         switch(MT) {
@@ -93,18 +116,6 @@ public class Day {
         return meal;
     }
 
-    public ArrayList<Edible> getMealTimeList(MealTimeType MT){
-        switch(MT){
-            case BREAKFAST:
-                return breakfast;
-            case LUNCH:
-                return lunch;
-            case DINNER:
-                return dinner;
-            case SNACK:
-                return snack;
-        }
-        return null;
-    }
+
 
 }
