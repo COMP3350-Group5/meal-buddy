@@ -150,6 +150,21 @@ public class GoalTrackerTest {
         Assert.assertEquals(expectedSize, passedGoals.size());
     }
 
+    @Test
+    public void getPassedGoals_quantityGoals_multipleMacroGoals() {
+        //arrange
+        List<Goal> quantityGoals = new ArrayList<>();
+        quantityGoals.add(new MacroGoal(0, 900, QUANTITY, Fat));
+        quantityGoals.add(new MacroGoal(0, 400, QUANTITY, Protein));
+        int expectedSize = 2;
+
+        //act
+        List<Goal> passedGoals = GoalTracker.getPassedGoals(calculator, quantityGoals);
+
+        //assert
+        Assert.assertEquals(expectedSize, passedGoals.size());
+    }
+
     private List<Goal> makeQuantityGoalList() {
         ArrayList<Goal> goals = new ArrayList<>();
         goals.add(new MacroGoal(0, 500, QUANTITY, Fat));
