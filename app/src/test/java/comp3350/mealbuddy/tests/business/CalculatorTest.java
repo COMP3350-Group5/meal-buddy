@@ -48,9 +48,10 @@ public class CalculatorTest {
         }
         catch (NullPointerException npe) {
             //Understandable, have a good day
+            //assert
+            Assert.assertTrue(true);
         }
-        //assert
-        Assert.assertTrue(true);
+
     }
 
     @Test

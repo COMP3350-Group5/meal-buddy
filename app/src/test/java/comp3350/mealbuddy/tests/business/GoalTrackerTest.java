@@ -58,9 +58,10 @@ public class GoalTrackerTest {
         }
         catch (NullPointerException npe) {
             //Nice
+            //assert
+            Assert.assertTrue(true);
         }
-        //assert
-        Assert.assertTrue(true);
+
     }
 
     @Test
@@ -75,9 +76,10 @@ public class GoalTrackerTest {
         }
         catch (NullPointerException npe) {
             //Nice
+            //assert
+            Assert.assertTrue(true);
         }
-        //assert
-        Assert.assertTrue(true);
+
     }
 
     @Test
