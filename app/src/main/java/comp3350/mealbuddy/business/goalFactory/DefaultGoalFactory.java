@@ -2,7 +2,6 @@ package comp3350.mealbuddy.business.goalFactory;
 
 import java.util.List;
 
-import comp3350.mealbuddy.business.goalFactory.GoalFactory;
 import comp3350.mealbuddy.objects.consumables.Edible.Micros;
 import comp3350.mealbuddy.objects.goals.Goal;
 import comp3350.mealbuddy.objects.goals.Goal.GoalType;

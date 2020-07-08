@@ -1,4 +1,4 @@
-package comp3350.mealbuddy.tests.business;
+package comp3350.mealbuddy.tests.business.goalFactory;
 
 import org.junit.Assert;
 import org.junit.Before;

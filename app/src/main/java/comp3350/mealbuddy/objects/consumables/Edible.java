@@ -47,18 +47,22 @@ public abstract class Edible {
     }
 
     public void updateMacro(Macros macro, int amount){
+        if(amount < 0 )
+            amount = 0;
         macros.put(macro, amount);
     }
 
     public void updateMicro(Micros micro, int amount){
+        if(amount < 0 )
+            amount = 0;
         micros.put(micro, amount);
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || ! (o instanceof Edible)) return false;
+        if (! (o instanceof Edible)) return false;
         Edible edible = (Edible) o;
-        return name == edible.name ;
+        return name.equals(edible.name) ;
     }
 }

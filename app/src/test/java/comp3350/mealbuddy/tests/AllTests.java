@@ -5,13 +5,16 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 import comp3350.mealbuddy.tests.business.CalculatorTest;
-import comp3350.mealbuddy.tests.business.DefaultGoalFactorTest;
+//import comp3350.mealbuddy.tests.business.goalFactory.DefaultGoalFactorTest;
+import comp3350.mealbuddy.tests.business.goalFactory.DefaultGoalFactorTest;
 import comp3350.mealbuddy.tests.business.GoalTrackerTest;
-import comp3350.mealbuddy.tests.business.RecommendedCalorieCalculatorTest;
+import comp3350.mealbuddy.tests.business.goalFactory.RecommendedCalorieCalculatorTest;
+import comp3350.mealbuddy.tests.objects.EdibleTest;
 
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
+        EdibleTest.class,
         GoalTrackerTest.class,
         CalculatorTest.class,
         DefaultGoalFactorTest.class,
