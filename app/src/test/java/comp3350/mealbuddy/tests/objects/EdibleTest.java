@@ -33,19 +33,19 @@ public class EdibleTest {
     private static Food food;
 
     @Before
-    public void initFood(){
+    public void initFood() {
         String name = "egg";
         int microValue = 0;
         food = new Food(name);
     }
 
     @Test
-    public void constructor_avgCase_AllMicrosCreated(){
+    public void constructor_avgCase_AllMicrosCreated() {
         //arrange
         String name = "egg";
-        int initValue =0;
+        int initValue = 0;
         Edible.Micros[] allMicros = {
-                Iron, Zinc, VitaminA, VitaminB12, VitaminC,  VitaminE,
+                Iron, Zinc, VitaminA, VitaminB12, VitaminC, VitaminE,
                 Calcium, Choline, Magnesium, Sodium, Potassium, Niacin
         };
 
@@ -53,19 +53,19 @@ public class EdibleTest {
         Edible egg = new Food(name);
 
         //assert
-        for(Edible.Micros micro: allMicros){
+        for (Edible.Micros micro : allMicros) {
             Assert.assertTrue(egg.micros.containsKey(micro));
             Assert.assertTrue(initValue == egg.micros.get(micro));
         }
     }
 
     @Test
-    public void constructor_nullList_AllMicrosCreated(){
+    public void constructor_nullList_AllMicrosCreated() {
         //arrange
         String name = "egg";
-        int initValue =0;
+        int initValue = 0;
         Edible.Micros[] allMicros = {
-                Iron, Zinc, VitaminA, VitaminB12, VitaminC,  VitaminE,
+                Iron, Zinc, VitaminA, VitaminB12, VitaminC, VitaminE,
                 Calcium, Choline, Magnesium, Sodium, Potassium, Niacin
         };
 
@@ -73,14 +73,14 @@ public class EdibleTest {
         Edible egg = new Food(name);
 
         //assert
-        for(Edible.Micros micro: allMicros){
+        for (Edible.Micros micro : allMicros) {
             Assert.assertTrue(egg.micros.containsKey(micro));
             Assert.assertTrue(initValue == egg.micros.get(micro));
         }
     }
 
     @Test
-    public void constructor_avgCase_AllMacrosCreated(){
+    public void constructor_avgCase_AllMacrosCreated() {
         //arrange
         String name = "egg";
         int initValue = 0;
@@ -92,15 +92,15 @@ public class EdibleTest {
         Edible egg = new Food(name);
 
         //assert
-        for(Edible.Macros macro: allMacros){
-           Assert.assertTrue(egg.macros.containsKey(macro));
+        for (Edible.Macros macro : allMacros) {
+            Assert.assertTrue(egg.macros.containsKey(macro));
             Assert.assertTrue(initValue == egg.macros.get(macro));
 
         }
     }
 
     @Test
-    public void updateMicro_positiveValue_microUpdated(){
+    public void updateMicro_positiveValue_microUpdated() {
         //arrange
         int updatedValue = 10;
         int expectedValue = 10;
@@ -114,7 +114,7 @@ public class EdibleTest {
 
 
     @Test
-    public void updateMacro_positiveValue_macroUpdated(){
+    public void updateMacro_positiveValue_macroUpdated() {
         //arrange
         int updatedValue = 10;
         int expectedValue = 10;
@@ -127,7 +127,7 @@ public class EdibleTest {
     }
 
     @Test
-    public void updateMacro_negativeValue_macroSetToZero(){
+    public void updateMacro_negativeValue_macroSetToZero() {
         //arrange
         int updatedValue = -10;
         int expectedValue = 0;
@@ -140,7 +140,7 @@ public class EdibleTest {
     }
 
     @Test
-    public void updateMicro_negativeValue_microSetToZero(){
+    public void updateMicro_negativeValue_microSetToZero() {
         //arrange
         int negativeValue = -10;
         int expectedValue = 0;
@@ -153,38 +153,36 @@ public class EdibleTest {
     }
 
     @Test
-    public void updateMicro_nullMicro_throwException(){
+    public void updateMicro_nullMicro_throwException() {
         //arrange
         int microValue = 0;
         Edible.Micros nullMicro = null;
 
         //act
-        try{
+        try {
             food.updateMicro(nullMicro, microValue);
             fail();
         }//assert
-        catch(NullPointerException e) {
+        catch (NullPointerException e) {
             Assert.assertTrue(true);
         }
     }
 
     @Test
-    public void updateMacro_nullMacro_throwException(){
+    public void updateMacro_nullMacro_throwException() {
         //arrange
         int microValue = 0;
         Edible.Macros nullMacro = null;
 
         //act
-        try{
+        try {
             food.updateMacro(nullMacro, microValue);
             fail();
         }//assert
-        catch(NullPointerException e) {
+        catch (NullPointerException e) {
             Assert.assertTrue(true);
         }
     }
-
-
 
 
 }
