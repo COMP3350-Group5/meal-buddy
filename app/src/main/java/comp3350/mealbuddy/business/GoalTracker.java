@@ -15,6 +15,10 @@ public class GoalTracker {
     * takes a day and returns a list of passed goals
      */
     public static List<Goal> getPassedGoals(Calculator calc, List<Goal> goals){
+        if (calc == null || goals == null) {
+            throw new NullPointerException("Calculator and goals must be not null");
+        }
+
         ArrayList<Goal> passedGoals = new ArrayList<>();
         for (Goal g : goals){
             //if its a ratio, convert to ratio

@@ -46,11 +46,11 @@ public abstract class Edible {
         return microMap;
     }
 
-    public void addMacro(Macros macro, int amount){
+    public void updateMacro(Macros macro, int amount){
         macros.put(macro, amount);
     }
 
-    public void addMicro(Micros micro, int amount){
+    public void updateMicro(Micros micro, int amount){
         micros.put(micro, amount);
     }
 

@@ -3,8 +3,8 @@ package comp3350.mealbuddy.objects.consumables;
 import android.os.Build;
 import android.util.ArraySet;
 
-import androidx.annotation.RequiresApi;
-
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -12,10 +12,14 @@ public class Meal extends Edible {
 
     public Set<FoodIntPair> ediblesInMeal;
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
     public Meal(String name, List<String> labels) {
         super(name, labels);
-        ediblesInMeal = new ArraySet<>();
+        ediblesInMeal = new HashSet<>();
+    }
+
+    public Meal(String name) {
+        super(name, new ArrayList<String>());
+        ediblesInMeal = new HashSet<>();
     }
 
     public void updateFood(Food toUpdate, int quantity){

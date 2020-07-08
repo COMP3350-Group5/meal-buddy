@@ -6,8 +6,8 @@ import org.junit.Test;
 
 import java.util.List;
 
-import comp3350.mealbuddy.business.goalfactory.DefaultGoalFactory;
-import comp3350.mealbuddy.business.goalfactory.GoalFactory;
+import comp3350.mealbuddy.business.goalFactory.DefaultGoalFactory;
+import comp3350.mealbuddy.business.goalFactory.GoalFactory;
 import comp3350.mealbuddy.objects.goals.CalorieGoal;
 import comp3350.mealbuddy.objects.consumables.Edible.Macros;
 import comp3350.mealbuddy.objects.goals.Goal;

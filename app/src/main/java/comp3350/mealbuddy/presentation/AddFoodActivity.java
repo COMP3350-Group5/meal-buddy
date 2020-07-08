@@ -48,9 +48,9 @@ public class AddFoodActivity extends AppCompatActivity {
                 Food food = new Food(name.getText().toString(), labelList);
                 food.setWeight(Integer.parseInt(weight.getText().toString()));
 
-                food.addMacro(Edible.Macros.Protein, Integer.parseInt(protein.getText().toString()));
-                food.addMacro(Edible.Macros.Fat, Integer.parseInt(fat.getText().toString()));
-                food.addMacro(Edible.Macros.Carbohydrates, Integer.parseInt(carbs.getText().toString()));
+                food.updateMacro(Edible.Macros.Protein, Integer.parseInt(protein.getText().toString()));
+                food.updateMacro(Edible.Macros.Fat, Integer.parseInt(fat.getText().toString()));
+                food.updateMacro(Edible.Macros.Carbohydrates, Integer.parseInt(carbs.getText().toString()));
 
                 Day.MealTimeType MT;
                 String spnString = spinner.getSelectedItem().toString();;
