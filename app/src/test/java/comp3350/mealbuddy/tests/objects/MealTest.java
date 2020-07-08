@@ -108,6 +108,7 @@ public class MealTest {
         Assert.assertFalse(meal.ediblesInMeal.contains(food));
     }
 
+    /*
     public void removeFood_multipleFoods_remove() {
         List<String> mealLabels = new ArrayList<String>();
         List<String> foodLabels = new ArrayList<String>();
@@ -128,7 +129,7 @@ public class MealTest {
         Assert.assertFalse(meal.ediblesInMeal.contains(chickenBurger));
     }
 
-    public void removeFood_foodNotInList_remove() {
+    public void removeFood_foodNotInList_dontRemove() {
         List<String> mealLabels = new ArrayList<String>();
         List<String> foodLabels = new ArrayList<String>();
         Meal meal = new Meal("Breakfast", mealLabels);
@@ -138,5 +139,7 @@ public class MealTest {
 
         Assert.assertFalse(meal.ediblesInMeal.contains(food));
     }
+
+     */
 
 }

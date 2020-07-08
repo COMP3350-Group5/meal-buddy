@@ -60,19 +60,62 @@ public class DayTest {
         day.addFood(MTT, eddie);
         //assert
         Assert.assertTrue(day.breakfast.contains(eddie));
+        Assert.assertFalse(day.lunch.contains(eddie));
+        Assert.assertFalse(day.dinner.contains(eddie));
+        Assert.assertFalse(day.snack.contains(eddie));
     }
 
     @Test
     public void addFood_realMeal_add() {
+        //arrange
+        Food eddie = new Food("fake food", new ArrayList<>(Arrays.asList("fake")));
+        Day.MealTimeType MTT = Day.MealTimeType.DINNER;
+        Day day = new Day(1);
+        //act
+        day.addFood(MTT, eddie);
+        //assert
+        Assert.assertTrue(day.dinner.contains(eddie));
     }
 
     @Test
     public void removeFood() {
+
     }
 
     @Test
-    public void getMeal() {
+    public void getMeal_nullMealTimeType_dontGet() {
+        Food eddie = new Food("fake food", new ArrayList<>(Arrays.asList("fake")));
+        Day.MealTimeType MTT = null;
+        Day day = new Day(1);
+
+        day.addFood(MTT, eddie);
+        String meal = day.getMeal(MTT);
+
+       Assert.assertTrue(meal.equals(""));
     }
+
+
+    public void getMeal_realMealTimeType_get() {
+        Food eddie = new Food("fake food", new ArrayList<>(Arrays.asList("fake")));
+        Day.MealTimeType MTT = Day.MealTimeType.DINNER;
+        Day day = new Day(1);
+
+        day.addFood(MTT, eddie);
+        String meal = day.getMeal(MTT);
+
+        Assert.assertFalse(meal.equals(""));
+    }
+
+    public void getMeal_noFoodAdded_get() {
+        Food eddie = new Food("fake food", new ArrayList<>(Arrays.asList("fake")));
+        Day.MealTimeType MTT = Day.MealTimeType.DINNER;
+        Day day = new Day(1);
+
+        String meal = day.getMeal(MTT);
+
+        Assert.assertFalse(meal.equals(""));
+    }
+
 
     @Test
     public void getMealTimeList() {

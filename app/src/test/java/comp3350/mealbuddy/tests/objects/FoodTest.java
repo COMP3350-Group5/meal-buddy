@@ -17,10 +17,12 @@ public class FoodTest {
     public static final int TEST_VALUE = 20;
     public void test_Constructor() {
         List<String> labels = new ArrayList<String>();
-        Edible food = new Food("Eggs", labels);
+        Food food = new Food("Eggs", labels);
+        food.setWeight(TEST_VALUE);
 
         Assert.assertEquals(food.name, "Eggs");
         Assert.assertEquals(food.labels, labels);
+        Assert.assertTrue(food.weight == TEST_VALUE);
     }
 
     public void addMacros_addSingleMacro_addMacros() {
