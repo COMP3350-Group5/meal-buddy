@@ -6,6 +6,9 @@ public class FoodIntPair {
     public Integer quantity;
 
     public FoodIntPair(Food food, Integer quantity) {
+        if (quantity < 0) {
+            quantity = 0;
+        }
         this.food = food;
         this.quantity = quantity;
     }
