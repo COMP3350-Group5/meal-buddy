@@ -10,6 +10,9 @@ public class Account {
     private ArrayList<Goal> goals;
     private ArrayList<Day> daysTracked;
     public Account(UserInfo user) {
+        if (user == null) {
+            throw new IllegalArgumentException("UserInfo can not be null");
+        }
         this.user = user;
         daysTracked = new ArrayList<Day>();
         goals = new ArrayList<Goal>();
