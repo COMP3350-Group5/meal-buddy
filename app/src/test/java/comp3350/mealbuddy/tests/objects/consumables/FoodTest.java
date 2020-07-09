@@ -29,7 +29,6 @@ public class FoodTest {
             //assert
             Assert.assertTrue(true);
         }
-        //assert
     }
 
     @Test
@@ -46,7 +45,6 @@ public class FoodTest {
             //assert
             Assert.assertTrue(true);
         }
-        //assert
     }
 
     @Test
@@ -62,7 +60,6 @@ public class FoodTest {
             //assert
             Assert.assertTrue(true);
         }
-        //assert
     }
 
 

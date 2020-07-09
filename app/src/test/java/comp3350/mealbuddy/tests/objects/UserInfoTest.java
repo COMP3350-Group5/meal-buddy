@@ -59,7 +59,6 @@ public class UserInfoTest {
             //assert
             Assert.assertTrue(true);
         }
-        //assert
     }
 
 
@@ -77,7 +76,6 @@ public class UserInfoTest {
             //assert
             Assert.assertTrue(true);
         }
-        //assert
     }
 
 
@@ -95,7 +93,6 @@ public class UserInfoTest {
             //assert
             Assert.assertTrue(true);
         }
-        //assert
     }
 
 
@@ -113,7 +110,6 @@ public class UserInfoTest {
             //assert
             Assert.assertTrue(true);
         }
-        //assert
     }
 
 
@@ -131,7 +127,6 @@ public class UserInfoTest {
             //assert
             Assert.assertTrue(true);
         }
-        //assert
     }
 
 
@@ -149,7 +144,6 @@ public class UserInfoTest {
             //assert
             Assert.assertTrue(true);
         }
-        //assert
     }
 
 
@@ -167,7 +161,6 @@ public class UserInfoTest {
             //assert
             Assert.assertTrue(true);
         }
-        //assert
     }
 
     @Test
@@ -184,6 +177,5 @@ public class UserInfoTest {
             //assert
             Assert.assertTrue(true);
         }
-        //assert
     }
 }
