@@ -110,6 +110,7 @@ public class MealTest {
         //act
         try {
             meal.updateFood(food, 0);
+            Assert.fail();
         } catch (IllegalArgumentException e) {
             // Assert
             Assert.assertTrue(true);
