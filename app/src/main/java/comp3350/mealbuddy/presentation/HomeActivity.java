@@ -38,7 +38,7 @@ public class HomeActivity extends AppCompatActivity {
         username = findViewById(R.id.etUsername);
         password = findViewById(R.id.etPassword);
         login = findViewById(R.id.btnLogin);
-        createAccount = findViewById(R.id.tvCreateAccount);
+        createAccount = findViewById(R.id.btnCreateAccount);
 
         //link the on click listeners
         login.setOnClickListener((view) -> checkLogin(username.getText(), password.getText()));
