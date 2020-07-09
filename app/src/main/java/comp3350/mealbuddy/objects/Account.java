@@ -14,13 +14,21 @@ public class Account {
             throw new IllegalArgumentException("UserInfo can not be null");
         }
         this.user = user;
-        daysTracked = new ArrayList<Day>();
-        goals = new ArrayList<Goal>();
+        daysTracked = new ArrayList<>();
+        goals = new ArrayList<>();
     }
 
     public void addGoal(Goal g) {
         if(!goals.contains(g))
             goals.add(g);
+    }
+
+    public boolean containsGoal(Goal g){
+        return goals.contains(g);
+    }
+
+    public int getGoalSize(){
+        return goals.size();
     }
 
     public void removeGoal(Goal g){

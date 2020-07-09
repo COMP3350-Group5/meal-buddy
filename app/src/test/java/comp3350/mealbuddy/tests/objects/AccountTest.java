@@ -5,7 +5,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 import comp3350.mealbuddy.objects.Account;
+import comp3350.mealbuddy.objects.Day;
 import comp3350.mealbuddy.objects.UserInfo;
+import comp3350.mealbuddy.objects.goals.CalorieGoal;
+import comp3350.mealbuddy.objects.goals.Goal;
 
 public class AccountTest {
 
@@ -39,5 +42,62 @@ public class AccountTest {
             Assert.assertTrue(true);
         }
     }
+
+    @Test
+    public void addGoal_goalNotContained_GoalAdded(){
+        //arrange
+        Goal goal = new CalorieGoal(0, 1);
+
+        //act
+        account.addGoal(goal);
+
+        //assert
+        Assert.assertTrue(account.containsGoal(goal));
+    }
+
+    @Test
+    public void addGoal_goalContained_GoalNotAdded(){
+        //arrange
+        int expectedSize = 1;
+        Goal goal = new CalorieGoal(0, 1);
+        account.addGoal(goal);
+
+        //act
+        account.addGoal(goal);
+
+        //assert
+        Assert.assertEquals(expectedSize, account.getGoalSize());
+    }
+
+    @Test
+    public void getDay_dayNotContained_dayCreated(){
+        //arrange
+        int dayOfYear = 69;
+
+        //act
+        Day actualDay = account.getDay(dayOfYear);
+
+        //assert
+        Assert.assertEquals(dayOfYear, actualDay.dayOfYear);
+    }
+
+    @Test
+    public void getDay_dayContained_dayFetched(){
+        //arrange
+        int day2Date = 69;
+        Day day1 = new Day(6);
+        Day day2 = new Day(day2Date);
+        Day day3 = new Day(200);
+        account.addDay(day1);
+        account.addDay(day2);
+        account.addDay(day3);
+
+        //act
+        Day retrievedDay = account.getDay(day2Date);
+
+        //assert
+        Assert.assertEquals(day2, retrievedDay);
+    }
+
 
 }

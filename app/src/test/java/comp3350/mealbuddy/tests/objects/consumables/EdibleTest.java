@@ -1,4 +1,4 @@
-package comp3350.mealbuddy.tests.objects;
+package comp3350.mealbuddy.tests.objects.consumables;
 
 import org.junit.Assert;
 import org.junit.Before;

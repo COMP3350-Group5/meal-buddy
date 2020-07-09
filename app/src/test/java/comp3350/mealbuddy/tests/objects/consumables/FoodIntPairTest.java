@@ -1,4 +1,4 @@
-package comp3350.mealbuddy.tests.objects;
+package comp3350.mealbuddy.tests.objects.consumables;
 
 
 import org.junit.Assert;
@@ -59,7 +59,7 @@ public class FoodIntPairTest {
 
 
         // Assert
-        Assert.assertFalse(riceFoodIntPair.equals(eggsFoodIntPair));
+        Assert.assertNotEquals(riceFoodIntPair, eggsFoodIntPair);
     }
 
     @Test
@@ -76,7 +76,7 @@ public class FoodIntPairTest {
         FoodIntPair riceFoodIntPair2 = new FoodIntPair(rice2, quantity2);
 
         // Assert
-        Assert.assertTrue(riceFoodIntPair1.equals(riceFoodIntPair2));
+        Assert.assertEquals(riceFoodIntPair1, riceFoodIntPair2);
     }
 
 }
