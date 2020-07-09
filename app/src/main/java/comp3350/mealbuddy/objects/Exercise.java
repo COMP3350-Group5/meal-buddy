@@ -10,6 +10,9 @@ public class Exercise {
     public double duration;
 
     public Exercise(String name) {
+        if (name == null) {
+            throw new IllegalArgumentException("Exercise name can not be null");
+        }
         this.name = name;
     }
 }
