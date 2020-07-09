@@ -35,7 +35,6 @@ public class EdibleTest {
     @Before
     public void initFood() {
         String name = "egg";
-        int microValue = 0;
         food = new Food(name);
     }
 
@@ -55,7 +54,7 @@ public class EdibleTest {
         //assert
         for (Edible.Micros micro : allMicros) {
             Assert.assertTrue(egg.micros.containsKey(micro));
-            Assert.assertTrue(initValue == egg.micros.get(micro));
+            Assert.assertEquals(initValue, (int) egg.micros.get(micro));
         }
     }
 
@@ -75,7 +74,7 @@ public class EdibleTest {
         //assert
         for (Edible.Micros micro : allMicros) {
             Assert.assertTrue(egg.micros.containsKey(micro));
-            Assert.assertTrue(initValue == egg.micros.get(micro));
+            Assert.assertEquals(initValue, (int) egg.micros.get(micro));
         }
     }
 
@@ -94,7 +93,7 @@ public class EdibleTest {
         //assert
         for (Edible.Macros macro : allMacros) {
             Assert.assertTrue(egg.macros.containsKey(macro));
-            Assert.assertTrue(initValue == egg.macros.get(macro));
+            Assert.assertEquals(initValue, (int) egg.macros.get(macro));
 
         }
     }
@@ -109,7 +108,7 @@ public class EdibleTest {
         food.updateMicro(Zinc, updatedValue);
 
         //assert
-        Assert.assertTrue(expectedValue == food.micros.get(Zinc));
+        Assert.assertEquals(expectedValue, (int) food.micros.get(Zinc));
     }
 
 
@@ -123,7 +122,7 @@ public class EdibleTest {
         food.updateMacro(Fat, updatedValue);
 
         //assert
-        Assert.assertTrue(expectedValue == food.macros.get(Fat));
+        Assert.assertEquals(expectedValue, (int) food.macros.get(Fat));
     }
 
     @Test
@@ -136,7 +135,7 @@ public class EdibleTest {
         food.updateMacro(Fat, updatedValue);
 
         //assert
-        Assert.assertTrue(expectedValue == food.macros.get(Fat));
+        Assert.assertEquals(expectedValue, (int) food.macros.get(Fat));
     }
 
     @Test
@@ -149,7 +148,7 @@ public class EdibleTest {
         food.updateMicro(Zinc, negativeValue);
 
         //assert
-        Assert.assertTrue(expectedValue == food.micros.get(Zinc));
+        Assert.assertEquals(expectedValue, (int) food.micros.get(Zinc));
     }
 
     @Test

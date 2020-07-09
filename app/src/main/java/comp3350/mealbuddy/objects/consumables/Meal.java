@@ -22,13 +22,15 @@ public class Meal extends Edible {
         ediblesInMeal = new HashSet<>();
     }
 
-    public void updateFood(Food toUpdate, int quantity){
-        if (quantity <= 0) ediblesInMeal.remove(toUpdate);
-        else ediblesInMeal.add(new FoodIntPair(toUpdate, quantity));
+    public void updateFood(Food foodToUpdate, int quantity){
+        FoodIntPair foodIntPair = new FoodIntPair(foodToUpdate, quantity);
+        ediblesInMeal.remove(foodIntPair);
+        if(quantity>0)
+            ediblesInMeal.add(foodIntPair);
     }
 
-    public void removeFood(Food toRemove) {
-        ediblesInMeal.remove(toRemove);
+    public boolean containsFood(Food food){
+        return ediblesInMeal.contains( new FoodIntPair(food, 1) ); //returns true as long as food is the same
     }
 
     @Override

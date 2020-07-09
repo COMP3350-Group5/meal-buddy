@@ -17,7 +17,7 @@ public class FoodIntPairTest {
     public void constructor_negativeQuantity_quantitySetToZero(){
         // Arrange
         Integer expectedValue = 0;
-        Integer integerValue = new Integer(-5);
+        Integer integerValue = -5;
         String name = "egg";
         Food food = new Food(name);
 
@@ -47,7 +47,7 @@ public class FoodIntPairTest {
     @Test
     public void equals_differentFoodNames_returnsFalse(){
         //arrange
-        Integer integerValue = new Integer(5);
+        Integer integerValue = 5;
         String carb = "rice";
         String protein = "eggs";
         Food rice = new Food(carb);
@@ -60,6 +60,23 @@ public class FoodIntPairTest {
 
         // Assert
         Assert.assertFalse(riceFoodIntPair.equals(eggsFoodIntPair));
+    }
+
+    @Test
+    public void equals_sameFoodNames_returnsTrue(){
+        //arrange
+        Integer quantity1 = 5;
+        Integer quantity2 = 2;
+        String foodName = "rice";
+        Food rice1 = new Food(foodName);
+        Food rice2 = new Food(foodName);
+
+        //act
+        FoodIntPair riceFoodIntPair1 = new FoodIntPair(rice1, quantity1);
+        FoodIntPair riceFoodIntPair2 = new FoodIntPair(rice2, quantity2);
+
+        // Assert
+        Assert.assertTrue(riceFoodIntPair1.equals(riceFoodIntPair2));
     }
 
 }

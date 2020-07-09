@@ -22,6 +22,8 @@ public abstract class Edible {
     }
 
     public Edible(String name, List<String> labels) {
+        if(name == null || labels == null)
+            throw new NullPointerException("Name and labels cant be null");
         this.name = name;
         this.labels = labels;
         micros = makeMicros();
