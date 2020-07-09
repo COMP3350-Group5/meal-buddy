@@ -12,8 +12,8 @@ public class FoodIntPair {
     public Integer quantity;
 
     public FoodIntPair(Food food, Integer quantity) {
-        if (quantity < 0) {
-            quantity = 0;
+        if (quantity <= 0) {
+            throw new IllegalArgumentException("The quantity of the can not be less than or equal to zero");
         }
         this.food = food;
         this.quantity = quantity;

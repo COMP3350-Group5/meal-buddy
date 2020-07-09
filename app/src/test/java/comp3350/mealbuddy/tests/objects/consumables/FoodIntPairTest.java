@@ -14,18 +14,20 @@ public class FoodIntPairTest {
 
 
     @Test
-    public void constructor_negativeQuantity_quantitySetToZero(){
+    public void constructor_negativeQuantity_throwException(){
         // Arrange
-        Integer expectedValue = 0;
         Integer integerValue = -5;
         String name = "egg";
         Food food = new Food(name);
 
         // Act
-        FoodIntPair foodIntPair = new FoodIntPair(food, integerValue);
-
-        //assert
-        Assert.assertEquals(expectedValue, foodIntPair.quantity);
+        try{
+            FoodIntPair foodIntPair = new FoodIntPair(food, integerValue);
+            Assert.fail();
+        } catch (IllegalArgumentException e) {
+            //Assert
+            Assert.assertTrue(true);
+        }
     }
 
 

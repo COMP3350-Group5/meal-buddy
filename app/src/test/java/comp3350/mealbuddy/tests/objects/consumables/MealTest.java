@@ -102,16 +102,19 @@ public class MealTest {
     }
 
     @Test
-    public void updateFood_foodNotContainedQuantityZero_foodNotAdded(){
+    public void updateFood_foodNotContainedQuantityZero_throwException(){
         //arrange
         String name = "mealName";
         Meal meal = new Meal(name);
 
         //act
-        meal.updateFood(food, 0);
+        try {
+            meal.updateFood(food, 0);
+        } catch (IllegalArgumentException e) {
+            // Assert
+            Assert.assertTrue(true);
+        }
 
-        //assert
-        Assert.assertFalse(meal.containsFood(food));
     }
 
     @Test
@@ -134,7 +137,7 @@ public class MealTest {
     }
 
     @Test
-    public void updateFood_foodContainedNegativeQuantity_foodRemoved(){
+    public void updateFood_foodNotContainedNegativeQuantity_throwException() {
         //arrange
         String name = "mealName";
         Meal meal = new Meal(name);
@@ -144,10 +147,13 @@ public class MealTest {
         meal.ediblesInMeal.add(foodIntPair);
 
         //act
-        meal.updateFood(food, updatedQuantity);
-
-        //assert
-        Assert.assertFalse(meal.containsFood(food));
+        try {
+            meal.updateFood(food, updatedQuantity);
+            Assert.fail();
+        } catch (IllegalArgumentException e) {
+            // Assert
+            Assert.assertTrue(true);
+        }
     }
 
 
