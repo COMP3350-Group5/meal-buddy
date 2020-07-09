@@ -1,3 +1,7 @@
+/****************************************
+ * HomeActivity
+ * landing page UI
+ ****************************************/
 package comp3350.mealbuddy.presentation;
 
 import comp3350.mealbuddy.R;
@@ -8,11 +12,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
 
 public class HomeActivity extends AppCompatActivity {
     private AccessAccount accessAccount = new AccessAccount();
@@ -21,6 +23,12 @@ public class HomeActivity extends AppCompatActivity {
     private Button login;
     private TextView createAccount;
 
+    /*
+     * onCreate
+     * called when the activity is initially created
+     * Parameters:
+     *     @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,16 +40,21 @@ public class HomeActivity extends AppCompatActivity {
         login = findViewById(R.id.btnLogin);
         createAccount = findViewById(R.id.tvCreateAccount);
 
-        login.setOnClickListener((view) -> {
-                checkLogin(username.getText(), password.getText());
-        });
-
+        //link the on click listeners
+        login.setOnClickListener((view) -> checkLogin(username.getText(), password.getText()));
         createAccount.setOnClickListener((view) -> {
                 Intent intent = new Intent(HomeActivity.this, SignUpActivity.class);
                 HomeActivity.this.startActivity(intent);
         });
     }
 
+    /*
+     * checkLogin
+     * verify the entered username and password.
+     * Parameters:
+     *     @param user
+     *     @param pass
+     */
     public void checkLogin(Editable user, Editable pass) {
         Account account = accessAccount.validateLogin(user.toString(), pass.toString());
         if(account != null){
@@ -51,6 +64,7 @@ public class HomeActivity extends AppCompatActivity {
         }
         else {
             //reset the input fields.
+            user.clear();
             pass.clear();
         }
     }

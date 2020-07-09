@@ -1,3 +1,8 @@
+/****************************************
+ * Account
+ * Used for each user to store their own information (days tracked, goals, info, etc.)
+ ****************************************/
+
 package comp3350.mealbuddy.objects;
 
 import java.util.ArrayList;
@@ -9,35 +14,87 @@ public class Account {
     public UserInfo user;
     private ArrayList<Goal> goals;
     private ArrayList<Day> daysTracked;
+
+    /*
+     * Constructor
+     * Initializes the values for the account
+     * Parameters:
+     *     @param user - the user
+     */
     public Account(UserInfo user) {
         this.user = user;
-        daysTracked = new ArrayList<Day>();
-        goals = new ArrayList<Goal>();
+        daysTracked = new ArrayList<>();
+        goals = new ArrayList<>();
     }
 
+    /*
+     * AddGoal
+     * Adds a goal to the users list, only adds unique goals.
+     * Parameters:
+     *     @param g - goal being added
+     */
     public void addGoal(Goal g) {
         if(!goals.contains(g))
             goals.add(g);
     }
 
+    /*
+     * removeGoal
+     * removes goal from the list, if it exists.
+     * Parameters:
+     *     @param g - remove this goal
+     */
     public void removeGoal(Goal g){
-        goals.remove(g);
+        int index = goals.indexOf(g);
+        if (index != -1)
+            goals.remove(g);
     }
 
+    /*
+     * addDay
+     * adds a day to the accounts tracked days.
+     * Parameters:
+     *     @param d - the day being added. (DAY OBJECT)
+     */
     public void addDay(Day d) {
         if(!daysTracked.contains(d))
             daysTracked.add(d);
     }
 
+    /*
+     * addDay
+     * adds a day to the accounts tracked days.
+     * Parameters:
+     *     @param d - the day being added. (takes an integer day, representing dayOfYear [1-365])
+     */
     public void addDay(int day){
         addDay(new Day(day));
     }
 
+    /*
+     * removeDay
+     * removes day from the tracked list, if it exists.
+     * Parameters:
+     *     @param d - remove this day
+     */
     public void removeDay(Day d){
-        daysTracked.remove(d);
+        int index = daysTracked.indexOf(d);
+        if (index != -1)
+            daysTracked.remove(d);
     }
 
+    /*
+     * getDay
+     * gets a day from the users tracked list, if the day doesn't exist it creates a new day from the ID.
+     * Parameters:
+     *     @param day : an integer representing the day you want, 1-365
+     * Return:
+     *     returns the day if found, else creates a new day on the id.
+     */
     public Day getDay(int day) {
+        if (day < 1 || day > 365)
+            throw new IllegalArgumentException("Invalid day passed.");
+
         for (Day d : daysTracked){
             if (d.dayOfYear == day)
                 return d;

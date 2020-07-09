@@ -1,5 +1,8 @@
+/****************************************
+ * Edible
+ * Abstract class for edible items
+ ****************************************/
 package comp3350.mealbuddy.objects.consumables;
-
 
 import java.util.EnumMap;
 import java.util.List;
@@ -17,10 +20,16 @@ public abstract class Edible {
     }
 
     public enum Micros{
-        Iron, Zinc, VitaminA, VitaminB12, VitaminC,  VitaminE,
-        Calcium, Choline, Magnesium, Sodium, Potassium, Niacin
+        Iron, Zinc, VitaminA, VitaminB12, VitaminC,  VitaminE, Calcium, Choline, Magnesium, Sodium, Potassium, Niacin
     }
 
+    /*
+     * Constructor
+     * Creates an edible object.
+     * Parameters:
+     *     @param name - The name of the edible
+     *     @param labels - The labels associated with the edible.
+     */
     public Edible(String name, List<String> labels) {
         this.name = name;
         this.labels = labels;
@@ -28,15 +37,24 @@ public abstract class Edible {
         macros = makeMacros();
     }
 
+
+    /*
+     * makeMacros
+     * Function to create the macros enum map for an edible
+     */
     private static Map<Macros, Integer> makeMacros(){
         Map<Macros, Integer> macroMap = new EnumMap<>(Macros.class);
-        Macros[] microArr = Macros.values();
-        for (Macros macro:microArr) {
+        Macros[] macroArr = Macros.values();
+        for (Macros macro:macroArr) {
             macroMap.put(macro, 0);
         }
         return macroMap;
     }
 
+    /*
+     * makeMicros
+     * Function to create the micros enum map for an edible
+     */
     private static Map<Micros, Integer> makeMicros(){
         Map<Micros, Integer> microMap = new EnumMap<>(Micros.class);
         Micros[] microArr = Micros.values();
@@ -46,14 +64,32 @@ public abstract class Edible {
         return microMap;
     }
 
+    /*
+     * updateMacro
+     * Updates a macro for an edible.
+     * Parameters:
+     *     @param macro - The macro to update.
+     *     @param amount - The amount to update to.
+     */
     public void updateMacro(Macros macro, int amount){
         macros.put(macro, amount);
     }
 
+    /*
+     * updateMicro
+     * Updates a micro for an edible.
+     * Parameters:
+     *     @param micro - The micro to update.
+     *     @param amount - The amount to update to.
+     */
     public void updateMicro(Micros micro, int amount){
         micros.put(micro, amount);
     }
 
+    /*
+     * equals
+     * Override for the equals method.
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -1,3 +1,7 @@
+/****************************************
+* AccessAccount
+ * Business Objects for managing accounts
+ ****************************************/
 package comp3350.mealbuddy.business;
 
 import comp3350.mealbuddy.application.Main;
@@ -11,35 +15,88 @@ public class AccessAccount {
     private DataAccessStub DAS;
     private DataAccessStub.DatabaseType databaseType;
 
+    /*
+     * Constructor
+     * Create an object representing accounts in the database
+     */
     public AccessAccount(){
         DAS = Services.openDAS(Main.DATABASE_NAME);
         databaseType = DataAccessStub.DatabaseType.ACCOUNTS;
     }
 
+    /*
+     * addAccount
+     * Add an account to the database.
+     * Parameters:
+     *     @param a - The account to be added.
+     */
     public void addAccount(Account a){
         DAS.addToDB(databaseType, a);
     }
 
-    //in case you want to build an account from user info
+    /*
+     * addAccount
+     * Create a new account, and add it to the database.
+     * Parameters:
+     *     @param u - The user to be added.
+     */
     public void addAccount(UserInfo u){
         addAccount(new Account(u));
     }
 
+    /*
+     * updateAccount
+     * Update an account in the database.
+     * Parameters:
+     *     @param a - The account to be updated.
+     */
     public void updateAccount(Account a){
         DAS.updateDB(databaseType, a);
     }
 
+    /*
+     * removeAccount
+     * Remove an account from the database.
+     * Parameters:
+     *     @param a - The account to be removed.
+     */
     public void removeAccount(Account a){
         DAS.removeFromDB(databaseType, a);
     }
 
+    /*
+     * validateLogin
+     * Validates if the username and password result in a successful login.
+     * Parameters:
+     *     @param username - The username for the user.
+     *     @param password - The password for the user.
+     * Return:
+     *     The account if valid, null if not valid.
+     */
     public Account validateLogin(String username, String password){
         return DAS.validateLogin(username, password);
     }
 
+    /*
+     * getDay
+     * Get a day object for an account
+     * Parameters:
+     *     @param a - The account to retrieve a day for
+     *     @param day - The day to retrieve
+     * Return:
+     *     The day object requested.
+     */
     public Day getDay(Account a, int day){
         return DAS.getDay(a, day);
     }
 
+    /*
+     * getAccount
+     * Get the account for a username.
+     * Parameters:
+     *     @param username - The username for the requested account
+     * Return:
+     *     The account for the given username.
+     */
     public Account getAccount(String username) { return DAS.getAccount(username); }
 }

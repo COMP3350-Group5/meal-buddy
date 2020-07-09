@@ -1,3 +1,7 @@
+/****************************************
+ * DataAccessStub
+ * Database stub
+ ****************************************/
 package comp3350.mealbuddy.persistence;
 
 import comp3350.mealbuddy.objects.Account;
@@ -22,12 +26,24 @@ public class DataAccessStub {
     private ArrayList<Edible> edibles;
     private ArrayList<Account> accounts;
     private ArrayList<Exercise> exercises;
+
+    //used to create a dummy day
     private Day day;
 
+    /*
+     * Constructor
+     * Initializes the values for the database
+     * Parameters:
+     *     @param name - the name of the database
+     */
     public DataAccessStub(String name){
         this.name = name;
     }
 
+    /*
+     * open
+     * 'opens' the database
+     */
     public void open() {
         //initialize the arrays
         edibles = new ArrayList<>();
@@ -42,10 +58,18 @@ public class DataAccessStub {
         System.out.println("Opened Database " + name);
     }
 
+    /*
+     * close
+     * 'closes' the database
+     */
     public void close(){
         System.out.println("Closed database " + name);
     }
 
+    /*
+     * initEdibles
+     * initializes the edibles data set.
+     */
     private void initEdibles(){
         Food edible;
         Meal meal = new Meal("Burger", new ArrayList<String>());
@@ -65,6 +89,10 @@ public class DataAccessStub {
         edibles.add(meal);
     }
 
+    /*
+     * initDay
+     * initializes a day
+     */
     private void initDay() {
         Calendar calendar = Calendar.getInstance();
         day = new Day(calendar.get(Calendar.DAY_OF_YEAR));
@@ -88,7 +116,6 @@ public class DataAccessStub {
             {"Chocolate Bar", new ArrayList<>(Arrays.asList("bad foods")), 13, Edible.Macros.Fat, 33},
             {"Nutri-grain", new ArrayList<>(Arrays.asList("multi-grain")), 12, Edible.Macros.Fat, 5},
         };
-        //we have to do snack differently :( since its a micro
 
         for (Object[] food : breakfast) {
             Food edible = new Food(
@@ -132,6 +159,10 @@ public class DataAccessStub {
 
     }
 
+    /*
+     * initAccounts
+     * initializes the accounts data set.
+     */
     private void initAccounts(){
         Account acc;
         UserInfo userInfo;
@@ -163,6 +194,10 @@ public class DataAccessStub {
         }
     }
 
+    /*
+     * initExercises
+     * initializes the exercises data set.
+     */
     private void initExercises(){
         String[] exerciseList = {
             "Outdoor Run", "Bench Press", "Push Ups", "Sit Ups"
@@ -173,6 +208,13 @@ public class DataAccessStub {
         }
     }
 
+    /*
+     * addToDB
+     * adds to a specific data set.
+     * Parameters:
+     *     @param DT - Database Type {Accounts, Edibles, Exercises}
+     *     @param o - the object to be added.
+     */
     public void addToDB(DatabaseType DT, Object o){
         switch (DT) {
             case ACCOUNTS:
@@ -186,6 +228,14 @@ public class DataAccessStub {
                 break;
         }
     }
+
+    /*
+     * updateDB
+     * updates a value in a specific data set.
+     * Parameters:
+     *     @param DT - Database Type {Accounts, Edibles, Exercises}
+     *     @param o - the object to be updated.
+     */
     public void updateDB(DatabaseType DT, Object o){
         int index;
         switch (DT) {
@@ -203,6 +253,14 @@ public class DataAccessStub {
                 break;
         }
     }
+
+    /*
+     * removeFromDB
+     * removes from a specific data set.
+     * Parameters:
+     *     @param DT - Database Type {Accounts, Edibles, Exercises}
+     *     @param o - the object to be removed.
+     */
     public void removeFromDB(DatabaseType DT, Object o){
         switch (DT) {
             case ACCOUNTS:
@@ -217,6 +275,15 @@ public class DataAccessStub {
         }
     }
 
+    /*
+     * validateLogin
+     * validates if the username and password result in a successful login
+     * Parameters:
+     *     @param username - the username in question
+     *     @param password - password for the user
+     * Return:
+     *     returns the account if valid, null if not valid
+     */
     public Account validateLogin(String username, String password){
         for (Account a : accounts){
             if (a.user.username.equalsIgnoreCase(username) && a.user.password.equals(password))
@@ -225,10 +292,27 @@ public class DataAccessStub {
         return null;
     }
 
+    /*
+     * getDay
+     * gets a day from the account
+     * Parameters:
+     *     @param a - the account
+     *     @param day - the dayOfYear we're searching for
+     * Return:
+     *    returns the day object
+     */
     public Day getDay(Account a, int day){
         return a.getDay(day);
     }
 
+    /*
+     * getAccount
+     * gets an account from a string username
+     * Parameters:
+     *     @param username - the username of the account
+     * Return:
+     *    returns the account if it exists, null if not
+     */
     public Account getAccount(String username){
         for (Account a : accounts){
             if (a.user.username.equalsIgnoreCase(username))
