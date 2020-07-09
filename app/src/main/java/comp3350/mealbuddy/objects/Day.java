@@ -26,7 +26,7 @@ public class Day {
      *     @param dayofYear - The day of year.
      */
     public Day (int dayOfYear) {
-        if (dayOfYear < 1 && dayOfYear > 365)
+        if (dayOfYear < 1 || dayOfYear > 365)
             throw new IllegalArgumentException("Must pass valid date");
         this.dayOfYear = dayOfYear;
         this.breakfast = new ArrayList<>();

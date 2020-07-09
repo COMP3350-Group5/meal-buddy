@@ -22,6 +22,9 @@ public class Account {
      *     @param user - the user
      */
     public Account(UserInfo user) {
+        if (user == null) {
+            throw new IllegalArgumentException("UserInfo can not be null");
+        }
         this.user = user;
         daysTracked = new ArrayList<>();
         goals = new ArrayList<>();
@@ -38,6 +41,28 @@ public class Account {
             goals.add(g);
     }
 
+    /*
+     * containsGoal
+     * Check if the goal list contains a goal
+     * Parameters:
+     *     @param g - The goal to check for   
+     * Return:
+     *     A boolean stating if the goal list contains the goal.
+     */
+    public boolean containsGoal(Goal g){
+        return goals.contains(g);
+    }
+  
+    /*
+     * getGoalSize
+     * Get the size of the goal list
+     * Return:
+     *     The size of the goal list.
+     */
+    public int getGoalSize(){
+        return goals.size();
+    }
+  
     /*
      * removeGoal
      * removes goal from the list, if it exists.

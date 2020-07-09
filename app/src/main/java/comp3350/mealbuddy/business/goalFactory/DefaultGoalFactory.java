@@ -2,7 +2,6 @@
  * DefaultGoalFactory
  * Extends GoalFactory to provide default goals for a user
  ****************************************/
-
 package comp3350.mealbuddy.business.goalFactory;
 
 import java.util.List;
@@ -48,7 +47,7 @@ public class DefaultGoalFactory extends GoalFactory {
         goalList.add(new MacroGoal(fatPercent-MacroVariance, fatPercent+MacroVariance, GoalType.RATIO, Fat));
         goalList.add(new MacroGoal(proteinPercent-MacroVariance, proteinPercent+MacroVariance, GoalType.RATIO, Protein));
         goalList.add(new MacroGoal(carbPercent-MacroVariance, carbPercent+MacroVariance, GoalType.RATIO, Carbohydrates));
-        goalList.add(new MacroGoal(alcoholPercent-MacroVariance, alcoholPercent+MacroVariance, GoalType.RATIO, Alcohol));
+        goalList.add(new MacroGoal(alcoholPercent, alcoholPercent+MacroVariance, GoalType.RATIO, Alcohol));
     }
 
     /*

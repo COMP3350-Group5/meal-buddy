@@ -16,7 +16,7 @@ public abstract class GoalFactory {
 
     protected UserInfo userInfo;
 
-    /*
+  /*
      * Constructor
      * Create a new goal factory for the given user.
      * Parameters:

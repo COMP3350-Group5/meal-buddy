@@ -1,5 +1,7 @@
 package comp3350.mealbuddy.tests.objects;
 
+import android.mtp.MtpConstants;
+
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -12,6 +14,8 @@ import comp3350.mealbuddy.objects.consumables.Food;
 import comp3350.mealbuddy.objects.consumables.Meal;
 
 public class DayTest {
+
+
     @Test
     public void constructor_outOfBounds_throwException() {
         //pass a day that doesn't exist i.e., not in 1-365
@@ -20,7 +24,7 @@ public class DayTest {
             //act
             Day day = new Day(-1);
             Assert.fail();
-        } catch(IllegalArgumentException iae) {
+        } catch (IllegalArgumentException iae) {
             //assert
             Assert.assertTrue(true);
         }
@@ -62,20 +66,54 @@ public class DayTest {
         Assert.assertTrue(day.breakfast.contains(eddie));
     }
 
-    @Test
-    public void addFood_realMeal_add() {
-    }
 
     @Test
     public void removeFood() {
+        //arrange
+        Food eddie = new Food("fake food", new ArrayList<>(Arrays.asList("fake")));
+        Day.MealTimeType MTT = Day.MealTimeType.BREAKFAST;
+        Day day = new Day(1);
+        day.addFood(MTT, eddie);
+
+        //arrange
+        day.removeFood(MTT, eddie);
+
+        //act
+        Assert.assertFalse(day.breakfast.contains(eddie));
+
     }
 
     @Test
     public void getMeal() {
+        //arrange
+        Food eddie = new Food("fake food", new ArrayList<>(Arrays.asList("fake")));
+        Day.MealTimeType breakfast = Day.MealTimeType.BREAKFAST;
+        Day day = new Day(1);
+        day.addFood(breakfast, eddie);
+        day.addFood(breakfast, eddie);
+
+        //arrange
+        String expected = "fake food 0g\n" +
+                            "fake food 0g\n";
+
+        //act
+        Assert.assertEquals(expected, day.getMeal(breakfast));
     }
 
     @Test
     public void getMealTimeList() {
+        //arrange
+        Food eddie = new Food("fake food", new ArrayList<>(Arrays.asList("fake")));
+        Day.MealTimeType breakfast = Day.MealTimeType.BREAKFAST;
+        Day day = new Day(1);
+        day.addFood(breakfast, eddie);
+
+        //arrange
+        String expected = "fake food 0g\n" +
+                "fake food 0g\n";
+
+        //act
+        Assert.assertEquals(day.breakfast, day.getMealTimeList(breakfast));
     }
 
 }

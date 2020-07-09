@@ -24,6 +24,8 @@ public class MacroGoal extends Goal {
      */
     public MacroGoal(int lowerBound, int upperBound, GoalType goalType, Macros id) {
         super(lowerBound, upperBound, goalType);
+        if(id ==null)
+            throw new IllegalArgumentException("Macro must be specified");
         this.id = id;
     }
 

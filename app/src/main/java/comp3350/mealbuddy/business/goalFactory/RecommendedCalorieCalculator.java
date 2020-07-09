@@ -12,7 +12,6 @@ import static comp3350.mealbuddy.objects.UserInfo.Sex.MALE;
 
 public class RecommendedCalorieCalculator {
 
-
     /*
      * getTotalRecommendedCalories
      * Get the total amount of recommended calories based on a users sex, weight, height, activity level, and age.
@@ -27,7 +26,6 @@ public class RecommendedCalorieCalculator {
                 ?   getMaleTotalCalorieRecAmnt(info.weight, info.height, info.activityLevel, info.age)
                 :    getFemaleTotalCalorieRecAmnt(info.weight, info.height, info.activityLevel, info.age);
     }
-
 
     /*
      * getMaleTotalCalorieRecAmnt
@@ -75,8 +73,7 @@ public class RecommendedCalorieCalculator {
         return (int)recommendedCalories;
     }
 
-
-    /*
+  /*
      * getActivityCoefficient
      * Get the coefficient for a user based on their activity level
      * Parameters:
@@ -100,7 +97,7 @@ public class RecommendedCalorieCalculator {
         }
         return activityCoefficient;
     }
-
+  
     /*
      * validateData
      * Make sure a user's data is valid.

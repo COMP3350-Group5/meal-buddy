@@ -39,6 +39,9 @@ public class Food extends Edible {
      *     @param weight - The weight in grams (mL if it's a liquid)
      */
     public void setWeight(int weight){
+        if (weight < 0) {
+            weight = 0;
+        }
         this.weight = weight;
     }
 

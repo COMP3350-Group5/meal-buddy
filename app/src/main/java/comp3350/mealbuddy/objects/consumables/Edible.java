@@ -31,6 +31,8 @@ public abstract class Edible {
      *     @param labels - The labels associated with the edible.
      */
     public Edible(String name, List<String> labels) {
+        if(name == null || labels == null)
+            throw new NullPointerException("Name and labels can't be null");
         this.name = name;
         this.labels = labels;
         micros = makeMicros();
@@ -72,6 +74,8 @@ public abstract class Edible {
      *     @param amount - The amount to update to.
      */
     public void updateMacro(Macros macro, int amount){
+        if(amount < 0 )
+            amount = 0;
         macros.put(macro, amount);
     }
 
@@ -83,6 +87,8 @@ public abstract class Edible {
      *     @param amount - The amount to update to.
      */
     public void updateMicro(Micros micro, int amount){
+        if(amount < 0 )
+            amount = 0;
         micros.put(micro, amount);
     }
 
@@ -93,8 +99,8 @@ public abstract class Edible {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || ! (o instanceof Edible)) return false;
+        if (! (o instanceof Edible)) return false;
         Edible edible = (Edible) o;
-        return name == edible.name ;
+        return name.equals(edible.name) ;
     }
 }

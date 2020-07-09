@@ -42,19 +42,21 @@ public class Meal extends Edible {
      *     @param food - The food we are updating
      *     @param quantity - The quantity of the food we are updating to
      */
-    public void updateFood(Food food, int quantity){
-        if (quantity <= 0) ediblesInMeal.remove(food);
-        else ediblesInMeal.add(new FoodIntPair(food, quantity));
+    public void updateFood(Food foodToUpdate, int quantity){
+        FoodIntPair foodIntPair = new FoodIntPair(foodToUpdate, quantity);
+        ediblesInMeal.remove(foodIntPair);
+        if(quantity>0)
+            ediblesInMeal.add(foodIntPair);
     }
 
     /*
-     * removeFood
-     * Removes a food from the meal
+     * containsFood
+     * Checks if the meal contains the food.
      * Parameters:
-     *     @param removeFood - The food to remove
+     *     @param food - The name of the food.
      */
-    public void removeFood(Food toRemove) {
-        ediblesInMeal.remove(toRemove);
+    public boolean containsFood(Food food){
+        return ediblesInMeal.contains( new FoodIntPair(food, 1) ); //returns true as long as food is the same
     }
 
     /*
