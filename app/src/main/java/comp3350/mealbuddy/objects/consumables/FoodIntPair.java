@@ -12,6 +12,9 @@ public class FoodIntPair {
     /*
      * Constructor
      * Create a FoodIntPair object.
+     * Parameters:
+     *     @param food - The food
+     *     @param quantity - The quantity of the food
      */
     public FoodIntPair(Food food, Integer quantity) {
         this.food = food;

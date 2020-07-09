@@ -16,6 +16,9 @@ public class Meal extends Edible {
     /*
      * Constructor
      * Create a meal from a name and a list of labels
+     * Parameters:
+     *     @param name - The name of the meal.
+     *     @param labels - The list of labels associated with the meal.
      */
     public Meal(String name, List<String> labels) {
         super(name, labels);
@@ -24,6 +27,8 @@ public class Meal extends Edible {
 
     /*
      * Creates a meal with a name and creates an empty list of labels.
+     * Parameters:
+     *     @param name - The name of the meal.
      */
     public Meal(String name) {
         super(name, new ArrayList<String>());
