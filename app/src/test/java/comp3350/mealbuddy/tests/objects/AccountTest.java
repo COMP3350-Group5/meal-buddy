@@ -20,8 +20,8 @@ public class AccountTest {
         String name = "Mike Spencer";
         String username = "Mike.spencer";
         String password = "mike_spencer";
-        Double weight = 140.00;
-        Double height = 175.00;
+        double weight = 140.00;
+        double height = 175.00;
         UserInfo.ActivityLevel activityLevel = UserInfo.ActivityLevel.HIGH;
         UserInfo.Sex sex = UserInfo.Sex.MALE;
         int age = 100;
