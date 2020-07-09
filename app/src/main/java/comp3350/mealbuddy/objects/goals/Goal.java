@@ -15,7 +15,11 @@ public abstract class Goal {
     /*
      * Constructor
      * Creates a goal with a lower and upper bound, and a type.
-     */
+     * Parameters:
+     *     @param lowerBound - The lower bound for the goal.
+     *     @param upperBound - The upper bound for the goal.
+     *     @param goalType - The type of goal.
+     * */
     public Goal(int lowerBound, int upperBound, GoalType goalType) {
         this.lowerBound = lowerBound;
         this.upperBound = upperBound;

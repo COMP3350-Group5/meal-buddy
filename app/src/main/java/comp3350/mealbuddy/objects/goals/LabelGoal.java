@@ -13,6 +13,11 @@ public class LabelGoal extends Goal {
     /*
      * Constructor
      * Creates a LabelGoal
+     * Parameters:
+     *     @param lowerBound - The lower bound for the goal.
+     *     @param upperBound - The upper bound for the goal.
+     *     @param id - The Label associated with the goal.
+     *
      */
     public LabelGoal(int lowerBound, int upperBound, GoalType goalType, String id) {
         super(lowerBound, upperBound, goalType);
@@ -22,6 +27,7 @@ public class LabelGoal extends Goal {
     /*
      * toString
      * Override for the toString method.
+     * Returns string representation of the goal.
      */
     @Override
     @NonNull

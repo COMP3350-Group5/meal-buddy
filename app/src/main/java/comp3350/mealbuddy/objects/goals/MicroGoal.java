@@ -15,6 +15,10 @@ public class MicroGoal extends Goal {
     /*
      * Constructor
      * Creates a MicroGoal
+     * Parameters:
+     *     @param lowerBound - The lower bound for the goal.
+     *     @param upperBound - The upper bound for the goal.
+     *     @param id - The Micro associated with the goal.
      */
     public MicroGoal(int lowerBound, int upperBound, Micros id) {
         super(lowerBound, upperBound, GoalType.QUANTITY);
@@ -24,6 +28,7 @@ public class MicroGoal extends Goal {
     /*
      * toString
      * Override for the toString method.
+     * Return string representation of the goal.
      */
     @Override
     @NonNull

@@ -10,6 +10,9 @@ public class CalorieGoal extends Goal {
     /*
      * Constructor
      * Create a new CalorieGoal
+     * Parameters:
+     *     @param lowerBound - The lower bound for the goal.
+     *     @param upperBound - The upper bound for the goal.
      */
     public CalorieGoal(int lowerBound, int upperBound) {
         super(lowerBound, upperBound, GoalType.QUANTITY);

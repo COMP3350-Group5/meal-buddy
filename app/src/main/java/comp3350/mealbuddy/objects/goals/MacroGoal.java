@@ -16,6 +16,11 @@ public class MacroGoal extends Goal {
     /*
      * Constructor
      * Creates a MacroGoal
+     * Parameters:
+     *     @param lowerBound - The lower bound for the goal.
+     *     @param upperBound - The upper bound for the goal.
+     *     @param goalType - The type of goal.
+     *     @param id - The Macro associated associated with the goal.
      */
     public MacroGoal(int lowerBound, int upperBound, GoalType goalType, Macros id) {
         super(lowerBound, upperBound, goalType);

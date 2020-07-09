@@ -23,7 +23,7 @@ public class Day {
      * Constructor
      * initializes the day object from a dayOfYear parameter
      * Parameters:
-     *     @param : {parameter} <-- for each parameter
+     *     @param dayofYear - The day of year.
      */
     public Day (int dayOfYear) {
         if (dayOfYear < 1 && dayOfYear > 365)
@@ -87,7 +87,7 @@ public class Day {
      * Parameters:
      *     @param MT - a mealtime enum value. {BREAKFAST, LUNCH, DINNER, SNACK}
      * Return:
-     *     returns the string interpreation.
+     *     returns the string interpretation.
      */
     public String getMeal(MealTimeType MT) {
         String meal = "";
