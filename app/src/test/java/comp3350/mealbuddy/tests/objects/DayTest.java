@@ -24,7 +24,7 @@ public class DayTest {
             //act
             Day day = new Day(-1);
             Assert.fail();
-        } catch(IllegalArgumentException iae) {
+        } catch (IllegalArgumentException iae) {
             //assert
             Assert.assertTrue(true);
         }
