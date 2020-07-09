@@ -29,4 +29,24 @@ public class UserInfo {
         this.sex = sex;
         this.age = age;
     }
+
+    public void validateUserInfo(){
+        if (fullname == null) {
+            throw new IllegalArgumentException("Null fullname");
+        } else if (username == null){
+            throw new IllegalArgumentException("Null username");
+        } else if (password == null) {
+            throw new IllegalArgumentException("Null password");
+        } else if (weight < 0) {
+            throw new IllegalArgumentException("Weight should not be less than zero");
+        } else if (height < 0) {
+            throw new IllegalArgumentException("Height should not be less than zero");
+        } else if (activityLevel == null) {
+            throw new IllegalArgumentException("Activity level should be LOW, MEDIUM or HIGH");
+        } else if (sex == null) {
+            throw new IllegalArgumentException("Sex should be MALE or FEMALE");
+        } else if (age < 0 || age >120) {
+            throw new IllegalArgumentException("Age should not be less than zero or greater than 120");
+        }
+    }
 }
