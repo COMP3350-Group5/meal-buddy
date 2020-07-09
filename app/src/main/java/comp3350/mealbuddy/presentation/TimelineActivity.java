@@ -1,3 +1,7 @@
+/****************************************
+ * TimelineActivity
+ * front end for showing a day
+ ****************************************/
 package comp3350.mealbuddy.presentation;
 
 import android.content.Intent;
@@ -24,22 +28,33 @@ public class TimelineActivity extends AppCompatActivity {
 
     private AccessAccount accessAccount;
     private Day day;
-    private Date today;
-    private LocalDate localDate;
     private Calculator calculator;
 
+    /*
+     * onCreate
+     * called when the activity is initially created
+     * Parameters:
+     *     @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeline);
+
+        //get username from previous activity
         final String username = this.getIntent().getStringExtra("username");
+
+        //get the day to display
         Calendar calendar = Calendar.getInstance();
         accessAccount = new AccessAccount();
         day = accessAccount.getDay(accessAccount.getAccount(username), calendar.get(Calendar.DAY_OF_YEAR));
         System.err.println(day.dayOfYear);
         calculator = new Calculator(day);
+
         initializeCards();
-        FloatingActionButton addFood = (FloatingActionButton) findViewById(R.id.btnAddFood);
+
+        // the "addFood" button to go to the AddFoodActivity
+        FloatingActionButton addFood = findViewById(R.id.btnAddFood);
         addFood.setOnClickListener((view) -> {
                 Intent intent = new Intent(TimelineActivity.this, AddFoodActivity.class);
                 intent.putExtra("dayOfYear", day.dayOfYear);
@@ -48,8 +63,10 @@ public class TimelineActivity extends AppCompatActivity {
         });
     }
 
-
-
+    /*
+     * initializeCards
+     * initializes the UI cards
+     */
     private void initializeCards(){
         initializeTotals();
         initializeBreakfast();
@@ -58,6 +75,10 @@ public class TimelineActivity extends AppCompatActivity {
         initializeSnacks();
     }
 
+    /*
+     * initializeSnacks
+     * initializes the the snack card UI
+     */
     private void initializeSnacks() {
         CardView snacks = findViewById(R.id.cardSnacks);
         RelativeLayout snacksLayout = (RelativeLayout) snacks.getChildAt(0);
@@ -69,6 +90,10 @@ public class TimelineActivity extends AppCompatActivity {
         txtSnackCals.setText(calculator.getMealTimeCalories(Day.MealTimeType.SNACK) + " Cals");
     }
 
+    /*
+     * initializeDinner
+     * initializes the dinner card UI
+     */
     private void initializeDinner() {
         CardView dinner = findViewById(R.id.cardDinner);
         RelativeLayout dinnerLayout = (RelativeLayout) dinner.getChildAt(0);
@@ -80,6 +105,10 @@ public class TimelineActivity extends AppCompatActivity {
         txtDinnerCals.setText(calculator.getMealTimeCalories(Day.MealTimeType.DINNER) + " Cals");
     }
 
+    /*
+     * initializeLunch
+     * initializes the lunch card UI
+     */
     private void initializeLunch() {
         CardView lunch = findViewById(R.id.cardLunch);
         RelativeLayout lunchLayout = (RelativeLayout) lunch.getChildAt(0);
@@ -91,6 +120,10 @@ public class TimelineActivity extends AppCompatActivity {
         txtLunchCals.setText(calculator.getMealTimeCalories(Day.MealTimeType.LUNCH) + " Cals");
     }
 
+    /*
+     * initializeBreakfast
+     * initializes the breakfast card UI
+     */
     private void initializeBreakfast() {
         CardView breakfast = findViewById(R.id.cardBreakfast);
         RelativeLayout breakfastLayout = (RelativeLayout) breakfast.getChildAt(0);
@@ -102,6 +135,10 @@ public class TimelineActivity extends AppCompatActivity {
         txtBreakfastCals.setText(calculator.getMealTimeCalories(Day.MealTimeType.BREAKFAST) + " Cals");
     }
 
+    /*
+     * initializeTotals
+     * initializes the totals
+     */
     private void initializeTotals() {
         CardView totals = findViewById(R.id.cardTotals);
         RelativeLayout totalsLayout = (RelativeLayout) totals.getChildAt(0);

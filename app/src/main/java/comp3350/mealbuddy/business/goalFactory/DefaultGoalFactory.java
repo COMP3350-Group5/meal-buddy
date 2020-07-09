@@ -1,3 +1,7 @@
+/****************************************
+ * DefaultGoalFactory
+ * Extends GoalFactory to provide default goals for a user
+ ****************************************/
 package comp3350.mealbuddy.business.goalFactory;
 
 import java.util.List;
@@ -16,10 +20,23 @@ import static comp3350.mealbuddy.objects.consumables.Edible.Macros.Alcohol;
 
 public class DefaultGoalFactory extends GoalFactory {
 
+    /*
+     * Constructor
+     * Create a new DefaultGoalFactory
+     * Parameters:
+     *     @param userInfo - The user to create a goal factory for.
+     */
     public DefaultGoalFactory(UserInfo userInfo) {
         super(userInfo);
     }
 
+    /*
+     * addMacroGoals
+     * Add default Macro goals to a user's goal list.
+     * Parameters:
+     *     @param userInfo - The user to add goals to.
+     *     @param goalList - The goal list to add to.
+     */
     @Override
     protected void addMacroGoals(UserInfo userInfo, List<Goal> goalList) {
         int MacroVariance = 5;
@@ -33,6 +50,13 @@ public class DefaultGoalFactory extends GoalFactory {
         goalList.add(new MacroGoal(alcoholPercent, alcoholPercent+MacroVariance, GoalType.RATIO, Alcohol));
     }
 
+    /*
+     * addMicroGoals
+     * Add default Micro goals to a user's goal list.
+     * Parameters:
+     *     @param userInfo - The user to add goals to.
+     *     @param goalList - The goal list to add to.
+     */
     @Override
     protected void addMicroGoals(UserInfo userInfo, List<Goal> goalList) {
         Object[][] goals = {
@@ -55,6 +79,13 @@ public class DefaultGoalFactory extends GoalFactory {
         }
     }
 
+    /*
+     * addLabelGoals
+     * Add default label goals to a user's goal list.
+     * Parameters:
+     *     @param userInfo - The  user to add goals to.
+     *     @param goalList - The goal list to add to.
+     */
     @Override
     protected void addLabelGoals(UserInfo userInfo, List<Goal> goalList) {
         //Do nothing.  We dont want any label goals here
