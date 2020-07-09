@@ -10,6 +10,8 @@ public class MicroGoal extends Goal {
 
     public MicroGoal(int lowerBound, int upperBound, Micros id) {
         super(lowerBound, upperBound, GoalType.QUANTITY);
+        if(id ==null)
+            throw new IllegalArgumentException("Micro must be specified");
         this.id = id;
     }
 

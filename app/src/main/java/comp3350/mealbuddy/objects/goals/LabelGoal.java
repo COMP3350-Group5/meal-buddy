@@ -8,6 +8,7 @@ public class LabelGoal extends Goal {
 
     public LabelGoal(int lowerBound, int upperBound, GoalType goalType, String id) {
         super(lowerBound, upperBound, goalType);
+        if(id == null) throw new IllegalArgumentException("Label id cant be null");
         this.id = id;
     }
 
