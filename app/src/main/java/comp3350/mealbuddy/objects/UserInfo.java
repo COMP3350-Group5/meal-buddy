@@ -19,7 +19,7 @@ public class UserInfo {
     public String username;
     public String password; //hash it in the future
     public double weight; //in lbs
-    public double height; //in cm
+    public double height; //in inches
     public ActivityLevel activityLevel;
     public Sex sex;
     public int age;

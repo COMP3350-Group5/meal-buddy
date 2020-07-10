@@ -18,10 +18,6 @@ import android.widget.TextView;
 
 public class HomeActivity extends AppCompatActivity {
     private AccessAccount accessAccount = new AccessAccount();
-    private EditText username;
-    private EditText password;
-    private Button login;
-    private TextView createAccount;
 
     /*
      * onCreate
@@ -34,11 +30,11 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        //components
-        username = findViewById(R.id.etUsername);
-        password = findViewById(R.id.etPassword);
-        login = findViewById(R.id.btnLogin);
-        createAccount = findViewById(R.id.tvCreateAccount);
+        EditText username = findViewById(R.id.etUsername);
+        EditText password = findViewById(R.id.etPassword);
+        Button login = findViewById(R.id.btnLogin);
+        TextView createAccount = findViewById(R.id.btnCreateAccount);
+
 
         //link the on click listeners
         login.setOnClickListener((view) -> checkLogin(username.getText(), password.getText()));
