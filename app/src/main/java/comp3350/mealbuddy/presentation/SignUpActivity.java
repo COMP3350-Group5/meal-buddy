@@ -6,6 +6,9 @@ package comp3350.mealbuddy.presentation;
 
 import comp3350.mealbuddy.R;
 import comp3350.mealbuddy.business.AccessAccount;
+import comp3350.mealbuddy.objects.Account;
+import comp3350.mealbuddy.objects.Day;
+import comp3350.mealbuddy.objects.UserInfo;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -37,10 +40,30 @@ public class SignUpActivity extends AppCompatActivity {
         Spinner activityLevel = findViewById(R.id.spnActivityLevel);
         Spinner sex = findViewById(R.id.spnSex);
         Button createAccount = findViewById(R.id.btnCreateAccount);
-
+        String sexValue = sex.getSelectedItem().toString();
+        UserInfo.Sex ST = sexValue.equals("Male") ? UserInfo.Sex.MALE : UserInfo.Sex.FEMALE;
+        String activityLevelValue = activityLevel.getSelectedItem().toString();
+        UserInfo.ActivityLevel ALT;
+        if (activityLevelValue.equals("Low"))
+           ALT = UserInfo.ActivityLevel.LOW;
+        else if(activityLevelValue.equals("Medium"))
+            ALT = UserInfo.ActivityLevel.MEDIUM;
+        else
+            ALT = UserInfo.ActivityLevel.HIGH;
         //link the on click listeners
         createAccount.setOnClickListener((view) -> {
+            UserInfo userInfo = new UserInfo(fullName.getText().toString(),
+                    username.getText().toString(),
+                    password.getText().toString(),
+                    Double.parseDouble(height.getText().toString()),
+                    Double.parseDouble(weight.getText().toString()),
+                    ALT,
+                    ST,
+                    Integer.parseInt(age.getText().toString()));
+            Account account = new Account(userInfo);
+            accessAccount.addAccount(account);
             Intent intent = new Intent(SignUpActivity.this, TimelineActivity.class);
+            intent.putExtra("username",  username.getText().toString());
             SignUpActivity.this.startActivity(intent);
         });
     }
