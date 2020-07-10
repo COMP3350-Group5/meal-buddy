@@ -71,7 +71,7 @@ public class AddFoodActivity extends AppCompatActivity {
 
             //get the meal time to add the food to
             Day.MealTimeType MT;
-            String spnString = spinner.getSelectedItem().toString();;
+            String spnString = spinner.getSelectedItem().toString();
             if (spnString.equals("Breakfast"))
                 MT = Day.MealTimeType.BREAKFAST;
             else if(spnString.equals("Lunch"))
