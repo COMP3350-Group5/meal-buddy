@@ -37,7 +37,7 @@
         android:layout_marginTop="50dp"
         android:ems="10"
         android:hint="Fat (g)"
-        android:inputType="numberSigned"
+        android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etLabels" />
@@ -49,7 +49,7 @@
         android:layout_marginTop="50dp"
         android:ems="10"
         android:hint="Carbs (g)"
-        android:inputType="numberSigned"
+        android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etFat" />
@@ -61,6 +61,7 @@
         android:layout_marginTop="50dp"
         android:ems="10"
         android:hint="Protein (g)"
+        android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etCarbs" />
@@ -72,7 +73,7 @@
         android:layout_marginTop="50dp"
         android:ems="10"
         android:hint="Weight (g)"
-        android:inputType="numberSigned"
+        android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etProtein" />
