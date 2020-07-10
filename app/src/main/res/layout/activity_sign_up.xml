@@ -89,11 +89,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etWeight" />
+
     <Spinner
         android:id="@+id/spnSex"
         android:layout_width="460dp"
         android:layout_height="50dp"
-        android:layout_marginTop="136dp"
+        android:layout_marginTop="48dp"
         android:ems="10"
         android:entries="@array/sex_array"
         app:layout_constraintEnd_toEndOf="parent"
@@ -116,9 +117,9 @@
         android:id="@+id/spnActivityLevel"
         android:layout_width="460dp"
         android:layout_height="50dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="56dp"
         android:entries="@array/activityLevel_array"
-        app:layout_constraintBottom_toTopOf="@+id/spnSex"
+        app:layout_constraintBottom_toTopOf="@+id/btnCreateAccount"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
