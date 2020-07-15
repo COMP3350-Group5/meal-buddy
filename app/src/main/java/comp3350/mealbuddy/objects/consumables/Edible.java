@@ -9,8 +9,8 @@ public abstract class Edible {
 
     public String name;
     public List<String> labels;
-    public Map<Micros, Integer> micros;
-    public Map<Macros, Integer> macros;
+    private Map<Micros, Integer> micros;
+    private Map<Macros, Integer> macros;
 
     public enum Macros{
         Fat, Carbohydrates, Protein, Alcohol
@@ -66,5 +66,21 @@ public abstract class Edible {
         if (! (o instanceof Edible)) return false;
         Edible edible = (Edible) o;
         return name.equals(edible.name) ;
+    }
+
+    private Integer getMicroAmount(Micros foodMicro) {
+        int microAmount = 0;
+        if (micros.containsKey(foodMicro)) {
+            microAmount = micros.get(foodMicro);
+        }
+        return microAmount;
+    }
+
+    private Integer getMacroAmount(Macros foodMacro) {
+        int macroAmount = 0;
+        if (macros.containsKey(foodMacro)) {
+            macroAmount = macros.get(foodMacro);
+        }
+        return macroAmount;
     }
 }
