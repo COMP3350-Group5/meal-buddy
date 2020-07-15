@@ -9,10 +9,10 @@ public class Day {
         BREAKFAST, LUNCH, DINNER, SNACK
     }
     public int dayOfYear; // represented as day-of-year (1-365)
-    public ArrayList<Edible> breakfast;
-    public ArrayList<Edible> lunch;
-    public ArrayList<Edible> dinner;
-    public ArrayList<Edible> snack;
+    private ArrayList<Edible> breakfast;
+    private ArrayList<Edible> lunch;
+    private ArrayList<Edible> dinner;
+    private ArrayList<Edible> snack;
 
     public Day (int dayOfYear) {
         if (dayOfYear > 0 && dayOfYear < 367)
