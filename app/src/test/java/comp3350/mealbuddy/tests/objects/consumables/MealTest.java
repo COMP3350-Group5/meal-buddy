@@ -7,10 +7,16 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import comp3350.mealbuddy.objects.consumables.EdibleIntPair;
 import comp3350.mealbuddy.objects.consumables.Food;
-import comp3350.mealbuddy.objects.consumables.FoodIntPair;
 import comp3350.mealbuddy.objects.consumables.Meal;
 
+import static comp3350.mealbuddy.objects.consumables.Edible.Macros.Fat;
+import static comp3350.mealbuddy.objects.consumables.Edible.Micros.Zinc;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 public class MealTest {
@@ -19,142 +25,335 @@ public class MealTest {
     private static Food food;
 
     @Before
-    public void initFood(){
+    public void initFood() {
         String name = "egg";
         food = new Food(name);
     }
 
     @Test
-    public void containsFood_foodNotInSet_returnsFalse(){
+    public void containsEdible_foodNotInList_returnsFalse() {
         //arrange
         String name = "mealName";
         Meal meal = new Meal(name);
         int initQuantity = 1;
         Food differentFood = new Food("NotEgg");
-        FoodIntPair diffFoodIntPair = new FoodIntPair(differentFood, initQuantity);
 
         //act
-        meal.ediblesInMeal.add(diffFoodIntPair);
+        meal.setEdible(differentFood, initQuantity);
 
         //assert
-        Assert.assertFalse(meal.containsFood(food));
+        Assert.assertFalse(meal.containsEdible(food));
     }
 
     @Test
-    public void containsFood_foodInSet_returnsTrue(){
+    public void containsEdible_foodInList_returnsTrue() {
         //arrange
         String name = "mealName";
         Meal meal = new Meal(name);
         int initQuantity = 1;
-        FoodIntPair foodIntPair = new FoodIntPair(food, initQuantity);
 
         //act
-        meal.ediblesInMeal.add(foodIntPair);
+        meal.setEdible(food, initQuantity);
 
         //assert
-        Assert.assertTrue(meal.containsFood(food));
+        Assert.assertTrue(meal.containsEdible(food));
     }
 
 
     @Test
-    public void constructor_nullList_throwException(){
+    public void constructor_nullList_throwException() {
         //arrange
         List<String> nullList = null;
         String name = "egg";
 
         //act
-        try{
+        try {
             Meal meal = new Meal(name, nullList);
             fail();
         }//assert
-        catch(NullPointerException e){
+        catch (NullPointerException e) {
             Assert.assertTrue(true);
         }
     }
 
     @Test
-    public void constructor_nullName_throwException(){
+    public void constructor_nullName_throwException() {
         //arrange
         List<String> listOfLabels = new ArrayList<>();
         String nullName = null;
 
         //act
-        try{
+        try {
             Meal meal = new Meal(nullName, listOfLabels);
             fail();
         }//assert
-        catch(NullPointerException e){
+        catch (NullPointerException e) {
             Assert.assertTrue(true);
         }
     }
 
     @Test
-    public void updateFood_foodNotContained_foodAdded(){
+    public void setEdible_foodNotContained_foodAdded() {
         //arrange
         String name = "mealName";
         Meal meal = new Meal(name);
 
         //act
-        meal.updateFood(food, 1);
+        meal.setEdible(food, 1);
 
         //assert
-        Assert.assertTrue(meal.containsFood(food));
+        Assert.assertTrue(meal.containsEdible(food));
     }
 
     @Test
-    public void updateFood_foodNotContainedQuantityZero_throwException(){
+    public void setEdible_foodNotContainedQuantityZero_doesntAdd() {
         //arrange
         String name = "mealName";
         Meal meal = new Meal(name);
 
         //act
+        meal.setEdible(food, 0);
+
+        //assert
+        Assert.assertFalse(meal.containsEdible(food));
+    }
+
+    @Test
+    public void setEdible_foodContainedPositiveQuantity_quantityUpdated() {
+        //arrange
+        String name = "mealName";
+        Meal meal = new Meal(name);
+        int initQuantity = 1;
+        int updatedQuantity = 5;
+        meal.setEdible(food, initQuantity);
+        //act
+        meal.setEdible(food, updatedQuantity);
+        int actualQuantity = meal.getEdibleIntPair(food).quantity;
+        //assert
+        assertEquals(updatedQuantity, actualQuantity);
+    }
+
+
+    @Test
+    public void setEdible_foodNotContainedNegativeQuantity_throwException() {
+        //arrange
+        String name = "mealName";
+        Meal meal = new Meal(name);
+        int initQuantity = 1;
+        int updatedQuantity = -5;
+        meal.setEdible(food, initQuantity);
+
+        //act
         try {
-            meal.updateFood(food, 0);
+            meal.setEdible(food, updatedQuantity);
             Assert.fail();
         } catch (IllegalArgumentException e) {
             // Assert
             Assert.assertTrue(true);
         }
-
     }
 
+
     @Test
-    public void updateFood_foodContainedPositiveQuantity_quantityUpdated(){
+    public void setEdible_foodNotContainedSetToZero_foodRemoved() {
         //arrange
         String name = "mealName";
         Meal meal = new Meal(name);
         int initQuantity = 1;
-        Integer updatedQuantity = 5;
-        FoodIntPair foodIntPair = new FoodIntPair(food, initQuantity);
-        meal.ediblesInMeal.add(foodIntPair);
+        int updatedQuantity = 0;
+        meal.setEdible(food, initQuantity);
 
         //act
-        meal.updateFood(food, updatedQuantity);
+        meal.setEdible(food, updatedQuantity);
 
         //assert
-        for(FoodIntPair pairInSet: meal.ediblesInMeal){
-            Assert.assertEquals( updatedQuantity, pairInSet.quantity );
-        }
+        assertFalse(meal.containsEdible(food));
     }
 
     @Test
-    public void updateFood_foodNotContainedNegativeQuantity_throwException() {
+    public void getEdibleIntPair_pairContained_pairRetrieved() {
         //arrange
         String name = "mealName";
         Meal meal = new Meal(name);
         int initQuantity = 1;
-        Integer updatedQuantity = -5;
-        FoodIntPair foodIntPair = new FoodIntPair(food, initQuantity);
-        meal.ediblesInMeal.add(foodIntPair);
+        meal.setEdible(food, initQuantity);
 
         //act
-        try {
-            meal.updateFood(food, updatedQuantity);
-            Assert.fail();
-        } catch (IllegalArgumentException e) {
-            // Assert
-            Assert.assertTrue(true);
-        }
+        EdibleIntPair edibleIntPair = meal.getEdibleIntPair(food);
+
+        //assert
+        assertEquals(edibleIntPair.edible, food);
+    }
+
+
+    @Test
+    public void getEdibleIntPair_pairNotContained_nullReturned() {
+        //arrange
+        String name = "mealName";
+        Meal meal = new Meal(name);
+
+        //act
+        EdibleIntPair edibleIntPair = meal.getEdibleIntPair(meal);
+
+        //assert
+        assertNull(edibleIntPair);
+    }
+
+
+    @Test
+    public void getMicroGrams_emptyMeal_zeroGrams() {
+        // arrange
+        Meal emptyMeal = new Meal("empty");
+        int expectedGrams = 0;
+
+        // act
+
+        // assert
+        Assert.assertEquals(expectedGrams, emptyMeal.getMicroGrams(Zinc));
+    }
+
+    @Test
+    public void getMicroGrams_oneLevelMealSingleQuantity_returnGrams() {
+        // arrange
+        Meal meal = new Meal("empty");
+        Meal cereal = makeCerealMeal();
+        int expectedGrams = 30;
+        int quantity = 1;
+
+        // act
+        meal.setEdible(cereal, quantity);
+
+        // assert
+        Assert.assertEquals(expectedGrams, meal.getMicroGrams(Zinc));
+    }
+
+
+    @Test
+    public void getMicroGrams_oneLevelMealMultiQuantity_returnGrams() {
+        // arrange
+        Meal meal = new Meal("empty");
+        Meal cereal = makeCerealMeal();
+        int expectedGrams = 90;
+        int quantity = 3;
+
+        // act
+        meal.setEdible(cereal, quantity);
+
+        // assert
+        Assert.assertEquals(expectedGrams, meal.getMicroGrams(Zinc));
+    }
+
+
+    @Test
+    public void getMicroGrams_nestedMeal_returnGrams() {
+        // arrange
+        Meal meal = new Meal("empty");
+        Meal nestedMeal = makeNestedMeal();
+        int expectedGrams = 90;
+        int quantity = 1;
+
+        // act
+        meal.setEdible(nestedMeal, quantity);
+
+        // assert
+        Assert.assertEquals(expectedGrams, meal.getMicroGrams(Zinc));
+    }
+
+
+    @Test
+    public void getMacroGrams_emptyMeal_zeroGrams() {
+        // arrange
+        Meal emptyMeal = new Meal("empty");
+        int expectedGrams = 0;
+
+        // act
+
+        // assert
+        Assert.assertEquals(expectedGrams, emptyMeal.getMacroGrams(Fat));
+    }
+
+
+    @Test
+    public void getMacroGrams_oneLevelMealSingleQuantity_returnGrams() {
+        // arrange
+        Meal meal = new Meal("empty");
+        Meal cereal = makeCerealMeal();
+        int expectedGrams = 30;
+        int quantity = 1;
+
+        // act
+        meal.setEdible(cereal, quantity);
+
+        // assert
+        Assert.assertEquals(expectedGrams, meal.getMacroGrams(Fat));
+    }
+
+
+    @Test
+    public void getMacroGrams_oneLevelMealMultiQuantity_returnGrams() {
+        // arrange
+        Meal meal = new Meal("empty");
+        Meal cereal = makeCerealMeal();
+        int expectedGrams = 90;
+        int quantity = 3;
+
+        // act
+        meal.setEdible(cereal, quantity);
+
+        // assert
+        Assert.assertEquals(expectedGrams, meal.getMacroGrams(Fat));
+    }
+
+
+    @Test
+    public void getMacroGrams_nestedMeal_returnGrams() {
+        // arrange
+        Meal meal = new Meal("empty");
+        Meal nestedMeal = makeNestedMeal();
+        int expectedGrams = 90;
+        int quantity = 1;
+
+        // act
+        meal.setEdible(nestedMeal, quantity);
+
+        // assert
+        Assert.assertEquals(expectedGrams, meal.getMacroGrams(Fat));
+    }
+
+
+    private Meal makeNestedMeal() {
+        Food egg = new Food("egg");
+        egg.updateMacro(Fat, 10);
+        egg.updateMicro(Zinc, 10);
+
+        Food bacon = new Food("bacon");
+        bacon.updateMacro(Fat, 10);
+        bacon.updateMicro(Zinc, 10);
+
+        Meal cereal = makeCerealMeal();
+
+        Meal nestedMeal = new Meal("nestedMeal");
+        nestedMeal.setEdible(egg, 1);
+        nestedMeal.setEdible(bacon, 2);
+        nestedMeal.setEdible(cereal, 2);
+
+        return nestedMeal;
+    }
+
+    private Meal makeCerealMeal() {
+        Food milk = new Food("milk");
+        milk.updateMacro(Fat, 10);
+        milk.updateMicro(Zinc, 10);
+
+        Food cheerios = new Food("cheerios");
+        cheerios.updateMacro(Fat, 10);
+        cheerios.updateMicro(Zinc, 10);
+
+        Meal cereal = new Meal("cereal");
+        cereal.setEdible(milk, 2);
+        cereal.setEdible(cheerios, 1);
+
+        return cereal;
     }
 
 

@@ -1,16 +1,15 @@
-/****************************************
- * Calculator
- * Object for performing various calculations on a users eaten foods
- ****************************************/
+/***************************************
+ Calculator
+ Object for performing various calculations on a users eaten foods
+ */
 package comp3350.mealbuddy.business;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 
 import comp3350.mealbuddy.objects.Day;
 import comp3350.mealbuddy.objects.consumables.Edible;
 import comp3350.mealbuddy.objects.consumables.Food;
-import comp3350.mealbuddy.objects.consumables.FoodIntPair;
+import comp3350.mealbuddy.objects.consumables.EdibleIntPair;
 import comp3350.mealbuddy.objects.consumables.Meal;
 
 import static comp3350.mealbuddy.objects.consumables.Edible.Macros.*;
@@ -166,48 +165,25 @@ public class Calculator {
     private int getListCalories(ArrayList<Edible> foodList) {
         int totalCalories = 0;
         for (Edible edible : foodList) {
-            if (edible instanceof Food) {
-                totalCalories += getFoodCalories((Food) edible);
-            }
-            else {
-                totalCalories += getMealCalories((Meal) edible);
-            }
+            totalCalories += getEdibleCalories(edible);
         }
         return totalCalories;
     }
 
     /*
-     * getFoodCalories
+     * getEdibleCalories
      * Get the amount of calories in a food.
      * Parameters:
      *     @param food - The food
      * Return:
      *     The calories in the food.
      */
-    private int getFoodCalories(Food food) {
+    private int getEdibleCalories(Edible edible) {
         int totalCalories = 0;
-        totalCalories += PROTEIN_CONVERSION * food.macros.get(Protein);
-        totalCalories += CARBOHYDRATE_CONVERSION * food.macros.get(Carbohydrates);
-        totalCalories += FAT_CONVERSION * food.macros.get(Fat);
-        totalCalories += ALCOHOL_CONVERSION * food.macros.get(Alcohol);
-        return totalCalories;
-    }
-
-    /*
-     * getMealCalories
-     * Get the amount of calories in a meal.
-     * Parameters:
-     *     @param meal - The meal
-     * Return:
-     *     The calories in the meal.
-     */
-    private int getMealCalories(Meal meal) {
-        int totalCalories = 0;
-        for (FoodIntPair foodQuantityPair: meal.ediblesInMeal) {
-            int foodQuantity = foodQuantityPair.quantity;
-            Food food = foodQuantityPair.food;
-            totalCalories += foodQuantity * getFoodCalories(food);
-        }
+        totalCalories += PROTEIN_CONVERSION * edible.getMacroGrams(Protein);
+        totalCalories += CARBOHYDRATE_CONVERSION * edible.getMacroGrams(Carbohydrates);
+        totalCalories += FAT_CONVERSION * edible.getMacroGrams(Fat);
+        totalCalories += ALCOHOL_CONVERSION * edible.getMacroGrams(Alcohol);
         return totalCalories;
     }
 
@@ -222,48 +198,12 @@ public class Calculator {
     private int getListMacroCalories(ArrayList<Edible> foodList, Edible.Macros macro) {
         int totalCalories = 0;
         for (Edible edible : foodList) {
-            if (edible instanceof Food) {
-                totalCalories += getFoodMacroCalories((Food) edible, macro);
-            }
-            else {
-                totalCalories += getMealMacroCalories((Meal) edible, macro);
-            }
+            int conversionFactor = getConversionFactor(macro);
+            totalCalories += edible.getMacroGrams(macro) * conversionFactor;
         }
         return totalCalories;
     }
 
-    /*
-     * getFoodMacroCalories
-     * Get the amount of calories in a food from a given macro.
-     * Parameters:
-     *     @param food - The food to calculate calories for
-     *     @param macro - The macro to calculate
-     * Return:
-     *     The calories in the food from the macro.
-     */
-    private int getFoodMacroCalories(Food food, Edible.Macros macro) {
-        int conversionFactor = getConversionFactor(macro);
-        return conversionFactor * food.macros.get(macro);
-    }
-
-    /*
-     * getFoodMacroCalories
-     * Get the amount of calories in a meal from a given macro.
-     * Parameters:
-     *     @param meal - The meal to calculate calories for
-     *     @param macro - The macro to calculate
-     * Return:
-     *     The calories in the food from the macro.
-     */
-    private int getMealMacroCalories(Meal meal, Edible.Macros macro) {
-        int totalCalories = 0;
-        for (FoodIntPair foodQuantityPair: meal.ediblesInMeal) {
-            int foodQuantity = foodQuantityPair.quantity;
-            Food food = foodQuantityPair.food;
-            totalCalories += foodQuantity * getFoodMacroCalories(food, macro);
-        }
-        return totalCalories;
-    }
 
     /*
      * getConversionFactor
@@ -303,34 +243,11 @@ public class Calculator {
     private int getListMicroMgs(ArrayList<Edible> foodList, Edible.Micros micro) {
         int totalMg = 0;
         for (Edible edible : foodList) {
-            if (edible instanceof Food) {
-                totalMg += ((Food) edible).micros.get(micro);
-            }
-            else {
-                totalMg += getMealMicroMgs((Meal) edible, micro);
-            }
+            totalMg += edible.getMicroGrams(micro);
         }
         return totalMg;
     }
 
-    /*
-     * getMealMicroMgs
-     * Get the total mgs of a Micro in a list of edibles
-     * Parameters:
-     *     @param foodList - The list of edibles
-     *     @param micro - The micro
-     * Return:
-     *     The total mgs of a Micro in the list
-     */
-    private int getMealMicroMgs (Meal meal, Edible.Micros micro) {
-        int totalMg = 0;
-        for (FoodIntPair foodQuantityPair: meal.ediblesInMeal) {
-            int foodQuantity = foodQuantityPair.quantity;
-            int microQuantity = foodQuantityPair.food.micros.get(micro);
-            totalMg += foodQuantity * microQuantity;
-        }
-        return totalMg;
-    }
 
     /*
      * getListLabelCalories
@@ -344,49 +261,10 @@ public class Calculator {
     private int getListLabelCalories(ArrayList<Edible> foodList, String label) {
         int totalCalories = 0;
         for (Edible edible : foodList) {
-            if (edible instanceof Food) {
-                totalCalories += getFoodLabelCalories((Food) edible, label);
-            }
-            else {
-                totalCalories += getMealLabelCalories((Meal) edible, label);
-            }
+            if (edible.containsLabel(label))
+                totalCalories += getEdibleCalories(edible);
         }
         return totalCalories;
     }
 
-    /*
-     * getFoodLabelCalories
-     * Get the total calories from a food if it contains the label.
-     * Parameters:
-     *     @param food - The food
-     *     @param label - The label
-     * Return:
-     *     The total calories of the food if it contains the label.
-     */
-    private int getFoodLabelCalories(Food food, String label) {
-        int totalCalories = 0;
-        if (food.labels.contains(label)) {
-            totalCalories += getFoodCalories(food);
-        }
-        return totalCalories;
-    }
-
-    /*
-     * getMealLabelCalories
-     * Get the total calories from a meal if it contains the label.
-     * Parameters:
-     *     @param meal - The meal
-     *     @param label - The label
-     * Return:
-     *     The total calories coming from foods with the label in the meal.
-     */
-    private int getMealLabelCalories(Meal meal, String label) {
-        int totalCalories = 0;
-        for (FoodIntPair foodQuantityPair: meal.ediblesInMeal) {
-            Food food = foodQuantityPair.food;
-            int foodQuantity = foodQuantityPair.quantity;
-            totalCalories += foodQuantity * getFoodLabelCalories(food, label);
-        }
-        return totalCalories;
-    }
 }

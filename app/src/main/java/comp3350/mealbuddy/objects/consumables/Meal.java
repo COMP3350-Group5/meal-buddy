@@ -4,14 +4,15 @@
  ****************************************/
 package comp3350.mealbuddy.objects.consumables;
 
+import androidx.annotation.NonNull;
+
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 public class Meal extends Edible {
 
-    public Set<FoodIntPair> ediblesInMeal;
+    private ArrayList<EdibleIntPair> ediblesInMeal;
 
     /*
      * Constructor
@@ -22,7 +23,7 @@ public class Meal extends Edible {
      */
     public Meal(String name, List<String> labels) {
         super(name, labels);
-        ediblesInMeal = new HashSet<>();
+        ediblesInMeal = new ArrayList<>();
     }
 
     /*
@@ -31,22 +32,38 @@ public class Meal extends Edible {
      *     @param name - The name of the meal.
      */
     public Meal(String name) {
-        super(name, new ArrayList<String>());
-        ediblesInMeal = new HashSet<>();
+        super(name, new ArrayList<>());
+        ediblesInMeal = new ArrayList<>();
+    }
+
+    @NonNull
+    @Override
+    public Iterator<Edible> iterator() {
+        return new MealIterator(ediblesInMeal);
     }
 
     /*
-     * updateFood
+     * setEdible
      * Updates the quantity of a Food in the meal, or adds it if not already present.
      * Parameters:
      *     @param food - The food we are updating
      *     @param quantity - The quantity of the food we are updating to
      */
-    public void updateFood(Food foodToUpdate, int quantity){
-        FoodIntPair foodIntPair = new FoodIntPair(foodToUpdate, quantity);
-        ediblesInMeal.remove(foodIntPair);
-        if(quantity>0)
-            ediblesInMeal.add(foodIntPair);
+    public void setEdible(Edible edible, int quantity) {
+        if (quantity < 0) {
+            throw new IllegalArgumentException("can't set quantity to a negative number:" + quantity);
+        }
+        ediblesInMeal.remove(edible);   //easier to remove then add to update the value//otherwise have to check if it contains or not and add if it doesnt or just update if it does
+        if (quantity > 0) {
+            EdibleIntPair edibleIntPair = new EdibleIntPair(edible, quantity);
+            ediblesInMeal.add(edibleIntPair);
+        }
+    }
+
+    public EdibleIntPair getEdibleIntPair(Edible edible) {
+        if (ediblesInMeal.contains(edible))
+            return ediblesInMeal.get(ediblesInMeal.indexOf(edible));
+        return null;
     }
 
     /*
@@ -55,8 +72,8 @@ public class Meal extends Edible {
      * Parameters:
      *     @param food - The name of the food.
      */
-    public boolean containsFood(Food food){
-        return ediblesInMeal.contains( new FoodIntPair(food, 1) ); //returns true as long as food is the same
+    public boolean containsEdible(Edible edible) {
+        return ediblesInMeal.contains(edible); //returns true as long as food is the same
     }
 
     /*
@@ -64,11 +81,41 @@ public class Meal extends Edible {
      * Override for the toString method.
      */
     @Override
-    public String toString(){
+    public String toString() {
         String meal = name + ": ";
-        for (FoodIntPair pair: ediblesInMeal) {
-            meal += (pair.quantity + " " + pair.food + " ");
+        for (EdibleIntPair pair : ediblesInMeal) {
+            meal += (pair.quantity + " " + pair.edible + " ");
         }
         return meal;
     }
+
+    @Override
+    public int getMacroGrams(Macros macro) {
+        int grams = 0;
+        Edible edible;
+        int quantity;
+        for (EdibleIntPair edibleIntPair : ediblesInMeal) {
+            edible = edibleIntPair.edible;
+            quantity = edibleIntPair.quantity;
+
+            grams += edible.getMacroGrams(macro) * quantity;
+        }
+        return grams;
+    }
+
+    @Override
+    public int getMicroGrams(Micros micro) {
+        int grams = 0;
+        Edible edible;
+        int quantity;
+        for (EdibleIntPair edibleIntPair : ediblesInMeal) {
+            edible = edibleIntPair.edible;
+            quantity = edibleIntPair.quantity;
+
+            grams += edible.getMicroGrams(micro) * quantity;
+        }
+        return grams;
+    }
+
+
 }

@@ -72,11 +72,11 @@ public class DataAccessStub {
      */
     private void initEdibles(){
         Food edible;
-        Meal meal = new Meal("Burger", new ArrayList<String>());
+        Meal meal = new Meal("Burger", new ArrayList<>());
         Object[][] foods = {
-            {"Beef Patty", new ArrayList<String>()},
-            {"Cheese", new ArrayList<>(Arrays.asList("dairy", "vegetarian"))},
-            {"Burger Bun", new ArrayList<>(Arrays.asList("vegetarian", "vegan"))},
+                {"Beef Patty", new ArrayList<String>()},
+                {"Cheese", new ArrayList<>(Arrays.asList("dairy", "vegetarian"))},
+                {"Burger Bun", new ArrayList<>(Arrays.asList("vegetarian", "vegan"))},
         };
         for (Object[] food : foods){
             edible = new Food(
@@ -84,7 +84,7 @@ public class DataAccessStub {
                     (ArrayList)food[1]
             );
             edibles.add(edible);
-            meal.updateFood(edible, 1);
+            meal.setEdible(edible, 1);
         }
         edibles.add(meal);
     }

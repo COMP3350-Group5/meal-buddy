@@ -1,7 +1,5 @@
 package comp3350.mealbuddy.tests.objects;
 
-import android.mtp.MtpConstants;
-
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -9,9 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import comp3350.mealbuddy.objects.Day;
-import comp3350.mealbuddy.objects.consumables.FoodIntPair;
 import comp3350.mealbuddy.objects.consumables.Food;
-import comp3350.mealbuddy.objects.consumables.Meal;
 
 public class DayTest {
 

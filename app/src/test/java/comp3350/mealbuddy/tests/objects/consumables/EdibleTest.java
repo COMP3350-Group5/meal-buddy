@@ -8,7 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import comp3350.mealbuddy.objects.consumables.Edible;
+import comp3350.mealbuddy.objects.consumables.EdibleIntPair;
 import comp3350.mealbuddy.objects.consumables.Food;
+import comp3350.mealbuddy.objects.consumables.Meal;
 
 import static comp3350.mealbuddy.objects.consumables.Edible.Macros.Alcohol;
 import static comp3350.mealbuddy.objects.consumables.Edible.Macros.Carbohydrates;
@@ -26,161 +28,77 @@ import static comp3350.mealbuddy.objects.consumables.Edible.Micros.VitaminB12;
 import static comp3350.mealbuddy.objects.consumables.Edible.Micros.VitaminC;
 import static comp3350.mealbuddy.objects.consumables.Edible.Micros.VitaminE;
 import static comp3350.mealbuddy.objects.consumables.Edible.Micros.Zinc;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 public class EdibleTest {
 
-    private static Food food;
-
-    @Before
-    public void initFood() {
-        String name = "egg";
-        food = new Food(name);
-    }
 
     @Test
-    public void constructor_avgCase_AllMicrosCreated() {
+    public void equals_EdibleIntPairSameFood_isEqual() {
         //arrange
         String name = "egg";
-        int initValue = 0;
-        Edible.Micros[] allMicros = {
-                Iron, Zinc, VitaminA, VitaminB12, VitaminC, VitaminE,
-                Calcium, Choline, Magnesium, Sodium, Potassium, Niacin
-        };
-
+        Food food = new Food(name);
+        int quantity = 1;
+        EdibleIntPair edibleIntPair = new EdibleIntPair(food, quantity);
         //act
-        Edible egg = new Food(name);
+        boolean isEqual = food.equals(edibleIntPair);
 
         //assert
-        for (Edible.Micros micro : allMicros) {
-            Assert.assertTrue(egg.micros.containsKey(micro));
-            Assert.assertEquals(initValue, (int) egg.micros.get(micro));
-        }
+        assertTrue(isEqual);
     }
 
+
     @Test
-    public void constructor_nullList_AllMicrosCreated() {
+    public void containsLabel_foodHaslabel_true() {
         //arrange
         String name = "egg";
-        int initValue = 0;
-        Edible.Micros[] allMicros = {
-                Iron, Zinc, VitaminA, VitaminB12, VitaminC, VitaminE,
-                Calcium, Choline, Magnesium, Sodium, Potassium, Niacin
-        };
+        Food food = new Food(name);
+        String label = "keto";
 
         //act
-        Edible egg = new Food(name);
+        food.labels.add(label);
 
         //assert
-        for (Edible.Micros micro : allMicros) {
-            Assert.assertTrue(egg.micros.containsKey(micro));
-            Assert.assertEquals(initValue, (int) egg.micros.get(micro));
-        }
+        assertTrue(food.containsLabel(label));
     }
 
+
     @Test
-    public void constructor_avgCase_AllMacrosCreated() {
+    public void containsLabel_mealHasLabelMealEdiblesDont_true() {
         //arrange
+        Food food = new Food("butter");
         String name = "egg";
-        int initValue = 0;
-        Edible.Macros[] allMacros = {
-                Fat, Carbohydrates, Protein, Alcohol
-        };
+        Meal meal = new Meal(name);
+        int quantity = 1;
+        meal.setEdible(food, quantity);
+        String label = "keto";
 
         //act
-        Edible egg = new Food(name);
+        meal.labels.add(label);
 
         //assert
-        for (Edible.Macros macro : allMacros) {
-            Assert.assertTrue(egg.macros.containsKey(macro));
-            Assert.assertEquals(initValue, (int) egg.macros.get(macro));
-
-        }
+        assertTrue(meal.containsLabel(label));
     }
 
+
     @Test
-    public void updateMicro_positiveValue_microUpdated() {
+    public void containsLabel_mealEdiblesHasLabelMealDoesnt_false() {
         //arrange
-        int updatedValue = 10;
-        int expectedValue = 10;
+        String label = "keto";
+        Food food = new Food("Butter");
+        food.labels.add(label);
+        int quantity = 1;
+
+        Meal meal = new Meal("toast");
 
         //act
-        food.updateMicro(Zinc, updatedValue);
+        meal.setEdible(food, quantity);
 
         //assert
-        Assert.assertEquals(expectedValue, (int) food.micros.get(Zinc));
-    }
-
-
-    @Test
-    public void updateMacro_positiveValue_macroUpdated() {
-        //arrange
-        int updatedValue = 10;
-        int expectedValue = 10;
-
-        //act
-        food.updateMacro(Fat, updatedValue);
-
-        //assert
-        Assert.assertEquals(expectedValue, (int) food.macros.get(Fat));
-    }
-
-    @Test
-    public void updateMacro_negativeValue_macroSetToZero() {
-        //arrange
-        int updatedValue = -10;
-        int expectedValue = 0;
-
-        //act
-        food.updateMacro(Fat, updatedValue);
-
-        //assert
-        Assert.assertEquals(expectedValue, (int) food.macros.get(Fat));
-    }
-
-    @Test
-    public void updateMicro_negativeValue_microSetToZero() {
-        //arrange
-        int negativeValue = -10;
-        int expectedValue = 0;
-
-        //act
-        food.updateMicro(Zinc, negativeValue);
-
-        //assert
-        Assert.assertEquals(expectedValue, (int) food.micros.get(Zinc));
-    }
-
-    @Test
-    public void updateMicro_nullMicro_throwException() {
-        //arrange
-        int microValue = 0;
-        Edible.Micros nullMicro = null;
-
-        //act
-        try {
-            food.updateMicro(nullMicro, microValue);
-            fail();
-        }//assert
-        catch (NullPointerException e) {
-            Assert.assertTrue(true);
-        }
-    }
-
-    @Test
-    public void updateMacro_nullMacro_throwException() {
-        //arrange
-        int microValue = 0;
-        Edible.Macros nullMacro = null;
-
-        //act
-        try {
-            food.updateMacro(nullMacro, microValue);
-            fail();
-        }//assert
-        catch (NullPointerException e) {
-            Assert.assertTrue(true);
-        }
+        assertFalse(meal.containsLabel(label));
     }
 
 

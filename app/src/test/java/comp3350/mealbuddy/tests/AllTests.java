@@ -4,6 +4,7 @@ package comp3350.mealbuddy.tests;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
+import comp3350.mealbuddy.objects.consumables.FoodIterator;
 import comp3350.mealbuddy.tests.business.CalculatorTest;
 //import comp3350.mealbuddy.tests.business.goalFactory.DefaultGoalFactorTest;
 import comp3350.mealbuddy.tests.business.goalFactory.DefaultGoalFactorTest;
@@ -14,8 +15,10 @@ import comp3350.mealbuddy.tests.objects.DayTest;
 import comp3350.mealbuddy.tests.objects.ExerciseTest;
 import comp3350.mealbuddy.tests.objects.UserInfoTest;
 import comp3350.mealbuddy.tests.objects.consumables.EdibleTest;
-import comp3350.mealbuddy.tests.objects.consumables.FoodIntPairTest;
+import comp3350.mealbuddy.tests.objects.consumables.EdibleIntPairTest;
+import comp3350.mealbuddy.tests.objects.consumables.FoodIteratorTest;
 import comp3350.mealbuddy.tests.objects.consumables.FoodTest;
+import comp3350.mealbuddy.tests.objects.consumables.MealIteratorTest;
 import comp3350.mealbuddy.tests.objects.consumables.MealTest;
 import comp3350.mealbuddy.tests.objects.goals.CalorieGoalTest;
 import comp3350.mealbuddy.tests.objects.goals.GoalTest;
@@ -26,7 +29,7 @@ import comp3350.mealbuddy.tests.objects.goals.MicroGoalTest;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-        FoodIntPairTest.class,
+        EdibleIntPairTest.class,
         FoodTest.class,
         MealTest.class,
         CalorieGoalTest.class,
@@ -42,7 +45,9 @@ import comp3350.mealbuddy.tests.objects.goals.MicroGoalTest;
         RecommendedCalorieCalculatorTest.class,
         ExerciseTest.class,
         UserInfoTest.class,
-        DayTest.class
+        DayTest.class,
+        FoodIteratorTest.class,
+        MealIteratorTest.class
 
 })
 

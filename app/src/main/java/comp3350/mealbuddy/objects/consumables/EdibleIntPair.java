@@ -10,23 +10,23 @@ import androidx.annotation.RequiresApi;
 
 import java.util.Objects;
 
-public class FoodIntPair {
+public class EdibleIntPair {
 
-    public Food food;
+    public Edible edible;
     public Integer quantity;
 
     /*
      * Constructor
      * Create a FoodIntPair object.
      * Parameters:
-     *     @param food - The food
-     *     @param quantity - The quantity of the food
+     *     @param edible - The edible
+     *     @param quantity - The quantity of the edible
      */
-    public FoodIntPair(Food food, Integer quantity) {
+    public EdibleIntPair(Edible edible, Integer quantity) {
         if (quantity <= 0) {
             throw new IllegalArgumentException("The quantity of the can not be less than or equal to zero");
         }
-        this.food = food;
+        this.edible = edible;
         this.quantity = quantity;
     }
 
@@ -37,15 +37,10 @@ public class FoodIntPair {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof FoodIntPair)) return false;
-        FoodIntPair that = (FoodIntPair) o;
-        return food.equals(that.food);
+        if (!(o instanceof EdibleIntPair)) return false;
+        EdibleIntPair that = (EdibleIntPair) o;
+        return edible.equals(that.edible);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    @Override
-    public int hashCode() {
-        return Objects.hash(food.name);
-    }
 
 }
