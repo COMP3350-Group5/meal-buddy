@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import comp3350.mealbuddy.objects.consumables.Food;
@@ -31,10 +32,11 @@ public class MealTest {
         Meal meal = new Meal(name);
         int initQuantity = 1;
         Food differentFood = new Food("NotEgg");
-        FoodIntPair diffFoodIntPair = new FoodIntPair(differentFood, initQuantity);
+        // FoodIntPair diffFoodIntPair = new FoodIntPair(differentFood, initQuantity);
 
         //act
-        meal.ediblesInMeal.add(diffFoodIntPair);
+        meal.addFood(differentFood, initQuantity);
+        // meal.ediblesInMeal.add(diffFoodIntPair);
 
         //assert
         Assert.assertFalse(meal.containsFood(food));
@@ -46,10 +48,11 @@ public class MealTest {
         String name = "mealName";
         Meal meal = new Meal(name);
         int initQuantity = 1;
-        FoodIntPair foodIntPair = new FoodIntPair(food, initQuantity);
+        // FoodIntPair foodIntPair = new FoodIntPair(food, initQuantity);
 
         //act
-        meal.ediblesInMeal.add(foodIntPair);
+        meal.addFood(food, initQuantity);
+        //meal.ediblesInMeal.add(foodIntPair);
 
         //assert
         Assert.assertTrue(meal.containsFood(food));
@@ -125,16 +128,27 @@ public class MealTest {
         Meal meal = new Meal(name);
         int initQuantity = 1;
         Integer updatedQuantity = 5;
-        FoodIntPair foodIntPair = new FoodIntPair(food, initQuantity);
-        meal.ediblesInMeal.add(foodIntPair);
+        //FoodIntPair foodIntPair = new FoodIntPair(food, initQuantity);
+        meal.addFood(food, initQuantity);
+        // meal.ediblesInMeal.add(foodIntPair);
 
         //act
         meal.updateFood(food, updatedQuantity);
 
         //assert
+        Iterator ediblesInMeal = meal.getIterator();
+
+        while (ediblesInMeal.hasNext()) {
+            Object foodIntPair =ediblesInMeal.next();
+            if (foodIntPair instanceof FoodIntPair) {
+                Assert.assertEquals(updatedQuantity, ((FoodIntPair) foodIntPair).quantity);
+            }
+        }
+        /*
         for(FoodIntPair pairInSet: meal.ediblesInMeal){
             Assert.assertEquals( updatedQuantity, pairInSet.quantity );
         }
+         */
     }
 
     @Test
@@ -144,8 +158,9 @@ public class MealTest {
         Meal meal = new Meal(name);
         int initQuantity = 1;
         Integer updatedQuantity = -5;
-        FoodIntPair foodIntPair = new FoodIntPair(food, initQuantity);
-        meal.ediblesInMeal.add(foodIntPair);
+        //FoodIntPair foodIntPair = new FoodIntPair(food, initQuantity);
+        meal.addFood(food, initQuantity);
+        // meal.ediblesInMeal.add(foodIntPair);
 
         //act
         try {

@@ -2,6 +2,7 @@ package comp3350.mealbuddy.objects.consumables;
 
 
 import java.util.EnumMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -68,7 +69,7 @@ public abstract class Edible {
         return name.equals(edible.name) ;
     }
 
-    private Integer getMicroAmount(Micros foodMicro) {
+    public int getMicroAmount(Micros foodMicro) {
         int microAmount = 0;
         if (micros.containsKey(foodMicro)) {
             microAmount = micros.get(foodMicro);
@@ -76,11 +77,62 @@ public abstract class Edible {
         return microAmount;
     }
 
-    private Integer getMacroAmount(Macros foodMacro) {
+    public int getMacroAmount(Macros foodMacro) {
         int macroAmount = 0;
         if (macros.containsKey(foodMacro)) {
             macroAmount = macros.get(foodMacro);
         }
         return macroAmount;
+    }
+
+    public void addMacroAmount(Macros foodMacro, int quantity) {
+        if (macros.containsKey(foodMacro)) {
+            int oldMacroAmount = micros.get(foodMacro);
+            int newMacroAmount = oldMacroAmount + quantity;
+            macros.remove(foodMacro);
+            updateMacro(foodMacro, newMacroAmount);
+        }
+    }
+
+
+    public void addMicroAmount(Micros foodMicro, int quantity) {
+        if (micros.containsKey(foodMicro)) {
+            int oldMicroAmount = micros.get(foodMicro);
+            int newMicroAmount = oldMicroAmount + quantity;
+            micros.remove(foodMicro);
+            updateMicro(foodMicro, newMicroAmount);
+        }
+    }
+
+    public void removeMacroAmount(Macros foodMacro, int quantity) {
+        if (macros.containsKey(foodMacro)) {
+            int oldMacroAmount = micros.get(foodMacro);
+            int newMacroAmount = oldMacroAmount - quantity;
+            macros.remove(foodMacro);
+            updateMacro(foodMacro, newMacroAmount);
+        }
+    }
+
+    public void removeMicroAmount(Micros foodMicro, int quantity) {
+        if (micros.containsKey(foodMicro)) {
+            int oldMacroAmount = micros.get(foodMicro);
+            int newMacroAmount = oldMacroAmount - quantity;
+            micros.remove(foodMicro);
+            updateMicro(foodMicro, newMacroAmount);
+        }
+    }
+
+    public boolean containsKey(Micros micro) {
+        if (!micros.containsKey(micro)) {
+            return false;
+        }
+        return true;
+    }
+
+    public boolean containsKey(Macros macro) {
+        if (!macros.containsKey(macro)) {
+            return false;
+        }
+        return true;
     }
 }

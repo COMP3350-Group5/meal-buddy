@@ -28,6 +28,7 @@ import static comp3350.mealbuddy.objects.consumables.Edible.Micros.VitaminE;
 import static comp3350.mealbuddy.objects.consumables.Edible.Micros.Zinc;
 import static org.junit.Assert.fail;
 
+
 public class EdibleTest {
 
     private static Food food;
@@ -53,9 +54,15 @@ public class EdibleTest {
 
         //assert
         for (Edible.Micros micro : allMicros) {
+            Assert.assertTrue(egg.containsKey(micro));
+            Assert.assertEquals(initValue, (int) egg.getMicroAmount(micro));
+        }
+        /*
+        for (Edible.Micros micro : allMicros) {
             Assert.assertTrue(egg.micros.containsKey(micro));
             Assert.assertEquals(initValue, (int) egg.micros.get(micro));
         }
+         */
     }
 
     @Test
@@ -73,9 +80,15 @@ public class EdibleTest {
 
         //assert
         for (Edible.Micros micro : allMicros) {
+            Assert.assertTrue(egg.containsKey(micro));
+            Assert.assertEquals(initValue, (int) egg.getMicroAmount(micro));
+        }
+        /*
+        for (Edible.Micros micro : allMicros) {
             Assert.assertTrue(egg.micros.containsKey(micro));
             Assert.assertEquals(initValue, (int) egg.micros.get(micro));
         }
+         */
     }
 
     @Test
@@ -92,10 +105,16 @@ public class EdibleTest {
 
         //assert
         for (Edible.Macros macro : allMacros) {
+            Assert.assertTrue(egg.containsKey(macro));
+            Assert.assertEquals(initValue, (int) egg.getMacroAmount(macro));
+        }
+        /*
+        for (Edible.Macros macro : allMacros) {
             Assert.assertTrue(egg.macros.containsKey(macro));
             Assert.assertEquals(initValue, (int) egg.macros.get(macro));
 
         }
+         */
     }
 
     @Test
@@ -108,7 +127,8 @@ public class EdibleTest {
         food.updateMicro(Zinc, updatedValue);
 
         //assert
-        Assert.assertEquals(expectedValue, (int) food.micros.get(Zinc));
+        Assert.assertEquals(expectedValue, (int) food.getMicroAmount(Zinc));
+        // Assert.assertEquals(expectedValue, (int) food.micros.get(Zinc));
     }
 
 
@@ -122,7 +142,8 @@ public class EdibleTest {
         food.updateMacro(Fat, updatedValue);
 
         //assert
-        Assert.assertEquals(expectedValue, (int) food.macros.get(Fat));
+        Assert.assertEquals(expectedValue, (int) food.getMacroAmount(Fat));
+        // Assert.assertEquals(expectedValue, (int) food.macros.get(Fat));
     }
 
     @Test
@@ -135,7 +156,8 @@ public class EdibleTest {
         food.updateMacro(Fat, updatedValue);
 
         //assert
-        Assert.assertEquals(expectedValue, (int) food.macros.get(Fat));
+        Assert.assertEquals(expectedValue, (int) food.getMacroAmount(Fat));
+        // Assert.assertEquals(expectedValue, (int) food.macros.get(Fat));
     }
 
     @Test
@@ -148,7 +170,8 @@ public class EdibleTest {
         food.updateMicro(Zinc, negativeValue);
 
         //assert
-        Assert.assertEquals(expectedValue, (int) food.micros.get(Zinc));
+        Assert.assertEquals(expectedValue, (int) food.getMicroAmount(Zinc));
+        //Assert.assertEquals(expectedValue, (int) food.micros.get(Zinc));
     }
 
     @Test

@@ -2,6 +2,8 @@ package comp3350.mealbuddy.business;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Iterator;
+
 
 import comp3350.mealbuddy.objects.Day;
 import comp3350.mealbuddy.objects.consumables.Edible;
@@ -94,13 +96,28 @@ public class Calculator {
 
     private int getFoodCalories(Food food) {
         int totalCalories = 0;
-        totalCalories += PROTEIN_CONVERSION * food.macros.get(Protein);
-        totalCalories += CARBOHYDRATE_CONVERSION * food.macros.get(Carbohydrates);
-        totalCalories += FAT_CONVERSION * food.macros.get(Fat);
-        totalCalories += ALCOHOL_CONVERSION * food.macros.get(Alcohol);
+        totalCalories += PROTEIN_CONVERSION * food.getMacroAmount(Protein);
+        totalCalories += CARBOHYDRATE_CONVERSION * food.getMacroAmount(Carbohydrates);
+        totalCalories += FAT_CONVERSION * food.getMacroAmount(Fat);
+        totalCalories += ALCOHOL_CONVERSION * food.getMacroAmount(Alcohol);
         return totalCalories;
     }
 
+    private int getMealCalories(Meal meal) {
+        int totalCalories = 0;
+        Iterator ediblesInMeal = meal.getIterator();
+        while (ediblesInMeal.hasNext()) {
+            Object foodIntPair = ediblesInMeal.next();
+            if (foodIntPair instanceof FoodIntPair) {
+                int foodQuantity = ((FoodIntPair) foodIntPair).quantity;
+                Food food = ((FoodIntPair) foodIntPair).food;
+                totalCalories += foodQuantity * getFoodCalories(food);
+            }
+        }
+        return totalCalories;
+    }
+
+    /*
     private int getMealCalories(Meal meal) {
         int totalCalories = 0;
         for (FoodIntPair foodQuantityPair: meal.ediblesInMeal) {
@@ -110,7 +127,7 @@ public class Calculator {
         }
         return totalCalories;
     }
-
+     */
     private int getListMacroCalories(ArrayList<Edible> foodList, Edible.Macros macro) {
         int totalCalories = 0;
         for (Edible edible : foodList) {
@@ -126,9 +143,25 @@ public class Calculator {
 
     private int getFoodMacroCalories(Food food, Edible.Macros macro) {
         int conversionFactor = getConversionFactor(macro);
-        return conversionFactor * food.macros.get(macro);
+        return conversionFactor * food.getMacroAmount(macro);
     }
 
+
+    private int getMealMacroCalories(Meal meal, Edible.Macros macro) {
+        int totalCalories = 0;
+        Iterator ediblesInMeal = meal.getIterator();
+        while (ediblesInMeal.hasNext()) {
+            Object foodIntPair = ediblesInMeal.next();
+            if (foodIntPair instanceof FoodIntPair) {
+                int foodQuantity = ((FoodIntPair) foodIntPair).quantity;
+                Food food = ((FoodIntPair) foodIntPair).food;
+                totalCalories += foodQuantity * getFoodMacroCalories(food, macro);
+            }
+        }
+        return totalCalories;
+    }
+
+/*
     private int getMealMacroCalories(Meal meal, Edible.Macros macro) {
         int totalCalories = 0;
         for (FoodIntPair foodQuantityPair: meal.ediblesInMeal) {
@@ -138,6 +171,7 @@ public class Calculator {
         }
         return totalCalories;
     }
+ */
 
     private int getConversionFactor(Edible.Macros macro) {
         int conversionFactor = -1;
@@ -161,7 +195,7 @@ public class Calculator {
         int totalMg = 0;
         for (Edible edible : foodList) {
             if (edible instanceof Food) {
-                totalMg += ((Food) edible).micros.get(micro);
+                totalMg += ((Food) edible).getMicroAmount(micro);
             }
             else {
                 totalMg += getMealMicroMgs((Meal) edible, micro);
@@ -170,16 +204,32 @@ public class Calculator {
         return totalMg;
     }
 
+
     private int getMealMicroMgs (Meal meal, Edible.Micros micro) {
         int totalMg = 0;
-        for (FoodIntPair foodQuantityPair: meal.ediblesInMeal) {
-            int foodQuantity = foodQuantityPair.quantity;
-            int microQuantity = foodQuantityPair.food.micros.get(micro);
-            totalMg += foodQuantity * microQuantity;
+        Iterator ediblesInMeal = meal.getIterator();
+        while (ediblesInMeal.hasNext()) {
+            Object foodIntPair = ediblesInMeal.next();
+            if (foodIntPair instanceof FoodIntPair) {
+                int foodQuantity = ((FoodIntPair) foodIntPair).quantity;
+                int microQuantity = ((FoodIntPair) foodIntPair).food.getMicroAmount(micro);
+                totalMg += foodQuantity * microQuantity;
+            }
         }
         return totalMg;
     }
 
+/*
+    private int getMealMicroMgs (Meal meal, Edible.Micros micro) {
+        int totalMg = 0;
+        for (FoodIntPair foodQuantityPair: meal.ediblesInMeal) {
+            int foodQuantity = foodQuantityPair.quantity;
+            int microQuantity = foodQuantityPair.food.getMicroAmount(micro);
+            totalMg += foodQuantity * microQuantity;
+        }
+        return totalMg;
+    }
+ */
     private int getListLabelCalories(ArrayList<Edible> foodList, String label) {
         int totalCalories = 0;
         for (Edible edible : foodList) {
@@ -203,6 +253,21 @@ public class Calculator {
 
     private int getMealLabelCalories(Meal meal, String label) {
         int totalCalories = 0;
+        Iterator ediblesInMeal = meal.getIterator();
+        while (ediblesInMeal.hasNext()) {
+            Object foodIntPair = ediblesInMeal.next();
+            if (foodIntPair instanceof FoodIntPair) {
+                Food food = ((FoodIntPair) foodIntPair).food;
+                int foodQuantity = ((FoodIntPair) foodIntPair).quantity;
+                totalCalories += foodQuantity * getFoodLabelCalories(food, label);
+            }
+        }
+        return totalCalories;
+    }
+
+    /*
+    private int getMealLabelCalories(Meal meal, String label) {
+        int totalCalories = 0;
         for (FoodIntPair foodQuantityPair: meal.ediblesInMeal) {
             Food food = foodQuantityPair.food;
             int foodQuantity = foodQuantityPair.quantity;
@@ -210,4 +275,5 @@ public class Calculator {
         }
         return totalCalories;
     }
+     */
 }

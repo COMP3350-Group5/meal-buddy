@@ -5,6 +5,7 @@ import android.util.ArraySet;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -48,6 +49,27 @@ public class Meal extends Edible {
             ediblesInMeal.remove(foodIntPair);
         }
     }
+
+
+    public int getFoodQuantity(Food food) {
+        int foodQuantity = 0;
+        if (containsFood(food)) {
+            for (FoodIntPair foodIntPair : ediblesInMeal) {
+                FoodIntPair tempFoodIntPair = new FoodIntPair(food, foodQuantity);
+                if (foodIntPair.equals(tempFoodIntPair))
+                    foodQuantity = foodIntPair.quantity;
+                break;
+            }
+        }
+        return foodQuantity;
+    }
+
+
+    public Iterator getIterator() {
+        Iterator ediblesInMealIterator = ediblesInMeal.iterator();
+        return ediblesInMealIterator;
+    }
+
 
     @Override
     public String toString(){
