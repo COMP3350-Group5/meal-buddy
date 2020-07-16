@@ -174,7 +174,7 @@ public class Calculator {
      * getEdibleCalories
      * Get the amount of calories in a food.
      * Parameters:
-     *     @param food - The food
+     *     @param edible - The food
      * Return:
      *     The calories in the food.
      */
