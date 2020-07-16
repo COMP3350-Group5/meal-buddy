@@ -2,7 +2,7 @@
  * DataAccessStub
  * Database stub
  ****************************************/
-package comp3350.mealbuddy.persistence;
+package comp3350.mealbuddy.tests.persistence;
 
 import comp3350.mealbuddy.objects.Account;
 import comp3350.mealbuddy.objects.Day;
