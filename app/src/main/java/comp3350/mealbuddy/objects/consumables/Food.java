@@ -41,6 +41,10 @@ public class Food extends Edible {
         initNutrientLists();
     }
 
+    /*
+     * iterator
+     * inits all the nutrients of a food to 0
+     */
     private void initNutrientLists() {
         micros = makeMicros();
         macros = makeMacros();
@@ -100,7 +104,10 @@ public class Food extends Edible {
         micros.put(micro, amount);
     }
 
-
+    /*
+     * iterator
+     * Returns an iterator for a food object
+     */
     @NonNull
     @Override
     public Iterator<Edible> iterator() {
@@ -120,12 +127,24 @@ public class Food extends Edible {
         this.weight = weight;
     }
 
-    //used for testing should contain all of them at all times
+    /*
+     * containsMacro
+     * determines if the food contains a macro. Should always be true.
+     * Used for testing purposes.
+     * Parameters:
+     *     @param macro - the macro to check
+     */
     public boolean containsMacro(Macros macro) {
         return macros.containsKey(macro);
     }
 
-    //used for testing should always contain them all
+    /*
+     * containsMicro
+     * determines if the food contains a micro. Should always be true.
+     * Used for testing purposes.
+     * Parameters:
+     *     @param micro - the micro to check
+     */
     public boolean containsMicro(Micros micro) {
         return micros.containsKey(micro);
     }
@@ -139,15 +158,69 @@ public class Food extends Edible {
         return name + " " + weight + "g";
     }
 
-
+    /*
+     * getMacroGrams
+     * gets the grams of a Macro
+     * Parameters:
+     *     @param macro - Macro to get the grams of
+     */
     @Override
     public int getMacroGrams(Macros macro) {
         return macros.get(macro);
     }
 
+    /*
+     * getMicroGrams
+     * gets the grams of a Micro
+     * Parameters:
+     *     @param micro - Micro to get the grams of
+     */
     @Override
     public int getMicroGrams(Micros micro) {
         return micros.get(micro);
+    }
+
+    /**
+     * Iterator for iterating over a food
+     */
+    class FoodIterator implements Iterator<Edible> {
+
+        private boolean finishedIteration = false;
+        private Food food;
+
+        /*
+         * constructor
+         * creates new food iterator
+         * Parameters:
+         *     @param food - food to 'iterate' over
+         */
+        public FoodIterator(Food food) {
+            this.food = food;
+        }
+
+        /*
+         * hasNext
+         * returns true if there is still the food to iterate over
+         */
+        @Override
+        public boolean hasNext() {
+            return !finishedIteration;
+        }
+
+        /*
+         * next
+         * returns the food if its the first time it is called
+         * after the first time it returns null
+         */
+        @Override
+        public Edible next() {
+            if (!finishedIteration) {
+                finishedIteration = true;
+                return food;
+            }
+            return null;
+        }
+
     }
 
 

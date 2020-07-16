@@ -4,7 +4,6 @@ package comp3350.mealbuddy.tests;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
-import comp3350.mealbuddy.objects.consumables.FoodIterator;
 import comp3350.mealbuddy.tests.business.CalculatorTest;
 //import comp3350.mealbuddy.tests.business.goalFactory.DefaultGoalFactorTest;
 import comp3350.mealbuddy.tests.business.goalFactory.DefaultGoalFactorTest;

@@ -1,7 +1,7 @@
 /***************************************
  Calculator
  Object for performing various calculations on a users eaten foods
- */
+ ***************************************/
 package comp3350.mealbuddy.business;
 
 import java.util.ArrayList;

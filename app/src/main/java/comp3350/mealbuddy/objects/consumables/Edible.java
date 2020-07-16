@@ -47,6 +47,12 @@ public abstract class Edible implements Iterable<Edible> {
         this.labels = labels;
     }
 
+    /*
+     * containsLabel
+     * checks if a food contains a given Label
+     * Parameters:
+     *     @param label - Name of label
+     */
     public boolean containsLabel(String label) {
         return labels.contains(label);
     }

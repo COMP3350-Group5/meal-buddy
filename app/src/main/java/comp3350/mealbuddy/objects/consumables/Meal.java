@@ -36,6 +36,10 @@ public class Meal extends Edible {
         ediblesInMeal = new ArrayList<>();
     }
 
+    /*
+     * iterator
+     * Returns an iterator for a meal object
+     */
     @NonNull
     @Override
     public Iterator<Edible> iterator() {
@@ -60,6 +64,11 @@ public class Meal extends Edible {
         }
     }
 
+    /*
+     * Gets the edible int pair associated with the edible
+     * Parameters:
+     *     @param edible - The name of the edible to look for
+     */
     public EdibleIntPair getEdibleIntPair(Edible edible) {
         if (ediblesInMeal.contains(edible))
             return ediblesInMeal.get(ediblesInMeal.indexOf(edible));
@@ -89,6 +98,14 @@ public class Meal extends Edible {
         return meal;
     }
 
+    /*
+     * getMacroGrams
+     * returns the sum of all the grams of a certain macro in the meal.
+     * This is recursive and will traverse all levels of the meal.
+     * accounts for the quantity of each edible
+     * Parameters:
+     *     @param macro - the macro to get the grams for
+     */
     @Override
     public int getMacroGrams(Macros macro) {
         int grams = 0;
@@ -103,6 +120,15 @@ public class Meal extends Edible {
         return grams;
     }
 
+
+    /*
+     * getMicroGrams
+     * returns the sum of all the grams of a certain micro in the meal.
+     * This is recursive and will traverse all levels of the meal.
+     * Takes into account the quantity of each edible
+     * Parameters:
+     *     @param micro - the micro to get the grams for
+     */
     @Override
     public int getMicroGrams(Micros micro) {
         int grams = 0;
@@ -115,6 +141,50 @@ public class Meal extends Edible {
             grams += edible.getMicroGrams(micro) * quantity;
         }
         return grams;
+    }
+
+    /****************************************
+     * MealIterator
+     * An iterator for the edibles in meals
+     ****************************************/
+    class MealIterator implements Iterator<Edible> {
+
+        private Iterator<EdibleIntPair> edibleIntPairIterator;
+
+        /*
+         * constructor
+         * creates new meal iterator.  Does not recursively iterate
+         * Parameters:
+         *     @param list - the list of edible int pairs from the meal.
+         *     We only wish to iterate over the edibles and are not concerned
+         *     with how many of the edibles are in the list for the iterator
+         */
+        public MealIterator(ArrayList<EdibleIntPair> list) {
+            edibleIntPairIterator = list.listIterator();
+        }
+
+        /*
+         * hasNext
+         * returns true if there is another edible in the meal
+         */
+        @Override
+        public boolean hasNext() {
+            return edibleIntPairIterator.hasNext();
+        }
+
+
+        /*
+         * next
+         * returns the next edible in the meal
+         */
+        @Override
+        public Edible next() {
+            Edible edible = null;
+            if (edibleIntPairIterator.hasNext()) {
+                edible = edibleIntPairIterator.next().edible;
+            }
+            return edible;
+        }
     }
 
 
