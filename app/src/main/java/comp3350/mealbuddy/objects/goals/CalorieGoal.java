@@ -6,7 +6,14 @@ package comp3350.mealbuddy.objects.goals;
 
 import androidx.annotation.Nullable;
 
+import static comp3350.mealbuddy.objects.goals.CalorieGoal.CalorieId.CALORIE_GOAL;
+
 public class CalorieGoal extends Goal {
+
+    public enum CalorieId {
+        CALORIE_GOAL
+    }
+
     /*
      * Constructor
      * Create a new CalorieGoal
@@ -15,17 +22,8 @@ public class CalorieGoal extends Goal {
      *     @param upperBound - The upper bound for the goal.
      */
     public CalorieGoal(int lowerBound, int upperBound) {
-        super(lowerBound, upperBound, GoalType.QUANTITY);
+        super(lowerBound, upperBound, GoalType.QUANTITY, CALORIE_GOAL);
     }
 
-    /*
-     * equals
-     * Override for the equals method.
-     */
-    @Override
-    //Can only have one total calorie goal.
-    public boolean equals(@Nullable Object obj) {
-        return obj instanceof CalorieGoal;
-    }
 
 }

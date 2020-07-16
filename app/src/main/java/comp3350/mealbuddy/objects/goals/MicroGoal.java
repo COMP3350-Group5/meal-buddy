@@ -21,7 +21,7 @@ public class MicroGoal extends Goal {
      *     @param id - The Micro associated with the goal.
      */
     public MicroGoal(int lowerBound, int upperBound, Micros id) {
-        super(lowerBound, upperBound, GoalType.QUANTITY);
+        super(lowerBound, upperBound, GoalType.QUANTITY, id);
         if(id ==null)
             throw new IllegalArgumentException("Micro must be specified");
         this.id = id;
@@ -42,16 +42,5 @@ public class MicroGoal extends Goal {
                 '}';
     }
 
-    /*
-     * equals
-     * Override for the equals method.
-     */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof MicroGoal)) return false;
-        MicroGoal microGoal = (MicroGoal) o;
-        return id == microGoal.id;
-    }
 
 }
