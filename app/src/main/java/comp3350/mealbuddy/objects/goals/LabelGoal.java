@@ -20,7 +20,7 @@ public class LabelGoal extends Goal {
      *
      */
     public LabelGoal(int lowerBound, int upperBound, GoalType goalType, String id) {
-        super(lowerBound, upperBound, goalType);
+        super(lowerBound, upperBound, goalType, id);
         if(id == null) throw new IllegalArgumentException("Label id cant be null");
         this.id = id;
     }
@@ -38,18 +38,6 @@ public class LabelGoal extends Goal {
                 ", lowerBound=" + lowerBound +
                 ", upperBound=" + upperBound +
                 '}';
-    }
-
-    /*
-     * equals
-     * Override for the equals method.
-     */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof LabelGoal)) return false;
-        LabelGoal labelGoal = (LabelGoal) o;
-        return id.equals(labelGoal.id);
     }
 
 

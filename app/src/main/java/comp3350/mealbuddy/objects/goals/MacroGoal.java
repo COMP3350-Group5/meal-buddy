@@ -23,7 +23,7 @@ public class MacroGoal extends Goal {
      *     @param id - The Macro associated associated with the goal.
      */
     public MacroGoal(int lowerBound, int upperBound, GoalType goalType, Macros id) {
-        super(lowerBound, upperBound, goalType);
+        super(lowerBound, upperBound, goalType, id);
         if(id ==null)
             throw new IllegalArgumentException("Macro must be specified");
         this.id = id;
@@ -43,16 +43,5 @@ public class MacroGoal extends Goal {
                 '}';
     }
 
-    /*
-     * equals
-     * Override for the equals method.
-     */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof MacroGoal)) return false;
-        MacroGoal macroGoal = (MacroGoal) o;
-        return id == macroGoal.id;
-    }
 
 }
