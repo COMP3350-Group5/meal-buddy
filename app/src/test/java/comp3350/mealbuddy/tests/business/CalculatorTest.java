@@ -323,9 +323,9 @@ public class CalculatorTest {
     }
 
     @Test
-    public void getMealTimeLabelCalories_oneMealInMeal_returnCalories() {
+    public void getMealTimeLabelCalories_oneMealInMealNoLabel_returnCalories() {
         //arrange
-        int expectedCalories = 2600;
+        int expectedCalories = 0;
         Calculator calculator = new Calculator(day);
         String label = "Super Size Me";
 
@@ -337,9 +337,9 @@ public class CalculatorTest {
     }
 
     @Test
-    public void getMealTimeLabelCalories_multipleEdiblesInMeal_returnCalories() {
+    public void getMealTimeLabelCalories_multipleEdiblesInListNoLabels_returnCalories() {
         //arrange
-        int expectedCalories = 2600;
+        int expectedCalories = 0;
         Calculator calculator = new Calculator(day);
         String label = "Super Size Me";
 
@@ -353,7 +353,7 @@ public class CalculatorTest {
     @Test
     public void getLabelCalories_multipleMeals_returnSummedCalories() {
         //arrange
-        int expectedCalories = 6500;
+        int expectedCalories = 1300;
         String label = "Super Size Me";
         Calculator calculator = new Calculator(day);
 
@@ -401,8 +401,8 @@ public class CalculatorTest {
 
     private Meal makeBigMacMeal() {
         Meal bigMacMeal = new Meal("Big Mac Meal");
-        bigMacMeal.updateFood(makeBigMac(), 2);
-        bigMacMeal.updateFood(makeFries(), 1);
+        bigMacMeal.setEdible(makeBigMac(), 2);
+        bigMacMeal.setEdible(makeFries(), 1);
         return bigMacMeal;
     }
 }
