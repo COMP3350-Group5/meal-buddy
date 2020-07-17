@@ -14,28 +14,34 @@ public interface DataAccess {
 
     void close();
 
-    void addAccount(Account acc);
+    void addAccount(Account account);
 
-    void updateAccount(Account a);
+    void updateAccount(Account account);
 
-    void removeAccount(Account a);
+    void removeAccount(Account account);
 
-    void addEdible(Edible acc);
-
-    void updateEdible(Edible a);
-
-    void removeEdible(Edible a);
-
-    void addExercise(Exercise acc);
-
-    void updateExercise(Exercise a);
-
-    void removeExercise(Exercise a);
+    Account getAccount(String username);
 
     Account validateLogin(String username, String password);
 
-    Day getDay(Account a, int day);
+    void addEdible(Edible edible);
 
-    Account getAccount(String username);
+    void updateEdible(Edible edible);
+
+    void removeEdible(Edible edible);
+
+    void getEdible(Edible edible);
+
+    void addExercise(String userName, int dayOfYear, Exercise exercise);
+
+    void updateExercise(String userName, int dayOfYear, Exercise exercise);
+
+    void removeExercise(String userName, int dayOfYear, Exercise exercise);
+
+
+    Day getDay(String userName, int dayOfYear);
+
+    Day updateDay(String userName, int dayOfYear);
+
 
 }
