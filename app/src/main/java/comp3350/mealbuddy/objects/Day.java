@@ -8,6 +8,7 @@ package comp3350.mealbuddy.objects;
 import java.util.ArrayList;
 
 import comp3350.mealbuddy.objects.consumables.Edible;
+import comp3350.mealbuddy.objects.goals.Goal;
 
 public class Day {
     public enum MealTimeType {
@@ -18,6 +19,7 @@ public class Day {
     public ArrayList<Edible> lunch;
     public ArrayList<Edible> dinner;
     public ArrayList<Edible> snack;
+    public ArrayList<Goal> goals;
 
     /*
      * Constructor
@@ -33,6 +35,7 @@ public class Day {
         this.lunch = new ArrayList<>();
         this.dinner = new ArrayList<>();
         this.snack = new ArrayList<>();
+        this.goals = new ArrayList<>();
     }
 
     /*
