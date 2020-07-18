@@ -20,6 +20,7 @@ public class Day {
     public ArrayList<Edible> dinner;
     public ArrayList<Edible> snack;
     public ArrayList<Goal> goals;
+    public ArrayList<Exercise> exercises;
 
     /*
      * Constructor
@@ -36,6 +37,7 @@ public class Day {
         this.dinner = new ArrayList<>();
         this.snack = new ArrayList<>();
         this.goals = new ArrayList<>();
+        this.exercises = new ArrayList<>();
     }
 
     /*
