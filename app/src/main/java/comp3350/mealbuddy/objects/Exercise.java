@@ -13,6 +13,7 @@ public class Exercise {
 
     public String name;
     public double duration;
+    public Intensity intensity;
 
     /*
      * Constructor
@@ -20,10 +21,12 @@ public class Exercise {
      * Parameters:
      *     @param name - The name of the exercise.
      */
-    public Exercise(String name) {
+    public Exercise(String name, double duration, Intensity intensity) {
         if (name == null) {
             throw new IllegalArgumentException("Exercise name can not be null");
         }
         this.name = name;
+        this.duration = duration;
+        this.intensity = intensity;
     }
 }
