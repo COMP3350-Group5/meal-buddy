@@ -7,11 +7,11 @@ package comp3350.mealbuddy.business;
 import comp3350.mealbuddy.application.Main;
 import comp3350.mealbuddy.application.Services;
 import comp3350.mealbuddy.objects.Exercise;
-import comp3350.mealbuddy.persistence.DataAccessStub;
+import comp3350.mealbuddy.persistence.DataAccess;
+
 
 public class AccessExercise {
-    private DataAccessStub DAS;
-    private DataAccessStub.DatabaseType databaseType;
+    private DataAccess DAS;
 
     /*
      * Constructor
@@ -19,37 +19,36 @@ public class AccessExercise {
      */
     public AccessExercise(){
         DAS = Services.openDAS(Main.DATABASE_NAME);
-        databaseType = DataAccessStub.DatabaseType.EXERCISES;
     }
 
     /*
-     * addEdible
+     * addExercise
      * Add an exercise to the database.
      * Parameters:
      *     @param e - The exercise to add to the database.
      */
     public void addExercise(Exercise e){
-        DAS.addToDB(databaseType, e);
+        DAS.addExercise("", 0, e);
     }
 
     /*
-     * updateEdible
+     * updateExercise
      * Update an exercise in the database.
      * Parameters:
      *     @param e - The exercise to update.
      */
     public void updateExercise(Exercise e){
-        DAS.updateDB(databaseType, e);
+        DAS.updateExercise("", 0, e);
     }
 
     /*
-     * removeEdible
+     * removeExercise
      * Remove an exercise from the database.
      * Parameters:
      *     @param e - The exercise to remove.
      */
     public void removeExercise(Exercise e){
-        DAS.removeFromDB(databaseType, e);
+        DAS.removeExercise("", 0, e);
     }
 
 }
