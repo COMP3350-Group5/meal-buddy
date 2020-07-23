@@ -9,6 +9,7 @@ import comp3350.mealbuddy.application.Services;
 import comp3350.mealbuddy.objects.Account;
 import comp3350.mealbuddy.objects.Day;
 import comp3350.mealbuddy.objects.UserInfo;
+import comp3350.mealbuddy.objects.consumables.Edible;
 import comp3350.mealbuddy.persistence.DataAccess;
 
 public class AccessAccount {
@@ -19,7 +20,7 @@ public class AccessAccount {
      * Create an object representing accounts in the database
      */
     public AccessAccount(){
-        DAS = Services.openDAS(Main.DATABASE_NAME);
+        DAS = Services.getDataAccess(Main.DATABASE_NAME);
     }
 
     /*

@@ -9,14 +9,10 @@ public class Services {
     public static DataAccess openDAS(String databaseName){
         if (DAS == null){
             DAS = new DataAccessObject(databaseName);
+            System.out.println("********************************************************" + Main.getDBPathName());
             DAS.open(Main.getDBPathName());
         }
         return DAS;
-    }
-
-
-    public static String insertStudent() {
-        return DAS.insertStudent();
     }
 
     public static DataAccess getDataAccess(String databaseName){

@@ -18,7 +18,7 @@ public class AccessEdible {
      * Creates an object representing edibles in the database.
      */
     public AccessEdible(){
-        DAS = Services.openDAS(Main.DATABASE_NAME);
+        DAS = Services.getDataAccess(Main.DATABASE_NAME);
     }
 
 

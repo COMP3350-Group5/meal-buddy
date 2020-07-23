@@ -18,7 +18,7 @@ public class AccessExercise {
      * Creates an object representing exercises in the database.
      */
     public AccessExercise(){
-        DAS = Services.openDAS(Main.DATABASE_NAME);
+        DAS = Services.getDataAccess(Main.DATABASE_NAME);
     }
 
     /*

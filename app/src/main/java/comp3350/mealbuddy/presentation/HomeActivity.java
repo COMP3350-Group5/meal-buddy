@@ -27,7 +27,7 @@ import java.io.InputStreamReader;
 
 
 public class HomeActivity extends AppCompatActivity {
-    private AccessAccount accessAccount = new AccessAccount();
+    private AccessAccount accessAccount;
 
     /*
      * onCreate
@@ -36,11 +36,12 @@ public class HomeActivity extends AppCompatActivity {
      *     @param savedInstanceState
      */
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected synchronized void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         copyDatabaseToDevice();
         Main.startUp();
+        accessAccount = new AccessAccount();
         EditText username = findViewById(R.id.etUsername);
         EditText password = findViewById(R.id.etPassword);
         Button login = findViewById(R.id.btnLogin);
@@ -79,12 +80,10 @@ public class HomeActivity extends AppCompatActivity {
             //reset the input fields.
             user.clear();
             pass.clear();
-            System.err.println(Main.insertStudent());
-
         }
     }
 
-    private void copyDatabaseToDevice() {
+    private synchronized void copyDatabaseToDevice() {
         final String DB_PATH = "db";
 
         String[] assetNames;
@@ -102,13 +101,13 @@ public class HomeActivity extends AppCompatActivity {
             copyAssetsToDirectory(assetNames, dataDirectory);
 
             Main.setDBPathName(dataDirectory.toString() + "/" + Main.DATABASE_NAME);
-
+            System.out.println("*****************************************in copy dir" + Main.getDBPathName());
         } catch (IOException ioe) {
             Messages.warning(this, "Unable to access application data: " + ioe.getMessage());
         }
     }
 
-    public void copyAssetsToDirectory(String[] assets, File directory) throws IOException {
+    public synchronized void copyAssetsToDirectory(String[] assets, File directory) throws IOException {
         AssetManager assetManager = getAssets();
 
         for (String asset : assets) {

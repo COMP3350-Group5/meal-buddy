@@ -44,6 +44,8 @@ public class DataAccessObject implements DataAccess {
             // Setup for HSQL
             Class.forName("org.hsqldb.jdbcDriver").newInstance();
             url = "jdbc:hsqldb:file:" + dbPath; // stored on disk mode
+            System.out.println("**********************************");
+            System.out.println(url);
             c1 = DriverManager.getConnection(url, "SA", "");
             st1 = c1.createStatement();
             st2 = c1.createStatement();

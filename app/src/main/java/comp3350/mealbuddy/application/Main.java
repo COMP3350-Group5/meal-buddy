@@ -9,15 +9,12 @@ public class Main {
     }
 
     public static void startUp(){
+        System.out.println("**************SHOULD BE AFTER COPY");
         Services.openDAS(DATABASE_NAME);
     }
 
     public static void shutDown(){
         Services.closeDAS();
-    }
-
-    public static String insertStudent() {
-        return Services.insertStudent();
     }
 
 
@@ -29,7 +26,7 @@ public class Main {
     }
 
     public static void setDBPathName(String pathName) {
-        System.out.println("Setting DB path to: " + pathName);
+        System.out.println("Setting DB path to:" + pathName);
         dbPathName = pathName;
     }
 
