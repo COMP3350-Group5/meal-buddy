@@ -144,6 +144,14 @@ public class Meal extends Edible {
     }
 
     /****************************************
+     * getEdibleIntPairIterator()
+     * An iterator for the edibleIntPairs in meal
+     ****************************************/
+    public Iterator<EdibleIntPair> getEdibleIntPairIterator() {
+        return ediblesInMeal.iterator();
+    }
+
+    /****************************************
      * MealIterator
      * An iterator for the edibles in meals
      ****************************************/

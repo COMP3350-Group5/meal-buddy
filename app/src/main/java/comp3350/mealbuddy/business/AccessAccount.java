@@ -50,7 +50,7 @@ public class AccessAccount {
      *     @param a - The account to be updated.
      */
     public void updateAccount(Account a){
-        DAS.updateAccount(a);
+
     }
 
     /*
@@ -60,7 +60,6 @@ public class AccessAccount {
      *     @param a - The account to be removed.
      */
     public void removeAccount(Account a){
-        DAS.removeAccount(a);
     }
 
     /*
@@ -73,7 +72,7 @@ public class AccessAccount {
      *     The account if valid, null if not valid.
      */
     public Account validateLogin(String username, String password){
-        return DAS.validateLogin(username, password);
+        return null;
     }
 
     /*

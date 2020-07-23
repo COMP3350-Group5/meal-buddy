@@ -1,13 +1,14 @@
 package comp3350.mealbuddy.persistence;
 
+import java.util.List;
+
 import comp3350.mealbuddy.objects.Account;
 import comp3350.mealbuddy.objects.Day;
-import comp3350.mealbuddy.objects.Exercise;
 import comp3350.mealbuddy.objects.consumables.Edible;
+import comp3350.mealbuddy.objects.consumables.Food;
+import comp3350.mealbuddy.objects.consumables.Meal;
 
 public interface DataAccess {
-
-    enum DBType {HSQLDB, Stub,}
 
     void open(String string);
 
@@ -15,31 +16,38 @@ public interface DataAccess {
 
     void addAccount(Account account);
 
-    void updateAccount(Account account);
+    void updateAccount(String usernameToUpdate, Account account);
 
-    void removeAccount(Account account);
+    void removeAccount(String userName);
 
     Account getAccount(String username);
 
-    Account validateLogin(String username, String password);
-
     void addEdible(Edible edible);
 
-    void updateEdible(Edible edible);
+    void updateEdible(String edibleToUpdate, Edible edible);
 
-    void removeEdible(Edible edible);
+    void removeEdible(String name);
 
-    void getEdible(Edible edible);
+    List<Edible> getEdibles();
 
-    void addExercise(String userName, int dayOfYear, Exercise exercise);
+    List<Food> getFoods();
 
-    void updateExercise(String userName, int dayOfYear, Exercise exercise);
+    List<Meal> getMeals();
 
-    void removeExercise(String userName, int dayOfYear, Exercise exercise);
+    void addLabel(String label);
+
+    void updateLabel(String oldLabel, String newLabel);
+
+    void removeLabel(String label);
+
+    List<String> getLabels();
+
+    void addDay(String userName, int dayOfYear);
 
     Day getDay(String userName, int dayOfYear);
 
-    Day updateDay(String userName, int dayOfYear);
+    List<Day> getDays(String userName);
 
-    String insertStudent();
+    void updateDay(String userName, Day day);
+
 }
