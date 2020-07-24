@@ -2,7 +2,7 @@
  * DataAccessStub
  * Database stub
  ****************************************/
-package comp3350.mealbuddy.persistence;
+package comp3350.mealbuddy.tests.persistence;
 
 import comp3350.mealbuddy.objects.Account;
 import comp3350.mealbuddy.objects.Day;
@@ -194,132 +194,135 @@ public class DataAccessStub {
         }
     }
 
+
+
     /*
      * initExercises
      * initializes the exercises data set.
      */
-    private void initExercises(){
+    private void initExercises() {
         String[] exerciseList = {
-            "Outdoor Run", "Bench Press", "Push Ups", "Sit Ups"
+                "Outdoor Run", "Bench Press", "Push Ups", "Sit Ups"
         };
 
-        for (String e : exerciseList){
-            exercises.add(new Exercise(e));
+
+        for (String e : exerciseList) {
+            exercises.add(new Exercise(e, 2.0, Exercise.Intensity.High));
         }
     }
 
-    /*
-     * addToDB
-     * adds to a specific data set.
-     * Parameters:
-     *     @param DT - Database Type {Accounts, Edibles, Exercises}
-     *     @param o - the object to be added.
-     */
-    public void addToDB(DatabaseType DT, Object o){
-        switch (DT) {
-            case ACCOUNTS:
-                accounts.add((Account)o);
-                break;
-            case EDIBLES:
-                edibles.add((Edible)o);
-                break;
-            case EXERCISES:
-                exercises.add((Exercise)o);
-                break;
+        /*
+         * addToDB
+         * adds to a specific data set.
+         * Parameters:
+         *     @param DT - Database Type {Accounts, Edibles, Exercises}
+         *     @param o - the object to be added.
+         */
+        public void addToDB (DatabaseType DT, Object o){
+            switch (DT) {
+                case ACCOUNTS:
+                    accounts.add((Account) o);
+                    break;
+                case EDIBLES:
+                    edibles.add((Edible) o);
+                    break;
+                case EXERCISES:
+                    exercises.add((Exercise) o);
+                    break;
+            }
         }
-    }
 
-    /*
-     * updateDB
-     * updates a value in a specific data set.
-     * Parameters:
-     *     @param DT - Database Type {Accounts, Edibles, Exercises}
-     *     @param o - the object to be updated.
-     */
-    public void updateDB(DatabaseType DT, Object o){
-        int index;
-        switch (DT) {
-            case ACCOUNTS:
-                if( (index = accounts.indexOf((Account)o)) >= 0)
-                    accounts.set(index, (Account)o);
-                break;
-            case EDIBLES:
-                if( (index = edibles.indexOf((Edible) o)) >= 0)
-                    edibles.set(index, (Edible)o);
-                break;
-            case EXERCISES:
-                if( (index = exercises.indexOf((Exercise) o)) >= 0)
-                    exercises.set(index, (Exercise)o);
-                break;
+        /*
+         * updateDB
+         * updates a value in a specific data set.
+         * Parameters:
+         *     @param DT - Database Type {Accounts, Edibles, Exercises}
+         *     @param o - the object to be updated.
+         */
+        public void updateDB (DatabaseType DT, Object o){
+            int index;
+            switch (DT) {
+                case ACCOUNTS:
+                    if ((index = accounts.indexOf((Account) o)) >= 0)
+                        accounts.set(index, (Account) o);
+                    break;
+                case EDIBLES:
+                    if ((index = edibles.indexOf((Edible) o)) >= 0)
+                        edibles.set(index, (Edible) o);
+                    break;
+                case EXERCISES:
+                    if ((index = exercises.indexOf((Exercise) o)) >= 0)
+                        exercises.set(index, (Exercise) o);
+                    break;
+            }
         }
-    }
 
-    /*
-     * removeFromDB
-     * removes from a specific data set.
-     * Parameters:
-     *     @param DT - Database Type {Accounts, Edibles, Exercises}
-     *     @param o - the object to be removed.
-     */
-    public void removeFromDB(DatabaseType DT, Object o){
-        switch (DT) {
-            case ACCOUNTS:
-                accounts.remove((Account)o);
-                break;
-            case EDIBLES:
-                edibles.remove((Edible)o);
-                break;
-            case EXERCISES:
-                exercises.remove((Exercise)o);
-                break;
+        /*
+         * removeFromDB
+         * removes from a specific data set.
+         * Parameters:
+         *     @param DT - Database Type {Accounts, Edibles, Exercises}
+         *     @param o - the object to be removed.
+         */
+        public void removeFromDB (DatabaseType DT, Object o){
+            switch (DT) {
+                case ACCOUNTS:
+                    accounts.remove((Account) o);
+                    break;
+                case EDIBLES:
+                    edibles.remove((Edible) o);
+                    break;
+                case EXERCISES:
+                    exercises.remove((Exercise) o);
+                    break;
+            }
         }
-    }
 
-    /*
-     * validateLogin
-     * validates if the username and password result in a successful login
-     * Parameters:
-     *     @param username - the username in question
-     *     @param password - password for the user
-     * Return:
-     *     returns the account if valid, null if not valid
-     */
-    public Account validateLogin(String username, String password){
-        for (Account a : accounts){
-            if (a.user.username.equalsIgnoreCase(username) && a.user.password.equals(password))
-                return a;
+        /*
+         * validateLogin
+         * validates if the username and password result in a successful login
+         * Parameters:
+         *     @param username - the username in question
+         *     @param password - password for the user
+         * Return:
+         *     returns the account if valid, null if not valid
+         */
+        public Account validateLogin (String username, String password){
+            for (Account a : accounts) {
+                if (a.user.username.equalsIgnoreCase(username) && a.user.password.equals(password))
+                    return a;
+            }
+            return null;
         }
-        return null;
-    }
 
-    /*
-     * getDay
-     * gets a day from the account
-     * Parameters:
-     *     @param a - the account
-     *     @param day - the dayOfYear we're searching for
-     * Return:
-     *    returns the day object
-     */
-    public Day getDay(Account a, int day){
-        return a.getDay(day);
-    }
-
-    /*
-     * getAccount
-     * gets an account from a string username
-     * Parameters:
-     *     @param username - the username of the account
-     * Return:
-     *    returns the account if it exists, null if not
-     */
-    public Account getAccount(String username){
-        for (Account a : accounts){
-            if (a.user.username.equalsIgnoreCase(username))
-                return a;
+        /*
+         * getDay
+         * gets a day from the account
+         * Parameters:
+         *     @param a - the account
+         *     @param day - the dayOfYear we're searching for
+         * Return:
+         *    returns the day object
+         */
+        public Day getDay (Account a,int day){
+            return a.getDay(day);
         }
-        return null; //this should never happen as long as you validate the login first.
+
+        /*
+         * getAccount
+         * gets an account from a string username
+         * Parameters:
+         *     @param username - the username of the account
+         * Return:
+         *    returns the account if it exists, null if not
+         */
+        public Account getAccount (String username){
+            for (Account a : accounts) {
+                if (a.user.username.equalsIgnoreCase(username))
+                    return a;
+            }
+            return null; //this should never happen as long as you validate the login first.
+        }
+
+
     }
-
-
-}
