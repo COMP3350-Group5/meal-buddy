@@ -347,7 +347,7 @@ public class MealTest {
     }
 
     @Test
-    public void addEdible_foodNotInList_foodAdded() {
+    public void add_foodNotInList_foodAdded() {
         // arrange
         Meal meal = new Meal("meal");
         Food egg = new Food("egg");
@@ -364,7 +364,7 @@ public class MealTest {
     }
 
     @Test
-    public void removeEdible_foodNotInList_foodRemoved() {
+    public void remove_foodNotInList_foodRemoved() {
         // arrange
         Meal meal = new Meal("meal");
         Food egg = new Food("egg");

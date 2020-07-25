@@ -97,7 +97,7 @@ public class DayTest {
     }
 
     @Test
-    public void getMealTimeList() {
+    public void getMealTime() {
         //arrange
         Food eddie = new Food("fake food", new ArrayList<>(Arrays.asList("fake")));
         Day.MealTimeType breakfast = Day.MealTimeType.BREAKFAST;
@@ -109,7 +109,7 @@ public class DayTest {
                 "fake food 0g\n";
 
         //act
-        Assert.assertEquals(day.breakfast, day.getMealTimeList(breakfast));
+        Assert.assertEquals(day.breakfast, day.getMealTime(breakfast));
     }
 
 }

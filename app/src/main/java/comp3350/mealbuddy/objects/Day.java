@@ -43,14 +43,14 @@ public class Day {
     }
 
     /*
-     * getMealTimeList
+     * getMealTime
      * takes a mealtime enum and returns the corresponding list.
      * Parameters:
      *     @param MT - a mealtime enum value. {BREAKFAST, LUNCH, DINNER, SNACK}
      * Return:
-     *     returns the corresponding list from the enum
+     *     returns the corresponding Meal
      */
-    public Meal getMealTimeList(MealTimeType MT) {
+    public Meal getMealTime(MealTimeType MT) {
         switch (MT) {
             case BREAKFAST:
                 return breakfast;
@@ -74,7 +74,7 @@ public class Day {
     public void addFood(MealTimeType MT, Edible e){
         if (MT == null || e == null)
             return;
-        getMealTimeList(MT).add(e);
+        getMealTime(MT).add(e);
     }
 
     /*
@@ -85,7 +85,7 @@ public class Day {
      *     @param e - the edible to remove
      */
     public void removeFood(MealTimeType MT, Edible edible){
-        getMealTimeList(MT).remove(edible);
+        getMealTime(MT).remove(edible);
     }
 
     /*
