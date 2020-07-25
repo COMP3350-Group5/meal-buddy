@@ -9,7 +9,6 @@ public class Main {
     }
 
     public static void startUp(){
-        System.out.println("**************SHOULD BE AFTER COPY");
         Services.openDAS(DATABASE_NAME);
     }
 

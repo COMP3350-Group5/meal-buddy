@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import comp3350.mealbuddy.objects.consumables.EdibleIntPair;
@@ -16,7 +17,6 @@ import static comp3350.mealbuddy.objects.consumables.Edible.Micros.Zinc;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 public class MealTest {
@@ -320,6 +320,37 @@ public class MealTest {
         Assert.assertEquals(expectedGrams, meal.getMacroGrams(Fat));
     }
 
+    @Test
+    public void getEdibleIntPairIterator_noFood_hasNextFalse() {
+        // arrange
+        Meal meal = new Meal("empty");
+
+        // act
+        Iterator<EdibleIntPair> intPairIterator = meal.getEdibleIntPairIterator();
+
+        // assert
+        Assert.assertFalse(intPairIterator.hasNext());
+    }
+
+    @Test
+    public void getEdibleIntPairIterator_hasFood_iterates() {
+        // arrange
+        Meal meal = makeCerealMeal();
+
+        // act
+        Iterator<EdibleIntPair> intPairIterator = meal.getEdibleIntPairIterator();
+
+        // assert
+        EdibleIntPair eip = intPairIterator.next();
+        Assert.assertEquals("milk", eip.edible.name);
+        Assert.assertEquals(new Integer(2), eip.quantity);
+
+        eip = intPairIterator.next();
+        Assert.assertEquals("cheerios", eip.edible.name);
+        Assert.assertEquals(new Integer(1), eip.quantity);
+
+        Assert.assertFalse(intPairIterator.hasNext());
+    }
 
     private Meal makeNestedMeal() {
         Food egg = new Food("egg");

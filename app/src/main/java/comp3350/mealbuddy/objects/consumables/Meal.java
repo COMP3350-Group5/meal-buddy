@@ -143,10 +143,10 @@ public class Meal extends Edible {
         return grams;
     }
 
-    /****************************************
+    /*
      * getEdibleIntPairIterator()
      * An iterator for the edibleIntPairs in meal
-     ****************************************/
+     */
     public Iterator<EdibleIntPair> getEdibleIntPairIterator() {
         return ediblesInMeal.iterator();
     }

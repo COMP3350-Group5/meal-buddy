@@ -4,13 +4,6 @@
  ****************************************/
 package comp3350.mealbuddy.presentation;
 
-import comp3350.mealbuddy.R;
-import comp3350.mealbuddy.application.Main;
-import comp3350.mealbuddy.business.AccessAccount;
-import comp3350.mealbuddy.objects.Account;
-
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetManager;
@@ -20,10 +13,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+
+import comp3350.mealbuddy.R;
+import comp3350.mealbuddy.application.Main;
+import comp3350.mealbuddy.business.AccessAccount;
+import comp3350.mealbuddy.objects.Account;
 
 
 public class HomeActivity extends AppCompatActivity {
@@ -101,7 +101,6 @@ public class HomeActivity extends AppCompatActivity {
             copyAssetsToDirectory(assetNames, dataDirectory);
 
             Main.setDBPathName(dataDirectory.toString() + "/" + Main.DATABASE_NAME);
-            System.out.println("*****************************************in copy dir" + Main.getDBPathName());
         } catch (IOException ioe) {
             Messages.warning(this, "Unable to access application data: " + ioe.getMessage());
         }
