@@ -16,7 +16,6 @@ import static comp3350.mealbuddy.objects.consumables.Edible.Micros.Zinc;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 public class MealTest {
@@ -43,6 +42,7 @@ public class MealTest {
 
         //assert
         Assert.assertFalse(meal.containsEdible(food));
+        Assert.assertFalse(meal.containsEdible("egg"));
     }
 
     @Test
@@ -57,6 +57,7 @@ public class MealTest {
 
         //assert
         Assert.assertTrue(meal.containsEdible(food));
+        Assert.assertTrue(meal.containsEdible("egg"));
     }
 
 
@@ -318,6 +319,68 @@ public class MealTest {
 
         // assert
         Assert.assertEquals(expectedGrams, meal.getMacroGrams(Fat));
+    }
+
+    @Test
+    public void getQuantity_foodInList_returnQuantity() {
+        // arrange
+        Meal meal = new Meal("meal");
+        Food egg = new Food("egg");
+
+        // act
+        meal.setEdible(egg, 3);
+
+        // assert
+        Assert.assertEquals(3, meal.getQuantity("egg"));
+        Assert.assertEquals(3, meal.getQuantity(egg));
+    }
+
+    @Test
+    public void getQuantity_foodNotInList_returnZero() {
+        // arrange
+        Meal meal = new Meal("meal");
+        Food egg = new Food("egg");
+
+        // assert
+        Assert.assertEquals(0, meal.getQuantity("egg"));
+        Assert.assertEquals(0, meal.getQuantity(egg));
+    }
+
+    @Test
+    public void addEdible_foodNotInList_foodAdded() {
+        // arrange
+        Meal meal = new Meal("meal");
+        Food egg = new Food("egg");
+        Food grape = new Food("grape");
+
+        //act
+        meal.add(egg);
+        meal.add(grape);
+        meal.add(grape);
+
+        // assert
+        Assert.assertEquals(1, meal.getQuantity(egg));
+        Assert.assertEquals(2, meal.getQuantity(grape));
+    }
+
+    @Test
+    public void removeEdible_foodNotInList_foodRemoved() {
+        // arrange
+        Meal meal = new Meal("meal");
+        Food egg = new Food("egg");
+        Food grape = new Food("grape");
+
+        //act
+        meal.remove(egg);             //nothing happens since not in list yet
+        meal.remove("egg");    //nothing happens since not in list yet
+        meal.add(egg);
+        meal.add(grape);
+        meal.remove(egg);
+        meal.remove(grape);
+
+        // assert
+        Assert.assertEquals(0, meal.getQuantity(egg));
+        Assert.assertEquals(0, meal.getQuantity(grape));
     }
 
 

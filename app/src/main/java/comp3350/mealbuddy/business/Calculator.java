@@ -4,15 +4,14 @@
  ***************************************/
 package comp3350.mealbuddy.business;
 
-import java.util.ArrayList;
-
 import comp3350.mealbuddy.objects.Day;
 import comp3350.mealbuddy.objects.consumables.Edible;
-import comp3350.mealbuddy.objects.consumables.Food;
-import comp3350.mealbuddy.objects.consumables.EdibleIntPair;
 import comp3350.mealbuddy.objects.consumables.Meal;
 
-import static comp3350.mealbuddy.objects.consumables.Edible.Macros.*;
+import static comp3350.mealbuddy.objects.consumables.Edible.Macros.Alcohol;
+import static comp3350.mealbuddy.objects.consumables.Edible.Macros.Carbohydrates;
+import static comp3350.mealbuddy.objects.consumables.Edible.Macros.Fat;
+import static comp3350.mealbuddy.objects.consumables.Edible.Macros.Protein;
 
 public class Calculator {
 
@@ -45,10 +44,10 @@ public class Calculator {
      */
     public int getTotalCalories() {
         int totalCalories = 0;
-        totalCalories += getListCalories(day.breakfast);
-        totalCalories += getListCalories(day.lunch);
-        totalCalories += getListCalories(day.dinner);
-        totalCalories += getListCalories(day.snack);
+        totalCalories += getEdibleCalories(day.breakfast);
+        totalCalories += getEdibleCalories(day.lunch);
+        totalCalories += getEdibleCalories(day.dinner);
+        totalCalories += getEdibleCalories(day.snack);
         return totalCalories;
     }
 
@@ -62,10 +61,10 @@ public class Calculator {
      */
     public int getLabelCalories(String label) {
         int totalCalories = 0;
-        totalCalories += getListLabelCalories(day.breakfast, label);
-        totalCalories += getListLabelCalories(day.lunch, label);
-        totalCalories += getListLabelCalories(day.dinner, label);
-        totalCalories += getListLabelCalories(day.snack, label);
+        totalCalories += getMealLabelCalories(day.breakfast, label);
+        totalCalories += getMealLabelCalories(day.lunch, label);
+        totalCalories += getMealLabelCalories(day.dinner, label);
+        totalCalories += getMealLabelCalories(day.snack, label);
         return totalCalories;
     }
 
@@ -79,10 +78,10 @@ public class Calculator {
      */
     public int getMacroCalories(Edible.Macros macro) {
         int totalCalories = 0;
-        totalCalories += getListMacroCalories(day.breakfast, macro);
-        totalCalories += getListMacroCalories(day.lunch, macro);
-        totalCalories += getListMacroCalories(day.dinner, macro);
-        totalCalories += getListMacroCalories(day.snack, macro);
+        totalCalories += getMealMacroCalories(day.breakfast, macro);
+        totalCalories += getMealMacroCalories(day.lunch, macro);
+        totalCalories += getMealMacroCalories(day.dinner, macro);
+        totalCalories += getMealMacroCalories(day.snack, macro);
         return totalCalories;
     }
 
@@ -125,7 +124,7 @@ public class Calculator {
      *     The total amount of calories eaten for the mealtime from the macro.
      */
     public int getMealTimeMacroCalories(Day.MealTimeType mealTime, Edible.Macros macro) {
-        return getListMacroCalories(day.getMealTimeList(mealTime), macro);
+        return getMealMacroCalories(day.getMealTimeList(mealTime), macro);
     }
 
     /*
@@ -138,7 +137,7 @@ public class Calculator {
      *     The total amount of calories obtained for the mealtime from foods in label
      */
     public int getMealTimeLabelCalories(Day.MealTimeType mealTime, String label) {
-        return getListLabelCalories(day.getMealTimeList(mealTime), label);
+        return getMealLabelCalories(day.getMealTimeList(mealTime), label);
     }
 
     /*
@@ -162,7 +161,7 @@ public class Calculator {
      * Return:
      *     Total calories in the list.
      */
-    private int getListCalories(ArrayList<Edible> foodList) {
+    private int getListCalories(Meal foodList) {
         int totalCalories = 0;
         for (Edible edible : foodList) {
             totalCalories += getEdibleCalories(edible);
@@ -195,9 +194,9 @@ public class Calculator {
      * Return:
      *     Total calories in the list, from the macro given.
      */
-    private int getListMacroCalories(ArrayList<Edible> foodList, Edible.Macros macro) {
+    private int getMealMacroCalories(Meal meal, Edible.Macros macro) {
         int totalCalories = 0;
-        for (Edible edible : foodList) {
+        for (Edible edible : meal) {
             int conversionFactor = getConversionFactor(macro);
             totalCalories += edible.getMacroGrams(macro) * conversionFactor;
         }
@@ -240,7 +239,7 @@ public class Calculator {
      * Return:
      *     The total mgs of a micro in the food list
      */
-    private int getListMicroMgs(ArrayList<Edible> foodList, Edible.Micros micro) {
+    private int getListMicroMgs(Meal foodList, Edible.Micros micro) {
         int totalMg = 0;
         for (Edible edible : foodList) {
             totalMg += edible.getMicroGrams(micro);
@@ -250,15 +249,15 @@ public class Calculator {
 
 
     /*
-     * getListLabelCalories
+     * getMealLabelCalories
      * Get the total calories from edibles with a certain label in a food list.
      * Parameters:
-     *     @param foodList - The list of foods
+     *     @param foodList - The Meal holding the foods of a meal time
      *     @param label - The label
      * Return:
      *     The total calories of a label in the food list
      */
-    private int getListLabelCalories(ArrayList<Edible> foodList, String label) {
+    private int getMealLabelCalories(Meal foodList, String label) {
         int totalCalories = 0;
         for (Edible edible : foodList) {
             if (edible.containsLabel(label))

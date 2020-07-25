@@ -35,7 +35,7 @@ public class DayTest {
         //act
         day.addFood(MTT, eddie);
         //assert
-        Assert.assertFalse(day.breakfast.contains(eddie));
+        Assert.assertFalse(day.breakfast.containsEdible(eddie));
     }
 
     @Test
@@ -47,7 +47,7 @@ public class DayTest {
         //act
         day.addFood(MTT, eddie);
         //assert
-        Assert.assertFalse(day.breakfast.contains(eddie));
+        Assert.assertFalse(day.breakfast.containsEdible(eddie));
     }
 
     @Test
@@ -59,7 +59,7 @@ public class DayTest {
         //act
         day.addFood(MTT, eddie);
         //assert
-        Assert.assertTrue(day.breakfast.contains(eddie));
+        Assert.assertTrue(day.breakfast.containsEdible(eddie));
     }
 
 
@@ -75,7 +75,7 @@ public class DayTest {
         day.removeFood(MTT, eddie);
 
         //act
-        Assert.assertFalse(day.breakfast.contains(eddie));
+        Assert.assertFalse(day.breakfast.containsEdible(eddie));
 
     }
 
@@ -93,7 +93,7 @@ public class DayTest {
                             "fake food 0g\n";
 
         //act
-        Assert.assertEquals(expected, day.getMeal(breakfast));
+        Assert.assertEquals(2, day.breakfast.getQuantity("fake food"));
     }
 
     @Test

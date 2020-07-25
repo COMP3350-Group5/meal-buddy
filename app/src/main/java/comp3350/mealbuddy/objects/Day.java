@@ -8,17 +8,19 @@ package comp3350.mealbuddy.objects;
 import java.util.ArrayList;
 
 import comp3350.mealbuddy.objects.consumables.Edible;
+import comp3350.mealbuddy.objects.consumables.Meal;
 import comp3350.mealbuddy.objects.goals.Goal;
 
 public class Day {
     public enum MealTimeType {
         BREAKFAST, LUNCH, DINNER, SNACK
     }
+
     public int dayOfYear; // represented as day-of-year (1-365)
-    public ArrayList<Edible> breakfast;
-    public ArrayList<Edible> lunch;
-    public ArrayList<Edible> dinner;
-    public ArrayList<Edible> snack;
+    public Meal breakfast;
+    public Meal lunch;
+    public Meal dinner;
+    public Meal snack;
     public ArrayList<Goal> goals;
     public ArrayList<Exercise> exercises;
 
@@ -28,14 +30,14 @@ public class Day {
      * Parameters:
      *     @param dayofYear - The day of year.
      */
-    public Day (int dayOfYear) {
+    public Day(int dayOfYear) {
         if (dayOfYear < 1 || dayOfYear > 365)
             throw new IllegalArgumentException("Must pass valid date");
         this.dayOfYear = dayOfYear;
-        this.breakfast = new ArrayList<>();
-        this.lunch = new ArrayList<>();
-        this.dinner = new ArrayList<>();
-        this.snack = new ArrayList<>();
+        this.breakfast = new Meal("Breakfast");
+        this.lunch = new Meal("Lunch");
+        this.dinner = new Meal("Dinner");
+        this.snack = new Meal("Snack");
         this.goals = new ArrayList<>();
         this.exercises = new ArrayList<>();
     }
@@ -48,8 +50,8 @@ public class Day {
      * Return:
      *     returns the corresponding list from the enum
      */
-    public ArrayList<Edible> getMealTimeList(MealTimeType MT){
-        switch(MT){
+    public Meal getMealTimeList(MealTimeType MT) {
+        switch (MT) {
             case BREAKFAST:
                 return breakfast;
             case LUNCH:
