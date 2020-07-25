@@ -14,19 +14,19 @@ public interface DataAccess {
 
     void close();
 
-    void addAccount(Account account);
+    String addAccount(Account account);
 
-    void updateAccount(String usernameToUpdate, Account account);
+    String updateAccount(String usernameToUpdate, Account account);
 
-    void removeAccount(String userName);
+    String removeAccount(String userName);
 
     Account getAccount(String username);
 
-    void addEdible(Edible edible);
+    String addEdible(Edible edible);
 
-    void updateEdible(String edibleToUpdate, Edible edible);
+    String updateEdible(String edibleToUpdate, Edible edible);
 
-    void removeEdible(String name);
+    String removeEdible(String name);
 
     List<Edible> getEdibles();
 
@@ -34,20 +34,20 @@ public interface DataAccess {
 
     List<Meal> getMeals();
 
-    void addLabel(String label);
+    String addLabel(String label);
 
-    void updateLabel(String oldLabel, String newLabel);
+    String updateLabel(String oldLabel, String newLabel);
 
-    void removeLabel(String label);
+    String removeLabel(String label);
 
     List<String> getLabels();
 
-    void addDay(String userName, int dayOfYear);
-
-    Day getDay(String userName, int dayOfYear);
+    String addDay(String userName, int dayOfYear);
 
     List<Day> getDays(String userName);
 
-    void updateDay(String userName, Day day);
+    Day getDay(String account, int dayOfYear);
+
+    String updateDay(String userName, Day day);
 
 }

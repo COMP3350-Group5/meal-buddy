@@ -19,6 +19,7 @@ public class Day {
     public ArrayList<Edible> lunch;
     public ArrayList<Edible> dinner;
     public ArrayList<Edible> snack;
+
     public ArrayList<Goal> goals;
     public ArrayList<Exercise> exercises;
 
