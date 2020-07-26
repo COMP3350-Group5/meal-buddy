@@ -17,7 +17,7 @@ public class AccessEdible {
      * Constructor
      * Creates an object representing edibles in the database.
      */
-    public AccessEdible(){
+    public AccessEdible() {
         DAS = Services.getDataAccess(Main.DATABASE_NAME);
     }
 
@@ -28,7 +28,7 @@ public class AccessEdible {
      * Parameters:
      *     @param e - The edible to add to the database.
      */
-    public void addEdible(Edible e){
+    public void addEdible(Edible e) {
         DAS.addEdible(e);
     }
 
@@ -38,8 +38,7 @@ public class AccessEdible {
      * Parameters:
      *     @param e - The edible to update.
      */
-    public void updateEdible(Edible e){
-        DAS.updateEdible(e);
+    public void updateEdible(Edible e) {
     }
 
 
@@ -49,8 +48,7 @@ public class AccessEdible {
      * Parameters:
      *     @param e - The edible to remove.
      */
-    public void removeEdible(Edible e){
-        DAS.removeEdible(e);
-    }
+    public void removeEdible(Edible e) {
 
+    }
 }

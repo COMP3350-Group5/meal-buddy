@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import comp3350.mealbuddy.objects.consumables.EdibleIntPair;
@@ -94,7 +95,7 @@ public class MealTest {
     }
 
     @Test
-    public void setEdible_foodNotContained_foodAdded() {
+    public void add_foodNotContained_foodAdded() {
         //arrange
         String name = "mealName";
         Meal meal = new Meal(name);
@@ -107,7 +108,7 @@ public class MealTest {
     }
 
     @Test
-    public void setEdible_foodNotContainedQuantityZero_doesntAdd() {
+    public void add_foodNotContainedQuantityZero_doesntAdd() {
         //arrange
         String name = "mealName";
         Meal meal = new Meal(name);
@@ -382,6 +383,8 @@ public class MealTest {
         Assert.assertEquals(2, meal.getQuantity(grape));
     }
 
+
+
     @Test
     public void remove_foodNotInList_foodRemoved() {
         // arrange
@@ -400,6 +403,61 @@ public class MealTest {
         // assert
         Assert.assertEquals(0, meal.getQuantity(egg));
         Assert.assertEquals(0, meal.getQuantity(grape));
+    }
+
+    @Test
+    public void getEdibleIntPairIterator_noFood_hasNextFalse() {
+        // arrange
+        Meal meal = new Meal("empty");
+
+        // act
+        Iterator<EdibleIntPair> intPairIterator = meal.getEdibleIntPairIterator();
+
+        // assert
+        Assert.assertFalse(intPairIterator.hasNext());
+    }
+
+    @Test
+    public void getEdibleIntPairIterator_hasFood_iterates() {
+        // arrange
+        Meal meal = makeCerealMeal();
+
+        // act
+        Iterator<EdibleIntPair> intPairIterator = meal.getEdibleIntPairIterator();
+
+        // assert
+        EdibleIntPair eip = intPairIterator.next();
+        Assert.assertEquals("milk", eip.edible.name);
+        Assert.assertEquals(new Integer(2), eip.quantity);
+
+        eip = intPairIterator.next();
+        Assert.assertEquals("cheerios", eip.edible.name);
+        Assert.assertEquals(new Integer(1), eip.quantity);
+
+        Assert.assertFalse(intPairIterator.hasNext());
+    }
+
+
+    @Test
+    public void isEmpty_emptyMeal_True() {
+        // arrange
+        Meal meal = new Meal("");
+
+        // act
+
+        //assert
+        Assert.assertTrue(meal.isEmpty());
+    }
+
+    @Test
+    public void isEmpty_fullMeal_false() {
+        // arrange
+        Meal meal = makeCerealMeal();
+
+        // act
+
+        //assert
+        Assert.assertFalse(meal.isEmpty());
     }
 
 

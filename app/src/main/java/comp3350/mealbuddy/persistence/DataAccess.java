@@ -1,45 +1,179 @@
+/****************************************
+ * DataAccess
+ * Interface for interacting with a data base
+ * or data base stub
+ ****************************************/
+
 package comp3350.mealbuddy.persistence;
+
+import java.util.List;
 
 import comp3350.mealbuddy.objects.Account;
 import comp3350.mealbuddy.objects.Day;
-import comp3350.mealbuddy.objects.Exercise;
 import comp3350.mealbuddy.objects.consumables.Edible;
+import comp3350.mealbuddy.objects.consumables.Food;
+import comp3350.mealbuddy.objects.consumables.Meal;
 
 public interface DataAccess {
 
-    enum DBType {HSQLDB, Stub,}
-
+    /*
+     * open
+     * Opens the db for use
+     * Parameters:
+     *     @param name - The path to the db
+     */
     void open(String string);
 
+    /*
+     * close
+     * Commits changes to the db and closes it
+     */
     void close();
 
-    void addAccount(Account account);
+    /*
+     * addAccount
+     * inserts an account to the db
+     * Parameters:
+     *     @param account - the account to insert
+     */
+    String addAccount(Account account);
 
-    void updateAccount(Account account);
+    /*
+     * updateAccount
+     * Updates an account already present
+     * in the db
+     * Parameters:
+     *     @param userNameToUpdate - the username of the account to update
+     *     @param account - the account holding the new info to update
+     *                      the old info to
+     */
+    String updateAccount(String usernameToUpdate, Account account);
 
-    void removeAccount(Account account);
+    /*
+     * removeAccount
+     * removes an account from the db
+     * Parameters:
+     *     @param userName - the username of the account to remove
+     */
+    String removeAccount(String userName);
 
+    /*
+     * getAccount
+     * gets the account associated with the username.
+     * returns null if not in db
+     * Parameters:
+     *     @param userName - username associated with the account to get
+     */
     Account getAccount(String username);
 
-    Account validateLogin(String username, String password);
+    /*
+     * addEdible
+     * Adds an edible to the db
+     * Parameters:
+     *     @param edible - the edible to add
+     */
+    String addEdible(Edible edible);
 
-    void addEdible(Edible edible);
+    /*
+     * updateEdible
+     * Updates an edible in the db
+     * Parameters:
+     *     @param edible - the edible to update
+     */
+    String updateEdible(String edibleToUpdate, Edible edible);
 
-    void updateEdible(Edible edible);
+    /*
+     * removeEdible
+     * removes the edible from the db
+     * Parameters:
+     *     @param name - the name of the edible to remove
+     */
+    String removeEdible(String name);
 
-    void removeEdible(Edible edible);
+    /*
+     * getEdibles
+     * gets all the edibles in the db
+     */
+    List<Edible> getEdibles();
 
-    void getEdible(Edible edible);
+    /*
+     * getFoods
+     * gets all the food in the db
+     */
+    List<Food> getFoods();
 
-    void addExercise(String userName, int dayOfYear, Exercise exercise);
+    /*
+     * getMeals
+     * gets all the meals in the db
+     */
+    List<Meal> getMeals();
 
-    void updateExercise(String userName, int dayOfYear, Exercise exercise);
+    /*
+     * addLabel
+     * adds the label to the db
+     * Parameters:
+     *     @param label - the name label to add
+     */
+    String addLabel(String label);
 
-    void removeExercise(String userName, int dayOfYear, Exercise exercise);
+    /*
+     * updateLabel
+     * updates a label in the db
+     * Parameters:
+     *     @param oldLabel - the name of the label to update
+     *     @param newLabel - the name to update to
+     */
+    String updateLabel(String oldLabel, String newLabel);
 
-    Day getDay(String userName, int dayOfYear);
+    /*
+     * removeLabel
+     * removes a label from the db
+     * Parameters:
+     *     @param name - the name of the label to remove
+     */
+    String removeLabel(String label);
 
-    Day updateDay(String userName, int dayOfYear);
+    /*
+     * getLabels
+     * gets all labels from the db
+     */
+    List<String> getLabels();
 
-    String insertStudent();
+    /*
+     * addDay
+     * adds a new day to the db. Will always be an empty day
+     * Parameters:
+     *     @param userName - the account to add the day under
+     *     @param dayOfYear - the day of year to add the day to
+     */
+    String addDay(String userName, int dayOfYear);
+
+    /*
+     * getDay
+     * gets all days from the associated account username
+     * Parameters:
+     *     @param userName - the userName of the account
+     */
+    List<Day> getDays(String userName);
+
+    /*
+     * getDay
+     * gets the day from the associated account username
+     * Parameters:
+     *     @param userName - the userName of the account
+     *     @param dayOfYear - the day of the year to get
+     */
+    Day getDay(String account, int dayOfYear);
+
+    /*
+     * updateDay
+     * updates a certain day in an account.  Updates all info associated with the day
+     * including exercise, meals, and goals.  Note the dayOfYear in a day
+     * can not be updated.
+     * Parameters:
+     *     @param userName - the userName of the account
+     *     @param dayOfYear - the day to update
+     */
+    String updateDay(String userName, Day day);
+
 }
