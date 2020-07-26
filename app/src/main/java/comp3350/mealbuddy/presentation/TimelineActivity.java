@@ -14,9 +14,7 @@ import androidx.cardview.widget.CardView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.time.LocalDate;
 import java.util.Calendar;
-import java.util.Date;
 
 import comp3350.mealbuddy.R;
 import comp3350.mealbuddy.business.AccessAccount;
@@ -85,7 +83,7 @@ public class TimelineActivity extends AppCompatActivity {
         TextView cardSnacksTitle = (TextView) snacksLayout.getChildAt(0);
         cardSnacksTitle.setText("Snacks");
         TextView txtSnacks = (TextView) snacksLayout.getChildAt(1);
-        txtSnacks.setText(day.getMeal(Day.MealTimeType.SNACK));
+        txtSnacks.setText(day.getMealString(Day.MealTimeType.SNACK));
         TextView txtSnackCals = (TextView) snacksLayout.getChildAt(2);
         txtSnackCals.setText(calculator.getMealTimeCalories(Day.MealTimeType.SNACK) + " Cals");
     }
@@ -100,7 +98,7 @@ public class TimelineActivity extends AppCompatActivity {
         TextView cardDinnerTitle = (TextView) dinnerLayout.getChildAt(0);
         cardDinnerTitle.setText("Dinner");
         TextView txtDinner = (TextView) dinnerLayout.getChildAt(1);
-        txtDinner.setText(day.getMeal(Day.MealTimeType.DINNER));
+        txtDinner.setText(day.getMealString(Day.MealTimeType.DINNER));
         TextView txtDinnerCals = (TextView) dinnerLayout.getChildAt(2);
         txtDinnerCals.setText(calculator.getMealTimeCalories(Day.MealTimeType.DINNER) + " Cals");
     }
@@ -115,7 +113,7 @@ public class TimelineActivity extends AppCompatActivity {
         TextView cardLunchTitle = (TextView) lunchLayout.getChildAt(0);
         cardLunchTitle.setText("Lunch");
         TextView txtLunch = (TextView) lunchLayout.getChildAt(1);
-        txtLunch.setText(day.getMeal(Day.MealTimeType.LUNCH));
+        txtLunch.setText(day.getMealString(Day.MealTimeType.LUNCH));
         TextView txtLunchCals = (TextView) lunchLayout.getChildAt(2);
         txtLunchCals.setText(calculator.getMealTimeCalories(Day.MealTimeType.LUNCH) + " Cals");
     }
@@ -130,7 +128,7 @@ public class TimelineActivity extends AppCompatActivity {
         TextView cardBreakfastTitle = (TextView) breakfastLayout.getChildAt(0);
         cardBreakfastTitle.setText("Breakfast");
         TextView txtBreakfast = (TextView) breakfastLayout.getChildAt(1);
-        txtBreakfast.setText(day.getMeal(Day.MealTimeType.BREAKFAST));
+        txtBreakfast.setText(day.getMealString(Day.MealTimeType.BREAKFAST));
         TextView txtBreakfastCals = (TextView) breakfastLayout.getChildAt(2);
         txtBreakfastCals.setText(calculator.getMealTimeCalories(Day.MealTimeType.BREAKFAST) + " Cals");
     }

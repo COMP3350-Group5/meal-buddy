@@ -5,7 +5,17 @@
 
 package comp3350.mealbuddy.presentation;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
+
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import comp3350.mealbuddy.R;
 import comp3350.mealbuddy.business.AccessAccount;
 import comp3350.mealbuddy.business.AccessEdible;
@@ -13,15 +23,6 @@ import comp3350.mealbuddy.objects.Account;
 import comp3350.mealbuddy.objects.Day;
 import comp3350.mealbuddy.objects.consumables.Edible;
 import comp3350.mealbuddy.objects.consumables.Food;
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Spinner;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 
 public class AddFoodActivity extends AppCompatActivity {
 
@@ -81,7 +82,7 @@ public class AddFoodActivity extends AppCompatActivity {
             else
                 MT = Day.MealTimeType.SNACK;
 
-            day.addFood(MT, food); //this adds the food to the USERS day
+            day.getMealTime(MT).add(food); //this adds the food to the USERS day
             accessEdible.addEdible(food); //this adds the food to the foods database.
 
             //go back to the timeline activity and pass the username

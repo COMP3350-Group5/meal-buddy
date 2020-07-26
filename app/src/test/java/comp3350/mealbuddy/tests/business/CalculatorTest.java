@@ -11,9 +11,11 @@ import comp3350.mealbuddy.objects.Day;
 import comp3350.mealbuddy.objects.consumables.Food;
 import comp3350.mealbuddy.objects.consumables.Meal;
 
-import static comp3350.mealbuddy.objects.consumables.Edible.Macros.*;
-import static comp3350.mealbuddy.objects.consumables.Edible.Micros.*;
-import static org.junit.Assert.fail;
+import static comp3350.mealbuddy.objects.consumables.Edible.Macros.Carbohydrates;
+import static comp3350.mealbuddy.objects.consumables.Edible.Macros.Fat;
+import static comp3350.mealbuddy.objects.consumables.Edible.Macros.Protein;
+import static comp3350.mealbuddy.objects.consumables.Edible.Micros.Potassium;
+import static comp3350.mealbuddy.objects.consumables.Edible.Micros.Sodium;
 
 public class CalculatorTest {
 
@@ -401,8 +403,8 @@ public class CalculatorTest {
 
     private Meal makeBigMacMeal() {
         Meal bigMacMeal = new Meal("Big Mac Meal");
-        bigMacMeal.setEdible(makeBigMac(), 2);
-        bigMacMeal.setEdible(makeFries(), 1);
+        bigMacMeal.add(makeBigMac(), 2);
+        bigMacMeal.add(makeFries(), 1);
         return bigMacMeal;
     }
 }
