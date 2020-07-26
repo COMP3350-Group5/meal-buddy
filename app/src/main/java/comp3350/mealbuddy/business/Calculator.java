@@ -4,15 +4,14 @@
  ***************************************/
 package comp3350.mealbuddy.business;
 
-import java.util.ArrayList;
-
 import comp3350.mealbuddy.objects.Day;
 import comp3350.mealbuddy.objects.consumables.Edible;
-import comp3350.mealbuddy.objects.consumables.Food;
-import comp3350.mealbuddy.objects.consumables.EdibleIntPair;
 import comp3350.mealbuddy.objects.consumables.Meal;
 
-import static comp3350.mealbuddy.objects.consumables.Edible.Macros.*;
+import static comp3350.mealbuddy.objects.consumables.Edible.Macros.Alcohol;
+import static comp3350.mealbuddy.objects.consumables.Edible.Macros.Carbohydrates;
+import static comp3350.mealbuddy.objects.consumables.Edible.Macros.Fat;
+import static comp3350.mealbuddy.objects.consumables.Edible.Macros.Protein;
 
 public class Calculator {
 
@@ -41,14 +40,14 @@ public class Calculator {
      * getTotalCalories
      * Get the total amount of calories eaten.
      * Return:
-     *     The total amount of calories eaten.
+     *     The total amount of calories eaten in a day.
      */
     public int getTotalCalories() {
         int totalCalories = 0;
-        totalCalories += getListCalories(day.breakfast);
-        totalCalories += getListCalories(day.lunch);
-        totalCalories += getListCalories(day.dinner);
-        totalCalories += getListCalories(day.snack);
+        totalCalories += getEdibleCalories(day.breakfast);
+        totalCalories += getEdibleCalories(day.lunch);
+        totalCalories += getEdibleCalories(day.dinner);
+        totalCalories += getEdibleCalories(day.snack);
         return totalCalories;
     }
 
@@ -58,14 +57,14 @@ public class Calculator {
      * Parameters:
      *     @param label - The label
      * Return:
-     *     The total amount of calories obtained from foods in label.
+     *     The total amount of calories obtained from foods in label in a day.
      */
     public int getLabelCalories(String label) {
         int totalCalories = 0;
-        totalCalories += getListLabelCalories(day.breakfast, label);
-        totalCalories += getListLabelCalories(day.lunch, label);
-        totalCalories += getListLabelCalories(day.dinner, label);
-        totalCalories += getListLabelCalories(day.snack, label);
+        totalCalories += getMealLabelCalories(day.breakfast, label);
+        totalCalories += getMealLabelCalories(day.lunch, label);
+        totalCalories += getMealLabelCalories(day.dinner, label);
+        totalCalories += getMealLabelCalories(day.snack, label);
         return totalCalories;
     }
 
@@ -75,14 +74,14 @@ public class Calculator {
      * Parameters:
      *     @param macro - The macro
      * Return:
-     *     The total amount of calories obtained related to the macro.
+     *     The total amount of calories obtained related to the macro in a day.
      */
     public int getMacroCalories(Edible.Macros macro) {
         int totalCalories = 0;
-        totalCalories += getListMacroCalories(day.breakfast, macro);
-        totalCalories += getListMacroCalories(day.lunch, macro);
-        totalCalories += getListMacroCalories(day.dinner, macro);
-        totalCalories += getListMacroCalories(day.snack, macro);
+        totalCalories += getMealMacroCalories(day.breakfast, macro);
+        totalCalories += getMealMacroCalories(day.lunch, macro);
+        totalCalories += getMealMacroCalories(day.dinner, macro);
+        totalCalories += getMealMacroCalories(day.snack, macro);
         return totalCalories;
     }
 
@@ -92,14 +91,14 @@ public class Calculator {
      * Parameters:
      *     @param micro - The micro
      * Return:
-     *     The total amount of mgs of the micro eaten.
+     *     The total amount of mgs of the micro eaten in day.
      */
     public int getMicroMgs(Edible.Micros micro) {
         int totalMgs = 0;
-        totalMgs += getListMicroMgs(day.breakfast, micro);
-        totalMgs += getListMicroMgs(day.lunch, micro);
-        totalMgs += getListMicroMgs(day.dinner, micro);
-        totalMgs += getListMicroMgs(day.snack , micro);
+        totalMgs += getMealMicroMgs(day.breakfast, micro);
+        totalMgs += getMealMicroMgs(day.lunch, micro);
+        totalMgs += getMealMicroMgs(day.dinner, micro);
+        totalMgs += getMealMicroMgs(day.snack, micro);
         return totalMgs;
     }
 
@@ -112,7 +111,7 @@ public class Calculator {
      *     The total amount of calories eaten for the mealtime.
      */
     public int getMealTimeCalories(Day.MealTimeType mealTime) {
-        return getListCalories(day.getMealTimeList(mealTime));
+        return getMealCalories(day.getMealTime(mealTime));
     }
 
     /*
@@ -125,7 +124,7 @@ public class Calculator {
      *     The total amount of calories eaten for the mealtime from the macro.
      */
     public int getMealTimeMacroCalories(Day.MealTimeType mealTime, Edible.Macros macro) {
-        return getListMacroCalories(day.getMealTimeList(mealTime), macro);
+        return getMealMacroCalories(day.getMealTime(mealTime), macro);
     }
 
     /*
@@ -138,7 +137,7 @@ public class Calculator {
      *     The total amount of calories obtained for the mealtime from foods in label
      */
     public int getMealTimeLabelCalories(Day.MealTimeType mealTime, String label) {
-        return getListLabelCalories(day.getMealTimeList(mealTime), label);
+        return getMealLabelCalories(day.getMealTime(mealTime), label);
     }
 
     /*
@@ -151,20 +150,20 @@ public class Calculator {
      *     The total amount of mgs of the micro eaten for the mealtime.
      */
     public int getMealTimeMicroMgs(Day.MealTimeType mealTime, Edible.Micros micro) {
-        return getListMicroMgs(day.getMealTimeList(mealTime), micro);
+        return getMealMicroMgs(day.getMealTime(mealTime), micro);
     }
 
     /*
      * getListCalories
-     * Get the total amount of calories in a list of edibles.
+     * Get the total amount of calories in a meal.
      * Parameters:
-     *     @param foodList - The list of foods
+     *     @param meal - the meal to get the calories of
      * Return:
      *     Total calories in the list.
      */
-    private int getListCalories(ArrayList<Edible> foodList) {
+    private int getMealCalories(Meal meal) {
         int totalCalories = 0;
-        for (Edible edible : foodList) {
+        for (Edible edible : meal) {
             totalCalories += getEdibleCalories(edible);
         }
         return totalCalories;
@@ -174,9 +173,9 @@ public class Calculator {
      * getEdibleCalories
      * Get the amount of calories in a food.
      * Parameters:
-     *     @param edible - The food
+     *     @param edible - The edible to get the calories of
      * Return:
-     *     The calories in the food.
+     *     The calories in the edible.
      */
     private int getEdibleCalories(Edible edible) {
         int totalCalories = 0;
@@ -188,16 +187,16 @@ public class Calculator {
     }
 
     /*
-     * getListMacroCalories
+     * getMealMacroCalories
      * Get the total amount of calories from a specific Macro in a list of edibles.
      * Parameters:
-     *     @param foodList - The list of foods
+     *     @param meal - The meal to get the macros of
      * Return:
-     *     Total calories in the list, from the macro given.
+     *     Total calories in the meal, from the macro given.
      */
-    private int getListMacroCalories(ArrayList<Edible> foodList, Edible.Macros macro) {
+    private int getMealMacroCalories(Meal meal, Edible.Macros macro) {
         int totalCalories = 0;
-        for (Edible edible : foodList) {
+        for (Edible edible : meal) {
             int conversionFactor = getConversionFactor(macro);
             totalCalories += edible.getMacroGrams(macro) * conversionFactor;
         }
@@ -232,17 +231,17 @@ public class Calculator {
     }
 
     /*
-     * getListMicroMgs
-     * Get the total mgs of a Micro from a food list
+     * getMealMicroMgs
+     * Get the total mgs of a Micro from a meal
      * Parameters:
-     *     @param foodList - The list of foods
+     *     @param meal - The meal of edibles
      *     @param micro - The micro
      * Return:
-     *     The total mgs of a micro in the food list
+     *     The total mgs of a micro in the meal
      */
-    private int getListMicroMgs(ArrayList<Edible> foodList, Edible.Micros micro) {
+    private int getMealMicroMgs(Meal meal, Edible.Micros micro) {
         int totalMg = 0;
-        for (Edible edible : foodList) {
+        for (Edible edible : meal) {
             totalMg += edible.getMicroGrams(micro);
         }
         return totalMg;
@@ -250,15 +249,15 @@ public class Calculator {
 
 
     /*
-     * getListLabelCalories
+     * getMealLabelCalories
      * Get the total calories from edibles with a certain label in a food list.
      * Parameters:
-     *     @param foodList - The list of foods
+     *     @param foodList - The Meal holding the foods of a meal time
      *     @param label - The label
      * Return:
      *     The total calories of a label in the food list
      */
-    private int getListLabelCalories(ArrayList<Edible> foodList, String label) {
+    private int getMealLabelCalories(Meal foodList, String label) {
         int totalCalories = 0;
         for (Edible edible : foodList) {
             if (edible.containsLabel(label))

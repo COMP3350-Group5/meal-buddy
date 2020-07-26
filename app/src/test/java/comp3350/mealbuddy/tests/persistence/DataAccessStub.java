@@ -4,17 +4,17 @@
  ****************************************/
 package comp3350.mealbuddy.tests.persistence;
 
-import comp3350.mealbuddy.objects.Account;
-import comp3350.mealbuddy.objects.Day;
-import comp3350.mealbuddy.objects.consumables.Edible;
-import comp3350.mealbuddy.objects.consumables.Food;
-import comp3350.mealbuddy.objects.consumables.Meal;
-import comp3350.mealbuddy.objects.Exercise;
-import comp3350.mealbuddy.objects.UserInfo;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+
+import comp3350.mealbuddy.objects.Account;
+import comp3350.mealbuddy.objects.Day;
+import comp3350.mealbuddy.objects.Exercise;
+import comp3350.mealbuddy.objects.UserInfo;
+import comp3350.mealbuddy.objects.consumables.Edible;
+import comp3350.mealbuddy.objects.consumables.Food;
+import comp3350.mealbuddy.objects.consumables.Meal;
 
 public class DataAccessStub {
     public enum DatabaseType {
@@ -84,7 +84,7 @@ public class DataAccessStub {
                     (ArrayList)food[1]
             );
             edibles.add(edible);
-            meal.setEdible(edible, 1);
+            meal.add(edible, 1);
         }
         edibles.add(meal);
     }
@@ -124,7 +124,7 @@ public class DataAccessStub {
             );
             edible.setWeight((int)food[2]);
             edible.updateMacro((Edible.Macros) food[3], (int) food[4]);
-            day.addFood(Day.MealTimeType.BREAKFAST, edible);
+            day.getMealTime(Day.MealTimeType.BREAKFAST).add(edible);
         }
 
         for (Object[] food : lunch) {
@@ -134,7 +134,7 @@ public class DataAccessStub {
             );
             edible.setWeight((int)food[2]);
             edible.updateMacro((Edible.Macros) food[3], (int) food[4]);
-            day.addFood(Day.MealTimeType.LUNCH, edible);
+            day.getMealTime(Day.MealTimeType.LUNCH).add(edible);
         }
 
         for (Object[] food : dinner) {
@@ -144,7 +144,7 @@ public class DataAccessStub {
             );
             edible.setWeight((int)food[2]);
             edible.updateMacro((Edible.Macros) food[3], (int) food[4]);
-            day.addFood(Day.MealTimeType.DINNER, edible);
+            day.getMealTime(Day.MealTimeType.DINNER).add(edible);
         }
 
         for (Object[] food : snack) {
@@ -154,7 +154,7 @@ public class DataAccessStub {
             );
             edible.setWeight((int)food[2]);
             edible.updateMacro((Edible.Macros) food[3], (int) food[4]);
-            day.addFood(Day.MealTimeType.SNACK, edible);
+            day.getMealTime(Day.MealTimeType.SNACK).add(edible);
         }
 
     }

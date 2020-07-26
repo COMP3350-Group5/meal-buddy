@@ -1,13 +1,10 @@
 package comp3350.mealbuddy.tests.objects.consumables;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
-import javax.microedition.khronos.egl.EGLDisplay;
 
 import comp3350.mealbuddy.objects.consumables.Edible;
 import comp3350.mealbuddy.objects.consumables.Food;
@@ -25,7 +22,7 @@ public class MealIteratorTest {
     public void hasNext_notIteratedOver_true() {
         //arrange
         Meal meal = new Meal("meal");
-        meal.setEdible(new Food("fish"), 1);
+        meal.add(new Food("fish"), 1);
 
         //act
         Iterator<Edible> iterator = meal.iterator();
@@ -72,7 +69,7 @@ public class MealIteratorTest {
         //arrange
         Food fish = new Food("fish");
         Meal meal = new Meal("fishMeal");
-        meal.setEdible(fish, 1);
+        meal.add(fish, 1);
 
         //act
         Iterator<Edible> iterator = meal.iterator();
@@ -89,7 +86,7 @@ public class MealIteratorTest {
         List<Edible> edibleList = getFoodList();
 
         for (Edible edible : edibleList) {
-            nestedMeal.setEdible(edible, quantity);
+            nestedMeal.add(edible, quantity);
         }
 
         //act
@@ -110,8 +107,8 @@ public class MealIteratorTest {
         Meal cereal = new Meal("cereal");
         Food milk = new Food("milk");
         Food cheerios = new Food("cheerios");
-        cereal.setEdible(milk, 1);
-        cereal.setEdible(cheerios, 1);
+        cereal.add(milk, 1);
+        cereal.add(cheerios, 1);
 
         List<Edible> list = new ArrayList<>();
         list.add(egg);
