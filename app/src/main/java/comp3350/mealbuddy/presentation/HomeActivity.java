@@ -83,6 +83,10 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
+    /*
+     * copyDatabaseToDevice
+     * copies the database script to the device
+     */
     private synchronized void copyDatabaseToDevice() {
         final String DB_PATH = "db";
 
@@ -106,6 +110,15 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
+    /*
+     * copyAssetsToDirectory
+     * copy the assets folder to the directory
+     * Parameters:
+     *     @param assets = the assets
+     *     @param pass = the directory
+     * Throws:
+     *     an IOException
+     */
     public synchronized void copyAssetsToDirectory(String[] assets, File directory) throws IOException {
         AssetManager assetManager = getAssets();
 

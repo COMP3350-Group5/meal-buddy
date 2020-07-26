@@ -31,17 +31,21 @@ public class SignUpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
+        //initialize all the variables with the correct components
         EditText username = findViewById(R.id.etUsername);
         EditText password = findViewById(R.id.etPassword);
         EditText fullName = findViewById(R.id.etFullName);
         EditText age = findViewById(R.id.etAge);
         EditText height = findViewById(R.id.etHeight);
         EditText weight = findViewById(R.id.etWeight);
-        Spinner activityLevel = findViewById(R.id.spnActivityLevel);
-        Spinner sex = findViewById(R.id.spnSex);
         Button createAccount = findViewById(R.id.btnCreateAccount);
+
+        //parse the users sex
+        Spinner sex = findViewById(R.id.spnSex);
         String sexValue = sex.getSelectedItem().toString();
         UserInfo.Sex ST = sexValue.equals("Male") ? UserInfo.Sex.MALE : UserInfo.Sex.FEMALE;
+        //parse the activity level
+        Spinner activityLevel = findViewById(R.id.spnActivityLevel);
         String activityLevelValue = activityLevel.getSelectedItem().toString();
         UserInfo.ActivityLevel ALT;
         if (activityLevelValue.equals("Low"))
@@ -50,6 +54,7 @@ public class SignUpActivity extends AppCompatActivity {
             ALT = UserInfo.ActivityLevel.MEDIUM;
         else
             ALT = UserInfo.ActivityLevel.HIGH;
+
         //link the on click listeners
         createAccount.setOnClickListener((view) -> {
             UserInfo userInfo = new UserInfo(fullName.getText().toString(),
@@ -60,8 +65,7 @@ public class SignUpActivity extends AppCompatActivity {
                     ALT,
                     ST,
                     Integer.parseInt(age.getText().toString()));
-            Account account = new Account(userInfo);
-            accessAccount.addAccount(account);
+            accessAccount.addAccount(userInfo);
             Intent intent = new Intent(SignUpActivity.this, TimelineActivity.class);
             intent.putExtra("username",  username.getText().toString());
             SignUpActivity.this.startActivity(intent);

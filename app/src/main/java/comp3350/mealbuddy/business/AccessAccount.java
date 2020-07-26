@@ -72,6 +72,9 @@ public class AccessAccount {
      *     The account if valid, null if not valid.
      */
     public Account validateLogin(String username, String password){
+        Account acc = getAccount(username);
+        if(acc != null && password.equals(acc.user.password))
+            return acc;
         return null;
     }
 
