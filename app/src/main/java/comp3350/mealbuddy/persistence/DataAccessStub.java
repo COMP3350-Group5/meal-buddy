@@ -215,22 +215,25 @@ public class DataAccessStub implements DataAccess  {
         System.out.println("Closed database " + name);
     }
 
-    public void addAccount(Account account) {
+    public String addAccount(Account account) {
         accounts.add(account);
+        return "";
     }
 
-    public void updateAccount(String usernameToUpdate, Account account) {
+    public String updateAccount(String usernameToUpdate, Account account) {
         removeAccount(usernameToUpdate);
         addAccount(account);
+        return "";
     }
 
-    public void removeAccount(String userName) {
+    public String removeAccount(String userName) {
         for (Account account : accounts) {
             if (account.user.username == userName) {
                 accounts.remove(account);
                 break;
             }
         }
+        return "";
     }
 
     public Account getAccount(String userName) {
@@ -253,21 +256,24 @@ public class DataAccessStub implements DataAccess  {
         return result;
     }
 
-    public void addEdible(Edible edible) {
+    public String addEdible(Edible edible) {
         edibles.add(edible);
+        return "";
     }
 
-    public void updateEdible(String edibleToUpdate, Edible edible) {
+    public String updateEdible(String edibleToUpdate, Edible edible) {
         removeEdible(edibleToUpdate);
         addEdible(edible);
+        return "";
     }
 
-    public void removeEdible(String name) {
+    public String removeEdible(String name) {
         for (Edible edible : edibles) {
             if (edible.name.equals(name)) {
                 edibles.remove(edible);
             }
         }
+        return "";
     }
 
     public Edible getEdible(String name) {
@@ -313,21 +319,24 @@ public class DataAccessStub implements DataAccess  {
         return result;
     }
 
-    public void addLabel(String label) {
+    public String addLabel(String label) {
         labels.add(label);
+        return "";
     }
 
-    public void updateLabel(String oldLabel, String newLabel) {
+    public String updateLabel(String oldLabel, String newLabel) {
         removeLabel(oldLabel);
         addLabel(newLabel);
+        return "";
     }
 
-    public void removeLabel(String label) {
+    public String removeLabel(String label) {
         for (String l : labels) {
             if (l.equals(label)) {
                 labels.remove(l);
             }
         }
+        return "";
     }
 
     public List<String> getLabels() {
@@ -338,15 +347,17 @@ public class DataAccessStub implements DataAccess  {
         return result;
     }
 
-    public void addDay(String userName, int dayOfYear) {
+    public String addDay(String userName, int dayOfYear) {
         Account account = getAccount(userName);
         account.addDay(new Day(dayOfYear));
+        return "";
     }
 
-    public void removeDay(String userName, int dayOfYear) {
+    public String removeDay(String userName, int dayOfYear) {
         Account account = getAccount(userName);
         Day day = account.getDay(dayOfYear);
         account.removeDay(day);
+        return "";
     }
 
     public Day getDay(String userName, int dayOfYear) {
@@ -364,11 +375,12 @@ public class DataAccessStub implements DataAccess  {
         return result;
     }
 
-    public void updateDay(String userName, Day day) {
+    public String updateDay(String userName, Day day) {
         Account account = getAccount(userName);
         int dayToUpdate = day.dayOfYear;
         removeDay(userName, dayToUpdate);
         account.addDay(day);
+        return "";
     }
 
 }

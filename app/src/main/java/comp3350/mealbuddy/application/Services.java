@@ -8,7 +8,7 @@ public class Services {
     public static DataAccessStub openDAS(String databaseName){
         if (DAS == null){
             DAS = new DataAccessStub(databaseName);
-            DAS.open();
+            DAS.open(databaseName);
         }
         return DAS;
     }
