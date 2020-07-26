@@ -383,4 +383,8 @@ public class DataAccessStub implements DataAccess  {
         return "";
     }
 
+    public boolean isDayTracked(String userName, int dayOfYear) {
+        return true;
+    }
+
 }

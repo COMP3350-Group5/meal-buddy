@@ -138,4 +138,18 @@ public class Account {
     public List<Day> getDaysTracked() {
         return daysTracked;
     }
+
+    /*
+     * isDayTracked
+     * Check if a day is being tracked by the user.
+     */
+    public boolean isDayTracked(int dayOfYear) {
+        boolean result = false;
+        for (Day d : daysTracked) {
+            if (d.dayOfYear == dayOfYear) {
+                result = true;
+            }
+        }
+        return result;
+    }
 }

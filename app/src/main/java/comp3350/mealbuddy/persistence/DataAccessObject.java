@@ -772,6 +772,8 @@ public class DataAccessObject implements DataAccess {
         return day;
     }
 
+
+
     /*
      * getDay
      * gets all days from the associated account username
@@ -1092,6 +1094,29 @@ public class DataAccessObject implements DataAccess {
             insertNewEx = insertNewEx.substring(0, insertNewEx.lastIndexOf(',')) + "; ";
         }
         return deleteOldEx + insertNewEx;
+    }
+
+    /*
+     * isDayTracked
+     * returns true if the day is tracked
+     *     @param userName - the account to check the day under
+     *     @param dayOfYear - the day of year to check the day of
+     */
+    @Override
+    public boolean isDayTracked(String userName, int dayOfYear) {
+        boolean isTracked = false;
+        String query = "SELECT * FROM DAYS " +
+                "WHERE USERNAME='"+userName+"' AND DAY_OF_YEAR="+dayOfYear;
+        List<String> labels = new ArrayList<>();
+        try {
+            cmdString = query;
+            ResultSet rs = st.executeQuery(cmdString);
+            isTracked = rs.next();
+            rs.close();
+        } catch (Exception e) {
+            processSQLError(e);
+        }
+        return isTracked;
     }
 
 }

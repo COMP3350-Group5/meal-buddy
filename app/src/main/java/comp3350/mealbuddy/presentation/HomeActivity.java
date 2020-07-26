@@ -6,6 +6,7 @@ package comp3350.mealbuddy.presentation;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.text.Editable;
 import android.widget.Button;
