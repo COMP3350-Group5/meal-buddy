@@ -74,43 +74,50 @@ public interface DataAccess {
      */
     String addEdible(Edible edible);
 
-    /* updateEdible
+    /*
+     * updateEdible
      * Updates an edible in the db
      * Parameters:
      *     @param edible - the edible to update
      */
     String updateEdible(String edibleToUpdate, Edible edible);
 
-    /* removeEdible
+    /*
+     * removeEdible
      * removes the edible from the db
      * Parameters:
      *     @param name - the name of the edible to remove
      */
     String removeEdible(String name);
 
-    /* getEdibles
+    /*
+     * getEdibles
      * gets all the edibles in the db
      */
     List<Edible> getEdibles();
 
-    /* getFoods
+    /*
+     * getFoods
      * gets all the food in the db
      */
     List<Food> getFoods();
 
-    /* getMeals
+    /*
+     * getMeals
      * gets all the meals in the db
      */
     List<Meal> getMeals();
 
-    /* addLabel
+    /*
+     * addLabel
      * adds the label to the db
      * Parameters:
      *     @param label - the name label to add
      */
     String addLabel(String label);
 
-    /* updateLabel
+    /*
+     * updateLabel
      * updates a label in the db
      * Parameters:
      *     @param oldLabel - the name of the label to update
@@ -118,19 +125,22 @@ public interface DataAccess {
      */
     String updateLabel(String oldLabel, String newLabel);
 
-    /* removeLabel
+    /*
+     * removeLabel
      * removes a label from the db
      * Parameters:
      *     @param name - the name of the label to remove
      */
     String removeLabel(String label);
 
-    /* getLabels
+    /*
+     * getLabels
      * gets all labels from the db
      */
     List<String> getLabels();
 
-    /* addDay
+    /*
+     * addDay
      * adds a new day to the db. Will always be an empty day
      * Parameters:
      *     @param userName - the account to add the day under
@@ -138,14 +148,16 @@ public interface DataAccess {
      */
     String addDay(String userName, int dayOfYear);
 
-    /* getDay
+    /*
+     * getDay
      * gets all days from the associated account username
      * Parameters:
      *     @param userName - the userName of the account
      */
     List<Day> getDays(String userName);
 
-    /* getDay
+    /*
+     * getDay
      * gets the day from the associated account username
      * Parameters:
      *     @param userName - the userName of the account
@@ -153,7 +165,8 @@ public interface DataAccess {
      */
     Day getDay(String account, int dayOfYear);
 
-    /* updateDay
+    /*
+     * updateDay
      * updates a certain day in an account.  Updates all info associated with the day
      * including exercise, meals, and goals.  Note the dayOfYear in a day
      * can not be updated.

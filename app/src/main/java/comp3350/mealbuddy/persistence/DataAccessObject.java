@@ -355,7 +355,8 @@ public class DataAccessObject implements DataAccess {
         return mealAdd + ediblePairAdd;
     }
 
-    /* getAddEdibleIntPairQuery
+    /*
+     * getAddEdibleIntPairQuery
      * Gets the query that adds all the edible int pairs
      * associated with a meal to the db
      * Parameters:
@@ -376,7 +377,8 @@ public class DataAccessObject implements DataAccess {
         return query;
     }
 
-    /* updateEdible
+    /*
+     * updateEdible
      * Updates an edible in the db
      * Parameters:
      *     @param edible - the edible to update
@@ -400,7 +402,8 @@ public class DataAccessObject implements DataAccess {
     }
 
 
-    /* getDeleteEdibleLabelsQuery
+    /*
+     * getDeleteEdibleLabelsQuery
      * gets the query that deletes the labels associated
      * with an edible from the db
      * Parameters:
@@ -410,7 +413,8 @@ public class DataAccessObject implements DataAccess {
         return "DELETE FROM EDIBLE_LABELS WHERE EDIBLE_NAME='" + edibleToUpdate + "';";
     }
 
-    /* getUpdateFoodQuery
+    /*
+     * getUpdateFoodQuery
      * gets the query that updates the food in the db
      * Parameters:
      *     @param foodToUpdate - the name of the food to update
@@ -440,7 +444,8 @@ public class DataAccessObject implements DataAccess {
     }
 
 
-    /* getUpdateMealQuery
+    /*
+     * getUpdateMealQuery
      * gets the query that updates the meal in the db
      * Parameters:
      *     @param mealToUpdate - the name of the meal to update
@@ -457,7 +462,8 @@ public class DataAccessObject implements DataAccess {
     }
 
 
-    /* removeEdible
+    /*
+     * removeEdible
      * removes the edible from the db
      * Parameters:
      *     @param name - the name of the edible to remove
@@ -477,7 +483,8 @@ public class DataAccessObject implements DataAccess {
         return result;
     }
 
-    /* getEdibles
+    /*
+     * getEdibles
      * gets all the edibles in the db
      */
     @Override
@@ -504,7 +511,8 @@ public class DataAccessObject implements DataAccess {
         return edibles;
     }
 
-    /* getFoods
+    /*
+     * getFoods
      * gets all the food in the db
      */
     @Override
@@ -525,7 +533,8 @@ public class DataAccessObject implements DataAccess {
         return foods;
     }
 
-    /* getFoodFromRs
+    /*
+     * getFoodFromRs
      * creates a food object from a result set (query result)
      * Parameters:
      *     @param ers - the result set that has queried all the info
@@ -555,7 +564,8 @@ public class DataAccessObject implements DataAccess {
         return food;
     }
 
-    /* getEdibleLabels
+    /*
+     * getEdibleLabels
      * gets the labels associated with an edible
      * Parameters:
      *     @param name - the name of the edible to get the labels of
@@ -575,7 +585,8 @@ public class DataAccessObject implements DataAccess {
         return labels;
     }
 
-    /* getMeals
+    /*
+     * getMeals
      * gets all the meals in the db
      */
     @Override
@@ -601,7 +612,8 @@ public class DataAccessObject implements DataAccess {
         return meals;
     }
 
-    /* getEntireMeal
+    /*
+     * getEntireMeal
      * gets the meal associated with the name from the db.
      * This will get all levels of a nested meal
      * Parameters:
@@ -632,7 +644,8 @@ public class DataAccessObject implements DataAccess {
         return meal;
     }
 
-    /* addLabel
+    /*
+     * addLabel
      * adds the label to the db
      * Parameters:
      *     @param label - the name label to add
@@ -652,7 +665,8 @@ public class DataAccessObject implements DataAccess {
     }
 
 
-    /* updateLabel
+    /*
+     * updateLabel
      * updates a label in the db
      * Parameters:
      *     @param oldLabel - the name of the label to update
@@ -672,7 +686,8 @@ public class DataAccessObject implements DataAccess {
         return result;
     }
 
-    /* removeLabel
+    /*
+     * removeLabel
      * removes a label from the db
      * Parameters:
      *     @param name - the name of the label to remove
@@ -691,7 +706,8 @@ public class DataAccessObject implements DataAccess {
         return result;
     }
 
-    /* getLabels
+    /*
+     * getLabels
      * gets all labels from the db
      */
     @Override
@@ -711,7 +727,8 @@ public class DataAccessObject implements DataAccess {
         return labels;
     }
 
-    /* addDay
+    /*
+     * addDay
      * adds a new day to the db. Will always be an empty day
      * Parameters:
      *     @param userName - the account to add the day under
@@ -732,7 +749,8 @@ public class DataAccessObject implements DataAccess {
         return result;
     }
 
-    /* getDay
+    /*
+     * getDay
      * gets the day from the associated account username
      * Parameters:
      *     @param userName - the userName of the account
@@ -754,7 +772,8 @@ public class DataAccessObject implements DataAccess {
         return day;
     }
 
-    /* getDay
+    /*
+     * getDay
      * gets all days from the associated account username
      * Parameters:
      *     @param userName - the userName of the account
@@ -780,7 +799,8 @@ public class DataAccessObject implements DataAccess {
         return days;
     }
 
-    /* getMealTimeList
+    /*
+     * getMealTimeList
      * gets the meal of edibles from a meal time in a day
      * Parameters:
      *     @param userName - the userName of the account
@@ -828,7 +848,8 @@ public class DataAccessObject implements DataAccess {
     }
 
 
-    /* getDayGoals
+    /*
+     * getDayGoals
      * gets the list of goals in a day
      * Parameters:
      *     @param userName - the userName of the account
@@ -855,7 +876,8 @@ public class DataAccessObject implements DataAccess {
         return goals;
     }
 
-    /* makeGoal
+    /*
+     * makeGoal
      * Creates a new goal
      * Parameters:
      *     @param clas - which subclass the goal is
@@ -883,7 +905,8 @@ public class DataAccessObject implements DataAccess {
         return goal;
     }
 
-    /* getMacroFromString
+    /*
+     * getMacroFromString
      * gets Macro from its string representation
      * Parameters:
      *     @param macro - the macro to get
@@ -901,7 +924,8 @@ public class DataAccessObject implements DataAccess {
         }
     }
 
-    /* getMicroFromString
+    /*
+     * getMicroFromString
      * gets Micro from its string representation
      * Parameters:
      *     @param micro - the micro to get
@@ -934,7 +958,8 @@ public class DataAccessObject implements DataAccess {
     }
 
 
-    /* getExerciseGoals
+    /*
+     * getExerciseGoals
      * gets the list of exercise in a day
      * Parameters:
      *     @param userName - the userName of the account
@@ -959,7 +984,8 @@ public class DataAccessObject implements DataAccess {
         return exercises;
     }
 
-    /* updateDay
+    /*
+     * updateDay
      * updates a certain day in an account.  Updates all info associated with the day
      * including exercise, meals, and goals.  Will update by first removing all current
      * info of the day and then adding the new info. Note the day of the year
@@ -984,7 +1010,8 @@ public class DataAccessObject implements DataAccess {
         return result;
     }
 
-    /* getUpdateDayEdiblesQuery
+    /*
+     * getUpdateDayEdiblesQuery
      * gets the query that updates all edibles in a day
      * Parameters:
      *     @param userName - the userName of the account
@@ -1000,7 +1027,8 @@ public class DataAccessObject implements DataAccess {
         return deleteOldFood + insertNewEdibles;
     }
 
-    /* getInsertNewMealTimeQuery
+    /*
+     * getInsertNewMealTimeQuery
      * gets the query that adds all edibles in a day in a mealtime
      * Parameters:
      *     @param userName - the userName of the account
@@ -1021,7 +1049,8 @@ public class DataAccessObject implements DataAccess {
         return query;
     }
 
-    /* getUpdateGoalQuery
+    /*
+     * getUpdateGoalQuery
      * gets the query that updates all goals in a day
      * Parameters:
      *     @param userName - the userName of the account
@@ -1043,7 +1072,8 @@ public class DataAccessObject implements DataAccess {
     }
 
 
-    /* getUpdateExerciseQuery
+    /*
+     * getUpdateExerciseQuery
      * gets the query that updates all goals in a day
      * Parameters:
      *     @param userName - the userName of the account
