@@ -42,8 +42,11 @@ public class Meal extends Edible {
      *     @param name - The name of the meal.
      */
     public Meal(Meal original) {
-        super(original.name, new ArrayList<>());
-        ediblesInMeal = new ArrayList<>();
+        super(original.name, original.labels);
+        this.ediblesInMeal = new ArrayList<>();
+        for (Edible e : original) {
+            this.ediblesInMeal.add(new EdibleIntPair(Edible.copyEdible(e), original.getQuantity(e)));
+        }
     }
 
     /*

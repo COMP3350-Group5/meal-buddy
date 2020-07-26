@@ -57,7 +57,7 @@ public class Day {
         this.breakfast = new Meal(original.breakfast);
         this.lunch = new Meal(original.lunch);
         this.dinner = new Meal(original.dinner);
-        this.snack = new Meal(original.snack;
+        this.snack = new Meal(original.snack);
         this.goals = new ArrayList<>();
         for (Goal g : original.goals) {
             this.goals.add(Goal.copyGoal(g));
