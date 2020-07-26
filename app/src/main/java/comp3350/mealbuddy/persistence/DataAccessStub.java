@@ -206,19 +206,37 @@ public class DataAccessStub implements DataAccess  {
     }
 
     public void updateAccount(String usernameToUpdate, Account account) {
-
+        removeAccount(usernameToUpdate);
+        addAccount(account);
     }
 
     public void removeAccount(String userName) {
-
+        for (Account account : accounts) {
+            if (account.user.username == userName) {
+                accounts.remove(account);
+                break;
+            }
+        }
     }
 
     public Account getAccount(String username) {
-        return null;
+        Account result = null;
+        for (Account account : accounts) {
+            if (account.user.username == username) {
+                result = account;
+            }
+        }
+        return result;
     }
 
     public Account validateLogin(String username, String password) {
-        return null;
+        Account result = null;
+        for (Account account : accounts) {
+            if (account.user.username == username && account.user.password == password) {
+                result = account;
+            }
+        }
+        return result;
     }
 
     public void addEdible(Edible edible) {
