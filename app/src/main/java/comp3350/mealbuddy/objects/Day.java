@@ -41,6 +41,22 @@ public class Day {
     }
 
     /*
+     * Copy Constructor
+     * initializes a day object from an existing day
+     * Parameters:
+     *     @param original - The day to copy.
+     */
+    public Day(Day original) {
+        this.dayOfYear = original.dayOfYear;
+        this.breakfast = original.breakfast;
+        this.lunch = original.lunch;
+        this.dinner = original.dinner;
+        this.snack = original.snack;
+        this.goals = original.goals;
+        this.exercises = original.exercises;
+    }
+
+    /*
      * getMealTimeList
      * takes a mealtime enum and returns the corresponding list.
      * Parameters:

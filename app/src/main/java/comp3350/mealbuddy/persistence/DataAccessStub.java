@@ -322,7 +322,11 @@ public class DataAccessStub implements DataAccess  {
     }
 
     public List<String> getLabels() {
-        return labels;
+        ArrayList<String> result = new ArrayList<>();
+        for (String l : labels) {
+                result.add(l);
+        }
+        return result;
     }
 
     public void addDay(String userName, int dayOfYear) {
@@ -343,7 +347,12 @@ public class DataAccessStub implements DataAccess  {
 
     public List<Day> getDays(String userName) {
         Account account = getAccount(userName);
-        return account.getDaysTracked();
+        List<Day> days = account.getDaysTracked();
+        List<Day> result = new ArrayList<>();
+        for (Day d : days) {
+            result.add(new Day(d));
+        }
+        return result;
     }
 
     public void updateDay(String userName, Day day) {
