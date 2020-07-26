@@ -2,7 +2,6 @@ package comp3350.mealbuddy.business;
 
 import comp3350.mealbuddy.application.Main;
 import comp3350.mealbuddy.application.Services;
-import comp3350.mealbuddy.objects.Label;
 import comp3350.mealbuddy.persistence.DataAccess;
 
 public class AccessLabel {
@@ -22,7 +21,7 @@ public class AccessLabel {
      * Parameters:
      *     @param l - The label to be added.
      */
-    public void addLabel(Label l){
+    public void addLabel(String l){
         DAS.addLabel(l);
     }
 
@@ -32,7 +31,15 @@ public class AccessLabel {
      * Parameters:
      *     @param l - The label to remove.
      */
-    public void removeLabel(Label l) { DAS.removeLabel(l); }
+    public void removeLabel(String l) { DAS.removeLabel(l); }
+
+    /*
+     * getLabels
+     * Get the labels from the database.
+     * Return:
+     *      The list of labels.
+     */
+    public void getLabels() { DAS.getLabels(); }
 
 
 }
