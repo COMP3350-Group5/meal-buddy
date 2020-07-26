@@ -240,23 +240,34 @@ public class DataAccessStub implements DataAccess  {
     }
 
     public void addEdible(Edible edible) {
-
+        edibles.add(edible);
     }
 
     public void updateEdible(String edibleToUpdate, Edible edible) {
-
+        removeEdible(edibleToUpdate);
+        addEdible(edible);
     }
 
     public void removeEdible(String name) {
-
+        for (Edible edible : edibles) {
+            if (edible.name == name) {
+                edibles.remove(edible);
+            }
+        }
     }
 
     public Edible getEdible(String name) {
-        return null;
+        Edible result = null;
+        for (Edible edible : edibles) {
+            if (edible.name == name) {
+                result = edible;
+            }
+        }
+        return result;
     }
 
     public List<Edible> getEdibles() {
-        return null;
+        return edibles;
     }
 
     public List<Food> getFoods() {
