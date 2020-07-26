@@ -20,10 +20,6 @@ import java.util.List;
 
 public class DataAccessStub implements DataAccess  {
 
-    public enum DatabaseType {
-        EDIBLES, ACCOUNTS, EXERCISES
-    }
-
     public String name;
 
     //the "databases"
@@ -240,7 +236,7 @@ public class DataAccessStub implements DataAccess  {
     public Account getAccount(String userName) {
         Account result = null;
         for (Account account : accounts) {
-            if (account.user.username == userName) {
+            if (account.user.username.equals(userName)) {
                 result = account;
             }
         }
@@ -250,7 +246,7 @@ public class DataAccessStub implements DataAccess  {
     public Account validateLogin(String username, String password) {
         Account result = null;
         for (Account account : accounts) {
-            if (account.user.username == username && account.user.password == password) {
+            if (account.user.username.equals(username) && account.user.password.equals(password)) {
                 result = account;
             }
         }
@@ -268,7 +264,7 @@ public class DataAccessStub implements DataAccess  {
 
     public void removeEdible(String name) {
         for (Edible edible : edibles) {
-            if (edible.name == name) {
+            if (edible.name.equals(name)) {
                 edibles.remove(edible);
             }
         }
@@ -277,7 +273,7 @@ public class DataAccessStub implements DataAccess  {
     public Edible getEdible(String name) {
         Edible result = null;
         for (Edible edible : edibles) {
-            if (edible.name == name) {
+            if (edible.name.equals(name)) {
                 result = edible;
             }
         }
