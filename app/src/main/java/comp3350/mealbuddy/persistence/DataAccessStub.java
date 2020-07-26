@@ -7,7 +7,6 @@ package comp3350.mealbuddy.persistence;
 import comp3350.mealbuddy.objects.Account;
 import comp3350.mealbuddy.objects.Day;
 import comp3350.mealbuddy.objects.Exercise.Intensity;
-import comp3350.mealbuddy.objects.Label;
 import comp3350.mealbuddy.objects.consumables.Edible;
 import comp3350.mealbuddy.objects.consumables.Food;
 import comp3350.mealbuddy.objects.consumables.Meal;
@@ -31,7 +30,7 @@ public class DataAccessStub implements DataAccess  {
     private ArrayList<Edible> edibles;
     private ArrayList<Account> accounts;
     private ArrayList<Exercise> exercises;
-    private ArrayList<Label> labels;
+    private ArrayList<String> labels;
 
     private Day day;
 
@@ -212,7 +211,7 @@ public class DataAccessStub implements DataAccess  {
         };
 
         for (String l : labelList) {
-            labels.add(new Label(l));
+            labels.add(l);
         }
     }
 
@@ -238,10 +237,10 @@ public class DataAccessStub implements DataAccess  {
         }
     }
 
-    public Account getAccount(String username) {
+    public Account getAccount(String userName) {
         Account result = null;
         for (Account account : accounts) {
-            if (account.user.username == username) {
+            if (account.user.username == userName) {
                 result = account;
             }
         }
@@ -310,7 +309,7 @@ public class DataAccessStub implements DataAccess  {
     }
 
     public void addLabel(String label) {
-        labels.add(new Label(label));
+        labels.add(label);
     }
 
     public void updateLabel(String oldLabel, String newLabel) {
@@ -319,19 +318,15 @@ public class DataAccessStub implements DataAccess  {
     }
 
     public void removeLabel(String label) {
-        for (Label l : labels) {
-            if (l.name == label) {
+        for (String l : labels) {
+            if (l.equals(label)) {
                 labels.remove(l);
             }
         }
     }
 
     public List<String> getLabels() {
-        ArrayList<String> result = new ArrayList<>();
-        for (Label l : labels) {
-            result.add(l.name);
-        }
-        return result;
+        return labels;
     }
 
     public void addDay(String userName, int dayOfYear) {
@@ -360,6 +355,6 @@ public class DataAccessStub implements DataAccess  {
         int dayToUpdate = day.dayOfYear;
         removeDay(userName, dayToUpdate);
         account.addDay(day);
-
     }
+
 }

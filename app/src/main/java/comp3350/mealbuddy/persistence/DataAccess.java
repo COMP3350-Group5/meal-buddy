@@ -25,7 +25,7 @@ public interface DataAccess {
 
     void removeAccount(String userName);
 
-    Account getAccount(String username);
+    Account getAccount(String userName);
 
     Account validateLogin(String username, String password);
 
