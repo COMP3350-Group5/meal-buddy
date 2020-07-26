@@ -281,14 +281,23 @@ public class DataAccessStub implements DataAccess  {
     }
 
     public List<Edible> getEdibles() {
-        return edibles;
+        ArrayList<Edible> result = new ArrayList<>();
+        for (Edible edible : edibles) {
+            if (edible instanceof Food) {
+                result.add(new Food((Food)edible));
+            }
+            else {
+                result.add(new Meal((Meal)edible));
+            }
+        }
+        return result;
     }
 
     public List<Food> getFoods() {
         ArrayList<Food> result = new ArrayList<>();
         for (Edible edible : edibles) {
             if (edible instanceof Food) {
-                result.add((Food)edible);
+                result.add(new Food((Food)edible));
             }
         }
         return result;
@@ -298,7 +307,7 @@ public class DataAccessStub implements DataAccess  {
         ArrayList<Meal> result = new ArrayList<>();
         for (Edible edible : edibles) {
             if (edible instanceof Meal) {
-                result.add((Meal)edible);
+                result.add(new Meal((Meal)edible));
             }
         }
         return result;

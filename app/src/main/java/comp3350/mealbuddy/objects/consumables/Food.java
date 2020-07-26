@@ -42,6 +42,17 @@ public class Food extends Edible {
     }
 
     /*
+     * Copy Constructor
+     * Creates a food object, and creates an empty list of labels.
+     * Parameters:
+     *     @param name - The name of the food.
+     */
+    public Food(Food original) {
+        super(original.name, new ArrayList<>());
+        initNutrientLists();
+    }
+
+    /*
      * iterator
      * inits all the nutrients of a food to 0
      */
