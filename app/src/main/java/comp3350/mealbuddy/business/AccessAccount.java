@@ -50,7 +50,7 @@ public class AccessAccount {
      *     @param a - The account to be updated.
      */
     public void updateAccount(Account a){
-
+        DAS.updateAccount(a.user.username, a);
     }
 
     /*
@@ -89,6 +89,20 @@ public class AccessAccount {
      */
     public Day getDay(Account a, int day){
         return DAS.getDay("", day);
+    }
+
+
+    /*
+     * getDay
+     * Get a day object for an account
+     * Parameters:
+     *     @param a - The account to retrieve a day for
+     *     @param day - The day to retrieve
+     * Return:
+     *     The day object requested.
+     */
+    public void updateDay(Account a, Day day){
+        DAS.updateDay(a.user.username, day);
     }
 
     /*

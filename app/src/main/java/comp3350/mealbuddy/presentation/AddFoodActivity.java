@@ -82,9 +82,11 @@ public class AddFoodActivity extends AppCompatActivity {
             else
                 MT = Day.MealTimeType.SNACK;
 
-            day.getMealTime(MT).add(food); //this adds the food to the USERS day
+            day.addToMeal(MT, food, 1); //this adds the food to the USERS day
             accessEdible.addEdible(food); //this adds the food to the foods database.
 
+            //we must update the day in order for it to display
+            accessAccount.updateDay(account, day);
             //go back to the timeline activity and pass the username
             Intent intent = new Intent(AddFoodActivity.this, TimelineActivity.class);
             intent.putExtra("username", username);

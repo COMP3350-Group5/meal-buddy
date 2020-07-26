@@ -212,11 +212,11 @@ public class Meal extends Edible {
      */
     @Override
     public String toString() {
-        String meal = name + ": ";
-        for (EdibleIntPair pair : ediblesInMeal) {
-            meal += (pair.quantity + " " + pair.edible + " ");
+        String toRet = "";
+        for (EdibleIntPair edibleIntPair : ediblesInMeal){
+            toRet += (edibleIntPair.edible.name + " " + edibleIntPair.quantity);
         }
-        return meal;
+        return toRet;
     }
 
     /*
