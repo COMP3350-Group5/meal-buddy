@@ -17,12 +17,22 @@ public class AccessLabel {
     }
 
     /*
-     * addAccount
-     * Add an account to the database.
+     * addLabel
+     * Add a label to the database.
      * Parameters:
-     *     @param a - The account to be added.
+     *     @param l - The label to be added.
      */
-    public void addAccount(Account a){
+    public void addLabel(Label l){
         DAS.addLabel(l);
     }
+
+    /*
+     * removeLabel
+     * Remove a label from the database.
+     * Parameters:
+     *     @param l - The label to remove.
+     */
+    public void removeLabel(Label l) { DAS.removeLabel(l); }
+
+
 }
