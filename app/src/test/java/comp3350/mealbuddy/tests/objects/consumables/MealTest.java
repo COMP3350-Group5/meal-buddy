@@ -38,7 +38,7 @@ public class MealTest {
         Food differentFood = new Food("NotEgg");
 
         //act
-        meal.setEdible(differentFood, initQuantity);
+        meal.add(differentFood, initQuantity);
 
         //assert
         Assert.assertFalse(meal.containsEdible(food));
@@ -53,7 +53,7 @@ public class MealTest {
         int initQuantity = 1;
 
         //act
-        meal.setEdible(food, initQuantity);
+        meal.add(food, initQuantity);
 
         //assert
         Assert.assertTrue(meal.containsEdible(food));
@@ -100,7 +100,7 @@ public class MealTest {
         Meal meal = new Meal(name);
 
         //act
-        meal.setEdible(food, 1);
+        meal.add(food, 1);
 
         //assert
         Assert.assertTrue(meal.containsEdible(food));
@@ -113,40 +113,40 @@ public class MealTest {
         Meal meal = new Meal(name);
 
         //act
-        meal.setEdible(food, 0);
+        meal.add(food, 0);
 
         //assert
         Assert.assertFalse(meal.containsEdible(food));
     }
 
     @Test
-    public void setEdible_foodContainedPositiveQuantity_quantityUpdated() {
+    public void add_foodContainedPositiveQuantity_quantityUpdated() {
         //arrange
         String name = "mealName";
         Meal meal = new Meal(name);
         int initQuantity = 1;
-        int updatedQuantity = 5;
-        meal.setEdible(food, initQuantity);
+        meal.add(food, initQuantity);
         //act
-        meal.setEdible(food, updatedQuantity);
-        int actualQuantity = meal.getEdibleIntPair(food).quantity;
+        meal.add(food, 5);
         //assert
-        assertEquals(updatedQuantity, actualQuantity);
+        assertEquals(new Integer(6), meal.getEdibleIntPair(food).quantity);
+        meal.add(food);
+        assertEquals(new Integer(7), meal.getEdibleIntPair(food).quantity);
     }
 
 
     @Test
-    public void setEdible_foodNotContainedNegativeQuantity_throwException() {
+    public void add_foodNotContainedNegativeQuantity_throwException() {
         //arrange
         String name = "mealName";
         Meal meal = new Meal(name);
         int initQuantity = 1;
         int updatedQuantity = -5;
-        meal.setEdible(food, initQuantity);
+        meal.add(food, initQuantity);
 
         //act
         try {
-            meal.setEdible(food, updatedQuantity);
+            meal.add(food, updatedQuantity);
             Assert.fail();
         } catch (IllegalArgumentException e) {
             // Assert
@@ -156,18 +156,37 @@ public class MealTest {
 
 
     @Test
-    public void setEdible_foodNotContainedSetToZero_foodRemoved() {
+    public void removeAll_foodNotContainedSetToZero_foodRemoved() {
         //arrange
         String name = "mealName";
         Meal meal = new Meal(name);
         int initQuantity = 1;
         int updatedQuantity = 0;
-        meal.setEdible(food, initQuantity);
+        meal.add(food, initQuantity);
 
         //act
-        meal.setEdible(food, updatedQuantity);
+        meal.removeAll(food);
 
         //assert
+        assertFalse(meal.containsEdible(food));
+        meal.removeAll(food);
+    }
+
+    @Test
+    public void remove_foodContained_foodOneLessAmount() {
+        //arrange
+        String name = "mealName";
+        Meal meal = new Meal(name);
+        int initQuantity = 2;
+        meal.add(food, initQuantity);
+
+        //act
+        //assert
+        meal.remove(food);
+        assertEquals(1, meal.getQuantity(food));
+        meal.remove(food);
+        assertEquals(0, meal.getQuantity(food));
+        meal.remove(food);
         assertFalse(meal.containsEdible(food));
     }
 
@@ -177,7 +196,7 @@ public class MealTest {
         String name = "mealName";
         Meal meal = new Meal(name);
         int initQuantity = 1;
-        meal.setEdible(food, initQuantity);
+        meal.add(food, initQuantity);
 
         //act
         EdibleIntPair edibleIntPair = meal.getEdibleIntPair(food);
@@ -222,7 +241,7 @@ public class MealTest {
         int quantity = 1;
 
         // act
-        meal.setEdible(cereal, quantity);
+        meal.add(cereal, quantity);
 
         // assert
         Assert.assertEquals(expectedGrams, meal.getMicroGrams(Zinc));
@@ -238,7 +257,7 @@ public class MealTest {
         int quantity = 3;
 
         // act
-        meal.setEdible(cereal, quantity);
+        meal.add(cereal, quantity);
 
         // assert
         Assert.assertEquals(expectedGrams, meal.getMicroGrams(Zinc));
@@ -254,7 +273,7 @@ public class MealTest {
         int quantity = 1;
 
         // act
-        meal.setEdible(nestedMeal, quantity);
+        meal.add(nestedMeal, quantity);
 
         // assert
         Assert.assertEquals(expectedGrams, meal.getMicroGrams(Zinc));
@@ -283,7 +302,7 @@ public class MealTest {
         int quantity = 1;
 
         // act
-        meal.setEdible(cereal, quantity);
+        meal.add(cereal, quantity);
 
         // assert
         Assert.assertEquals(expectedGrams, meal.getMacroGrams(Fat));
@@ -299,7 +318,7 @@ public class MealTest {
         int quantity = 3;
 
         // act
-        meal.setEdible(cereal, quantity);
+        meal.add(cereal, quantity);
 
         // assert
         Assert.assertEquals(expectedGrams, meal.getMacroGrams(Fat));
@@ -315,7 +334,7 @@ public class MealTest {
         int quantity = 1;
 
         // act
-        meal.setEdible(nestedMeal, quantity);
+        meal.add(nestedMeal, quantity);
 
         // assert
         Assert.assertEquals(expectedGrams, meal.getMacroGrams(Fat));
@@ -328,7 +347,7 @@ public class MealTest {
         Food egg = new Food("egg");
 
         // act
-        meal.setEdible(egg, 3);
+        meal.add(egg, 3);
 
         // assert
         Assert.assertEquals(3, meal.getQuantity("egg"));
@@ -371,12 +390,12 @@ public class MealTest {
         Food grape = new Food("grape");
 
         //act
-        meal.remove(egg);             //nothing happens since not in list yet
-        meal.remove("egg");    //nothing happens since not in list yet
+        meal.removeAll(egg);             //nothing happens since not in list yet
+        meal.removeAll("egg");    //nothing happens since not in list yet
         meal.add(egg);
         meal.add(grape);
-        meal.remove(egg);
-        meal.remove(grape);
+        meal.removeAll(egg);
+        meal.removeAll(grape);
 
         // assert
         Assert.assertEquals(0, meal.getQuantity(egg));
@@ -396,9 +415,9 @@ public class MealTest {
         Meal cereal = makeCerealMeal();
 
         Meal nestedMeal = new Meal("nestedMeal");
-        nestedMeal.setEdible(egg, 1);
-        nestedMeal.setEdible(bacon, 2);
-        nestedMeal.setEdible(cereal, 2);
+        nestedMeal.add(egg, 1);
+        nestedMeal.add(bacon, 2);
+        nestedMeal.add(cereal, 2);
 
         return nestedMeal;
     }
@@ -413,8 +432,8 @@ public class MealTest {
         cheerios.updateMicro(Zinc, 10);
 
         Meal cereal = new Meal("cereal");
-        cereal.setEdible(milk, 2);
-        cereal.setEdible(cheerios, 1);
+        cereal.add(milk, 2);
+        cereal.add(cheerios, 1);
 
         return cereal;
     }

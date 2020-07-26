@@ -53,7 +53,7 @@ public class Meal extends Edible {
      *     @param food - The food we are updating
      *     @param quantity - The quantity of the food we are updating to
      */
-    public void setEdible(Edible edible, int quantity) {
+    private void setEdible(Edible edible, int quantity) {
         if (quantity < 0) {
             throw new IllegalArgumentException("can't set quantity to a negative number:" + quantity);
         }
@@ -65,6 +65,7 @@ public class Meal extends Edible {
     }
 
     /*
+     * add
      * Increments the quantity of the edible by one.
      * If not in the list will add to the list and set
      * quantity to 1
@@ -72,34 +73,77 @@ public class Meal extends Edible {
      *     @param edible - The Edible to add
      */
     public void add(Edible edible) {
-        if (ediblesInMeal.contains(edible))
-            setEdible(edible, getQuantity(edible) + 1);
-        else
-            setEdible(edible, 1);
+        add(edible, 1);
     }
 
     /*
+     * add
+     * Increments the quantity of the edible by the amount
+     * If not in the list will add to the list and set
+     * quantity to amount
+     * Parameters:
+     *     @param edible - The Edible to add
+     *     @param amount - The amount to add
+     */
+    public void add(Edible edible, int amount) {
+        if (ediblesInMeal.contains(edible))
+            setEdible(edible, getQuantity(edible) + amount);
+        else
+            setEdible(edible, amount);
+    }
+
+    /*
+     * remove
+     * reduces quantity of the edible by one.  If not in the list
+     * does nothing
+     * Parameters:
+     *     @param edible - The Edible to remove by one
+     */
+    public void remove(Edible edible) {
+        if (ediblesInMeal.contains(edible)) {
+            EdibleIntPair eip = getEdibleIntPair(edible);
+            if (eip.quantity == 1)
+                ediblesInMeal.remove(ediblesInMeal.indexOf(eip));
+            else
+                setEdible(edible, getQuantity(edible) - 1);
+        }
+    }
+
+    /*
+     * remove
+     * reduces quantity of the edible by one.  If not in the list
+     * does nothing
+     * Parameters:
+     *     @param edible - The Edible to remove by one
+     */
+    public void remove(String edible) {
+        remove(new Food(edible));
+    }
+
+    /*
+     * removeAll
      * Removes the edible from the list
      * If it is not in the list does nothing
      * Parameters:
      *     @param edible - The Edible to remove
      */
-    public void remove(Edible edible) {
-        if (ediblesInMeal.contains(edible))
-            ediblesInMeal.remove(edible);
+    public void removeAll(Edible edible) {
+        ediblesInMeal.remove(edible);
     }
 
     /*
+     * removeAll
      * Removes the edible from the list
      * If it is not in the list does nothing
      * Parameters:
      *     @param edible - The name of the Edible to remove
      */
-    public void remove(String name) {
-        remove(new Food(name));
+    public void removeAll(String name) {
+        removeAll(new Food(name));
     }
 
     /*
+     * getEdibleIntPair
      * Gets the edible int pair associated with the edible
      * Parameters:
      *     @param edible - The name of the edible to look for
@@ -111,6 +155,7 @@ public class Meal extends Edible {
     }
 
     /*
+     * getQuantity
      * Gets the quantity of an edible in a meal
      * Parameters:
      *     @param edible - The edible to look for
@@ -123,6 +168,7 @@ public class Meal extends Edible {
     }
 
     /*
+     * getQuantity
      * Gets the quantity of an edible in a meal
      * Parameters:
      *     @param edible - The name of the edible to look for
@@ -132,7 +178,7 @@ public class Meal extends Edible {
     }
 
     /*
-     * containsFood
+     * containsEdible
      * Checks if the meal contains the food.
      * Parameters:
      *     @param food - The edible.
@@ -143,7 +189,7 @@ public class Meal extends Edible {
 
 
     /*
-     * containsFood
+     * containsEdible
      * Checks if the meal contains the food.
      * Parameters:
      *     @param food - The name of the edible.

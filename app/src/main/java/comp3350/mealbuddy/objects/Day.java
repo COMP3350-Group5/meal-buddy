@@ -64,48 +64,25 @@ public class Day {
         return null;
     }
 
-    /*
-     * addFood
-     * adds an edible (Food, Meal) to the corresponding mealtime
-     * Parameters:
-     *     @param MT - a mealtime enum value. {BREAKFAST, LUNCH, DINNER, SNACK}
-     *     @param e - the edible to add
-     */
-    public void addFood(MealTimeType MT, Edible e){
-        if (MT == null || e == null)
-            return;
-        getMealTime(MT).add(e);
-    }
 
     /*
-     * removeFood
-     * removes a food from the meal time list
-     * Parameters:
-     *     @param MT - a mealtime enum value. {BREAKFAST, LUNCH, DINNER, SNACK}
-     *     @param e - the edible to remove
-     */
-    public void removeFood(MealTimeType MT, Edible edible){
-        getMealTime(MT).remove(edible);
-    }
-
-    /*
-     * getMeal
+     * getMealString
      * returns string interpretation of the meal.
      * Parameters:
      *     @param MT - a mealtime enum value. {BREAKFAST, LUNCH, DINNER, SNACK}
      * Return:
      *     returns the string interpretation.
      */
-    public String getMeal(MealTimeType MT) {
+    public String getMealString(MealTimeType MT) {
         String meal = "";
-        switch(MT) {
+        switch (MT) {
             case BREAKFAST:
-                for (Edible edible :breakfast) {
+                for (Edible edible : breakfast) {
                     meal += edible.toString() + "\n";
                 }
                 break;
             case LUNCH:
-                for (Edible edible :lunch) {
+                for (Edible edible : lunch) {
                     meal += edible.toString() + "\n";
                 }
                 break;
