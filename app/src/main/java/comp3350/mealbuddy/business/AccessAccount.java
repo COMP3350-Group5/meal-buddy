@@ -9,10 +9,10 @@ import comp3350.mealbuddy.application.Services;
 import comp3350.mealbuddy.objects.Account;
 import comp3350.mealbuddy.objects.Day;
 import comp3350.mealbuddy.objects.UserInfo;
-import comp3350.mealbuddy.persistence.DataAccessStub;
+import comp3350.mealbuddy.persistence.DataAccess;
 
 public class AccessAccount {
-    private DataAccessStub DAS;
+    private DataAccess DAS;
 
     /*
      * Constructor
