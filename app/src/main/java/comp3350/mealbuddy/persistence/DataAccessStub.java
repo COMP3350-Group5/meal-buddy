@@ -30,6 +30,7 @@ public class DataAccessStub implements DataAccess  {
     private ArrayList<Edible> edibles;
     private ArrayList<Account> accounts;
     private ArrayList<Exercise> exercises;
+
     private Day day;
 
     /*
@@ -271,11 +272,23 @@ public class DataAccessStub implements DataAccess  {
     }
 
     public List<Food> getFoods() {
-        return null;
+        ArrayList<Food> result = new ArrayList<>();
+        for (Edible edible : edibles) {
+            if (edible instanceof Food) {
+                result.add((Food)edible);
+            }
+        }
+        return result;
     }
 
     public List<Meal> getMeals() {
-        return null;
+        ArrayList<Meal> result = new ArrayList<>();
+        for (Edible edible : edibles) {
+            if (edible instanceof Meal) {
+                result.add((Meal)edible);
+            }
+        }
+        return result;
     }
 
     public void addLabel(String label) {
