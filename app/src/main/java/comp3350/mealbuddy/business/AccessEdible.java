@@ -11,17 +11,14 @@ import comp3350.mealbuddy.persistence.DataAccessStub;
 
 public class AccessEdible {
     private DataAccessStub DAS;
-    private DataAccessStub.DatabaseType databaseType;
 
     /*
      * Constructor
      * Creates an object representing edibles in the database.
      */
     public AccessEdible(){
-        DAS = Services.openDAS(Main.DATABASE_NAME);
-        databaseType = DataAccessStub.DatabaseType.EDIBLES;
+        DAS = Services.getDataAccess(Main.DATABASE_NAME);
     }
-
 
     /*
      * addEdible
@@ -30,19 +27,19 @@ public class AccessEdible {
      *     @param e - The edible to add to the database.
      */
     public void addEdible(Edible e){
-        DAS.addToDB(databaseType, e);
+        DAS.addEdible(e);
     }
 
     /*
      * updateEdible
      * Update an edible in the database.
      * Parameters:
-     *     @param e - The edible to update.
+     *     @param edibleToUpdate - The edible to update.
+     *     @param e - The edible to update to.
      */
-    public void updateEdible(Edible e){
-        DAS.updateDB(databaseType, e);
+    public void updateEdible(String edibleToUpdate, Edible e){
+        DAS.updateEdible(edibleToUpdate, e);
     }
-
 
     /*
      * removeEdible
@@ -50,8 +47,9 @@ public class AccessEdible {
      * Parameters:
      *     @param e - The edible to remove.
      */
-    public void removeEdible(Edible e){
-        DAS.removeFromDB(databaseType, e);
+    public void removeEdible(String e){
+        DAS.removeEdible(e);
     }
+
 
 }

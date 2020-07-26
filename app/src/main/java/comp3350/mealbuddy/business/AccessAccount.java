@@ -13,15 +13,13 @@ import comp3350.mealbuddy.persistence.DataAccessStub;
 
 public class AccessAccount {
     private DataAccessStub DAS;
-    private DataAccessStub.DatabaseType databaseType;
 
     /*
      * Constructor
      * Create an object representing accounts in the database
      */
     public AccessAccount(){
-        DAS = Services.openDAS(Main.DATABASE_NAME);
-        databaseType = DataAccessStub.DatabaseType.ACCOUNTS;
+        DAS = Services.getDataAccess(Main.DATABASE_NAME);
     }
 
     /*
@@ -31,7 +29,7 @@ public class AccessAccount {
      *     @param a - The account to be added.
      */
     public void addAccount(Account a){
-        DAS.addToDB(databaseType, a);
+        DAS.addAccount(a);
     }
 
     /*
@@ -48,10 +46,11 @@ public class AccessAccount {
      * updateAccount
      * Update an account in the database.
      * Parameters:
-     *     @param a - The account to be updated.
+     *     @param usernameToUpdate - The user to update.
+     *     @param a - The account to update to.
      */
-    public void updateAccount(Account a){
-        DAS.updateDB(databaseType, a);
+    public void updateAccount(String usernameToUpdate, Account a){
+        DAS.updateAccount(usernameToUpdate, a);
     }
 
     /*
@@ -60,8 +59,8 @@ public class AccessAccount {
      * Parameters:
      *     @param a - The account to be removed.
      */
-    public void removeAccount(Account a){
-        DAS.removeFromDB(databaseType, a);
+    public void removeAccount(String userName){
+        DAS.removeAccount(userName);
     }
 
     /*
@@ -86,8 +85,8 @@ public class AccessAccount {
      * Return:
      *     The day object requested.
      */
-    public Day getDay(Account a, int day){
-        return DAS.getDay(a, day);
+    public Day getDay(String userName, int day){
+        return DAS.getDay(userName, day);
     }
 
     /*
@@ -99,4 +98,6 @@ public class AccessAccount {
      *     The account for the given username.
      */
     public Account getAccount(String username) { return DAS.getAccount(username); }
+
+
 }

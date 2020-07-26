@@ -11,7 +11,6 @@ import comp3350.mealbuddy.persistence.DataAccessStub;
 
 public class AccessExercise {
     private DataAccessStub DAS;
-    private DataAccessStub.DatabaseType databaseType;
 
     /*
      * Constructor
@@ -19,7 +18,6 @@ public class AccessExercise {
      */
     public AccessExercise(){
         DAS = Services.openDAS(Main.DATABASE_NAME);
-        databaseType = DataAccessStub.DatabaseType.EXERCISES;
     }
 
     /*
@@ -39,7 +37,7 @@ public class AccessExercise {
      *     @param e - The exercise to update.
      */
     public void updateExercise(Exercise e){
-        DAS.updateExercise(e);
+        DAS.updateDB(e);
     }
 
     /*
