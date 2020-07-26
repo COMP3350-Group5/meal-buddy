@@ -6,6 +6,7 @@
 package comp3350.mealbuddy.objects;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import comp3350.mealbuddy.objects.goals.Goal;
 
@@ -128,5 +129,13 @@ public class Account {
         Day newDay = new Day(day);
         daysTracked.add(newDay);
         return newDay;
+    }
+
+    /*
+     * getDaysTracked
+     * Returns all the days tracked for a user.
+     */
+    public List<Day> getDaysTracked() {
+        return daysTracked;
     }
 }

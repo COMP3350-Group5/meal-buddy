@@ -314,7 +314,8 @@ public class DataAccessStub implements DataAccess  {
     }
 
     public void updateLabel(String oldLabel, String newLabel) {
-
+        removeLabel(oldLabel);
+        addLabel(newLabel);
     }
 
     public void removeLabel(String label) {
@@ -334,18 +335,31 @@ public class DataAccessStub implements DataAccess  {
     }
 
     public void addDay(String userName, int dayOfYear) {
+        Account account = getAccount(userName);
+        account.addDay(new Day(dayOfYear));
+    }
 
+    public void removeDay(String userName, int dayOfYear) {
+        Account account = getAccount(userName);
+        Day day = account.getDay(dayOfYear);
+        account.removeDay(day);
     }
 
     public Day getDay(String userName, int dayOfYear) {
-        return null;
+        Account account = getAccount(userName);
+        return account.getDay(dayOfYear);
     }
 
     public List<Day> getDays(String userName) {
-        return null;
+        Account account = getAccount(userName);
+        return account.getDaysTracked();
     }
 
     public void updateDay(String userName, Day day) {
+        Account account = getAccount(userName);
+        int dayToUpdate = day.dayOfYear;
+        removeDay(userName, dayToUpdate);
+        account.addDay(day);
 
     }
 }

@@ -53,6 +53,8 @@ public interface DataAccess {
 
     void addDay(String userName, int dayOfYear);
 
+    void removeDay(String userName, int dayOfYear);
+
     Day getDay(String userName, int dayOfYear);
 
     List<Day> getDays(String userName);
