@@ -48,8 +48,21 @@ public class Food extends Edible {
      *     @param name - The name of the food.
      */
     public Food(Food original) {
-        super(original.name, new ArrayList<>());
-        initNutrientLists();
+        super(original.name, original.labels);
+
+        Map<Macros, Integer> macroMap = new EnumMap<>(Macros.class);
+        Macros[] macroArr = Macros.values();
+        for (Macros macro : macroArr) {
+            macroMap.put(macro, original.getMacroGrams(macro));
+        }
+        macros = macroMap;
+
+        Map<Micros, Integer> microMap = new EnumMap<>(Micros.class);
+        Micros[] microArr = Micros.values();
+        for (Micros micro : microArr) {
+            microMap.put(micro, original.getMicroGrams(micro));
+        }
+        micros = microMap;
     }
 
     /*

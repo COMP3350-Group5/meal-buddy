@@ -54,12 +54,18 @@ public class Day {
      */
     public Day(Day original) {
         this.dayOfYear = original.dayOfYear;
-        this.breakfast = original.breakfast;
-        this.lunch = original.lunch;
-        this.dinner = original.dinner;
-        this.snack = original.snack;
-        this.goals = original.goals;
-        this.exercises = original.exercises;
+        this.breakfast = new Meal(original.breakfast);
+        this.lunch = new Meal(original.lunch);
+        this.dinner = new Meal(original.dinner);
+        this.snack = new Meal(original.snack;
+        this.goals = new ArrayList<>();
+        for (Goal g : original.goals) {
+            this.goals.add(Goal.copyGoal(g));
+        }
+        this.exercises = new ArrayList<>();
+        for (Exercise e : original.exercises) {
+            this.exercises.add(new Exercise(e));
+        }
     }
 
     /*
