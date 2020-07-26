@@ -49,8 +49,10 @@ public class TimelineActivity extends AppCompatActivity {
         System.err.println("Day of year" + day.dayOfYear);
         calculator = new Calculator(day);
 
+        //update the timeline text
+        TextView timelineText = findViewById(R.id.txtTimeline);
+        timelineText.setText("Day: " + day.dayOfYear);
         initializeCards();
-
         // the "addFood" button to go to the AddFoodActivity
         FloatingActionButton addFood = findViewById(R.id.btnAddFood);
         addFood.setOnClickListener((view) -> {
