@@ -143,6 +143,14 @@ public class Meal extends Edible {
     }
 
     /*
+     * isEmpty
+     * Returns true if there is no edibles in the meal
+     */
+    public boolean isEmpty() {
+        return ediblesInMeal.isEmpty();
+    }
+
+    /*
      * getEdibleIntPair
      * Gets the edible int pair associated with the edible
      * Parameters:

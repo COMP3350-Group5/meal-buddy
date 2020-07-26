@@ -626,7 +626,7 @@ public class DataAccessObject implements DataAccess {
             quantity = resultSet.getInt("QUANTITY");
             isMeal = resultSet.getBoolean("IS_MEAL");
             edibleInMeal = isMeal ? getEntireMeal(edibleName) : getFoodFromRs(resultSet);
-            meal.setEdible(edibleInMeal, quantity);
+            meal.add(edibleInMeal, quantity);
         }
         resultSet.close();
         return meal;
@@ -744,10 +744,10 @@ public class DataAccessObject implements DataAccess {
         try {
             day.exercises = getDayExercises(userName, dayOfYear);
             day.goals = getDayGoals(userName, dayOfYear);
-            day.breakfast = getMealTimeList(BREAKFAST.ordinal(), userName, dayOfYear);
-            day.lunch = getMealTimeList(LUNCH.ordinal(), userName, dayOfYear);
-            day.dinner = getMealTimeList(DINNER.ordinal(), userName, dayOfYear);
-            day.snack = getMealTimeList(SNACK.ordinal(), userName, dayOfYear);
+            day.breakfast = getMealTimeMeal(BREAKFAST, userName, dayOfYear);
+            day.lunch = getMealTimeMeal(LUNCH, userName, dayOfYear);
+            day.dinner = getMealTimeMeal(DINNER, userName, dayOfYear);
+            day.snack = getMealTimeMeal(SNACK, userName, dayOfYear);
         } catch (Exception e) {
             processSQLError(e);
         }
@@ -781,31 +781,50 @@ public class DataAccessObject implements DataAccess {
     }
 
     /* getMealTimeList
-     * gets the list of edibles from a meal time in a day
+     * gets the meal of edibles from a meal time in a day
      * Parameters:
      *     @param userName - the userName of the account
      *     @param dayOfYear - the day to get the list of
      *     @param mealTime - which meal to get
      */
-    private ArrayList<Edible> getMealTimeList(int mealTime, String userName, int dayOfYear) throws SQLException {
+    private Meal getMealTimeMeal(Day.MealTimeType mealTime, String userName, int dayOfYear) throws SQLException {
         String query = "SELECT * " +
                 "FROM DAY_EDIBLES AS DE, EDIBLES AS E " +
                 "WHERE USERNAME='" + userName + "' AND DAY_OF_YEAR=" + dayOfYear +
-                " AND MEAL_TIME=" + mealTime + " AND DE.EDIBLE_NAME = E.EDIBLE_NAME";
-        ArrayList<Edible> edibles = new ArrayList<>();
-        String name;
-        Edible edible;
+                " AND MEAL_TIME=" + mealTime.ordinal() + " AND DE.EDIBLE_NAME = E.EDIBLE_NAME";
+        Meal meal = new Meal(getMealTimeName(mealTime));
+        String edibleInMealName;
+        Edible edibleInMeal;
         boolean isMeal;
         cmdString = query;
         ResultSet resultSet = st.executeQuery(cmdString);
         while (resultSet.next()) {
             isMeal = resultSet.getBoolean("IS_MEAL");
-            name = resultSet.getString("EDIBLE_NAME");
-            edible = isMeal ? getEntireMeal(name) : getFoodFromRs(resultSet);
-            edibles.add(edible);
+            edibleInMealName = resultSet.getString("EDIBLE_NAME");
+            edibleInMeal = isMeal ? getEntireMeal(edibleInMealName) : getFoodFromRs(resultSet);
+            meal.add(edibleInMeal);
         }
         resultSet.close();
-        return edibles;
+        return meal;
+    }
+
+    private String getMealTimeName(Day.MealTimeType mealTIme) {
+        String name;
+        switch (mealTIme) {
+            case BREAKFAST:
+                name = Day.BREAKFAST_NAME;
+                break;
+            case LUNCH:
+                name = Day.LUNCH_NAME;
+                break;
+            case DINNER:
+                name = Day.DINNER_NAME;
+                break;
+            default:
+                name = Day.SNACK_NAME;
+                break;
+        }
+        return name;
     }
 
 
@@ -989,13 +1008,13 @@ public class DataAccessObject implements DataAccess {
      *     @param day - the day we are updating
      */
     private String getInsertNewMealTimeQuery(String userName, Day.MealTimeType mealTime, Day day) {
-        List<Edible> list = day.getMealTimeList(mealTime);
+        Meal meal = day.getMealTime(mealTime);
         String query = "";
-        if (list.size() > 0) {
+        if (!meal.isEmpty()) {
             query = "INSERT INTO DAY_EDIBLES VALUES";
-            for (Edible e : list) {
+            for (Edible e : meal) {
                 query += "( '" + e.name + "', '" + userName + "'," + day.dayOfYear + "," +
-                        "" + mealTime.ordinal() + ", " + 1 + "), ";
+                        "" + mealTime.ordinal() + ", " + meal.getQuantity(e) + "), ";
             }
             query = query.substring(0, query.lastIndexOf(',')) + "; ";
         }

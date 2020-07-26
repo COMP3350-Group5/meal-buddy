@@ -23,6 +23,10 @@ public class Day {
     public Meal snack;
     public ArrayList<Goal> goals;
     public ArrayList<Exercise> exercises;
+    public static final String BREAKFAST_NAME = "Breakfast";
+    public static final String LUNCH_NAME = "Lunch";
+    public static final String DINNER_NAME = "Dinner";
+    public static final String SNACK_NAME = "Snack";
 
     /*
      * Constructor
@@ -34,10 +38,10 @@ public class Day {
         if (dayOfYear < 1 || dayOfYear > 365)
             throw new IllegalArgumentException("Must pass valid date");
         this.dayOfYear = dayOfYear;
-        this.breakfast = new Meal("Breakfast");
-        this.lunch = new Meal("Lunch");
-        this.dinner = new Meal("Dinner");
-        this.snack = new Meal("Snack");
+        this.breakfast = new Meal(BREAKFAST_NAME);
+        this.lunch = new Meal(LUNCH_NAME);
+        this.dinner = new Meal(DINNER_NAME);
+        this.snack = new Meal(SNACK_NAME);
         this.goals = new ArrayList<>();
         this.exercises = new ArrayList<>();
     }
