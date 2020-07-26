@@ -14,7 +14,7 @@ public class ExerciseTest {
 
         //Act
         try {
-            Exercise exercise = new Exercise(exerciseName, 1, Exercise.Intensity.High);
+            Exercise exercise = new Exercise(exerciseName);
             Assert.fail();
         } catch (IllegalArgumentException e) {
             // Assert

@@ -1,21 +1,19 @@
 package comp3350.mealbuddy.application;
 
-import comp3350.mealbuddy.persistence.DataAccess;
-import comp3350.mealbuddy.persistence.DataAccessObject;
+import comp3350.mealbuddy.persistence.DataAccessStub;
 
 public class Services {
-    private static DataAccess DAS = null;
+    private static DataAccessStub DAS = null;
 
-    public static DataAccess openDAS(String databaseName){
+    public static DataAccessStub openDAS(String databaseName){
         if (DAS == null){
-            DAS = new DataAccessObject(databaseName);
-            System.out.println("********************************************************" + Main.getDBPathName());
-            DAS.open(Main.getDBPathName());
+            DAS = new DataAccessStub(databaseName);
+            DAS.open();
         }
         return DAS;
     }
 
-    public static DataAccess getDataAccess(String databaseName){
+    public static DataAccessStub getDataAccess(String databaseName){
         if (DAS == null){
             System.out.println("Database not instantiated.");
             System.exit(1);

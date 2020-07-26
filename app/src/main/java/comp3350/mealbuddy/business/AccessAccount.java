@@ -1,5 +1,5 @@
 /****************************************
- * AccessAccount
+* AccessAccount
  * Business Objects for managing accounts
  ****************************************/
 package comp3350.mealbuddy.business;
@@ -9,18 +9,19 @@ import comp3350.mealbuddy.application.Services;
 import comp3350.mealbuddy.objects.Account;
 import comp3350.mealbuddy.objects.Day;
 import comp3350.mealbuddy.objects.UserInfo;
-import comp3350.mealbuddy.objects.consumables.Edible;
-import comp3350.mealbuddy.persistence.DataAccess;
+import comp3350.mealbuddy.persistence.DataAccessStub;
 
 public class AccessAccount {
-    private DataAccess DAS;
+    private DataAccessStub DAS;
+    private DataAccessStub.DatabaseType databaseType;
 
     /*
      * Constructor
      * Create an object representing accounts in the database
      */
     public AccessAccount(){
-        DAS = Services.getDataAccess(Main.DATABASE_NAME);
+        DAS = Services.openDAS(Main.DATABASE_NAME);
+        databaseType = DataAccessStub.DatabaseType.ACCOUNTS;
     }
 
     /*
@@ -30,7 +31,7 @@ public class AccessAccount {
      *     @param a - The account to be added.
      */
     public void addAccount(Account a){
-        DAS.addAccount(a);
+        DAS.addToDB(databaseType, a);
     }
 
     /*
@@ -50,7 +51,7 @@ public class AccessAccount {
      *     @param a - The account to be updated.
      */
     public void updateAccount(Account a){
-        DAS.updateAccount(a);
+        DAS.updateDB(databaseType, a);
     }
 
     /*
@@ -60,7 +61,7 @@ public class AccessAccount {
      *     @param a - The account to be removed.
      */
     public void removeAccount(Account a){
-        DAS.removeAccount(a);
+        DAS.removeFromDB(databaseType, a);
     }
 
     /*
@@ -86,7 +87,7 @@ public class AccessAccount {
      *     The day object requested.
      */
     public Day getDay(Account a, int day){
-        return DAS.getDay("", day);
+        return DAS.getDay(a, day);
     }
 
     /*

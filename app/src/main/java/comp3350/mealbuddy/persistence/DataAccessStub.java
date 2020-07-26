@@ -2,7 +2,7 @@
  * DataAccessStub
  * Database stub
  ****************************************/
-package comp3350.mealbuddy.tests.persistence;
+package comp3350.mealbuddy.persistence;
 
 import comp3350.mealbuddy.objects.Account;
 import comp3350.mealbuddy.objects.Day;
@@ -183,13 +183,11 @@ public class DataAccessStub implements DataAccess  {
         }
     }
 
-
-
     /*
      * initExercises
      * initializes the exercises data set.
      */
-    private void initExercises() {
+    private void initExercises(){
         String[] exerciseList = {
                 "Outdoor Run", "Bench Press", "Push Ups", "Sit Ups"
         };
@@ -219,6 +217,7 @@ public class DataAccessStub implements DataAccess  {
                 break;
             }
         }
+    }
 
     public Account getAccount(String username) {
         Account result = null;
