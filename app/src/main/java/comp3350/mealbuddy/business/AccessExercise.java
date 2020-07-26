@@ -29,7 +29,7 @@ public class AccessExercise {
      *     @param e - The exercise to add to the database.
      */
     public void addExercise(Exercise e){
-        DAS.addToDB(databaseType, e);
+        DAS.addExercise(e);
     }
 
     /*
@@ -39,7 +39,7 @@ public class AccessExercise {
      *     @param e - The exercise to update.
      */
     public void updateExercise(Exercise e){
-        DAS.updateDB(databaseType, e);
+        DAS.updateExercise(e);
     }
 
     /*
@@ -49,7 +49,7 @@ public class AccessExercise {
      *     @param e - The exercise to remove.
      */
     public void removeExercise(Exercise e){
-        DAS.removeFromDB(databaseType, e);
+        DAS.removeExercise(e);
     }
 
 }

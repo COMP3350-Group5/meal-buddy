@@ -4,12 +4,9 @@ import java.util.List;
 
 import comp3350.mealbuddy.objects.Account;
 import comp3350.mealbuddy.objects.Day;
-import comp3350.mealbuddy.objects.Exercise;
 import comp3350.mealbuddy.objects.consumables.Edible;
 import comp3350.mealbuddy.objects.consumables.Food;
 import comp3350.mealbuddy.objects.consumables.Meal;
-
-
 
 public interface DataAccess {
 
