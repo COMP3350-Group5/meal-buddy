@@ -32,7 +32,8 @@ public class DataAccessStub implements DataAccess  {
     private ArrayList<Account> accounts;
     private ArrayList<Exercise> exercises;
     private ArrayList<Label> labels;
-    private ArrayList<Day> days;
+
+    private Day day;
 
     /*
      * Constructor
@@ -50,87 +51,15 @@ public class DataAccessStub implements DataAccess  {
         accounts = new ArrayList<>();
         exercises = new ArrayList<>();
         labels = new ArrayList<>();
-        //days = new ArrayList<>();
 
         //initialize the data
-        //initDays();
+        initDay();
         initEdibles();
         initAccounts();
         initExercises();
         initLabels();
         System.out.println("Opened Database " + name);
     }
-
-//    /*
-//     * initDays
-//     * initializes the days data set.
-//     */
-//    private void initDays() {
-//        Calendar calendar = Calendar.getInstance();
-//        Day day = new Day(calendar.get(Calendar.DAY_OF_YEAR));
-//
-//        Object[][] breakfast = {
-//                {"Egg", new ArrayList<>(Arrays.asList("vegetarian", "protein")), 50, Edible.Macros.Protein, 45},
-//                {"Bagel", new ArrayList<>(Arrays.asList("vegetarian")), 100, Edible.Macros.Carbohydrates, 6},
-//        };
-//
-//        Object[][] lunch = {
-//                {"Beef Patty", new ArrayList<>(Arrays.asList("protein")), 50, Edible.Macros.Protein, 5},
-//                {"Cheese", new ArrayList<>(Arrays.asList("dairy", "vegetarian")), 33, Edible.Macros.Fat, 4},
-//        };
-//
-//        Object[][] dinner = {
-//                {"Chicken", new ArrayList<>(Arrays.asList("protein")), 23, Edible.Macros.Fat, 14},
-//                {"Rice", new ArrayList<>(Arrays.asList("dairy", "vegetarian")), 44, Edible.Macros.Fat, 10},
-//        };
-//
-//        Object[][] snack = {
-//                {"Chocolate Bar", new ArrayList<>(Arrays.asList("bad foods")), 13, Edible.Macros.Fat, 33},
-//                {"Nutri-grain", new ArrayList<>(Arrays.asList("multi-grain")), 12, Edible.Macros.Fat, 5},
-//        };
-//
-//        for (Object[] food : breakfast) {
-//            Food edible = new Food(
-//                    (String) food[0],
-//                    (ArrayList) food[1]
-//            );
-//            edible.setWeight((int)food[2]);
-//            edible.updateMacro((Edible.Macros) food[3], (int) food[4]);
-//            day.addFood(Day.MealTimeType.BREAKFAST, edible);
-//        }
-//
-//        for (Object[] food : lunch) {
-//            Food edible = new Food(
-//                    (String) food[0],
-//                    (ArrayList) food[1]
-//            );
-//            edible.setWeight((int)food[2]);
-//            edible.updateMacro((Edible.Macros) food[3], (int) food[4]);
-//            day.addFood(Day.MealTimeType.LUNCH, edible);
-//        }
-//
-//        for (Object[] food : dinner) {
-//            Food edible = new Food(
-//                    (String) food[0],
-//                    (ArrayList) food[1]
-//            );
-//            edible.setWeight((int)food[2]);
-//            edible.updateMacro((Edible.Macros) food[3], (int) food[4]);
-//            day.addFood(Day.MealTimeType.DINNER, edible);
-//        }
-//
-//        for (Object[] food : snack) {
-//            Food edible = new Food(
-//                    (String) food[0],
-//                    (ArrayList) food[1]
-//            );
-//            edible.setWeight((int)food[2]);
-//            edible.updateMacro((Edible.Macros) food[3], (int) food[4]);
-//            day.addFood(Day.MealTimeType.SNACK, edible);
-//        }
-//
-//        days.add(day);
-//    }
 
     /*
      * initEdibles
@@ -155,6 +84,74 @@ public class DataAccessStub implements DataAccess  {
         edibles.add(meal);
     }
 
+    /*
+     * initDay
+     * initializes a day
+     */
+    private void initDay() {
+        Calendar calendar = Calendar.getInstance();
+        day = new Day(calendar.get(Calendar.DAY_OF_YEAR));
+
+        Object[][] breakfast = {
+                {"Egg", new ArrayList<>(Arrays.asList("vegetarian", "protein")), 50, Edible.Macros.Protein, 45},
+                {"Bagel", new ArrayList<>(Arrays.asList("vegetarian")), 100, Edible.Macros.Carbohydrates, 6},
+        };
+
+        Object[][] lunch = {
+                {"Beef Patty", new ArrayList<>(Arrays.asList("protein")), 50, Edible.Macros.Protein, 5},
+                {"Cheese", new ArrayList<>(Arrays.asList("dairy", "vegetarian")), 33, Edible.Macros.Fat, 4},
+        };
+
+        Object[][] dinner = {
+                {"Chicken", new ArrayList<>(Arrays.asList("protein")), 23, Edible.Macros.Fat, 14},
+                {"Rice", new ArrayList<>(Arrays.asList("dairy", "vegetarian")), 44, Edible.Macros.Fat, 10},
+        };
+
+        Object[][] snack = {
+                {"Chocolate Bar", new ArrayList<>(Arrays.asList("bad foods")), 13, Edible.Macros.Fat, 33},
+                {"Nutri-grain", new ArrayList<>(Arrays.asList("multi-grain")), 12, Edible.Macros.Fat, 5},
+        };
+
+        for (Object[] food : breakfast) {
+            Food edible = new Food(
+                    (String) food[0],
+                    (ArrayList) food[1]
+            );
+            edible.setWeight((int)food[2]);
+            edible.updateMacro((Edible.Macros) food[3], (int) food[4]);
+            day.addFood(Day.MealTimeType.BREAKFAST, edible);
+        }
+
+        for (Object[] food : lunch) {
+            Food edible = new Food(
+                    (String) food[0],
+                    (ArrayList) food[1]
+            );
+            edible.setWeight((int)food[2]);
+            edible.updateMacro((Edible.Macros) food[3], (int) food[4]);
+            day.addFood(Day.MealTimeType.LUNCH, edible);
+        }
+
+        for (Object[] food : dinner) {
+            Food edible = new Food(
+                    (String) food[0],
+                    (ArrayList) food[1]
+            );
+            edible.setWeight((int)food[2]);
+            edible.updateMacro((Edible.Macros) food[3], (int) food[4]);
+            day.addFood(Day.MealTimeType.DINNER, edible);
+        }
+
+        for (Object[] food : snack) {
+            Food edible = new Food(
+                    (String) food[0],
+                    (ArrayList) food[1]
+            );
+            edible.setWeight((int)food[2]);
+            edible.updateMacro((Edible.Macros) food[3], (int) food[4]);
+            day.addFood(Day.MealTimeType.SNACK, edible);
+        }
+    }
 
     /*
      * initAccounts
