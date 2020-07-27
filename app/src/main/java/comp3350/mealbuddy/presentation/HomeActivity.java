@@ -27,7 +27,7 @@ import comp3350.mealbuddy.objects.Account;
 
 
 public class HomeActivity extends AppCompatActivity {
-    private AccessAccount accessAccount = new AccessAccount();
+    private AccessAccount accessAccount;
 
     /*
      * onCreate
@@ -36,10 +36,12 @@ public class HomeActivity extends AppCompatActivity {
      *     @param savedInstanceState
      */
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected synchronized void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
+        copyDatabaseToDevice();
+        Main.startUp();
+        accessAccount = new AccessAccount();
         EditText username = findViewById(R.id.etUsername);
         EditText password = findViewById(R.id.etPassword);
         Button login = findViewById(R.id.btnLogin);
@@ -49,9 +51,15 @@ public class HomeActivity extends AppCompatActivity {
         //link the on click listeners
         login.setOnClickListener((view) -> checkLogin(username.getText(), password.getText()));
         createAccount.setOnClickListener((view) -> {
-                Intent intent = new Intent(HomeActivity.this, SignUpActivity.class);
-                HomeActivity.this.startActivity(intent);
+            Intent intent = new Intent(HomeActivity.this, SignUpActivity.class);
+            HomeActivity.this.startActivity(intent);
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Main.shutDown();
     }
 
     /*
