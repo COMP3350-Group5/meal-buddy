@@ -16,6 +16,7 @@ import comp3350.mealbuddy.objects.UserInfo;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Iterator;
 import java.util.List;
 
 public class DataAccessStub implements DataAccess  {
@@ -268,9 +269,11 @@ public class DataAccessStub implements DataAccess  {
     }
 
     public String removeEdible(String name) {
-        for (Edible edible : edibles) {
+        Iterator<Edible> iter = edibles.iterator();
+        while (iter.hasNext()) {
+            Edible edible = iter.next();
             if (edible.name.equals(name)) {
-                edibles.remove(edible);
+                iter.remove();
             }
         }
         return "";
