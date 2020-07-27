@@ -1,7 +1,6 @@
 package comp3350.mealbuddy.tests.persistence;
 
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -30,8 +29,8 @@ import static comp3350.mealbuddy.objects.consumables.Edible.Micros.Zinc;
 
 public class DataAccessTest {
 
-    private static DataAccess database = Services.createDataAccess(new DataAccessStub(Main.DATABASE_NAME));
-    //private static DataAccess database = Services.createDataAccess(new DataAccessStub("StubDB"));
+    private static DataAccess database = Services.createDataAccess(Main.DATABASE_NAME);  //HQSQLDB
+    // private static DataAccess database = Services.createDataAccess(new DataAccessStub("StubDB"));         //STUBDB
 
     @Test
     public void removeAccount() {
@@ -48,13 +47,10 @@ public class DataAccessTest {
 
     @Test
     public void addAccount() {
-        // Arrange
         Account newAccount = new Account(new UserInfo("Elon Musk", "MuskyBoi", "T3sla", 280.0, 170.5, UserInfo.ActivityLevel.LOW, UserInfo.Sex.MALE, 40));
 
-        // Act
         database.addAccount(newAccount);
 
-        //Assert
         Assert.assertEquals(newAccount, database.getAccount("MuskyBoi"));
         database.removeAccount("MuskyBoi");
     }
@@ -76,7 +72,7 @@ public class DataAccessTest {
     }
 
     @Test
-    public void AddRemoveUpdateFood() {
+    public void addRemoveUpdateFood() {
         // Arrange
         Food newFood = new Food("Taco", new ArrayList<String>());
         Food updatedFood = new Food("Taco", new ArrayList<>(Arrays.asList("vegetarian")));
@@ -96,6 +92,47 @@ public class DataAccessTest {
         database.removeEdible("Taco");
         edibles = database.getEdibles();
         Assert.assertEquals(-1, edibles.indexOf(updatedFood));
+    }
+
+    @Test
+    public void getEdibles() {
+        Meal nestedMeal = makeNestedMeal();
+        database.addEdible(nestedMeal);
+
+        Food durian = new Food("Durian");
+        database.addEdible(durian);
+
+        Food quinoa = new Food("Quinoa");
+        database.addEdible(quinoa);
+
+        List<Food> addedFoods = database.getFoods();
+        List<Meal> addedMeals = database.getMeals();
+
+        Assert.assertFalse(addedFoods.contains(nestedMeal));
+        Assert.assertTrue(addedFoods.contains(durian));
+        Assert.assertTrue(addedFoods.contains(quinoa));
+
+        Assert.assertTrue(addedMeals.contains(nestedMeal));
+        Assert.assertFalse(addedMeals.contains(durian));
+        Assert.assertFalse(addedMeals.contains(quinoa));
+    }
+
+    @Test
+    public void labelTest() {
+        database.addLabel("High Protein");
+
+        List<String> labels = database.getLabels();
+        Assert.assertTrue(labels.contains("High Protein"));
+
+        database.updateLabel("High Protein", "Low Fat");
+        labels = database.getLabels();
+        Assert.assertTrue(labels.contains("Low Fat"));
+        Assert.assertFalse(labels.contains("High Protein"));
+
+        database.removeLabel("Low Fat");
+        labels = database.getLabels();
+        Assert.assertFalse(labels.contains("Low Fat"));
+
     }
 
     @Test
@@ -130,8 +167,6 @@ public class DataAccessTest {
         newDay.exercises.add(new Exercise("Running", 30, Exercise.Intensity.High));
 
         Meal nestedMeal = makeNestedMeal();
-        database.removeEdible(nestedMeal.name);
-
         database.addEdible(nestedMeal);
         newDay.breakfast.add(nestedMeal);
 

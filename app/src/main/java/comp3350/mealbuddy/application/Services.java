@@ -1,6 +1,7 @@
 package comp3350.mealbuddy.application;
 
 import comp3350.mealbuddy.persistence.DataAccess;
+import comp3350.mealbuddy.persistence.DataAccessObject;
 import comp3350.mealbuddy.persistence.DataAccessStub;
 
 public class Services {
@@ -8,7 +9,7 @@ public class Services {
 
     public static DataAccess createDataAccess(String databaseName){
         if (DAS == null){
-            DAS = new DataAccessStub(databaseName);
+            DAS = new DataAccessObject(databaseName);
             DAS.open(databaseName);
         }
         return DAS;

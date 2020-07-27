@@ -247,16 +247,6 @@ public class DataAccessStub implements DataAccess  {
         return result;
     }
 
-    public Account validateLogin(String username, String password) {
-        Account result = null;
-        for (Account account : accounts) {
-            if (account.user.username.equals(username) && account.user.password.equals(password)) {
-                result = account;
-            }
-        }
-        return result;
-    }
-
     public String addEdible(Edible edible) {
         edibles.add(edible);
         return "";
@@ -277,16 +267,6 @@ public class DataAccessStub implements DataAccess  {
             }
         }
         return "";
-    }
-
-    public Edible getEdible(String name) {
-        Edible result = null;
-        for (Edible edible : edibles) {
-            if (edible.name.equals(name)) {
-                result = edible;
-            }
-        }
-        return result;
     }
 
     public List<Edible> getEdibles() {
@@ -334,9 +314,11 @@ public class DataAccessStub implements DataAccess  {
     }
 
     public String removeLabel(String label) {
-        for (String l : labels) {
-            if (l.equals(label)) {
-                labels.remove(l);
+        Iterator<Edible> iter = edibles.iterator();
+        while (iter.hasNext()) {
+            Edible edible = iter.next();
+            if (edible.name.equals(name)) {
+                iter.remove();
             }
         }
         return "";
