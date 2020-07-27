@@ -49,9 +49,7 @@ public class AccessAccount {
      * Parameters:
      *     @param a - The account to be updated.
      */
-    public void updateAccount(Account a){
-        DAS.updateAccount(a.user.username, a);
-    }
+    public void updateAccount(Account a){ DAS.updateAccount(a.user.username, a); }
 
     /*
      * removeAccount
@@ -59,8 +57,7 @@ public class AccessAccount {
      * Parameters:
      *     @param a - The account to be removed.
      */
-    public void removeAccount(Account a){
-    }
+    public void removeAccount(Account a){ DAS.removeAccount(a.user.username); }
 
     /*
      * validateLogin
@@ -88,7 +85,7 @@ public class AccessAccount {
      *     The day object requested.
      */
     public Day getDay(Account a, int day){
-        return DAS.getDay("", day);
+        return DAS.getDay(a.user.username, day);
     }
 
 
