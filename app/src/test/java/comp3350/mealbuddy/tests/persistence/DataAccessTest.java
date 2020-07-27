@@ -29,8 +29,8 @@ import static comp3350.mealbuddy.objects.consumables.Edible.Micros.Zinc;
 
 public class DataAccessTest {
 
-    private static DataAccess database = Services.createDataAccess(Main.DATABASE_NAME);  //HQSQLDB
-    // private static DataAccess database = Services.createDataAccess(new DataAccessStub("StubDB"));         //STUBDB
+    //private static DataAccess database = Services.createDataAccess(Main.DATABASE_NAME);  //HQSQLDB
+    private static DataAccess database = Services.createDataAccess(new DataAccessStub("StubDB"));         //STUBDB
 
     @Test
     public void removeAccount() {

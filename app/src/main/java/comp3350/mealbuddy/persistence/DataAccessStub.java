@@ -314,10 +314,10 @@ public class DataAccessStub implements DataAccess  {
     }
 
     public String removeLabel(String label) {
-        Iterator<Edible> iter = edibles.iterator();
+        Iterator<String> iter = labels.iterator();
         while (iter.hasNext()) {
-            Edible edible = iter.next();
-            if (edible.name.equals(name)) {
+            String nextLabel = iter.next();
+            if (nextLabel.equals(label)) {
                 iter.remove();
             }
         }
