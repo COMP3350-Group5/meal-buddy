@@ -2,16 +2,7 @@
  * DataAccessStub
  * Database stub
  ****************************************/
-package comp3350.mealbuddy.persistence;
-
-import comp3350.mealbuddy.objects.Account;
-import comp3350.mealbuddy.objects.Day;
-import comp3350.mealbuddy.objects.Exercise.Intensity;
-import comp3350.mealbuddy.objects.consumables.Edible;
-import comp3350.mealbuddy.objects.consumables.Food;
-import comp3350.mealbuddy.objects.consumables.Meal;
-import comp3350.mealbuddy.objects.Exercise;
-import comp3350.mealbuddy.objects.UserInfo;
+package comp3350.mealbuddy.tests.persistence;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -19,7 +10,17 @@ import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
 
-public class DataAccessStub implements DataAccess  {
+import comp3350.mealbuddy.objects.Account;
+import comp3350.mealbuddy.objects.Day;
+import comp3350.mealbuddy.objects.Exercise;
+import comp3350.mealbuddy.objects.Exercise.Intensity;
+import comp3350.mealbuddy.objects.UserInfo;
+import comp3350.mealbuddy.objects.consumables.Edible;
+import comp3350.mealbuddy.objects.consumables.Food;
+import comp3350.mealbuddy.objects.consumables.Meal;
+import comp3350.mealbuddy.persistence.DataAccess;
+
+public class DataAccessStub implements DataAccess {
 
     public String name;
 
