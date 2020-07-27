@@ -4,8 +4,6 @@
  ****************************************/
 package comp3350.mealbuddy.objects.consumables;
 
-import androidx.annotation.NonNull;
-
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.Iterator;
@@ -132,7 +130,6 @@ public class Food extends Edible {
      * iterator
      * Returns an iterator for a food object
      */
-    @NonNull
     @Override
     public Iterator<Edible> iterator() {
         return new FoodIterator(this);
