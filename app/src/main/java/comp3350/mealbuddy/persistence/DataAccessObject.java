@@ -284,7 +284,8 @@ public class DataAccessObject implements DataAccess {
         String edibleQuery = (edible instanceof Food) ? getAddFoodQuery((Food) edible) : getAddMealQuery((Meal) edible);
         result = null;
         try {
-            cmdString = edibleQuery + edibleLabelQuery;
+
+            cmdString = edibleQuery + "\n" + edibleLabelQuery;
             updateCount = st.executeUpdate(cmdString);
             result = checkWarning(st, updateCount);
         } catch (Exception e) {

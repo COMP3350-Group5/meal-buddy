@@ -1,6 +1,8 @@
 package comp3350.mealbuddy.tests.persistence;
 
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -29,54 +31,47 @@ import static comp3350.mealbuddy.objects.consumables.Edible.Micros.Zinc;
 
 public class DataAccessTest {
 
-    //private static DataAccess database = Services.createDataAccess(Main.DATABASE_NAME);  //HQSQLDB
-    private static DataAccess database = Services.createDataAccess(new DataAccessStub("StubDB"));         //STUBDB
+    private static DataAccess database = Services.createDataAccess(Main.DATABASE_NAME);  //HQSQLDB
+    //private static DataAccess database = Services.createDataAccess(new DataAccessStub("StubDB"));         //STUBDB
 
-    @Test
-    public void removeAccount() {
-        // Arrange
-        Account removedAccount = database.getAccount("stoneheart");
+    public static Food durian;
+    public static Food quinoa;
+    public static Meal nestedMeal;
 
-        // Act
-        database.removeAccount("stoneheart");
 
-        //Assert
-        Assert.assertNull(database.getAccount("stoneheart"));
-        database.addAccount(removedAccount);
+
+    @Before
+    public void initFoods() {
+        clean();
+        nestedMeal = makeNestedMeal();
+        durian = new Food("Durian");
+        database.addEdible(durian);
+
+        quinoa = new Food("Quinoa");
+        database.addEdible(quinoa);
     }
 
     @Test
-    public void addAccount() {
+    public void addRemoveUpdateAccount() {
         Account newAccount = new Account(new UserInfo("Elon Musk", "MuskyBoi", "T3sla", 280.0, 170.5, UserInfo.ActivityLevel.LOW, UserInfo.Sex.MALE, 40));
-
         database.addAccount(newAccount);
+        Assert.assertEquals(newAccount.user.username, database.getAccount("MuskyBoi").user.username);
 
-        Assert.assertEquals(newAccount, database.getAccount("MuskyBoi"));
-        database.removeAccount("MuskyBoi");
+        Account updatedAccount = new Account(new UserInfo( "John Cena", "uCantCMe", "alwaysblue", 100.0, 180.0, UserInfo.ActivityLevel.LOW, UserInfo.Sex.MALE, 35));
+        database.updateAccount("MuskyBoi", updatedAccount);
+        Assert.assertEquals(updatedAccount.user.username, database.getAccount("uCantCMe").user.username);
+
+        database.removeAccount("uCantCMe");
+        Assert.assertNull(database.getAccount("uCantCMe"));
     }
 
-    @Test
-    public void updateAccount() {
-        // Arrange
-        Account newAccount = new Account(new UserInfo( "Richard Hendricks", "piedpiper", "alwaysblue", 100.0, 180.0, UserInfo.ActivityLevel.LOW, UserInfo.Sex.MALE, 35));
-        Account oldAccount = database.getAccount("piedpiper");
-
-        // Act
-        database.updateAccount("piedpiper", newAccount);
-        Account updatedAccount = database.getAccount("piedpiper");
-
-        //Assert
-        Assert.assertEquals(newAccount, updatedAccount);
-        database.removeAccount("piedpiper");
-        database.addAccount(oldAccount);
-    }
 
     @Test
     public void addRemoveUpdateFood() {
         // Arrange
         Food newFood = new Food("Taco", new ArrayList<String>());
-        Food updatedFood = new Food("Taco", new ArrayList<>(Arrays.asList("vegetarian")));
-        List<Edible> edibles = null;
+        Food updatedFood = new Food("Taco", new ArrayList<>(Arrays.asList("Keto")));
+        List<Edible> edibles;
 
         //Check if the food was added
         database.addEdible(newFood);
@@ -96,14 +91,6 @@ public class DataAccessTest {
 
     @Test
     public void getEdibles() {
-        Meal nestedMeal = makeNestedMeal();
-        database.addEdible(nestedMeal);
-
-        Food durian = new Food("Durian");
-        database.addEdible(durian);
-
-        Food quinoa = new Food("Quinoa");
-        database.addEdible(quinoa);
 
         List<Food> addedFoods = database.getFoods();
         List<Meal> addedMeals = database.getMeals();
@@ -220,14 +207,28 @@ public class DataAccessTest {
         database.removeAccount("MuskyBoi");
     }
 
+    @After
+    public void clean() {
+        database.removeEdible("nestedMeal");
+        database.removeEdible("bacon");
+        database.removeEdible("cereal");
+        database.removeEdible("egg");
+        database.removeEdible("milk");
+        database.removeEdible("cheerios");
+        database.removeEdible("Quinoa");
+        database.removeEdible("Durian");
+    }
+
     private Meal makeNestedMeal() {
         Food egg = new Food("egg");
         egg.updateMacro(Fat, 10);
         egg.updateMicro(Zinc, 10);
+        database.addEdible(egg);
 
         Food bacon = new Food("bacon");
         bacon.updateMacro(Fat, 10);
         bacon.updateMicro(Zinc, 10);
+        database.addEdible(bacon);
 
         Meal cereal = makeCerealMeal();
 
@@ -235,6 +236,7 @@ public class DataAccessTest {
         nestedMeal.add(egg, 1);
         nestedMeal.add(bacon, 2);
         nestedMeal.add(cereal, 2);
+        database.addEdible(nestedMeal);
 
         return nestedMeal;
     }
@@ -243,14 +245,17 @@ public class DataAccessTest {
         Food milk = new Food("milk");
         milk.updateMacro(Fat, 10);
         milk.updateMicro(Zinc, 10);
+        database.addEdible(milk);
 
         Food cheerios = new Food("cheerios");
         cheerios.updateMacro(Fat, 10);
         cheerios.updateMicro(Zinc, 10);
+        database.addEdible(cheerios);
 
         Meal cereal = new Meal("cereal");
         cereal.add(milk, 2);
         cereal.add(cheerios, 1);
+        database.addEdible(cereal);
 
         return cereal;
     }
