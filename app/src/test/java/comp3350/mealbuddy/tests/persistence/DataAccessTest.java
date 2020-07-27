@@ -11,16 +11,27 @@ import java.util.List;
 import comp3350.mealbuddy.application.Main;
 import comp3350.mealbuddy.application.Services;
 import comp3350.mealbuddy.objects.Account;
+import comp3350.mealbuddy.objects.Day;
+import comp3350.mealbuddy.objects.Exercise;
 import comp3350.mealbuddy.objects.UserInfo;
 import comp3350.mealbuddy.objects.consumables.Edible;
 import comp3350.mealbuddy.objects.consumables.Food;
+import comp3350.mealbuddy.objects.consumables.Meal;
+import comp3350.mealbuddy.objects.goals.CalorieGoal;
+import comp3350.mealbuddy.objects.goals.Goal;
+import comp3350.mealbuddy.objects.goals.LabelGoal;
+import comp3350.mealbuddy.objects.goals.MacroGoal;
+import comp3350.mealbuddy.objects.goals.MicroGoal;
 import comp3350.mealbuddy.persistence.DataAccess;
 import comp3350.mealbuddy.persistence.DataAccessStub;
+
+import static comp3350.mealbuddy.objects.consumables.Edible.Macros.Fat;
+import static comp3350.mealbuddy.objects.consumables.Edible.Micros.Zinc;
 
 public class DataAccessTest {
 
     //private static DataAccess database = Services.createDataAccess(new DataAccessStub(Main.DATABASE_NAME));
-    private static DataAccess database = Services.createDataAccess(new DataAccessStub("IdontCare WhateverYouWant"));
+    private static DataAccess database = Services.createDataAccess(new DataAccessStub("StubDB"));
 
     @Test
     public void removeAccount() {
@@ -87,5 +98,106 @@ public class DataAccessTest {
         Assert.assertEquals(-1, edibles.indexOf(updatedFood));
     }
 
+    @Test
+    public void daysTest() {
+        Account newAccount = new Account(new UserInfo("Elon Musk", "MuskyBoi", "T3sla", 280.0, 170.5, UserInfo.ActivityLevel.LOW, UserInfo.Sex.MALE, 40));
+        database.addAccount(newAccount);
+        Assert.assertFalse(database.isDayTracked("MuskyBoi", 1));
+
+        database.addDay("MuskyBoi", 1);
+        database.addDay("MuskyBoi", 2);
+        Assert.assertTrue(database.isDayTracked("MuskyBoi", 1));
+
+        Day newDay = database.getDay("MuskyBoi", 1);
+        Assert.assertEquals(1, newDay.dayOfYear);
+
+        List<Day> days = database.getDays("MuskyBoi");
+        Assert.assertEquals(2, days.size());
+
+        newDay = new Day(1);
+        LabelGoal labelGoal = new LabelGoal(1, 100, Goal.GoalType.RATIO, "Keto");
+        newDay.goals.add(labelGoal);
+
+        CalorieGoal calorieGoal = new CalorieGoal(1, 100);
+        newDay.goals.add(calorieGoal);
+
+        MicroGoal microGoal = new MicroGoal(1, 100, Edible.Micros.Zinc);
+        newDay.goals.add(microGoal);
+
+        MacroGoal macroGoal = new MacroGoal(1, 100, Goal.GoalType.QUANTITY, Edible.Macros.Alcohol);
+        newDay.goals.add(macroGoal);
+
+        newDay.exercises.add(new Exercise("Running", 30, Exercise.Intensity.High));
+
+        Meal nestedMeal = makeNestedMeal();
+        database.removeEdible(nestedMeal.name);
+
+        database.addEdible(nestedMeal);
+        newDay.breakfast.add(nestedMeal);
+
+        Food durian = new Food("Durian");
+        database.addEdible(durian);
+        newDay.snack.add(durian);
+
+        database.updateDay("MuskyBoi", newDay);
+        Day updatedDay = database.getDay("MuskyBoi", 1);
+
+        Exercise updatedExercise = updatedDay.exercises.get(0);
+        Assert.assertEquals("Running", updatedExercise.name);
+        Assert.assertEquals(30.0, updatedExercise.duration, 0.1);
+        Assert.assertEquals(Exercise.Intensity.High, updatedExercise.intensity);
+
+        List<Goal> updatedGoals = updatedDay.goals;
+        Assert.assertTrue(updatedGoals.contains(calorieGoal));
+        Assert.assertTrue(updatedGoals.contains(microGoal));
+        Assert.assertTrue(updatedGoals.contains(macroGoal));
+        Assert.assertTrue(updatedGoals.contains(labelGoal));
+
+        Goal updatedMacroGoal = updatedGoals.get(updatedGoals.indexOf(macroGoal));
+        Assert.assertEquals(macroGoal.lowerBound, updatedMacroGoal.lowerBound);
+        Assert.assertEquals(macroGoal.upperBound, updatedMacroGoal.upperBound);
+        Assert.assertEquals(macroGoal.goalType, updatedMacroGoal.goalType);
+        Assert.assertEquals(macroGoal.id, updatedMacroGoal.id);
+
+        Assert.assertTrue(updatedDay.lunch.isEmpty());
+        Assert.assertTrue(updatedDay.dinner.isEmpty());
+        
+        database.removeAccount("MuskyBoi");
+    }
+
+    private Meal makeNestedMeal() {
+        Food egg = new Food("egg");
+        egg.updateMacro(Fat, 10);
+        egg.updateMicro(Zinc, 10);
+
+        Food bacon = new Food("bacon");
+        bacon.updateMacro(Fat, 10);
+        bacon.updateMicro(Zinc, 10);
+
+        Meal cereal = makeCerealMeal();
+
+        Meal nestedMeal = new Meal("nestedMeal");
+        nestedMeal.add(egg, 1);
+        nestedMeal.add(bacon, 2);
+        nestedMeal.add(cereal, 2);
+
+        return nestedMeal;
+    }
+
+    private Meal makeCerealMeal() {
+        Food milk = new Food("milk");
+        milk.updateMacro(Fat, 10);
+        milk.updateMicro(Zinc, 10);
+
+        Food cheerios = new Food("cheerios");
+        cheerios.updateMacro(Fat, 10);
+        cheerios.updateMicro(Zinc, 10);
+
+        Meal cereal = new Meal("cereal");
+        cereal.add(milk, 2);
+        cereal.add(cheerios, 1);
+
+        return cereal;
+    }
 }
 

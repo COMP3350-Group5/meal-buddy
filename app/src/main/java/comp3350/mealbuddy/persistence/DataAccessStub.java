@@ -204,7 +204,7 @@ public class DataAccessStub implements DataAccess  {
      */
     private void initLabels() {
         String[] labelList = {
-                "Vegetarian", "Vegan", "Fat Free", "Gluten Free", "Low Sugar"
+                "Vegetarian", "Vegan", "Fat Free", "Gluten Free", "Low Sugar", "Keto"
         };
 
         for (String l : labelList) {
@@ -387,7 +387,15 @@ public class DataAccessStub implements DataAccess  {
     }
 
     public boolean isDayTracked(String userName, int dayOfYear) {
-        return true;
+        boolean isTracked = false;
+        List<Day> daysTracked = getDays(userName);
+        for (Day d : daysTracked) {
+            if (d.dayOfYear == dayOfYear) {
+                isTracked = true;
+                break;
+            }
+        }
+        return isTracked;
     }
 
 }
