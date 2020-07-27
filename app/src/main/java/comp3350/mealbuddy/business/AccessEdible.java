@@ -8,7 +8,6 @@ import comp3350.mealbuddy.application.Main;
 import comp3350.mealbuddy.application.Services;
 import comp3350.mealbuddy.objects.consumables.Edible;
 import comp3350.mealbuddy.persistence.DataAccess;
-import comp3350.mealbuddy.persistence.DataAccessStub;
 
 public class AccessEdible {
     private DataAccess DAS;
