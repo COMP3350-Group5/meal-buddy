@@ -9,7 +9,7 @@ public class Main {
     }
 
     public static void startUp(){
-        Services.openDAS(DATABASE_NAME);
+        Services.createDataAccess(DATABASE_NAME);
     }
 
     public static void shutDown(){

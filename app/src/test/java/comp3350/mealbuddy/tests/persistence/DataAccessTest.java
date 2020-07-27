@@ -5,8 +5,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+import comp3350.mealbuddy.application.Main;
+import comp3350.mealbuddy.application.Services;
 import comp3350.mealbuddy.objects.Account;
 import comp3350.mealbuddy.objects.UserInfo;
 import comp3350.mealbuddy.objects.consumables.Edible;
@@ -16,13 +19,8 @@ import comp3350.mealbuddy.persistence.DataAccessStub;
 
 public class DataAccessTest {
 
-    private static DataAccess database = new DataAccessStub("TestDB");
-
-    @Before
-    public void initializeDatabase() {
-        database.open("TestDB");
-    }
-
+    //private static DataAccess database = Services.createDataAccess(new DataAccessStub(Main.DATABASE_NAME));
+    private static DataAccess database = Services.createDataAccess(new DataAccessStub("IdontCare WhateverYouWant"));
 
     @Test
     public void removeAccount() {
@@ -67,35 +65,27 @@ public class DataAccessTest {
     }
 
     @Test
-    public void removeEdible() {
-        // Arrange
-
-
-        // Act
-
-        //Assert
-
-    }
-
-    @Test
-    public void addEdible() {
+    public void AddRemoveUpdateFood() {
         // Arrange
         Food newFood = new Food("Taco", new ArrayList<String>());
+        Food updatedFood = new Food("Taco", new ArrayList<>(Arrays.asList("vegetarian")));
+        List<Edible> edibles = null;
 
-        // Act
+        //Check if the food was added
         database.addEdible(newFood);
-        List<Edible> edibles = database.getEdibles();
-
-        //Assert
-        database.removeEdible("Taco");
+        edibles = database.getEdibles();
         Assert.assertNotEquals(-1, edibles.indexOf(newFood));
 
+        //Check if the food was updated
+        database.updateEdible("Taco", updatedFood);
+        edibles = database.getEdibles();
+        Assert.assertNotEquals(-1, edibles.indexOf(updatedFood));
+
+        //Check if the food was removed
+        database.removeEdible("Taco");
+        edibles = database.getEdibles();
+        Assert.assertEquals(-1, edibles.indexOf(updatedFood));
     }
 
 }
 
-// Arrange
-
-// Act
-
-//Assert
