@@ -30,8 +30,8 @@ import static comp3350.mealbuddy.objects.consumables.Edible.Micros.Zinc;
 
 public class DataAccessTest {
 
-    //private static DataAccess database = Services.createDataAccess(new DataAccessStub(Main.DATABASE_NAME));
-    private static DataAccess database = Services.createDataAccess(new DataAccessStub("StubDB"));
+    private static DataAccess database = Services.createDataAccess(new DataAccessStub(Main.DATABASE_NAME));
+    //private static DataAccess database = Services.createDataAccess(new DataAccessStub("StubDB"));
 
     @Test
     public void removeAccount() {
@@ -139,6 +139,10 @@ public class DataAccessTest {
         database.addEdible(durian);
         newDay.snack.add(durian);
 
+        Food quinoa = new Food("Quinoa");
+        database.addEdible(quinoa);
+        newDay.snack.add(quinoa);
+
         database.updateDay("MuskyBoi", newDay);
         Day updatedDay = database.getDay("MuskyBoi", 1);
 
@@ -161,7 +165,23 @@ public class DataAccessTest {
 
         Assert.assertTrue(updatedDay.lunch.isEmpty());
         Assert.assertTrue(updatedDay.dinner.isEmpty());
-        
+
+        Meal updatedSnack = updatedDay.snack;
+        Assert.assertTrue(updatedSnack.containsEdible(durian));
+        Assert.assertTrue(updatedSnack.containsEdible(quinoa));
+
+        Meal updatedBreakfast = updatedDay.breakfast;
+        Assert.assertTrue(updatedBreakfast.containsEdible(nestedMeal));
+
+        Meal updatedNestedMeal = (Meal)updatedBreakfast.getEdibleIntPair(nestedMeal).edible;
+        Assert.assertTrue(updatedNestedMeal.containsEdible("egg"));
+        Assert.assertTrue(updatedNestedMeal.containsEdible("bacon"));
+        Assert.assertTrue(updatedNestedMeal.containsEdible("cereal"));
+        Assert.assertEquals(2, updatedNestedMeal.getQuantity("cereal"));
+
+        database.removeEdible("durian");
+        database.removeEdible("quinoa");
+        database.removeEdible(nestedMeal.name);
         database.removeAccount("MuskyBoi");
     }
 
