@@ -86,6 +86,8 @@ public class AccessAccount {
      *     The day object requested.
      */
     public Day getDay(String userName, int day){
+        if (!DAS.isDayTracked(userName, day))
+            DAS.addDay(userName, day);
         return DAS.getDay(userName, day);
     }
 
