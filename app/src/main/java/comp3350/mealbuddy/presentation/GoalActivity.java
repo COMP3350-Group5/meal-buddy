@@ -5,6 +5,7 @@
 package comp3350.mealbuddy.presentation;
 
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -41,9 +42,17 @@ public class GoalActivity extends AppCompatActivity {
         Calculator calculator = new Calculator(day);
 
         //Update Goal Text
-        TextView goalText = findViewById(R.id.txtGoal);
+        TextView goalText = findViewById(R.id.txtGoalsTitle);
         goalText.setText("Goals for Day: " + day.dayOfYear);
         initializeCards();
+
+        //Update Goal body
+        TextView goalBody = findViewById(R.id.txtGoals);
+        goalBody.setText(day.getGoalString());
+
+        //Add Goal Button
+        Button addGoalButton = findViewById(R.id.btnAddGoal);
+
 
     }
 

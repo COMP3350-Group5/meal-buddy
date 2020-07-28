@@ -110,5 +110,21 @@ public class Day {
         getMealTime(MT).add(edible, quantity);
     }
 
+    /*
+     * getGoalString
+     * returns string interpretation of the goals
+     * Return:
+     *      returns the string interpretation
+     */
+
+    public String getGoalString() {
+        System.err.println("Getting goals for day: " + dayOfYear);
+        String result = "";
+        for (Goal g : goals) {
+            result += g.toString() + "\n";
+        }
+        return result;
+
+    }
 
 }

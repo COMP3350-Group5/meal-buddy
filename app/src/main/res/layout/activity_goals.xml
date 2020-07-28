@@ -8,7 +8,7 @@
 
     <TextView
         android:id="@+id/txtGoal"
-        android:layout_width="120dp"
+        android:layout_width="80dp"
         android:layout_height="45dp"
         android:layout_marginTop="16dp"
         android:text="Goals"
@@ -46,7 +46,16 @@
                 app:autoSizeMaxTextSize="18sp"
                 app:autoSizeMinTextSize="12sp"
                 app:autoSizeStepGranularity="1sp" />
+
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
+
+    <Button
+        android:id="@+id/btnAddGoal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ADD GOAL"
+        tools:layout_editor_absoluteX="151dp"
+        tools:layout_editor_absoluteY="667dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
