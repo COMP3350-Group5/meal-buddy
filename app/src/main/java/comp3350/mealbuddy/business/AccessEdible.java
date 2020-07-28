@@ -4,6 +4,8 @@
  ****************************************/
 package comp3350.mealbuddy.business;
 
+import java.util.List;
+
 import comp3350.mealbuddy.application.Main;
 import comp3350.mealbuddy.application.Services;
 import comp3350.mealbuddy.objects.consumables.Edible;
@@ -52,5 +54,12 @@ public class AccessEdible {
         DAS.removeEdible(e);
     }
 
+    /*
+     * getEdibles
+     * returns a list of all food in the database
+     * Return:
+     *     the list of food.
+     */
+    public List<Edible> getEdibles(){ return DAS.getEdibles(); }
 
 }
