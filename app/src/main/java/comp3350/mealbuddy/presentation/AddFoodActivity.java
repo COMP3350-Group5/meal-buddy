@@ -44,8 +44,7 @@ public class AddFoodActivity extends AppCompatActivity {
         //get the day to display
         AccessAccount accessAccount = new AccessAccount();
         final AccessEdible accessEdible = new AccessEdible(); //needed so we can add the food to the DB
-        Account account = accessAccount.getAccount(username);
-        final Day day = accessAccount.getDay(account.user.username, dayOfYear);
+        final Day day = accessAccount.getDay(username, dayOfYear);
 
         //obtain all the UI components to grab values from
         Button submit = findViewById(R.id.btnAddFood);
@@ -84,8 +83,10 @@ public class AddFoodActivity extends AppCompatActivity {
 
             day.addToMeal(MT, food, 1); //this adds the food to the USERS day
             accessEdible.addEdible(food); //this adds the food to the foods database.
+            accessAccount.updateDay(username, day);
 
             //we must update the day in order for it to display
+
 
             //go back to the timeline activity and pass the username
             Intent intent = new Intent(AddFoodActivity.this, TimelineActivity.class);

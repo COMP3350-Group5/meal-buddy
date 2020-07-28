@@ -98,6 +98,17 @@ public class AccessAccount {
     }
 
     /*
+     * updateDay
+     * Update a day for an account
+     * Parameters:
+     *     @param username - The account to update a day for
+     *     @param day - The day to update
+     */
+    public void updateDay(String userName, Day day) {
+        DAS.updateDay(userName, day);
+    }
+
+    /*
      * getAccount
      * Get the account for a username.
      * Parameters:
