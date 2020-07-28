@@ -44,8 +44,8 @@ public class Meal extends Edible {
     public Meal(Meal original) {
         super(original.name, original.labels);
         this.ediblesInMeal = new ArrayList<>();
-        for (EdibleIntPair e : original.ediblesInMeal) {
-            this.ediblesInMeal.add(new EdibleIntPair(e.edible, e.quantity));
+        for (Edible e : original) {
+            this.ediblesInMeal.add(new EdibleIntPair(Edible.copyEdible(e), original.getQuantity(e)));
         }
     }
 
