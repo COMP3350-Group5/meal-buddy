@@ -51,8 +51,8 @@ public class HomeActivity extends AppCompatActivity {
         //link the on click listeners
         login.setOnClickListener((view) -> checkLogin(username.getText(), password.getText()));
         createAccount.setOnClickListener((view) -> {
-                Intent intent = new Intent(HomeActivity.this, SignUpActivity.class);
-                HomeActivity.this.startActivity(intent);
+            Intent intent = new Intent(HomeActivity.this, SignUpActivity.class);
+            HomeActivity.this.startActivity(intent);
         });
     }
 

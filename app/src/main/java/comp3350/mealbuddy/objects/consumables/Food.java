@@ -4,8 +4,6 @@
  ****************************************/
 package comp3350.mealbuddy.objects.consumables;
 
-import androidx.annotation.NonNull;
-
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.Iterator;
@@ -39,6 +37,30 @@ public class Food extends Edible {
     public Food(String name) {
         super(name, new ArrayList<>());
         initNutrientLists();
+    }
+
+    /*
+     * Copy Constructor
+     * Creates a food object, and creates an empty list of labels.
+     * Parameters:
+     *     @param name - The name of the food.
+     */
+    public Food(Food original) {
+        super(original.name, original.labels);
+
+        Map<Macros, Integer> macroMap = new EnumMap<>(Macros.class);
+        Macros[] macroArr = Macros.values();
+        for (Macros macro : macroArr) {
+            macroMap.put(macro, original.getMacroGrams(macro));
+        }
+        macros = macroMap;
+
+        Map<Micros, Integer> microMap = new EnumMap<>(Micros.class);
+        Micros[] microArr = Micros.values();
+        for (Micros micro : microArr) {
+            microMap.put(micro, original.getMicroGrams(micro));
+        }
+        micros = microMap;
     }
 
     /*
@@ -108,7 +130,6 @@ public class Food extends Edible {
      * iterator
      * Returns an iterator for a food object
      */
-    @NonNull
     @Override
     public Iterator<Edible> iterator() {
         return new FoodIterator(this);

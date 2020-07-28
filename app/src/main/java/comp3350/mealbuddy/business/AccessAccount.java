@@ -1,5 +1,5 @@
 /****************************************
- * AccessAccount
+* AccessAccount
  * Business Objects for managing accounts
  ****************************************/
 package comp3350.mealbuddy.business;
@@ -9,7 +9,6 @@ import comp3350.mealbuddy.application.Services;
 import comp3350.mealbuddy.objects.Account;
 import comp3350.mealbuddy.objects.Day;
 import comp3350.mealbuddy.objects.UserInfo;
-import comp3350.mealbuddy.objects.consumables.Edible;
 import comp3350.mealbuddy.persistence.DataAccess;
 
 public class AccessAccount {
@@ -47,9 +46,12 @@ public class AccessAccount {
      * updateAccount
      * Update an account in the database.
      * Parameters:
-     *     @param a - The account to be updated.
+     *     @param usernameToUpdate - The user to update.
+     *     @param a - The account to update to.
      */
-    public void updateAccount(Account a){ DAS.updateAccount(a.user.username, a); }
+    public void updateAccount(String usernameToUpdate, Account a){
+        DAS.updateAccount(usernameToUpdate, a);
+    }
 
     /*
      * removeAccount
@@ -57,7 +59,9 @@ public class AccessAccount {
      * Parameters:
      *     @param a - The account to be removed.
      */
-    public void removeAccount(Account a){ DAS.removeAccount(a.user.username); }
+    public void removeAccount(String userName){
+        DAS.removeAccount(userName);
+    }
 
     /*
      * validateLogin
@@ -84,22 +88,10 @@ public class AccessAccount {
      * Return:
      *     The day object requested.
      */
-    public Day getDay(Account a, int day){
-        return DAS.getDay(a.user.username, day);
-    }
-
-
-    /*
-     * getDay
-     * Get a day object for an account
-     * Parameters:
-     *     @param a - The account to retrieve a day for
-     *     @param day - The day to retrieve
-     * Return:
-     *     The day object requested.
-     */
-    public void updateDay(Account a, Day day){
-        DAS.updateDay(a.user.username, day);
+    public Day getDay(String userName, int day){
+        if (!DAS.isDayTracked(userName, day))
+            DAS.addDay(userName, day);
+        return DAS.getDay(userName, day);
     }
 
     /*
@@ -111,4 +103,6 @@ public class AccessAccount {
      *     The account for the given username.
      */
     public Account getAccount(String username) { return DAS.getAccount(username); }
+
+
 }

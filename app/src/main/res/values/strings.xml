@@ -1,5 +1,3 @@
 <resources>
     <string name="app_name">mealbuddy</string>
-    <string name="fatalError">Fatal Error</string>
-    <string name="warning">Warning</string>
 </resources>

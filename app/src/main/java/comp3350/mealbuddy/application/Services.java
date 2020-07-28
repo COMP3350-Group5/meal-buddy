@@ -6,10 +6,19 @@ import comp3350.mealbuddy.persistence.DataAccessObject;
 public class Services {
     private static DataAccess DAS = null;
 
-    public static DataAccess openDAS(String databaseName){
+    public static DataAccess createDataAccess(String databaseName){
         if (DAS == null){
             DAS = new DataAccessObject(databaseName);
-            System.out.println("********************************************************" + Main.getDBPathName());
+            DAS.open(databaseName);
+        }
+        return DAS;
+    }
+
+    public static DataAccess createDataAccess(DataAccess alternateDataAccessService)
+    {
+        if (DAS == null)
+        {
+            DAS = alternateDataAccessService;
             DAS.open(Main.getDBPathName());
         }
         return DAS;

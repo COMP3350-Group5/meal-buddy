@@ -63,6 +63,11 @@ public class DataAccessObject implements DataAccess {
     private int updateCount;
     private String result;
 
+    private final String CALORIE_GOAL_CLASS = "Calorie";
+    private final String MACRO_GOAL_CLASS = "Macro";
+    private final String MICRO_GOAL_CLASS = "Micro";
+    private final String LABEL_GOAL_CLASS = "Label";
+
     /*
      * Constructor
      * Creates a DataAccessObject
@@ -280,13 +285,13 @@ public class DataAccessObject implements DataAccess {
      */
     @Override
     public String addEdible(Edible edible) {
-        String edibleLabelQuery = getAddEdibleLabelQuery(edible);
-        String edibleQuery = (edible instanceof Food) ? getAddFoodQuery((Food) edible) : getAddMealQuery((Meal) edible);
         result = null;
         try {
-            cmdString = edibleQuery + edibleLabelQuery;
-            updateCount = st.executeUpdate(cmdString);
-            result = checkWarning(st, updateCount);
+            if (edible instanceof Food)
+                insertFood((Food) edible);
+            else
+                insertMeal((Meal) edible);
+            insertEdibleLabels(edible);
         } catch (Exception e) {
             result = processSQLError(e);
         }
@@ -294,32 +299,30 @@ public class DataAccessObject implements DataAccess {
     }
 
     /*
-     * getAddEdibleLabelQuery
-     * gets the query that adds the labels associated with the edible
-     * to the db
+     * insertEdibleLabels
+     * inserts labels associated with an edible into the db
      * Parameters:
      *     @param edible - the edible that we are adding
      */
-    private String getAddEdibleLabelQuery(Edible edible) {
+    private void insertEdibleLabels(Edible edible) throws SQLException {
         String query = "";
-        if (edible.labels.size() > 0) {
-            query = "INSERT INTO EDIBLE_LABELS VALUES ";
-            for (String label : edible.labels) {
-                query += "('" + label + "'," + "'" + edible.name + "'), ";
-            }
-            query = query.substring(0, query.lastIndexOf(','));
+        for (String label : edible.labels) {
+            query = "INSERT INTO EDIBLE_LABELS VALUES " +
+                    "('" + label + "'," + "'" + edible.name + "')";
+            cmdString = query;
+            updateCount = st.executeUpdate(cmdString);
+            result = checkWarning(st, updateCount);
         }
-        return query;
     }
 
     /*
-     * getAddFoodQuery
-     * gets the query that adds a food to the db
+     * insertFood
+     * inserts the food into the db
      * Parameters:
      *     @param food - the food we are adding to the db
      */
-    private String getAddFoodQuery(Food food) {
-        return "INSERT INTO EDIBLES( " +
+    private void insertFood(Food food) throws SQLException {
+        String query = "INSERT INTO EDIBLES( " +
                 "EDIBLE_NAME, IS_MEAL, WEIGHT ," +
                 "FAT        ,CARBOHYDRATES ," +
                 "PROTEIN    ,ALCOHOL," +
@@ -329,7 +332,7 @@ public class DataAccessObject implements DataAccess {
                 "CALCIUM    ,CHOLINE ," +
                 "MAGNESIUM  ,SODIUM ," +
                 "POTASSIUM  ,NIACIN) " +
-                "VALUES(  '" + food.name + "'  , True ,  " + food.weight
+                "VALUES(  '" + food.name + "'  , FALSE ,  " + food.weight
                 + "," + food.getMacroGrams(Fat) + "," + food.getMacroGrams(Carbohydrates)
                 + "," + food.getMacroGrams(Protein) + "," + food.getMacroGrams(Alcohol)
                 + "," + food.getMicroGrams(Iron) + "," + food.getMicroGrams(Zinc)
@@ -339,20 +342,26 @@ public class DataAccessObject implements DataAccess {
                 + "," + food.getMicroGrams(Magnesium) + "," + food.getMicroGrams(Sodium)
                 + "," + food.getMicroGrams(Potassium) + "," + food.getMicroGrams(Niacin)
                 + ");";
+        cmdString = query;
+        updateCount = st.executeUpdate(cmdString);
+        checkWarning(st, updateCount);
     }
 
     /*
-     * getAddMealQuery
-     * gets the query that adds a meal to the db
+     * insertMeal
+     * inserts a meal to the db
      * Parameters:
      *     @param meal - the meal to insert
      */
-    private String getAddMealQuery(Meal meal) {
+    private void insertMeal(Meal meal) throws SQLException {
         String mealAdd = "INSERT INTO EDIBLES( " +
                 "EDIBLE_NAME, IS_MEAL) " +
                 "VALUES('" + meal.name + "', TRUE);";
-        String ediblePairAdd = getAddEdibleIntPairQuery(meal);
-        return mealAdd + ediblePairAdd;
+        cmdString = mealAdd;
+        updateCount = st.executeUpdate(cmdString);
+        checkWarning(st, updateCount);
+
+        insertEdibleIntPairs(meal);
     }
 
     /*
@@ -362,19 +371,21 @@ public class DataAccessObject implements DataAccess {
      * Parameters:
      *     @param meal - the meal to get the edible int pairs from
      */
-    private String getAddEdibleIntPairQuery(Meal meal) {
+    private void insertEdibleIntPairs(Meal meal) throws SQLException {
         Iterator<EdibleIntPair> iterator = meal.getEdibleIntPairIterator();
         if (!iterator.hasNext())
-            return "";
-        String query = "INSERT INTO EDIBLE_INT_PAIRS(" +
-                "PARENT_MEAL, EDIBLE_NAME, QUANTITY) VALUES";
+            return;
+        String query;
         EdibleIntPair eip;
         while (iterator.hasNext()) {
+            query = "INSERT INTO EDIBLE_INT_PAIRS(" +
+                    "PARENT_MEAL, EDIBLE_NAME, QUANTITY) VALUES";
             eip = iterator.next();
-            query += "('" + meal.name + "'," + "'" + eip.edible.name + "'," + eip.quantity + "),";
+            query += "('" + meal.name + "'," + "'" + eip.edible.name + "'," + eip.quantity + ")";
+            cmdString = query;
+            updateCount = st.executeUpdate(cmdString);
+            checkWarning(st, updateCount);
         }
-        query = query.substring(0, query.lastIndexOf(','));
-        return query;
     }
 
     /*
@@ -385,16 +396,15 @@ public class DataAccessObject implements DataAccess {
      */
     @Override
     public String updateEdible(String edibleToUpdate, Edible edible) {
-        String labelDeleteQuery = getDeleteEdibleLabelsQuery(edibleToUpdate);
-        String labelInsertionQuery = getAddEdibleLabelQuery(edible);
-        String edibleQuery = (edible instanceof Food)
-                ? getUpdateFoodQuery(edibleToUpdate, (Food) edible)
-                : getUpdateMealQuery(edibleToUpdate, (Meal) edible);
+
         result = null;
         try {
-            cmdString = labelDeleteQuery + edibleQuery + labelInsertionQuery;
-            updateCount = st.executeUpdate(cmdString);
-            result = checkWarning(st, updateCount);
+            deleteEdibleLabels(edibleToUpdate);
+            if (edible instanceof Food)
+                updateFood(edibleToUpdate, (Food) edible);
+            else
+                updateMeal(edibleToUpdate, (Meal) edible);
+            insertEdibleLabels(edible);
         } catch (Exception e) {
             result = processSQLError(e);
         }
@@ -403,25 +413,28 @@ public class DataAccessObject implements DataAccess {
 
 
     /*
-     * getDeleteEdibleLabelsQuery
-     * gets the query that deletes the labels associated
+     * deleteEdibleLabels
+     * deletes the labels associated
      * with an edible from the db
      * Parameters:
      *     @param edibleToUpdate - name of the edible to update
      */
-    private String getDeleteEdibleLabelsQuery(String edibleToUpdate) {
-        return "DELETE FROM EDIBLE_LABELS WHERE EDIBLE_NAME='" + edibleToUpdate + "';";
+    private void deleteEdibleLabels(String edibleToUpdate) throws SQLException {
+        String query = "DELETE FROM EDIBLE_LABELS WHERE EDIBLE_NAME='" + edibleToUpdate + "';";
+        cmdString = query;
+        updateCount = st.executeUpdate(cmdString);
+        checkWarning(st, updateCount);
     }
 
     /*
-     * getUpdateFoodQuery
-     * gets the query that updates the food in the db
+     * updateFood
+     * updates the food in the db
      * Parameters:
      *     @param foodToUpdate - the name of the food to update
      *     @param food - holds the new info we are updating to
      */
-    private String getUpdateFoodQuery(String foodToUpdate, Food food) {
-        return "UPDATE EDIBLES SET " +
+    private void updateFood(String foodToUpdate, Food food) throws SQLException {
+        String query = "UPDATE EDIBLES SET " +
                 "EDIBLE_NAME='" + food.name + "'," +
                 "WEIGHT=" + food.weight + "," +
                 "FAT=" + food.getMacroGrams(Fat) + "," +
@@ -441,24 +454,30 @@ public class DataAccessObject implements DataAccess {
                 "POTASSIUM =" + food.getMicroGrams(Potassium) + " ," +
                 "NIACIN=" + food.getMicroGrams(Niacin) +
                 " WHERE EDIBLE_NAME='" + foodToUpdate + "';";
+        cmdString = query;
+        updateCount = st.executeUpdate(cmdString);
+        checkWarning(st, updateCount);
     }
 
 
     /*
-     * getUpdateMealQuery
-     * gets the query that updates the meal in the db
+     * UpdateMeal
+     * updates the meal in the db
      * Parameters:
      *     @param mealToUpdate - the name of the meal to update
      *     @param meal - holds the new info we are updating to
      */
-    private String getUpdateMealQuery(String mealToUpdate, Meal meal) {
+    private void updateMeal(String mealToUpdate, Meal meal) throws SQLException {
         String updateMeal = "" +
                 "DELETE FROM EDIBLE_INT_PAIRS " +
                 "WHERE PARENT_MEAL ='" + mealToUpdate + "'; " +
                 "UPDATE EDIBLES SET EDIBLE_NAME = '" + meal.name + "' " +
                 "WHERE EDIBLE_NAME='" + mealToUpdate + "';";
-        String ediblePairAdd = getAddEdibleIntPairQuery(meal);
-        return updateMeal + ediblePairAdd;
+        cmdString = updateMeal;
+        updateCount = st.executeUpdate(cmdString);
+        checkWarning(st, updateCount);
+
+        insertEdibleIntPairs(meal);
     }
 
 
@@ -470,11 +489,14 @@ public class DataAccessObject implements DataAccess {
      */
     @Override
     public String removeEdible(String name) {
-        String query = "DELETE FROM EDIBLE_INT_PAIRS WHERE PARENT_MEAL='" + name + "';" +
-                " DELETE FROM EDIBLES WHERE EDIBLE_NAME = '" + name + "'";
+        String query = "DELETE FROM EDIBLE_INT_PAIRS WHERE PARENT_MEAL='" + name + "';";
         result = null;
         try {
             cmdString = query;
+            updateCount = st.executeUpdate(cmdString);
+            result = checkWarning(st, updateCount);
+
+            cmdString = " DELETE FROM EDIBLES WHERE EDIBLE_NAME = '" + name + "'";
             updateCount = st.executeUpdate(cmdString);
             result = checkWarning(st, updateCount);
         } catch (Exception e) {
@@ -497,7 +519,6 @@ public class DataAccessObject implements DataAccess {
         try {
             cmdString = query;
             ResultSet results = st.executeQuery(cmdString);
-            // ResultSetMetaData md5 = rs.getMetaData();
             while (results.next()) {
                 isMeal = results.getBoolean("IS_MEAL");
                 name = results.getString("EDIBLE_NAME");
@@ -576,7 +597,6 @@ public class DataAccessObject implements DataAccess {
         result = null;
         cmdString = query;
         ResultSet results = st.executeQuery(cmdString);
-        // ResultSetMetaData md5 = rs5.getMetaData();
         while (results.next()) {
             labels.add(results.getString("LABEL"));
         }
@@ -772,6 +792,7 @@ public class DataAccessObject implements DataAccess {
         return day;
     }
 
+
     /*
      * getDay
      * gets all days from the associated account username
@@ -886,19 +907,20 @@ public class DataAccessObject implements DataAccess {
      *     @param upper - the upper bound of a goal
      */
     private Goal makeGoal(String clas, String id, Goal.GoalType type, int lower, int upper) {
+
         Goal goal;
         switch (clas) {
-            case "calorie":
+            case CALORIE_GOAL_CLASS:
                 goal = new CalorieGoal(lower, upper);
                 break;
-            case "label":
-                goal = new LabelGoal(lower, upper, type, id);
+            case MACRO_GOAL_CLASS:
+                goal = new MacroGoal(lower, upper, type, getMacroFromString(id));
                 break;
-            case "micro":
+            case MICRO_GOAL_CLASS:
                 goal = new MicroGoal(lower, upper, getMicroFromString(id));
                 break;
             default:
-                goal = new MacroGoal(lower, upper, type, getMacroFromString(id));
+                goal = new LabelGoal(lower, upper, type, id);
                 break;
         }
         return goal;
@@ -995,14 +1017,11 @@ public class DataAccessObject implements DataAccess {
      */
     @Override
     public String updateDay(String userName, Day day) {
-        String updateGoalQuery = getUpdateGoalQuery(userName, day);
-        String updateExerciseQuery = getUpdateExerciseQuery(userName, day);
-        String updateDayEdibleQuery = getUpdateDayEdiblesQuery(userName, day);
         result = null;
         try {
-            cmdString = updateGoalQuery + updateExerciseQuery + updateDayEdibleQuery;
-            updateCount = st.executeUpdate(cmdString);
-            result = checkWarning(st, updateCount);
+            updateGoals(userName, day);
+            updateExercise(userName, day);
+            updateDayEdibles(userName, day);
         } catch (Exception e) {
             result = processSQLError(e);
         }
@@ -1010,87 +1029,133 @@ public class DataAccessObject implements DataAccess {
     }
 
     /*
-     * getUpdateDayEdiblesQuery
-     * gets the query that updates all edibles in a day
+     * updateDayEdibles
+     * updates all edibles in a day
      * Parameters:
      *     @param userName - the userName of the account
      *     @param dayOfYear - the day to update
      */
-    private String getUpdateDayEdiblesQuery(String userName, Day day) {
+    private void updateDayEdibles(String userName, Day day) throws SQLException {
         String deleteOldFood = "DELETE FROM DAY_EDIBLES " +
                 "WHERE USERNAME='" + userName + "' AND DAY_OF_YEAR=" + day.dayOfYear + "; ";
-        String insertNewEdibles = getInsertNewMealTimeQuery(userName, BREAKFAST, day);
-        insertNewEdibles += getInsertNewMealTimeQuery(userName, LUNCH, day);
-        insertNewEdibles += getInsertNewMealTimeQuery(userName, DINNER, day);
-        insertNewEdibles += getInsertNewMealTimeQuery(userName, SNACK, day);
-        return deleteOldFood + insertNewEdibles;
+
+        cmdString = deleteOldFood;
+        updateCount = st.executeUpdate(cmdString);
+        checkWarning(st, updateCount);
+
+        insertNewMealTimeEdibles(userName, BREAKFAST, day);
+        insertNewMealTimeEdibles(userName, LUNCH, day);
+        insertNewMealTimeEdibles(userName, DINNER, day);
+        insertNewMealTimeEdibles(userName, SNACK, day);
     }
 
     /*
-     * getInsertNewMealTimeQuery
+     * insertNewMealTimeEdibles
      * gets the query that adds all edibles in a day in a mealtime
      * Parameters:
      *     @param userName - the userName of the account
      *     @param mealTime - the meal in a day we are updating
      *     @param day - the day we are updating
      */
-    private String getInsertNewMealTimeQuery(String userName, Day.MealTimeType mealTime, Day day) {
+    private void insertNewMealTimeEdibles(String userName, Day.MealTimeType mealTime, Day day) throws SQLException {
         Meal meal = day.getMealTime(mealTime);
         String query = "";
-        if (!meal.isEmpty()) {
+        for (Edible e : meal) {
             query = "INSERT INTO DAY_EDIBLES VALUES";
-            for (Edible e : meal) {
-                query += "( '" + e.name + "', '" + userName + "'," + day.dayOfYear + "," +
-                        "" + mealTime.ordinal() + ", " + meal.getQuantity(e) + "), ";
-            }
-            query = query.substring(0, query.lastIndexOf(',')) + "; ";
+            query += "( '" + e.name + "', '" + userName + "'," + day.dayOfYear + "," +
+                    "" + mealTime.ordinal() + ", " + meal.getQuantity(e) + ") ";
+            cmdString = query;
+            updateCount = st.executeUpdate(cmdString);
+            checkWarning(st, updateCount);
         }
-        return query;
     }
 
     /*
-     * getUpdateGoalQuery
-     * gets the query that updates all goals in a day
+     * updateGoals
+     * updates all goals in a day
      * Parameters:
      *     @param userName - the userName of the account
      *     @param dayOfYear - the day to update
      */
-    private String getUpdateGoalQuery(String userName, Day day) {
+    private void updateGoals(String userName, Day day) throws SQLException {
         String deleteOldGoals = "DELETE FROM GOALS " +
                 "WHERE USERNAME='" + userName + "' AND DAY_OF_YEAR=" + day.dayOfYear + "; ";
-        String insertNewGoals = "";
-        if (day.goals.size() > 0) {
+
+        cmdString = deleteOldGoals;
+        updateCount = st.executeUpdate(cmdString);
+        checkWarning(st, updateCount);
+
+        String insertNewGoals;
+        for (Goal goal : day.goals) {
             insertNewGoals = "INSERT INTO GOALS VALUES";
-            for (Goal goal : day.goals) {
-                insertNewGoals += "('" + userName + "'," + day.dayOfYear + ",'" + goal.getClass() + "'," + goal.goalType.ordinal() +
-                        ",'" + goal.id + "'," + goal.lowerBound + "," + goal.upperBound + "), ";
-            }
-            insertNewGoals = insertNewGoals.substring(0, insertNewGoals.lastIndexOf(',')) + "; ";
+            insertNewGoals += "('" + userName + "'," + day.dayOfYear + ",'" +
+                    "" + getGoalClass(goal) + "'," + goal.goalType.ordinal() +
+                    ",'" + goal.id.toString() + "'," + goal.lowerBound + "," + goal.upperBound + ") ";
+            cmdString = insertNewGoals;
+            updateCount = st.executeUpdate(cmdString);
+            checkWarning(st, updateCount);
         }
-        return deleteOldGoals + insertNewGoals;
+    }
+
+    private String getGoalClass(Goal goal) {
+        if (goal instanceof MacroGoal)
+            return MACRO_GOAL_CLASS;
+        else if (goal instanceof CalorieGoal)
+            return CALORIE_GOAL_CLASS;
+        else if (goal instanceof MicroGoal)
+            return MICRO_GOAL_CLASS;
+        else
+            return LABEL_GOAL_CLASS;
     }
 
 
     /*
      * getUpdateExerciseQuery
-     * gets the query that updates all goals in a day
+     * updates all exercise in a day
      * Parameters:
      *     @param userName - the userName of the account
      *     @param dayOfYear - the day to update
      */
-    private String getUpdateExerciseQuery(String userName, Day day) {
+    private void updateExercise(String userName, Day day) throws SQLException {
         String deleteOldEx = "DELETE FROM EXERCISE " +
                 "WHERE USERNAME='" + userName + "' AND DAY_OF_YEAR=" + day.dayOfYear + "; ";
-        String insertNewEx = "";
-        if (day.exercises.size() > 0) {
-            for (Exercise e : day.exercises) {
-                insertNewEx = "INSERT INTO EXERCISE VALUES";
-                insertNewEx += "('" + userName + "'," + day.dayOfYear + ",'" + e.name + "', " + e.intensity.ordinal() + "," + e.duration +
-                        "), ";
-            }
-            insertNewEx = insertNewEx.substring(0, insertNewEx.lastIndexOf(',')) + "; ";
+
+        cmdString = deleteOldEx;
+        updateCount = st.executeUpdate(cmdString);
+        checkWarning(st, updateCount);
+
+        String insertNewEx;
+        for (Exercise e : day.exercises) {
+            insertNewEx = "INSERT INTO EXERCISE VALUES";
+            insertNewEx += "('" + userName + "'," + day.dayOfYear + ",'" + e.name + "', " +
+                    "" + e.intensity.ordinal() + "," + e.duration + ") ";
+            cmdString = insertNewEx;
+            updateCount = st.executeUpdate(cmdString);
+            checkWarning(st, updateCount);
         }
-        return deleteOldEx + insertNewEx;
+    }
+
+    /*
+     * isDayTracked
+     * returns true if the day is tracked
+     *     @param userName - the account to check the day under
+     *     @param dayOfYear - the day of year to check the day of
+     */
+    @Override
+    public boolean isDayTracked(String userName, int dayOfYear) {
+        boolean isTracked = false;
+        String query = "SELECT * FROM DAYS " +
+                "WHERE USERNAME='" + userName + "' AND DAY_OF_YEAR=" + dayOfYear;
+        List<String> labels = new ArrayList<>();
+        try {
+            cmdString = query;
+            ResultSet rs = st.executeQuery(cmdString);
+            isTracked = rs.next();
+            rs.close();
+        } catch (Exception e) {
+            processSQLError(e);
+        }
+        return isTracked;
     }
 
 }
