@@ -46,7 +46,7 @@ public class AccessEdible {
      * removeEdible
      * Remove an edible from the database.
      * Parameters:
-     *     @param e - The edible to remove.
+     *     @param e - The name of the edible to remove.
      */
     public void removeEdible(String e){
         DAS.removeEdible(e);
