@@ -506,8 +506,9 @@ public class DataAccessStub implements DataAccess {
     public String updateDay(String userName, Day day) {
         Account account = getAccount(userName);
         int dayToUpdate = day.dayOfYear;
-        removeDay(userName, dayToUpdate);
+        account.removeDay(account.getDay(dayToUpdate));
         account.addDay(day);
+        updateAccount(userName, account);
         return "";
     }
 
