@@ -6,26 +6,38 @@ import comp3350.mealbuddy.persistence.DataAccessObject;
 public class Services {
     private static DataAccess DAS = null;
 
-    public static DataAccess createDataAccess(String databaseName){
-        if (DAS == null){
+    public static DataAccess createDataAccess(String databaseName) {
+        if (DAS == null) {
             DAS = new DataAccessObject(databaseName);
-            DAS.open(databaseName);
+            DAS.open(Main.getDBPathName());
         }
         return DAS;
     }
 
-    public static DataAccess createDataAccess(DataAccess alternateDataAccessService)
-    {
-        if (DAS == null)
-        {
+    public static DataAccess createDataAccess(DataAccess alternateDataAccessService) {
+        if (DAS == null) {
             DAS = alternateDataAccessService;
             DAS.open(Main.getDBPathName());
         }
         return DAS;
     }
 
-    public static DataAccess getDataAccess(String databaseName){
-        if (DAS == null){
+    public static void initializeDB(String databaseName) {
+        if (DAS == null) {
+            DAS = new DataAccessObject(databaseName);
+            DAS.open(Main.getDBPathName());
+        }
+    }
+
+    public static void initializeDB(DataAccess alternateDataAccess) {
+        if (DAS == null) {
+            DAS = alternateDataAccess;
+            DAS.open(Main.getDBPathName());
+        }
+    }
+
+    public static DataAccess getDataAccess(String databaseName) {
+        if (DAS == null) {
             System.out.println("Database not instantiated.");
             System.exit(1);
         }
