@@ -19,7 +19,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 public class SignUpActivity extends AppCompatActivity {
-    private AccessAccount accessAccount = new AccessAccount();
+    private AccessAccount accessAccount;
     /*
      * onCreate
      * called when the activity is initially created
@@ -30,6 +30,7 @@ public class SignUpActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
+        accessAccount = new AccessAccount();
 
         //initialize all the variables with the correct components
         EditText username = findViewById(R.id.etUsername);
