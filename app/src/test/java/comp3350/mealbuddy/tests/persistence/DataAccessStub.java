@@ -34,7 +34,7 @@ public class DataAccessStub implements DataAccess {
 
     /*
      * Constructor
-     * Initializes the values for the database
+     * Creates the database
      * Parameters:
      *     @param name - the name of the database
      */
@@ -42,7 +42,14 @@ public class DataAccessStub implements DataAccess {
         this.name = name;
     }
 
-    public void open(String string) {
+    /*
+     * open
+     * Initialize the databases
+     * Parameters:
+     *     @param name - The name of the database
+     */
+    @Override
+    public void open(String name) {
         //initialize the arrays
         edibles = new ArrayList<>();
         accounts = new ArrayList<>();
@@ -213,21 +220,50 @@ public class DataAccessStub implements DataAccess {
         }
     }
 
+    /*
+     * close
+     * Does nothing for the stub.
+     */
+    @Override
     public void close() {
         System.out.println("Closed database " + name);
     }
 
+    /*
+     * addAccount
+     * inserts an account to the db
+     * Parameters:
+     *     @param account - the account to insert
+     */
+    @Override
     public String addAccount(Account account) {
         accounts.add(account);
         return "";
     }
 
-    public String updateAccount(String usernameToUpdate, Account account) {
-        removeAccount(usernameToUpdate);
+    /*
+     * updateAccount
+     * Updates an account already present
+     * in the db
+     * Parameters:
+     *     @param userNameToUpdate - the username of the account to update
+     *     @param account - the account holding the new info to update
+     *                      the old info to
+     */
+    @Override
+    public String updateAccount(String userNameToUpdate, Account account) {
+        removeAccount(userNameToUpdate);
         addAccount(account);
         return "";
     }
 
+    /*
+     * removeAccount
+     * removes an account from the db
+     * Parameters:
+     *     @param userName - the username of the account to remove
+     */
+    @Override
     public String removeAccount(String userName) {
         for (Account account : accounts) {
             if (account.user.username == userName) {
@@ -238,27 +274,56 @@ public class DataAccessStub implements DataAccess {
         return "";
     }
 
+    /*
+     * getAccount
+     * gets the account associated with the username.
+     * returns null if not in db
+     * Parameters:
+     *     @param userName - username associated with the account to get
+     */
+    @Override
     public Account getAccount(String userName) {
         Account result = null;
         for (Account account : accounts) {
             if (account.user.username.equals(userName)) {
-                result = account;
+                result = new Account(account.user);
             }
         }
         return result;
     }
 
+    /*
+     * addEdible
+     * Adds an edible to the db
+     * Parameters:
+     *     @param edible - the edible to add
+     */
+    @Override
     public String addEdible(Edible edible) {
         edibles.add(edible);
         return "";
     }
 
+    /*
+     * updateEdible
+     * Updates an edible in the db
+     * Parameters:
+     *     @param edible - the edible to update
+     */
+    @Override
     public String updateEdible(String edibleToUpdate, Edible edible) {
         removeEdible(edibleToUpdate);
         addEdible(edible);
         return "";
     }
 
+    /*
+     * removeEdible
+     * removes the edible from the db
+     * Parameters:
+     *     @param name - the name of the edible to remove
+     */
+    @Override
     public String removeEdible(String name) {
         Iterator<Edible> iter = edibles.iterator();
         while (iter.hasNext()) {
@@ -270,6 +335,11 @@ public class DataAccessStub implements DataAccess {
         return "";
     }
 
+    /*
+     * getEdibles
+     * gets all the edibles in the db
+     */
+    @Override
     public List<Edible> getEdibles() {
         ArrayList<Edible> result = new ArrayList<>();
         for (Edible edible : edibles) {
@@ -283,6 +353,11 @@ public class DataAccessStub implements DataAccess {
         return result;
     }
 
+    /*
+     * getFoods
+     * gets all the food in the db
+     */
+    @Override
     public List<Food> getFoods() {
         ArrayList<Food> result = new ArrayList<>();
         for (Edible edible : edibles) {
@@ -293,6 +368,11 @@ public class DataAccessStub implements DataAccess {
         return result;
     }
 
+    /*
+     * getMeals
+     * gets all the meals in the db
+     */
+    @Override
     public List<Meal> getMeals() {
         ArrayList<Meal> result = new ArrayList<>();
         for (Edible edible : edibles) {
@@ -303,17 +383,39 @@ public class DataAccessStub implements DataAccess {
         return result;
     }
 
+    /*
+     * addLabel
+     * adds the label to the db
+     * Parameters:
+     *     @param label - the name label to add
+     */
+    @Override
     public String addLabel(String label) {
         labels.add(label);
         return "";
     }
 
+    /*
+     * updateLabel
+     * updates a label in the db
+     * Parameters:
+     *     @param oldLabel - the name of the label to update
+     *     @param newLabel - the name to update to
+     */
+    @Override
     public String updateLabel(String oldLabel, String newLabel) {
         removeLabel(oldLabel);
         addLabel(newLabel);
         return "";
     }
 
+    /*
+     * removeLabel
+     * removes a label from the db
+     * Parameters:
+     *     @param name - the name of the label to remove
+     */
+    @Override
     public String removeLabel(String label) {
         Iterator<String> iter = labels.iterator();
         while (iter.hasNext()) {
@@ -325,6 +427,11 @@ public class DataAccessStub implements DataAccess {
         return "";
     }
 
+    /*
+     * getLabels
+     * gets all labels from the db
+     */
+    @Override
     public List<String> getLabels() {
         ArrayList<String> result = new ArrayList<>();
         for (String l : labels) {
@@ -333,12 +440,27 @@ public class DataAccessStub implements DataAccess {
         return result;
     }
 
+    /*
+     * addDay
+     * adds a new day to the db. Will always be an empty day
+     * Parameters:
+     *     @param userName - the account to add the day under
+     *     @param dayOfYear - the day of year to add the day to
+     */
+    @Override
     public String addDay(String userName, int dayOfYear) {
         Account account = getAccount(userName);
         account.addDay(new Day(dayOfYear));
         return "";
     }
 
+    /*
+     * removeDay
+     * Removes the day from the username
+     * Parameters:
+     *     @param userName - the userName of the account
+     *     @param dayOfYear - the day of the year to remove
+     */
     public String removeDay(String userName, int dayOfYear) {
         Account account = getAccount(userName);
         Day day = account.getDay(dayOfYear);
@@ -346,11 +468,25 @@ public class DataAccessStub implements DataAccess {
         return "";
     }
 
+    /*
+     * getDay
+     * gets the day from the associated account username
+     * Parameters:
+     *     @param userName - the userName of the account
+     *     @param dayOfYear - the day of the year to get
+     */
+    @Override
     public Day getDay(String userName, int dayOfYear) {
         Account account = getAccount(userName);
-        return account.getDay(dayOfYear);
+        return new Day(account.getDay(dayOfYear));
     }
 
+    /*
+     * getDay
+     * gets all days from the associated account username
+     * Parameters:
+     *     @param userName - the userName of the account
+     */
     public List<Day> getDays(String userName) {
         Account account = getAccount(userName);
         List<Day> days = account.getDaysTracked();
@@ -361,6 +497,15 @@ public class DataAccessStub implements DataAccess {
         return result;
     }
 
+    /*
+     * updateDay
+     * updates a certain day in an account.  Updates all info associated with the day
+     * including exercise, meals, and goals.  Note the dayOfYear in a day
+     * can not be updated.
+     * Parameters:
+     *     @param userName - the userName of the account
+     *     @param dayOfYear - the day to update
+     */
     public String updateDay(String userName, Day day) {
         Account account = getAccount(userName);
         int dayToUpdate = day.dayOfYear;
@@ -369,6 +514,13 @@ public class DataAccessStub implements DataAccess {
         return "";
     }
 
+    /*
+     * isDayTracked
+     * Check if a day is being tracked by the user
+     * Parameters:
+     *     @param userName - the userName of the account
+     *     @param dayOfYear - the day of the year to check
+     */
     public boolean isDayTracked(String userName, int dayOfYear) {
         boolean isTracked = false;
         List<Day> daysTracked = getDays(userName);
