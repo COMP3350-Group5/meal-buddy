@@ -24,6 +24,7 @@ import comp3350.mealbuddy.tests.objects.goals.GoalTest;
 import comp3350.mealbuddy.tests.objects.goals.LabelGoalTest;
 import comp3350.mealbuddy.tests.objects.goals.MacroGoalTest;
 import comp3350.mealbuddy.tests.objects.goals.MicroGoalTest;
+import comp3350.mealbuddy.tests.persistence.DataAccessTest;
 
 
 @RunWith(Suite.class)
@@ -46,7 +47,8 @@ import comp3350.mealbuddy.tests.objects.goals.MicroGoalTest;
         UserInfoTest.class,
         DayTest.class,
         FoodIteratorTest.class,
-        MealIteratorTest.class
+        MealIteratorTest.class,
+        DataAccessTest.class
 
 })
 
