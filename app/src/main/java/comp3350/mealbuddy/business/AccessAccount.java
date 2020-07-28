@@ -29,7 +29,10 @@ public class AccessAccount {
      *     @param a - The account to be added.
      */
     public void addAccount(Account a){
-        DAS.addAccount(a);
+        Account check = DAS.getAccount(a.user.username);
+        if (check == null) {
+            DAS.addAccount(a);
+        }
     }
 
     /*

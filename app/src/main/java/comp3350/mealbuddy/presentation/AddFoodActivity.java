@@ -86,7 +86,7 @@ public class AddFoodActivity extends AppCompatActivity {
             accessEdible.addEdible(food); //this adds the food to the foods database.
 
             //we must update the day in order for it to display
-            accessAccount.updateDay(account, day);
+
             //go back to the timeline activity and pass the username
             Intent intent = new Intent(AddFoodActivity.this, TimelineActivity.class);
             intent.putExtra("username", username);
