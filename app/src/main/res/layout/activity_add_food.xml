@@ -82,11 +82,14 @@
         android:id="@+id/spnMealtimes"
         android:layout_width="460dp"
         android:layout_height="50dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="168dp"
         android:entries="@array/mealtimes_array"
         app:layout_constraintBottom_toTopOf="@+id/btnAddFood"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etWeight"
+        app:layout_constraintVertical_bias="0.935" />
 
     <Button
         android:id="@+id/btnAddFood"
