@@ -4,6 +4,7 @@
  ****************************************/
 package comp3350.mealbuddy.business;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import comp3350.mealbuddy.application.Main;
@@ -61,5 +62,21 @@ public class AccessEdible {
      *     the list of food.
      */
     public List<Edible> getEdibles(){ return DAS.getEdibles(); }
+
+    /*
+     * getEdible
+     * returns a edible from the string name
+     * Return:
+     *     the edible or null.
+     */
+    public Edible getEdible(String name){
+        List<Edible> e = getEdibles();
+        for (Edible in : e){
+            if (in.name.equals(name))
+                return in;
+        }
+        return null;
+    }
+
 
 }
