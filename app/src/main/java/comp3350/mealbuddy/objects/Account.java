@@ -32,6 +32,24 @@ public class Account {
     }
 
     /*
+     * Copy Constructor
+     * Initializes the values for the account, from an existing account
+     * Parameters:
+     *     @param original - the account to copy.
+     */
+    public Account(Account original) {
+        this.user = original.user;
+        goals = new ArrayList<>();
+        for (Goal g : original.goals) {
+            this.goals.add(Goal.copyGoal(g));
+        }
+        daysTracked = new ArrayList<>();
+        for (Day d : original.daysTracked) {
+            this.daysTracked.add(new Day(d));
+        }
+    }
+
+    /*
      * AddGoal
      * Adds a goal to the users list, only adds unique goals.
      * Parameters:

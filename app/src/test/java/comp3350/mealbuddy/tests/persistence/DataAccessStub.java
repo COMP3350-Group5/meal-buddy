@@ -286,7 +286,7 @@ public class DataAccessStub implements DataAccess {
         Account result = null;
         for (Account account : accounts) {
             if (account.user.username.equals(userName)) {
-                result = new Account(account.user);
+                result = new Account(account);
             }
         }
         return result;
@@ -343,12 +343,7 @@ public class DataAccessStub implements DataAccess {
     public List<Edible> getEdibles() {
         ArrayList<Edible> result = new ArrayList<>();
         for (Edible edible : edibles) {
-            if (edible instanceof Food) {
-                result.add(new Food((Food)edible));
-            }
-            else {
-                result.add(new Meal((Meal)edible));
-            }
+           result.add(Edible.copyEdible(edible));
         }
         return result;
     }
@@ -362,7 +357,7 @@ public class DataAccessStub implements DataAccess {
         ArrayList<Food> result = new ArrayList<>();
         for (Edible edible : edibles) {
             if (edible instanceof Food) {
-                result.add(new Food((Food)edible));
+                result.add((Food)Edible.copyEdible(edible));
             }
         }
         return result;
@@ -377,7 +372,7 @@ public class DataAccessStub implements DataAccess {
         ArrayList<Meal> result = new ArrayList<>();
         for (Edible edible : edibles) {
             if (edible instanceof Meal) {
-                result.add(new Meal((Meal)edible));
+                result.add((Meal)Edible.copyEdible(edible));
             }
         }
         return result;
@@ -451,6 +446,7 @@ public class DataAccessStub implements DataAccess {
     public String addDay(String userName, int dayOfYear) {
         Account account = getAccount(userName);
         account.addDay(new Day(dayOfYear));
+        updateAccount(userName, account);
         return "";
     }
 
@@ -523,11 +519,11 @@ public class DataAccessStub implements DataAccess {
      */
     public boolean isDayTracked(String userName, int dayOfYear) {
         boolean isTracked = false;
-        List<Day> daysTracked = getDays(userName);
+        Account account = getAccount(userName);
+        List<Day> daysTracked = account.getDaysTracked();
         for (Day d : daysTracked) {
             if (d.dayOfYear == dayOfYear) {
                 isTracked = true;
-                break;
             }
         }
         return isTracked;
