@@ -27,6 +27,7 @@ public class TimelineActivity extends AppCompatActivity {
     private AccessAccount accessAccount;
     private Day day;
     private Calculator calculator;
+    private String username;
 
     /*
      * onCreate
@@ -40,7 +41,7 @@ public class TimelineActivity extends AppCompatActivity {
         setContentView(R.layout.activity_timeline);
 
         //get username from previous activity
-        final String username = this.getIntent().getStringExtra("username");
+        username = this.getIntent().getStringExtra("username");
 
         //get the day to display
         Calendar calendar = Calendar.getInstance();
@@ -144,5 +145,20 @@ public class TimelineActivity extends AppCompatActivity {
         cardTotalsTitle.setText("Totals");
         TextView totalsCals = (TextView) totalsLayout.getChildAt(1);
         totalsCals.setText(calculator.getTotalCalories() + " Cals");
+    }
+
+    /*
+     * initializeTotals
+     * initializes the exercise card
+     */
+    private void initializeExercise() {
+        CardView exercise = findViewById(R.id.cardExercise);
+        RelativeLayout exerciseLayout = (RelativeLayout) exercise.getChildAt(0);
+        TextView cardExerciseTitle = (TextView) exerciseLayout.getChildAt(0);
+        cardExerciseTitle.setText("Exercise");
+        TextView txtExercise = (TextView) exerciseLayout.getChildAt(1);
+        txtExercise.setText(day.getExerciseString());
+        TextView exerciseCals = (TextView) exerciseLayout.getChildAt(1);
+        exerciseCals.setText(calculator.getTotalExerciseCalories(accessAccount.getAccount(username).user) + " Cals");
     }
 }
