@@ -118,6 +118,7 @@ public class GoalTest {
         Assert.assertNotEquals(goal.upperBound, copiedGoal.upperBound);
         Assert.assertNotEquals(goal.goalType, copiedGoal.goalType);
         Assert.assertNotEquals(goal.id, copiedGoal.id);
+        Assert.assertTrue(copiedGoal instanceof MacroGoal);
     }
 
 
