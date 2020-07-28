@@ -8,6 +8,7 @@ package comp3350.mealbuddy.objects;
 import java.util.ArrayList;
 
 import comp3350.mealbuddy.objects.consumables.Edible;
+import comp3350.mealbuddy.objects.consumables.EdibleIntPair;
 import comp3350.mealbuddy.objects.consumables.Meal;
 import comp3350.mealbuddy.objects.goals.Goal;
 
@@ -100,32 +101,12 @@ public class Day {
      *     returns the string interpretation.
      */
     public String getMealString(MealTimeType MT) {
-        String meal = "";
-        switch (MT) {
-            case BREAKFAST:
-                for (Edible edible : breakfast) {
-                    meal += edible.toString() + "\n";
-                }
-                break;
-            case LUNCH:
-                for (Edible edible : lunch) {
-                    meal += edible.toString() + "\n";
-                }
-                break;
-            case DINNER:
-                for (Edible edible :dinner) {
-                    meal += edible.toString() + "\n";
-                }
-                break;
-            case SNACK:
-                for (Edible edible :snack) {
-                    meal += edible.toString() + "\n";
-                }
-                break;
-        }
-        return meal;
+        return getMealTime(MT).toString();
     }
 
+    public void addToMeal(MealTimeType MT, Edible edible, int quantity){
+        getMealTime(MT).add(edible, quantity);
+    }
 
 
 }
