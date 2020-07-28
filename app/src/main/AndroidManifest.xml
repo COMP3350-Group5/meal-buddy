@@ -12,6 +12,7 @@
         <activity android:name=".presentation.AddFoodActivity"></activity>
         <activity android:name=".presentation.SignUpActivity" />
         <activity android:name=".presentation.TimelineActivity" />
+        <activity android:name=".presentation.GoalActivity" />
         <activity android:name=".presentation.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
