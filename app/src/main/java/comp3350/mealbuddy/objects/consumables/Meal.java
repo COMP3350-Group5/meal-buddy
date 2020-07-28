@@ -37,6 +37,19 @@ public class Meal extends Edible {
     }
 
     /*
+     * Creates a meal from an existing meal
+     * Parameters:
+     *     @param name - The name of the meal.
+     */
+    public Meal(Meal original) {
+        super(original.name, original.labels);
+        this.ediblesInMeal = new ArrayList<>();
+        for (Edible e : original) {
+            this.ediblesInMeal.add(new EdibleIntPair(Edible.copyEdible(e), original.getQuantity(e)));
+        }
+    }
+
+    /*
      * iterator
      * Returns an iterator for a meal object
      */

@@ -99,5 +99,25 @@ public class AccountTest {
         Assert.assertEquals(day2, retrievedDay);
     }
 
+    @Test
+    public void isDayTracked_dayContained_true(){
+        //arrange
+        Day day1 = new Day(6);
+        //act
+        account.addDay(day1);
+        //assert
+        Assert.assertTrue(account.isDayTracked(6));
+    }
+
+    @Test
+    public void isDayTracked_dayNotContained_false(){
+        //arrange
+        Day day1 = new Day(6);
+        //act
+        account.addDay(day1);
+        //assert
+        Assert.assertFalse(account.isDayTracked(5));
+    }
+
 
 }

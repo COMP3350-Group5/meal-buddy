@@ -9,7 +9,6 @@ import comp3350.mealbuddy.application.Services;
 import comp3350.mealbuddy.objects.consumables.Edible;
 import comp3350.mealbuddy.persistence.DataAccess;
 
-
 public class AccessEdible {
     private DataAccess DAS;
 
@@ -21,7 +20,6 @@ public class AccessEdible {
         DAS = Services.getDataAccess(Main.DATABASE_NAME);
     }
 
-
     /*
      * addEdible
      * Add an edible to the database.
@@ -32,23 +30,27 @@ public class AccessEdible {
         DAS.addEdible(e);
     }
 
+
     /*
      * updateEdible
      * Update an edible in the database.
      * Parameters:
-     *     @param e - The edible to update.
+     *     @param edibleToUpdate - The edible to update.
+     *     @param e - The edible to update to.
      */
-    public void updateEdible(Edible e) {
+    public void updateEdible(String edibleToUpdate, Edible e){
+        DAS.updateEdible(edibleToUpdate, e);
     }
-
 
     /*
      * removeEdible
      * Remove an edible from the database.
      * Parameters:
-     *     @param e - The edible to remove.
+     *     @param e - The name of the edible to remove.
      */
-    public void removeEdible(Edible e) {
-
+    public void removeEdible(String e){
+        DAS.removeEdible(e);
     }
+
+
 }
