@@ -24,6 +24,16 @@ public abstract class Edible implements Iterable<Edible> {
         Iron, Zinc, VitaminA, VitaminB12, VitaminC, VitaminE, Calcium, Choline, Magnesium, Sodium, Potassium, Niacin
     }
 
+    public static Edible copyEdible(Edible e) {
+        Edible result = null;
+        if (e instanceof Food) {
+            result = new Food((Food)e);
+        }
+        else if (e instanceof Meal) {
+            result = new Meal((Meal)e);
+        }
+        return result;
+    }
 
     public abstract int getMacroGrams(Macros macro);
 

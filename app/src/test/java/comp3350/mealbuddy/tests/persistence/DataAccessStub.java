@@ -7,27 +7,29 @@ package comp3350.mealbuddy.tests.persistence;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Iterator;
+import java.util.List;
 
 import comp3350.mealbuddy.objects.Account;
 import comp3350.mealbuddy.objects.Day;
 import comp3350.mealbuddy.objects.Exercise;
+import comp3350.mealbuddy.objects.Exercise.Intensity;
 import comp3350.mealbuddy.objects.UserInfo;
 import comp3350.mealbuddy.objects.consumables.Edible;
 import comp3350.mealbuddy.objects.consumables.Food;
 import comp3350.mealbuddy.objects.consumables.Meal;
+import comp3350.mealbuddy.persistence.DataAccess;
 
-public class DataAccessStub {
-    public enum DatabaseType {
-        EDIBLES, ACCOUNTS, EXERCISES
-    }
+public class DataAccessStub implements DataAccess {
+
     public String name;
 
     //the "databases"
     private ArrayList<Edible> edibles;
     private ArrayList<Account> accounts;
     private ArrayList<Exercise> exercises;
+    private ArrayList<String> labels;
 
-    //used to create a dummy day
     private Day day;
 
     /*
@@ -40,30 +42,20 @@ public class DataAccessStub {
         this.name = name;
     }
 
-    /*
-     * open
-     * 'opens' the database
-     */
-    public void open() {
+    public void open(String string) {
         //initialize the arrays
         edibles = new ArrayList<>();
         accounts = new ArrayList<>();
         exercises = new ArrayList<>();
+        labels = new ArrayList<>();
 
         //initialize the data
-        initEdibles();
         initDay();
+        initEdibles();
         initAccounts();
         initExercises();
+        initLabels();
         System.out.println("Opened Database " + name);
-    }
-
-    /*
-     * close
-     * 'closes' the database
-     */
-    public void close(){
-        System.out.println("Closed database " + name);
     }
 
     /*
@@ -98,23 +90,23 @@ public class DataAccessStub {
         day = new Day(calendar.get(Calendar.DAY_OF_YEAR));
 
         Object[][] breakfast = {
-            {"Egg", new ArrayList<>(Arrays.asList("vegetarian", "protein")), 50, Edible.Macros.Protein, 45},
-            {"Bagel", new ArrayList<>(Arrays.asList("vegetarian")), 100, Edible.Macros.Carbohydrates, 6},
+                {"Egg", new ArrayList<>(Arrays.asList("vegetarian", "protein")), 50, Edible.Macros.Protein, 45},
+                {"Bagel", new ArrayList<>(Arrays.asList("vegetarian")), 100, Edible.Macros.Carbohydrates, 6},
         };
 
         Object[][] lunch = {
-            {"Beef Patty", new ArrayList<>(Arrays.asList("protein")), 50, Edible.Macros.Protein, 5},
-            {"Cheese", new ArrayList<>(Arrays.asList("dairy", "vegetarian")), 33, Edible.Macros.Fat, 4},
+                {"Beef Patty", new ArrayList<>(Arrays.asList("protein")), 50, Edible.Macros.Protein, 5},
+                {"Cheese", new ArrayList<>(Arrays.asList("dairy", "vegetarian")), 33, Edible.Macros.Fat, 4},
         };
 
         Object[][] dinner = {
-            {"Chicken", new ArrayList<>(Arrays.asList("protein")), 23, Edible.Macros.Fat, 14},
-            {"Rice", new ArrayList<>(Arrays.asList("dairy", "vegetarian")), 44, Edible.Macros.Fat, 10},
+                {"Chicken", new ArrayList<>(Arrays.asList("protein")), 23, Edible.Macros.Fat, 14},
+                {"Rice", new ArrayList<>(Arrays.asList("dairy", "vegetarian")), 44, Edible.Macros.Fat, 10},
         };
 
         Object[][] snack = {
-            {"Chocolate Bar", new ArrayList<>(Arrays.asList("bad foods")), 13, Edible.Macros.Fat, 33},
-            {"Nutri-grain", new ArrayList<>(Arrays.asList("multi-grain")), 12, Edible.Macros.Fat, 5},
+                {"Chocolate Bar", new ArrayList<>(Arrays.asList("bad foods")), 13, Edible.Macros.Fat, 33},
+                {"Nutri-grain", new ArrayList<>(Arrays.asList("multi-grain")), 12, Edible.Macros.Fat, 5},
         };
 
         for (Object[] food : breakfast) {
@@ -156,7 +148,6 @@ public class DataAccessStub {
             edible.updateMacro((Edible.Macros) food[3], (int) food[4]);
             day.getMealTime(Day.MealTimeType.SNACK).add(edible);
         }
-
     }
 
     /*
@@ -167,14 +158,14 @@ public class DataAccessStub {
         Account acc;
         UserInfo userInfo;
         //format of a user:
-            //Full Name | username | password | weight (in lbs) | height (in cm) | Activity Level | Sex
+        //Full Name | username | password | weight (in lbs) | height (in cm) | Activity Level | Sex
         Object[][] users = {
-            {"Ned Stark", "ned_stark123", "starksrule", 200.0, 195.0, UserInfo.ActivityLevel.MEDIUM, UserInfo.Sex.MALE, 42},
-            {"Jamie Lannister", "k1ngsl4yer", "alwayspaymydebts", 230.0, 200.0, UserInfo.ActivityLevel.HIGH, UserInfo.Sex.MALE, 40},
-            {"Daenerys Targaryen", "motherOfDragzz", "123123", 150.0, 160.0, UserInfo.ActivityLevel.MEDIUM, UserInfo.Sex.FEMALE, 13},
-            {"Catelyn Stark", "stoneheart", "909090", 154.4, 160.0, UserInfo.ActivityLevel.LOW, UserInfo.Sex.FEMALE, 50},
-            {"Richard Hendricks", "piedpiper", "alwaysblue", 100.0, 180.0, UserInfo.ActivityLevel.LOW, UserInfo.Sex.MALE, 35},
-            {"Admin", "admin", "group5", 14.2, 400.3, UserInfo.ActivityLevel.LOW, UserInfo.Sex.MALE, 100}
+                {"Ned Stark", "ned_stark123", "starksrule", 200.0, 195.0, UserInfo.ActivityLevel.MEDIUM, UserInfo.Sex.MALE, 42},
+                {"Jamie Lannister", "k1ngsl4yer", "alwayspaymydebts", 230.0, 200.0, UserInfo.ActivityLevel.HIGH, UserInfo.Sex.MALE, 40},
+                {"Daenerys Targaryen", "motherOfDragzz", "123123", 150.0, 160.0, UserInfo.ActivityLevel.MEDIUM, UserInfo.Sex.FEMALE, 13},
+                {"Catelyn Stark", "stoneheart", "909090", 154.4, 160.0, UserInfo.ActivityLevel.LOW, UserInfo.Sex.FEMALE, 50},
+                {"Richard Hendricks", "piedpiper", "alwaysblue", 100.0, 180.0, UserInfo.ActivityLevel.LOW, UserInfo.Sex.MALE, 35},
+                {"Admin", "admin", "group5", 14.2, 400.3, UserInfo.ActivityLevel.LOW, UserInfo.Sex.MALE, 100}
         };
 
         for (Object[] user : users){
@@ -194,135 +185,200 @@ public class DataAccessStub {
         }
     }
 
-
-
     /*
      * initExercises
      * initializes the exercises data set.
      */
-    private void initExercises() {
+    private void initExercises(){
         String[] exerciseList = {
                 "Outdoor Run", "Bench Press", "Push Ups", "Sit Ups"
         };
 
-
-        for (String e : exerciseList) {
-            exercises.add(new Exercise(e, 2.0, Exercise.Intensity.High));
+        for (String e : exerciseList){
+            exercises.add(new Exercise(e, 20, Intensity.Medium));
         }
     }
 
-        /*
-         * addToDB
-         * adds to a specific data set.
-         * Parameters:
-         *     @param DT - Database Type {Accounts, Edibles, Exercises}
-         *     @param o - the object to be added.
-         */
-        public void addToDB (DatabaseType DT, Object o){
-            switch (DT) {
-                case ACCOUNTS:
-                    accounts.add((Account) o);
-                    break;
-                case EDIBLES:
-                    edibles.add((Edible) o);
-                    break;
-                case EXERCISES:
-                    exercises.add((Exercise) o);
-                    break;
-            }
+    /*
+     * initExercises
+     * initializes the labels
+     */
+    private void initLabels() {
+        String[] labelList = {
+                "Vegetarian", "Vegan", "Fat Free", "Gluten Free", "Low Sugar", "Keto"
+        };
+
+        for (String l : labelList) {
+            labels.add(l);
         }
-
-        /*
-         * updateDB
-         * updates a value in a specific data set.
-         * Parameters:
-         *     @param DT - Database Type {Accounts, Edibles, Exercises}
-         *     @param o - the object to be updated.
-         */
-        public void updateDB (DatabaseType DT, Object o){
-            int index;
-            switch (DT) {
-                case ACCOUNTS:
-                    if ((index = accounts.indexOf((Account) o)) >= 0)
-                        accounts.set(index, (Account) o);
-                    break;
-                case EDIBLES:
-                    if ((index = edibles.indexOf((Edible) o)) >= 0)
-                        edibles.set(index, (Edible) o);
-                    break;
-                case EXERCISES:
-                    if ((index = exercises.indexOf((Exercise) o)) >= 0)
-                        exercises.set(index, (Exercise) o);
-                    break;
-            }
-        }
-
-        /*
-         * removeFromDB
-         * removes from a specific data set.
-         * Parameters:
-         *     @param DT - Database Type {Accounts, Edibles, Exercises}
-         *     @param o - the object to be removed.
-         */
-        public void removeFromDB (DatabaseType DT, Object o){
-            switch (DT) {
-                case ACCOUNTS:
-                    accounts.remove((Account) o);
-                    break;
-                case EDIBLES:
-                    edibles.remove((Edible) o);
-                    break;
-                case EXERCISES:
-                    exercises.remove((Exercise) o);
-                    break;
-            }
-        }
-
-        /*
-         * validateLogin
-         * validates if the username and password result in a successful login
-         * Parameters:
-         *     @param username - the username in question
-         *     @param password - password for the user
-         * Return:
-         *     returns the account if valid, null if not valid
-         */
-        public Account validateLogin (String username, String password){
-            for (Account a : accounts) {
-                if (a.user.username.equalsIgnoreCase(username) && a.user.password.equals(password))
-                    return a;
-            }
-            return null;
-        }
-
-        /*
-         * getDay
-         * gets a day from the account
-         * Parameters:
-         *     @param a - the account
-         *     @param day - the dayOfYear we're searching for
-         * Return:
-         *    returns the day object
-         */
-        public Day getDay (Account a,int day){
-            return a.getDay(day);
-        }
-
-        /*
-         * getAccount
-         * gets an account from a string username
-         * Parameters:
-         *     @param username - the username of the account
-         * Return:
-         *    returns the account if it exists, null if not
-         */
-        public Account getAccount (String username){
-            for (Account a : accounts) {
-                if (a.user.username.equalsIgnoreCase(username))
-                    return a;
-            }
-            return null; //this should never happen as long as you validate the login first.
-        }
-
-
     }
+
+    public void close() {
+        System.out.println("Closed database " + name);
+    }
+
+    public String addAccount(Account account) {
+        accounts.add(account);
+        return "";
+    }
+
+    public String updateAccount(String usernameToUpdate, Account account) {
+        removeAccount(usernameToUpdate);
+        addAccount(account);
+        return "";
+    }
+
+    public String removeAccount(String userName) {
+        for (Account account : accounts) {
+            if (account.user.username == userName) {
+                accounts.remove(account);
+                break;
+            }
+        }
+        return "";
+    }
+
+    public Account getAccount(String userName) {
+        Account result = null;
+        for (Account account : accounts) {
+            if (account.user.username.equals(userName)) {
+                result = account;
+            }
+        }
+        return result;
+    }
+
+    public String addEdible(Edible edible) {
+        edibles.add(edible);
+        return "";
+    }
+
+    public String updateEdible(String edibleToUpdate, Edible edible) {
+        removeEdible(edibleToUpdate);
+        addEdible(edible);
+        return "";
+    }
+
+    public String removeEdible(String name) {
+        Iterator<Edible> iter = edibles.iterator();
+        while (iter.hasNext()) {
+            Edible edible = iter.next();
+            if (edible.name.equals(name)) {
+                iter.remove();
+            }
+        }
+        return "";
+    }
+
+    public List<Edible> getEdibles() {
+        ArrayList<Edible> result = new ArrayList<>();
+        for (Edible edible : edibles) {
+            if (edible instanceof Food) {
+                result.add(new Food((Food)edible));
+            }
+            else {
+                result.add(new Meal((Meal)edible));
+            }
+        }
+        return result;
+    }
+
+    public List<Food> getFoods() {
+        ArrayList<Food> result = new ArrayList<>();
+        for (Edible edible : edibles) {
+            if (edible instanceof Food) {
+                result.add(new Food((Food)edible));
+            }
+        }
+        return result;
+    }
+
+    public List<Meal> getMeals() {
+        ArrayList<Meal> result = new ArrayList<>();
+        for (Edible edible : edibles) {
+            if (edible instanceof Meal) {
+                result.add(new Meal((Meal)edible));
+            }
+        }
+        return result;
+    }
+
+    public String addLabel(String label) {
+        labels.add(label);
+        return "";
+    }
+
+    public String updateLabel(String oldLabel, String newLabel) {
+        removeLabel(oldLabel);
+        addLabel(newLabel);
+        return "";
+    }
+
+    public String removeLabel(String label) {
+        Iterator<String> iter = labels.iterator();
+        while (iter.hasNext()) {
+            String nextLabel = iter.next();
+            if (nextLabel.equals(label)) {
+                iter.remove();
+            }
+        }
+        return "";
+    }
+
+    public List<String> getLabels() {
+        ArrayList<String> result = new ArrayList<>();
+        for (String l : labels) {
+                result.add(l);
+        }
+        return result;
+    }
+
+    public String addDay(String userName, int dayOfYear) {
+        Account account = getAccount(userName);
+        account.addDay(new Day(dayOfYear));
+        return "";
+    }
+
+    public String removeDay(String userName, int dayOfYear) {
+        Account account = getAccount(userName);
+        Day day = account.getDay(dayOfYear);
+        account.removeDay(day);
+        return "";
+    }
+
+    public Day getDay(String userName, int dayOfYear) {
+        Account account = getAccount(userName);
+        return account.getDay(dayOfYear);
+    }
+
+    public List<Day> getDays(String userName) {
+        Account account = getAccount(userName);
+        List<Day> days = account.getDaysTracked();
+        List<Day> result = new ArrayList<>();
+        for (Day d : days) {
+            result.add(new Day(d));
+        }
+        return result;
+    }
+
+    public String updateDay(String userName, Day day) {
+        Account account = getAccount(userName);
+        int dayToUpdate = day.dayOfYear;
+        removeDay(userName, dayToUpdate);
+        account.addDay(day);
+        return "";
+    }
+
+    public boolean isDayTracked(String userName, int dayOfYear) {
+        boolean isTracked = false;
+        List<Day> daysTracked = getDays(userName);
+        for (Day d : daysTracked) {
+            if (d.dayOfYear == dayOfYear) {
+                isTracked = true;
+                break;
+            }
+        }
+        return isTracked;
+    }
+
+}

@@ -25,6 +25,8 @@ public class LabelGoal extends Goal {
         this.id = id;
     }
 
+
+
     /*
      * toString
      * Override for the toString method.

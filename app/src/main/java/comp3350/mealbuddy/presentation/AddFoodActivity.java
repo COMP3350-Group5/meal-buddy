@@ -45,7 +45,7 @@ public class AddFoodActivity extends AppCompatActivity {
         AccessAccount accessAccount = new AccessAccount();
         final AccessEdible accessEdible = new AccessEdible(); //needed so we can add the food to the DB
         Account account = accessAccount.getAccount(username);
-        final Day day = accessAccount.getDay(account, dayOfYear);
+        final Day day = accessAccount.getDay(account.user.username, dayOfYear);
 
         //obtain all the UI components to grab values from
         Button submit = findViewById(R.id.btnAddFood);

@@ -33,4 +33,9 @@ public class Exercise {
     public String toString() {
         return name + " " + duration + " mins, " + intensity + " intensity ";
     }
+    public Exercise(Exercise original) {
+        this.name = original.name;
+        this.duration = original.duration;
+        this.intensity = original.intensity;
+    }
 }

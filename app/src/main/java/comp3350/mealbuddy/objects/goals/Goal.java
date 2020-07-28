@@ -6,6 +6,8 @@ package comp3350.mealbuddy.objects.goals;
 
 import java.util.Objects;
 
+import comp3350.mealbuddy.objects.consumables.Edible;
+
 public abstract class Goal {
     public enum GoalType {
         RATIO, QUANTITY
@@ -30,6 +32,23 @@ public abstract class Goal {
         this.upperBound = upperBound;
         this.goalType = goalType;
         this.id = id;
+    }
+
+     public static Goal copyGoal(Goal g) {
+        Goal result = null;
+        if (g instanceof LabelGoal) {
+            result = new LabelGoal(g.lowerBound, g.upperBound, g.goalType, (String)g.id);
+        }
+        else if (g instanceof CalorieGoal) {
+            result =  new CalorieGoal(g.lowerBound, g.upperBound);
+        }
+        else if (g instanceof MacroGoal) {
+            result = new MacroGoal(g.lowerBound, g.upperBound, g.goalType, (Edible.Macros)g.id);
+        }
+        else if (g instanceof MicroGoal) {
+            result =  new MicroGoal(g.lowerBound, g.upperBound, (Edible.Micros)g.id);
+        }
+        return result;
     }
 
     private void validateData(int lowerBound, int upperBound, GoalType goalType) {

@@ -46,7 +46,7 @@ public class TimelineActivity extends AppCompatActivity {
         //get the day to display
         Calendar calendar = Calendar.getInstance();
         accessAccount = new AccessAccount();
-        day = accessAccount.getDay(accessAccount.getAccount(username), calendar.get(Calendar.DAY_OF_YEAR));
+        day = accessAccount.getDay(username, calendar.get(Calendar.DAY_OF_YEAR));
         System.err.println(day.dayOfYear);
         calculator = new Calculator(day);
 

@@ -176,4 +176,12 @@ public interface DataAccess {
      */
     String updateDay(String userName, Day day);
 
+    /*
+     * isDayTracked
+     * Check if a day is being tracked by the user
+     * Parameters:
+     *     @param userName - the userName of the account
+     *     @param dayOfYear - the day of the year to check
+     */
+    boolean isDayTracked(String userName, int dayOfYear);
 }
