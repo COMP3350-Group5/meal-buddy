@@ -177,5 +177,33 @@ public class UserInfoTest {
             //assert
             Assert.assertTrue(true);
         }
+
+    }
+
+
+    @Test
+    public void copyConstructorTest() {
+        //arrange
+        UserInfo copiedUser = new UserInfo(userInfo);
+
+        //act
+        copiedUser.fullname = "Ellen Musk";
+        copiedUser.username = "muskyBoi";
+        copiedUser.password = "T3sla!";
+        copiedUser.weight = 170.00;
+        copiedUser.height = 190.00;
+        copiedUser.activityLevel = UserInfo.ActivityLevel.LOW;
+        copiedUser.sex = UserInfo.Sex.FEMALE;
+        copiedUser.age = 60;
+
+        //assert
+        Assert.assertNotEquals(userInfo.fullname, copiedUser.fullname);
+        Assert.assertNotEquals(userInfo.username, copiedUser.username);
+        Assert.assertNotEquals(userInfo.password, copiedUser.password);
+        Assert.assertNotEquals(userInfo.weight, copiedUser.weight);
+        Assert.assertNotEquals(userInfo.height, copiedUser.height);
+        Assert.assertNotEquals(userInfo.activityLevel, copiedUser.activityLevel);
+        Assert.assertNotEquals(userInfo.sex, copiedUser.sex);
+        Assert.assertNotEquals(userInfo.age, copiedUser.age);
     }
 }
