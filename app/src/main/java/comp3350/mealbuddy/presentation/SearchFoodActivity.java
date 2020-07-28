@@ -1,10 +1,15 @@
 package comp3350.mealbuddy.presentation;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.MenuItemCompat;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.SearchView;
 
 import java.util.ArrayList;
 
@@ -47,5 +52,32 @@ public class SearchFoodActivity extends AppCompatActivity {
 
     }
 
-    public 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        addSearchBar(menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    private void addSearchBar(Menu menu){
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.search_menu, menu);
+
+        MenuItem menuItem = menu.findItem(R.id.sbFood);
+        SearchView searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                                              @Override
+                                              public boolean onQueryTextSubmit(String s) {
+                                                  return false;
+                                              }
+
+                                              @Override
+                                              public boolean onQueryTextChange(String s) {
+                                                  //filter the adapter by the string
+                                                  stringArrayAdapter.getFilter().filter(s);
+                                                  return false;
+                                              }
+                                          }
+        );
+    }
 }
