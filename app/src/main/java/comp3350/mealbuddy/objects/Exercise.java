@@ -29,4 +29,8 @@ public class Exercise {
         this.duration = duration;
         this.intensity = intensity;
     }
+
+    public String toString() {
+        return name + " " + duration + " mins, " + intensity + " intensity ";
+    }
 }
