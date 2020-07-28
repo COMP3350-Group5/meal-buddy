@@ -451,21 +451,6 @@ public class DataAccessStub implements DataAccess {
     }
 
     /*
-     * removeDay
-     * Removes the day from the username
-     * Parameters:
-     *     @param userName - the userName of the account
-     *     @param dayOfYear - the day of the year to remove
-     */
-    public String removeDay(String userName, int dayOfYear) {
-        Account account = getAccount(userName);
-        Day day = account.getDay(dayOfYear);
-        account.removeDay(day);
-        updateAccount(userName, account);
-        return "";
-    }
-
-    /*
      * getDay
      * gets the day from the associated account username
      * Parameters:
