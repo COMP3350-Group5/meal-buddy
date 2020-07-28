@@ -5,11 +5,13 @@
 
 package comp3350.mealbuddy.presentation;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -26,6 +28,9 @@ import comp3350.mealbuddy.objects.consumables.Food;
 
 public class AddFoodActivity extends AppCompatActivity {
 
+    AccessAccount accessAccount;
+    AccessEdible accessEdible;
+    Dialog dialog;
     /*
      * onCreate
      * called when the activity is initially created
@@ -36,14 +41,14 @@ public class AddFoodActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_food);
-
+        dialog = new Dialog(this);
         //get the passed values from the previous activity
         int dayOfYear = this.getIntent().getIntExtra("dayOfYear", -1);
         final String username = this.getIntent().getStringExtra("username");
 
         //get the day to display
-        AccessAccount accessAccount = new AccessAccount();
-        final AccessEdible accessEdible = new AccessEdible(); //needed so we can add the food to the DB
+        accessAccount = new AccessAccount();
+        accessEdible = new AccessEdible(); //needed so we can add the food to the DB
         final Day day = accessAccount.getDay(username, dayOfYear);
 
         //obtain all the UI components to grab values from
@@ -54,7 +59,6 @@ public class AddFoodActivity extends AppCompatActivity {
         final EditText fat = findViewById(R.id.etFat);
         final EditText carbs = findViewById(R.id.etCarbs);
         final EditText weight = findViewById(R.id.etWeight);
-        final Spinner spinner = findViewById(R.id.spnMealtimes);
 
         //on submit we want to create a new food
         submit.setOnClickListener ((view) -> {
@@ -69,9 +73,22 @@ public class AddFoodActivity extends AppCompatActivity {
             food.updateMacro(Edible.Macros.Fat, Integer.parseInt(fat.getText().toString()));
             food.updateMacro(Edible.Macros.Carbohydrates, Integer.parseInt(carbs.getText().toString()));
 
-            //get the meal time to add the food to
+            showPopUp(food, username, dayOfYear);
+        });
+    }
+    public void showPopUp(Edible edible, String username, int dayOfYear){
+        dialog.setContentView(R.layout.pop_up_food);
+        //initialize dialog components
+        TextView titleText = dialog.findViewById(R.id.tvPopUpTitle);
+        Spinner spinner = dialog.findViewById(R.id.spnMealtimes);
+        Button btn = dialog.findViewById(R.id.btnConfirm);
+        EditText editText = dialog.findViewById(R.id.etQuantity);
+
+        btn.setOnClickListener((view) -> {
+            //add the food
             Day.MealTimeType MT;
             String spnString = spinner.getSelectedItem().toString();
+            //find the meal time
             if (spnString.equals("Breakfast"))
                 MT = Day.MealTimeType.BREAKFAST;
             else if(spnString.equals("Lunch"))
@@ -80,12 +97,12 @@ public class AddFoodActivity extends AppCompatActivity {
                 MT = Day.MealTimeType.DINNER;
             else
                 MT = Day.MealTimeType.SNACK;
+            Day day = accessAccount.getDay(username, dayOfYear);
 
-            day.addToMeal(MT, food, 1); //this adds the food to the USERS day
-            accessEdible.addEdible(food); //this adds the food to the foods database.
+            //add the meal to the day and update the day in the user
+            day.addToMeal(MT, edible, Integer.parseInt(editText.getText().toString()));
             accessAccount.updateDay(username, day);
-
-            //we must update the day in order for it to display
+            accessEdible.addEdible(edible); //this adds the food to the foods database.
 
 
             //go back to the timeline activity and pass the username
@@ -93,5 +110,8 @@ public class AddFoodActivity extends AppCompatActivity {
             intent.putExtra("username", username);
             AddFoodActivity.this.startActivity(intent);
         });
+
+        titleText.setText("Adding Food: " + edible.name);
+        dialog.show();
     }
 }

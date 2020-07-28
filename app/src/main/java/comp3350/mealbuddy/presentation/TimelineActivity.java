@@ -58,7 +58,7 @@ public class TimelineActivity extends AppCompatActivity {
         // the "addFood" button to go to the AddFoodActivity
         FloatingActionButton addFood = findViewById(R.id.btnAddFood);
         addFood.setOnClickListener((view) -> {
-                Intent intent = new Intent(TimelineActivity.this, AddFoodActivity.class);
+                Intent intent = new Intent(TimelineActivity.this, SearchFoodActivity.class);
                 intent.putExtra("dayOfYear", day.dayOfYear);
                 intent.putExtra("username", username);
                 TimelineActivity.this.startActivity(intent);

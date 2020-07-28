@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presentation.SearchFoodActivity">
+
+    <TextView
+        android:id="@+id/tvSearchTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select an existing food to add."
+        android:textAlignment="center"
+        android:textSize="30dp"
+        android:gravity="center_horizontal"
+        android:layout_alignParentLeft="true"/>
+
+    <Button
+        android:id="@+id/btnAddNewFood"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:text="@string/add_new_food" />
+
+    <ListView
+        android:id="@+id/lvSearchbar"
+        android:layout_below="@id/btnAddNewFood"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/cardview_dark_background"
+        android:divider="@android:color/background_dark"
+        android:dividerHeight="1.5dp"
+        tools:listitem="@android:layout/simple_list_item_1"
+        tools:ignore="PrivateResource" />
+
+</RelativeLayout>

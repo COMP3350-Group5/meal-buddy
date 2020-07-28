@@ -101,8 +101,6 @@ public class Day {
      *     returns the string interpretation.
      */
     public String getMealString(MealTimeType MT) {
-        System.err.println("Getting mealtime at time " + MT);
-        System.err.println(getMealTime(MT).toString());
         return getMealTime(MT).toString();
     }
 
