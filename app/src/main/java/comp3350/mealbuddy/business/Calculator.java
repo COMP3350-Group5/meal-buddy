@@ -28,6 +28,9 @@ public class Calculator {
     private final static int MEDIUM_MET = 5;
     private final static int HIGH_MET = 10;
 
+    private final static double KG_CONVERSION = 2.205;
+    private final static double MET_MULTIPLIER = 3.5;
+    private final static double MET_DIVISOR = 200.0;
     public Day day;
 
     /*
@@ -306,9 +309,8 @@ public class Calculator {
      *     The calories burned in the exercise
      */
     public int getExerciseCalories(Exercise exercise, UserInfo userInfo) {
-        int calories = 0;
         int met = getMets(exercise);
-        return (int)(((userInfo.weight / 2.205) * 3.5 * met * exercise.duration) / 200);
+        return (int)(((userInfo.weight / KG_CONVERSION) * MET_MULTIPLIER * met * exercise.duration) / MET_DIVISOR);
     }
 
     /*
