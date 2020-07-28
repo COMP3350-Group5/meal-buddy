@@ -104,6 +104,14 @@ public class Day {
         return meal;
     }
 
+    public String getExerciseString() {
+        String exerciseString= "";
+        for (Exercise exercise : exercises) {
+            exerciseString += exercise.toString();
+        }
+        return exerciseString;
+    }
+
 
 
 }
