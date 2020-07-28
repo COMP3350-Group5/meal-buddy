@@ -38,7 +38,7 @@ public class Account {
      *     @param original - the account to copy.
      */
     public Account(Account original) {
-        this.user = original.user;
+        this.user = new UserInfo(original.user);
         goals = new ArrayList<>();
         for (Goal g : original.goals) {
             this.goals.add(Goal.copyGoal(g));

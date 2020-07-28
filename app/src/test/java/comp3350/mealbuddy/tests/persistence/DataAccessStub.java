@@ -266,7 +266,7 @@ public class DataAccessStub implements DataAccess {
     @Override
     public String removeAccount(String userName) {
         for (Account account : accounts) {
-            if (account.user.username == userName) {
+            if (account.user.username.equals(userName)) {
                 accounts.remove(account);
                 break;
             }
@@ -461,6 +461,7 @@ public class DataAccessStub implements DataAccess {
         Account account = getAccount(userName);
         Day day = account.getDay(dayOfYear);
         account.removeDay(day);
+        updateAccount(userName, account);
         return "";
     }
 

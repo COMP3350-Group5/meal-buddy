@@ -119,5 +119,20 @@ public class AccountTest {
         Assert.assertFalse(account.isDayTracked(5));
     }
 
+    @Test
+    public void copyConstructor() {
+        //arrange
+        Account updatedAccount = new Account(account);
+        Goal testGoal = new CalorieGoal(1,100);
+
+        //act
+        updatedAccount.addDay(12);
+        updatedAccount.addGoal(testGoal);
+
+        //assert
+        Assert.assertFalse(account.isDayTracked(12));
+        Assert.assertTrue(updatedAccount.containsGoal(testGoal));
+        Assert.assertFalse(account.containsGoal(testGoal));
+    }
 
 }

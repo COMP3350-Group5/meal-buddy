@@ -48,6 +48,17 @@ public class UserInfo {
         this.age = age;
     }
 
+    public UserInfo(UserInfo original) {
+        this.fullname = original.fullname;
+        this.username = original.username;
+        this.password = original.password;
+        this.weight = original.weight;
+        this.height = original.height;
+        this.activityLevel = original.activityLevel;
+        this.sex = original.sex;
+        this.age = original.age;
+    }
+
     public void validateUserInfo(){
         if (fullname == null) {
             throw new IllegalArgumentException("Null fullname");

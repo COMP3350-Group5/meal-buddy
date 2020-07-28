@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import comp3350.mealbuddy.objects.Day;
+import comp3350.mealbuddy.objects.Exercise;
 import comp3350.mealbuddy.objects.consumables.Food;
 
 public class DayTest {
@@ -86,6 +87,24 @@ public class DayTest {
 
         //act
         Assert.assertEquals(day.breakfast, day.getMealTime(breakfast));
+    }
+
+    @Test
+    public void copyConstructor() {
+        //arrange
+        Day newDay = new Day(1);
+        Food eddie = new Food("fake food", new ArrayList<>(Arrays.asList("fake")));
+
+        //act
+        Day updatedDay = new Day(newDay);
+        updatedDay.snack.add(eddie);
+        updatedDay.exercises.add(new Exercise("Sitting", 1, Exercise.Intensity.Low));
+
+        //assert
+        Assert.assertNotEquals(newDay.exercises, updatedDay.exercises);
+        Assert.assertFalse(newDay.snack.containsEdible(eddie));
+        Assert.assertTrue(updatedDay.snack.containsEdible(eddie));
+
     }
 
 }
