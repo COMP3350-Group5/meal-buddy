@@ -9,7 +9,6 @@ import comp3350.mealbuddy.application.Services;
 import comp3350.mealbuddy.objects.Account;
 import comp3350.mealbuddy.objects.Day;
 import comp3350.mealbuddy.objects.UserInfo;
-import comp3350.mealbuddy.objects.consumables.Edible;
 import comp3350.mealbuddy.persistence.DataAccess;
 
 public class AccessAccount {
@@ -47,10 +46,11 @@ public class AccessAccount {
      * updateAccount
      * Update an account in the database.
      * Parameters:
-     *     @param a - The account to be updated.
+     *     @param usernameToUpdate - The user to update.
+     *     @param a - The account to update to.
      */
-    public void updateAccount(Account a){
-
+    public void updateAccount(String usernameToUpdate, Account a){
+        DAS.updateAccount(usernameToUpdate, a);
     }
 
     /*
@@ -59,7 +59,8 @@ public class AccessAccount {
      * Parameters:
      *     @param a - The account to be removed.
      */
-    public void removeAccount(Account a){
+    public void removeAccount(String userName){
+        DAS.removeAccount(userName);
     }
 
     /*
@@ -84,8 +85,10 @@ public class AccessAccount {
      * Return:
      *     The day object requested.
      */
-    public Day getDay(Account a, int day){
-        return DAS.getDay("", day);
+    public Day getDay(String userName, int day){
+        if (!DAS.isDayTracked(userName, day))
+            DAS.addDay(userName, day);
+        return DAS.getDay(userName, day);
     }
 
     /*
@@ -97,4 +100,6 @@ public class AccessAccount {
      *     The account for the given username.
      */
     public Account getAccount(String username) { return DAS.getAccount(username); }
+
+
 }

@@ -29,4 +29,16 @@ public class Exercise {
         this.duration = duration;
         this.intensity = intensity;
     }
+
+    /*
+     * Copy Constructor
+     * Creates an Exercise from an existing Exercise
+     * Parameters:
+     *     @param original - The original exercise.
+     */
+    public Exercise(Exercise original) {
+        this.name = original.name;
+        this.duration = original.duration;
+        this.intensity = original.intensity;
+    }
 }

@@ -47,6 +47,17 @@ public abstract class Edible implements Iterable<Edible> {
         this.labels = labels;
     }
 
+    public static Edible copyEdible(Edible e) {
+        Edible result = null;
+        if (e instanceof Food) {
+            result = new Food((Food)e);
+        }
+        else if (e instanceof Meal) {
+            result = new Meal((Meal)e);
+        }
+        return result;
+    }
+
     /*
      * containsLabel
      * checks if a food contains a given Label

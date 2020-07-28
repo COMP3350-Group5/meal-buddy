@@ -6,6 +6,7 @@
 package comp3350.mealbuddy.objects;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import comp3350.mealbuddy.objects.goals.Goal;
 
@@ -45,14 +46,14 @@ public class Account {
      * containsGoal
      * Check if the goal list contains a goal
      * Parameters:
-     *     @param g - The goal to check for   
+     *     @param g - The goal to check for
      * Return:
      *     A boolean stating if the goal list contains the goal.
      */
     public boolean containsGoal(Goal g){
         return goals.contains(g);
     }
-  
+
     /*
      * getGoalSize
      * Get the size of the goal list
@@ -62,7 +63,7 @@ public class Account {
     public int getGoalSize(){
         return goals.size();
     }
-  
+
     /*
      * removeGoal
      * removes goal from the list, if it exists.
@@ -128,5 +129,27 @@ public class Account {
         Day newDay = new Day(day);
         daysTracked.add(newDay);
         return newDay;
+    }
+
+    /*
+     * getDaysTracked
+     * Returns all the days tracked for a user.
+     */
+    public List<Day> getDaysTracked() {
+        return daysTracked;
+    }
+
+    /*
+     * isDayTracked
+     * Check if a day is being tracked by the user.
+     */
+    public boolean isDayTracked(int dayOfYear) {
+        boolean result = false;
+        for (Day d : daysTracked) {
+            if (d.dayOfYear == dayOfYear) {
+                result = true;
+            }
+        }
+        return result;
     }
 }

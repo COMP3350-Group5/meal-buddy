@@ -47,6 +47,28 @@ public class Day {
     }
 
     /*
+     * Copy Constructor
+     * initializes a day object from an existing day
+     * Parameters:
+     *     @param original - The day to copy.
+     */
+    public Day(Day original) {
+        this.dayOfYear = original.dayOfYear;
+        this.breakfast = new Meal(original.breakfast);
+        this.lunch = new Meal(original.lunch);
+        this.dinner = new Meal(original.dinner);
+        this.snack = new Meal(original.snack);
+        this.goals = new ArrayList<>();
+        for (Goal g : original.goals) {
+            this.goals.add(Goal.copyGoal(g));
+        }
+        this.exercises = new ArrayList<>();
+        for (Exercise e : original.exercises) {
+            this.exercises.add(new Exercise(e));
+        }
+    }
+
+    /*
      * getMealTime
      * takes a mealtime enum and returns the corresponding list.
      * Parameters:
@@ -103,7 +125,5 @@ public class Day {
         }
         return meal;
     }
-
-
 
 }
