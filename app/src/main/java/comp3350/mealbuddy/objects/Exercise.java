@@ -5,6 +5,8 @@
 
 package comp3350.mealbuddy.objects;
 
+import java.util.Objects;
+
 public class Exercise {
 
     public enum Intensity {
@@ -38,4 +40,14 @@ public class Exercise {
         this.duration = original.duration;
         this.intensity = original.intensity;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Exercise exercise = (Exercise) o;
+        return name.equals(exercise.name) &&
+                intensity == exercise.intensity;
+    }
+
 }

@@ -323,7 +323,7 @@ public class Calculator {
      */
     public int getTotalExerciseCalories(UserInfo userInfo) {
         int totalCalories = 0;
-        for (Exercise exercise : day.exercises) {
+        for (Exercise exercise : day.getExercises()) {
             totalCalories += getExerciseCalories(exercise, userInfo);
         }
         return totalCalories;
