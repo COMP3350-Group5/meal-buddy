@@ -4,6 +4,7 @@
  ****************************************/
 package comp3350.mealbuddy.objects.goals;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import static comp3350.mealbuddy.objects.goals.CalorieGoal.CalorieId.CALORIE_GOAL;
@@ -25,5 +26,18 @@ public class CalorieGoal extends Goal {
         super(lowerBound, upperBound, GoalType.QUANTITY, CALORIE_GOAL);
     }
 
-
+    /*
+     * toString
+     * returns string interpretation of the goal
+     * Return:
+     *      returns the string interpretation
+     */
+    @NonNull
+    @Override
+    public String toString() {
+        return "CalorieGoal{" +
+                "lowerBound=" + lowerBound +
+                ", upperBound=" + upperBound +
+                '}';
+    }
 }

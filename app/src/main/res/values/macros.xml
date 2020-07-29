@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="macro_array">
+        <item>Fat</item>
+        <item>Protein</item>
+        <item>Carbohydrates</item>
+        <item>Alcohol</item>
+    </string-array>
+</resources>

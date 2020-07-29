@@ -4,6 +4,8 @@
  ****************************************/
 package comp3350.mealbuddy.objects.goals;
 
+import androidx.annotation.NonNull;
+
 import java.util.Objects;
 
 import comp3350.mealbuddy.objects.consumables.Edible;

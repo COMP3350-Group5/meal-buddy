@@ -41,6 +41,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="TextView"/>
+
         </RelativeLayout>
 
     </androidx.cardview.widget.CardView>
@@ -214,18 +215,27 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
+        android:clipToPadding="false"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/btnAddFood"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:clickable="true"
-            android:focusable="true"
-            android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:clickable="true"
+            android:focusable="true"
             app:srcCompat="@android:drawable/ic_input_add" />
+
+        <Button
+            android:id="@+id/btnViewGoals"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="View Goals"
+            app:layout_anchor="@+id/btnViewGoals"
+            app:layout_anchorGravity="end|center" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

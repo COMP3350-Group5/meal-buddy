@@ -32,11 +32,11 @@ public class LabelGoal extends Goal {
      * Override for the toString method.
      * Returns string representation of the goal.
      */
-    @Override
     @NonNull
+    @Override
     public String toString() {
         return "LabelGoal{" +
-                "id='" + id + '\'' +
+                "label=" + id +
                 ", lowerBound=" + lowerBound +
                 ", upperBound=" + upperBound +
                 '}';
