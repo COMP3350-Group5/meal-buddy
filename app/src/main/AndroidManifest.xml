@@ -8,7 +8,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MaterialComponents">
+        android:theme="@style/AppTheme">
         <activity android:name=".presentation.SearchFoodActivity"></activity>
         <activity android:name=".presentation.AddFoodActivity" />
         <activity android:name=".presentation.SignUpActivity" />
