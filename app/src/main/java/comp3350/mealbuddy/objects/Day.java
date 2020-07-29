@@ -113,7 +113,7 @@ public class Day {
     public String getExerciseString() {
         String exerciseString= "";
         for (Exercise exercise : exercises) {
-            exerciseString += exercise.toString();
+            exerciseString += exercise.toString() + "\n";
         }
         return exerciseString;
     }

@@ -329,4 +329,8 @@ public class Calculator {
         return totalCalories;
     }
 
+    public int getNetCalories(UserInfo userInfo) {
+        return getTotalCalories() - getTotalExerciseCalories(userInfo);
+    }
+
 }

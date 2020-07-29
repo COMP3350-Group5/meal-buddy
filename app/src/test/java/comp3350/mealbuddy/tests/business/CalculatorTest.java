@@ -434,6 +434,17 @@ public class CalculatorTest {
 
     }
 
+    @Test
+    public void getNetCalories_multipleExercisesMultipleMeals_returnCalories() {
+        int expectedCalories = 5987;
+        UserInfo user = createDefaultUser();
+        Calculator calculator = new Calculator(day);
+        int actualCalories = calculator.getNetCalories(user);
+
+        Assert.assertEquals(expectedCalories, actualCalories);
+
+    }
+
     private Food makeFries() {
         Food fries = new Food("Fries");
         fries.updateMacro(Carbohydrates, 100);

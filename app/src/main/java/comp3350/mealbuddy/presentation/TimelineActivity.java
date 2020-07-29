@@ -146,8 +146,10 @@ public class TimelineActivity extends AppCompatActivity {
         RelativeLayout totalsLayout = (RelativeLayout) totals.getChildAt(0);
         TextView cardTotalsTitle = (TextView) totalsLayout.getChildAt(0);
         cardTotalsTitle.setText("Totals");
-        TextView totalsCals = (TextView) totalsLayout.getChildAt(1);
-        totalsCals.setText(calculator.getTotalCalories() + " Cals");
+        TextView totalsEatenCals = (TextView) totalsLayout.getChildAt(1);
+        totalsEatenCals.setText(calculator.getTotalCalories() + " Cals eaten");
+        TextView netCals = (TextView) totalsLayout.getChildAt(2);
+        netCals.setText(calculator.getNetCalories(accessAccount.getAccount(username).user) + " net Cals");
     }
 
     /*
