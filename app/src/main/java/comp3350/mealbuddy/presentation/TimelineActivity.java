@@ -161,7 +161,7 @@ public class TimelineActivity extends AppCompatActivity {
         cardExerciseTitle.setText("Exercise");
         TextView txtExercise = (TextView) exerciseLayout.getChildAt(1);
         txtExercise.setText(day.getExerciseString());
-        TextView exerciseCals = (TextView) exerciseLayout.getChildAt(1);
+        TextView exerciseCals = (TextView) exerciseLayout.getChildAt(2);
         exerciseCals.setText(calculator.getTotalExerciseCalories(accessAccount.getAccount(username).user) + " Cals");
     }
 }
