@@ -54,6 +54,7 @@ public class DataAccessTest {
     public static final String KETO_LABEL = "TESTKeto";
     public static final String VEGAN_LABEL = "TESTVegan";
 
+
     @Before
     public void init() {
         clean();
@@ -192,7 +193,9 @@ public class DataAccessTest {
         database.removeLabel(KETO_LABEL);
         database.removeLabel(VEGAN_LABEL);
         database.removeAccount(ACCOUNT_USERNAME);
+        database.removeAccount("uCantCMe");
     }
+
     private Meal makeNestedMeal() {
         egg = new Food(EGG_NAME);
         egg.updateMacro(Fat, 10);
