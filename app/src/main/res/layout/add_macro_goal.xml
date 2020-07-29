@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="450dp"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:clipToPadding="false"
+    android:orientation="vertical"
+    android:padding="5dp">
+
+    <TextView
+        android:id="@+id/addMacroGoalTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Create New Macro Goal:"
+        android:textSize="35dp" />
+
+    <TextView
+        android:id="@+id/lowerBoundTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Lower Bound:" />
+
+    <EditText
+        android:id="@+id/lowerBound"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:inputType="number" />
+
+    <TextView
+        android:id="@+id/upperBoundTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Upper Bound:" />
+
+    <EditText
+        android:id="@+id/upperBound"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:inputType="number" />
+
+    <TextView
+        android:id="@+id/goalTypeTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Type:" />
+
+    <Spinner
+        android:id="@+id/spnType"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/matDarkPurp"
+        android:entries="@array/goal_types"
+        android:popupBackground="@color/matDarkPurp" />
+
+    <TextView
+        android:id="@+id/macroTypeTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Macro:" />
+
+    <Spinner
+        android:id="@+id/spnMacro"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/matDarkPurp"
+        android:entries="@array/macro_array"
+        android:popupBackground="@color/matDarkPurp" />
+
+    <Button
+        android:id="@+id/btnContinue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="CONTINUE" />
+</LinearLayout>

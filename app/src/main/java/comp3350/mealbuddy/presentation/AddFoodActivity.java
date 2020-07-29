@@ -45,6 +45,7 @@ public class AddFoodActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_food);
         dialog = new Dialog(this);
+
         //get the passed values from the previous activity
         int dayOfYear = this.getIntent().getIntExtra("dayOfYear", -1);
         final String username = this.getIntent().getStringExtra("username");

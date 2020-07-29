@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="450dp"
+    android:layout_height="250dp"
+    android:layout_gravity="center"
+    android:clipToPadding="false"
+    android:orientation="vertical"
+    android:padding="5dp">
+
+    <TextView
+        android:id="@+id/removeGoalTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Remove Goal:"
+        android:textSize="35dp" />
+
+    <TextView
+        android:id="@+id/removeGoalBody"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Select Goal:" />
+
+    <Spinner
+        android:id="@+id/goals"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/matDarkPurp"
+        android:popupBackground="@color/matDarkPurp" />
+
+    <Button
+        android:id="@+id/btnContinue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="CONTINUE" />
+</LinearLayout>

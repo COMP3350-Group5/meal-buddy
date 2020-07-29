@@ -37,9 +37,9 @@ public class MacroGoal extends Goal {
     @NonNull
     public String toString() {
         return "MacroGoal{" +
-                "id=" + id + "g"+
-                ", lowerBound=" + lowerBound +
-                ", upperBound=" + upperBound +
+                "id=" + id +
+                ", lowerBound=" + lowerBound + "g" +
+                ", upperBound=" + upperBound + "g" +
                 '}';
     }
 

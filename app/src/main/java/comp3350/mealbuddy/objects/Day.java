@@ -118,19 +118,10 @@ public class Day {
         return exerciseString;
     }
 
-    /*
-     * addToMeal
-     * adds a food to the meal.
-     * Parameters:
-     *     @param MT - a mealtime enum value. {BREAKFAST, LUNCH, DINNER, SNACK}
-     *     @param edible - an edible to add to the meal
-     *     @param quantity - the quantity of the edible to add to the meal
-     * Return:
-     *     returns the string interpretation.
-     */
     public void addToMeal(MealTimeType MT, Edible edible, int quantity){
         getMealTime(MT).add(edible, quantity);
     }
+
 
     /*
      * addExercise
@@ -180,13 +171,39 @@ public class Day {
         goals.remove(goal);
     }
 
+    /*
+     * getExercises
+     * get the exercises in a day.
+     * Return:
+     *     the exercise list
+     */
     public ArrayList<Exercise> getExercises() {
         return exercises;
     }
-
+    
+    /*
+     * getGoals
+     * get the goals in a day.
+     * Return:
+     *     the goal list
+     */
     public ArrayList<Goal> getGoals() {
         return goals;
     }
 
+     * getGoalString
+     * returns string interpretation of the goals
+     * Return:
+     *      returns the string interpretation
+     */
+    public String getGoalString() {
+        System.err.println("Getting goals for day: " + dayOfYear);
+        String result = "";
+        for (Goal g : goals) {
+            result += g.toString() + "\n";
+        }
+        return result;
+
+    }
 
 }
