@@ -98,10 +98,10 @@ public class DayTest {
         //act
         Day updatedDay = new Day(newDay);
         updatedDay.snack.add(eddie);
-        updatedDay.exercises.add(new Exercise("Sitting", 1, Exercise.Intensity.Low));
+        updatedDay.addExercise(new Exercise("Sitting", 1, Exercise.Intensity.Low));
 
         //assert
-        Assert.assertNotEquals(newDay.exercises, updatedDay.exercises);
+        Assert.assertNotEquals(newDay.getExercises(), updatedDay.getExercises());
         Assert.assertFalse(newDay.snack.containsEdible(eddie));
         Assert.assertTrue(updatedDay.snack.containsEdible(eddie));
 

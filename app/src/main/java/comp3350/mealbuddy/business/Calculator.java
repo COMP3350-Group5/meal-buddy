@@ -5,6 +5,8 @@
 package comp3350.mealbuddy.business;
 
 import comp3350.mealbuddy.objects.Day;
+import comp3350.mealbuddy.objects.Exercise;
+import comp3350.mealbuddy.objects.UserInfo;
 import comp3350.mealbuddy.objects.consumables.Edible;
 import comp3350.mealbuddy.objects.consumables.Meal;
 
@@ -21,6 +23,14 @@ public class Calculator {
     private final static int FAT_CONVERSION = 9;
     private final static int PROTEIN_CONVERSION = 4;
 
+    // MET values for exercise intensities
+    private final static int LOW_MET = 3;
+    private final static int MEDIUM_MET = 5;
+    private final static int HIGH_MET = 10;
+
+    private final static double KG_CONVERSION = 2.205;
+    private final static double MET_MULTIPLIER = 3.5;
+    private final static double MET_DIVISOR = 200.0;
     public Day day;
 
     /*
@@ -264,6 +274,71 @@ public class Calculator {
                 totalCalories += getEdibleCalories(edible);
         }
         return totalCalories;
+    }
+
+    /*
+     * getMets
+     * Get the MET value associated with an exercise intensity
+     * Parameters:
+     *     @param exercise - The exercise
+     * Return:
+     *     The met value for the exercise
+     */
+    private int getMets(Exercise exercise) {
+        int mets = -1;
+        switch(exercise.intensity) {
+            case Low:
+                mets = LOW_MET;
+                break;
+            case Medium:
+                mets = MEDIUM_MET;
+                break;
+            case High:
+                mets = HIGH_MET;
+                break;
+        }
+        return mets;
+    }
+    /*
+     * getExerciseCalories
+     * Get the calories burned in an exercise.
+     * Parameters:
+     *     @param exercise - The exercise
+     *     @param userInfo - The userInfo of the user performing the exercise
+     * Return:
+     *     The calories burned in the exercise
+     */
+    public int getExerciseCalories(Exercise exercise, UserInfo userInfo) {
+        int met = getMets(exercise);
+        return (int)(((userInfo.weight / KG_CONVERSION) * MET_MULTIPLIER * met * exercise.duration) / MET_DIVISOR);
+    }
+
+    /*
+     * getTotalExerciseCalories
+     * Get the total calories burned in all the exercises in a day.
+     * Parameters:
+     *     @param userInfo - The userInfo of the user performing the exercises
+     * Return:
+     *     The total calories burned in the exercises
+     */
+    public int getTotalExerciseCalories(UserInfo userInfo) {
+        int totalCalories = 0;
+        for (Exercise exercise : day.getExercises()) {
+            totalCalories += getExerciseCalories(exercise, userInfo);
+        }
+        return totalCalories;
+    }
+
+        /*
+     * getNetCalories
+     * Get the net total calories. (i.e., total calories - total burned calories)
+     * Parameters:
+     *     @param userInfo - The userInfo of the user performing the exercises
+     * Return:
+     *     The total calories
+     */
+    public int getNetCalories(UserInfo userInfo) {
+        return getTotalCalories() - getTotalExerciseCalories(userInfo);
     }
 
 }

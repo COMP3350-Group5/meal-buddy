@@ -6,6 +6,7 @@ import androidx.core.view.MenuItemCompat;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -94,28 +95,32 @@ public class SearchFoodActivity extends AppCompatActivity {
         EditText editText = dialog.findViewById(R.id.etQuantity);
 
         btn.setOnClickListener((view) -> {
-            //add the food
-            Day.MealTimeType MT;
-            String spnString = spinner.getSelectedItem().toString();
-            //find the meal time
-            if (spnString.equals("Breakfast"))
-                MT = Day.MealTimeType.BREAKFAST;
-            else if(spnString.equals("Lunch"))
-                MT = Day.MealTimeType.LUNCH;
-            else if(spnString.equals("Dinner"))
-                MT = Day.MealTimeType.DINNER;
-            else
-                MT = Day.MealTimeType.SNACK;
-            Day day = accessAccount.getDay(username, dayOfYear);
+            if(TextUtils.isEmpty(editText.getText())) {
+                editText.setError("Quantity is required");
+            } else {
+                //add the food
+                Day.MealTimeType MT;
+                String spnString = spinner.getSelectedItem().toString();
+                //find the meal time
+                if (spnString.equals("Breakfast"))
+                    MT = Day.MealTimeType.BREAKFAST;
+                else if(spnString.equals("Lunch"))
+                    MT = Day.MealTimeType.LUNCH;
+                else if(spnString.equals("Dinner"))
+                    MT = Day.MealTimeType.DINNER;
+                else
+                    MT = Day.MealTimeType.SNACK;
+                Day day = accessAccount.getDay(username, dayOfYear);
 
-            //add the meal to the day and update the day in the user
-            day.addToMeal(MT, edible, Integer.parseInt(editText.getText().toString()));
-            accessAccount.updateDay(username, day);
+                //add the meal to the day and update the day in the user
+                day.addToMeal(MT, edible, Integer.parseInt(editText.getText().toString()));
+                accessAccount.updateDay(username, day);
 
-            //go back to the timeline activity and pass the username
-            Intent intent = new Intent(SearchFoodActivity.this, TimelineActivity.class);
-            intent.putExtra("username", username);
-            SearchFoodActivity.this.startActivity(intent);
+                //go back to the timeline activity and pass the username
+                Intent intent = new Intent(SearchFoodActivity.this, TimelineActivity.class);
+                intent.putExtra("username", username);
+                SearchFoodActivity.this.startActivity(intent);
+            }
         });
 
         titleText.setText("Adding Food: " + edible.name);

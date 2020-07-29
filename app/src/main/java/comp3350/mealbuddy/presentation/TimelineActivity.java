@@ -6,6 +6,7 @@ package comp3350.mealbuddy.presentation;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -27,6 +28,10 @@ public class TimelineActivity extends AppCompatActivity {
     private AccessAccount accessAccount;
     private Day day;
     private Calculator calculator;
+    private String username;
+    private boolean isFabOpen = false;
+    private FloatingActionButton fabFood;
+    private FloatingActionButton fabExercise;
 
     /*
      * onCreate
@@ -40,7 +45,7 @@ public class TimelineActivity extends AppCompatActivity {
         setContentView(R.layout.activity_timeline);
 
         //get username from previous activity
-        final String username = this.getIntent().getStringExtra("username");
+        username = this.getIntent().getStringExtra("username");
 
         //get the day to display
         Calendar calendar = Calendar.getInstance();
@@ -53,10 +58,35 @@ public class TimelineActivity extends AppCompatActivity {
         TextView timelineText = findViewById(R.id.txtTimeline);
         timelineText.setText("Day: " + day.dayOfYear);
         initializeCards();
+
         // the "addFood" button to go to the AddFoodActivity
-        FloatingActionButton addFood = findViewById(R.id.btnAddFood);
-        addFood.setOnClickListener((view) -> {
+        FloatingActionButton fab = findViewById(R.id.fabAdd);
+        fabFood = findViewById(R.id.fabFood);
+        fabExercise = findViewById(R.id.fabExercise);
+
+        fab.setOnClickListener((view) -> {
+            if(!isFabOpen) showFABMenu();
+            else closeFABMenu();
+        });
+
+        fabFood.setOnClickListener((view) -> {
                 Intent intent = new Intent(TimelineActivity.this, SearchFoodActivity.class);
+                intent.putExtra("dayOfYear", day.dayOfYear);
+                intent.putExtra("username", username);
+                TimelineActivity.this.startActivity(intent);
+        });
+
+        fabExercise.setOnClickListener((view) -> {
+            Intent intent = new Intent(TimelineActivity.this, AddExerciseActivity.class);
+            intent.putExtra("dayOfYear", day.dayOfYear);
+            intent.putExtra("username", username);
+            TimelineActivity.this.startActivity(intent);
+        });
+
+        //the "goals" button to view list of goals
+        Button goals = findViewById(R.id.btnViewGoals);
+        goals.setOnClickListener((view) -> {
+                Intent intent = new Intent(TimelineActivity.this, GoalActivity.class);
                 intent.putExtra("dayOfYear", day.dayOfYear);
                 intent.putExtra("username", username);
                 TimelineActivity.this.startActivity(intent);
@@ -67,12 +97,13 @@ public class TimelineActivity extends AppCompatActivity {
      * initializeCards
      * initializes the UI cards
      */
-    private void initializeCards(){
-        initializeTotals();
+    private void initializeCards() {
         initializeBreakfast();
         initializeLunch();
         initializeDinner();
         initializeSnacks();
+        initializeTotals();
+        initializeExercise();
     }
 
     /*
@@ -144,7 +175,40 @@ public class TimelineActivity extends AppCompatActivity {
         RelativeLayout totalsLayout = (RelativeLayout) totals.getChildAt(0);
         TextView cardTotalsTitle = (TextView) totalsLayout.getChildAt(0);
         cardTotalsTitle.setText("Totals");
-        TextView totalsCals = (TextView) totalsLayout.getChildAt(1);
-        totalsCals.setText(calculator.getTotalCalories() + " Cals");
+        TextView totalsEatenCals = (TextView) totalsLayout.getChildAt(1);
+        totalsEatenCals.setText(calculator.getTotalCalories() + " Cals eaten");
+        TextView netCals = (TextView) totalsLayout.getChildAt(2);
+        netCals.setText(calculator.getNetCalories(accessAccount.getAccount(username).user) + " net Cals");
+    }
+
+    /*
+     * initializeTotals
+     * initializes the exercise card
+     */
+    private void initializeExercise() {
+        CardView exercise = findViewById(R.id.cardExercise);
+        RelativeLayout exerciseLayout = (RelativeLayout) exercise.getChildAt(0);
+        TextView cardExerciseTitle = (TextView) exerciseLayout.getChildAt(0);
+        cardExerciseTitle.setText("Exercise");
+        TextView txtExercise = (TextView) exerciseLayout.getChildAt(1);
+        txtExercise.setText(day.getExerciseString());
+        TextView exerciseCals = (TextView) exerciseLayout.getChildAt(2);
+        exerciseCals.setText(calculator.getTotalExerciseCalories(accessAccount.getAccount(username).user) + " Cals");
+    }
+
+    private void showFABMenu(){
+        isFabOpen=true;
+        fabFood.animate().translationY(-getResources().getDimension(R.dimen.standard_65));
+        fabExercise.animate().translationY(-getResources().getDimension(R.dimen.standard_130));
+    }
+
+    private void closeFABMenu(){
+        isFabOpen=false;
+        fabFood.animate().translationY(0);
+        fabExercise.animate().translationY(0);
+    }
+    @Override
+    public void onBackPressed() {
+       // empty to disable back button
     }
 }

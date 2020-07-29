@@ -4,7 +4,6 @@
     android:orientation="vertical"
     android:layout_width="450dp"
     android:layout_height="250dp"
-    android:background="@color/matDarkGrey"
     android:padding="5dp"
     android:layout_gravity="center"
     tools:ignore="PrivateResource">
@@ -29,8 +28,6 @@
         android:id="@+id/spnMealtimes"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/matDarkPurp"
-        android:popupBackground="@color/matDarkPurp"
         android:entries="@array/mealtimes_array"
         />
 
@@ -41,7 +38,6 @@
         android:hint="Quantity"
         android:inputType="number"
         android:layout_gravity="center"
-        android:textColor="@color/owlpink500"
         android:textColorHint="@color/cardview_light_background" />
     <Button
         android:id="@+id/btnConfirm"

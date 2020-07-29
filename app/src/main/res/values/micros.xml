@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="micro_array">
+        <item>Iron</item>
+        <item>Zinc</item>
+        <item>VitaminA</item>
+        <item>VitaminB12</item>
+        <item>VitaminC</item>
+        <item>VitaminE</item>
+        <item>Calcium</item>
+        <item>Choline</item>
+        <item>Magnesium</item>
+        <item>Sodium</item>
+        <item>Potassium</item>
+        <item>Niacin</item>
+    </string-array>
+</resources>

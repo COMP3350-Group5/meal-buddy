@@ -8,11 +8,17 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MaterialComponents">
-        <activity android:name=".presentation.SearchFoodActivity"></activity>
-        <activity android:name=".presentation.AddFoodActivity" />
+        android:theme="@style/AppTheme">
+        <activity android:name=".presentation.AddExerciseActivity"></activity>
+        <activity
+            android:name=".presentation.SearchFoodActivity"
+            android:theme="@style/TitleTheme" />
+        <activity
+            android:name=".presentation.AddFoodActivity"
+            android:theme="@style/TitleTheme" />
         <activity android:name=".presentation.SignUpActivity" />
         <activity android:name=".presentation.TimelineActivity" />
+        <activity android:name=".presentation.GoalActivity" />
         <activity android:name=".presentation.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
