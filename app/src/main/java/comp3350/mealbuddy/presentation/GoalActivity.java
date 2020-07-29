@@ -28,6 +28,7 @@ import comp3350.mealbuddy.objects.Day;
 import comp3350.mealbuddy.objects.consumables.Edible;
 import comp3350.mealbuddy.objects.goals.CalorieGoal;
 import comp3350.mealbuddy.objects.goals.Goal;
+import comp3350.mealbuddy.objects.goals.LabelGoal;
 import comp3350.mealbuddy.objects.goals.MacroGoal;
 import comp3350.mealbuddy.objects.goals.MicroGoal;
 
@@ -151,17 +152,20 @@ public class GoalActivity extends AppCompatActivity {
         //Set up the objects on screen
         EditText lowerBound = dialog.findViewById(R.id.lowerBound);
         EditText upperBound = dialog.findViewById(R.id.upperBound);
+        Spinner goalType = dialog.findViewById(R.id.spnType);
         Spinner labelSpinner = dialog.findViewById(R.id.label);
+
+        //Populate the labels
         AccessLabel accessLabel = new AccessLabel();
         List<String> labels = accessLabel.getLabels();
-
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, labels);
         labelSpinner.setAdapter(adapter);
 
+        //Submit the goal
         Button btnContinue = dialog.findViewById(R.id.btnContinue);
         btnContinue.setOnClickListener((view) -> {
             Day day = accessAccount.getDay(userName, dayOfYear);
-            day.goals.add(new CalorieGoal(Integer.parseInt(lowerBound.getText().toString()), Integer.parseInt(upperBound.getText().toString())));
+            day.goals.add(new LabelGoal(Integer.parseInt(lowerBound.getText().toString()), Integer.parseInt(upperBound.getText().toString()), Goal.GoalType.valueOf(goalType.getSelectedItem().toString()), labelSpinner.getSelectedItem().toString()));
             accessAccount.updateDay(userName, day);
 
             //Go back to the goal activity
