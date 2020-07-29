@@ -2,6 +2,7 @@ package comp3350.mealbuddy.tests.objects.consumables;
 
 import org.junit.Test;
 
+import comp3350.mealbuddy.objects.consumables.Edible;
 import comp3350.mealbuddy.objects.consumables.EdibleIntPair;
 import comp3350.mealbuddy.objects.consumables.Food;
 import comp3350.mealbuddy.objects.consumables.Meal;
@@ -77,5 +78,29 @@ public class EdibleTest {
         assertFalse(meal.containsLabel(label));
     }
 
+    @Test
+    public void copyConstructorTest() {
+        //Arrange
+        Edible food = new Food("Butter");
+        food.labels.add("Test");
+        Edible copiedFood = Edible.copyEdible(food);
+
+        Meal meal = new Meal("Meal1");
+        meal.add(food);
+        Meal copiedMeal = (Meal) Edible.copyEdible(meal);
+        Edible food2 = new Food("Toast");
+
+        //Act
+        food.labels.add("Original");
+        copiedFood.labels.add("Copied");
+        copiedMeal.add(food2);
+
+        //Assert
+        assertFalse(food.containsLabel("copied"));
+        assertTrue(copiedFood.containsLabel("Test"));
+        assertTrue(copiedMeal.containsEdible(food));
+        assertFalse(meal.containsEdible(food2));
+
+    }
 
 }

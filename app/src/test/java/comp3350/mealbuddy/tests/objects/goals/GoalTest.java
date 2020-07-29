@@ -101,6 +101,26 @@ public class GoalTest {
         Assert.assertNotNull(goal); //no error thrown
     }
 
+    @Test
+    public void copyConstructorTest() {
+        //arrange
+        Goal goal = new MacroGoal(1, 100, Goal.GoalType.QUANTITY, Edible.Macros.Alcohol);
+        Goal copiedGoal = Goal.copyGoal(goal);
+
+        //act
+        copiedGoal.lowerBound = 5;
+        copiedGoal.upperBound = 200;
+        copiedGoal.goalType = Goal.GoalType.RATIO;
+        copiedGoal.id = Edible.Macros.Carbohydrates;
+
+        //assert
+        Assert.assertNotEquals(goal.lowerBound, copiedGoal.lowerBound);
+        Assert.assertNotEquals(goal.upperBound, copiedGoal.upperBound);
+        Assert.assertNotEquals(goal.goalType, copiedGoal.goalType);
+        Assert.assertNotEquals(goal.id, copiedGoal.id);
+        Assert.assertTrue(copiedGoal instanceof MacroGoal);
+    }
+
 
 
 }
