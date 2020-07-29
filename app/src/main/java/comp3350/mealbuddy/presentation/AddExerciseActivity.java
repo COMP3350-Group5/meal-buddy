@@ -45,8 +45,8 @@ public class AddExerciseActivity extends AppCompatActivity {
 
         //obtain all the UI components to grab values from
         Button submit = findViewById(R.id.btnAddExercise);
-        final EditText name = findViewById(R.id.etFoodName);
-        Spinner spinner = dialog.findViewById(R.id.spnIntensity);
+        final EditText name = findViewById(R.id.etExerciseName);
+        Spinner spinner = findViewById(R.id.spnIntensity);
         final EditText duration = findViewById(R.id.etDuration);
 
 
