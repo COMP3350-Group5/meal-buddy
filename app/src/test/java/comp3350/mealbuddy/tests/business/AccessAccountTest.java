@@ -34,6 +34,7 @@ public class AccessAccountTest {
         account.addDay(day);
         dummyUserInfo = new UserInfo("John Cena", "uCantCMe", "alwaysblue", 100.0, 180.0, UserInfo.ActivityLevel.LOW, UserInfo.Sex.MALE, 35);
         accessAccount.addAccount(account);
+        accessAccount.addAccount(dummyUserInfo);
 
     }
 

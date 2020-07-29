@@ -58,7 +58,7 @@ public class AccessLabel {
             throw new NullPointerException("Labels cannot be null");
         if (getLabel(oldLabel) == null)
             throw new IllegalArgumentException("Label being updated doesn't exist in the DB.");
-        if(oldLabel != newLabel && (newLabel) != null)
+        if(!oldLabel.equals(newLabel) && (newLabel) != null)
             throw new IllegalArgumentException("Label already exists. Label cannot be updated");
         DAS.updateLabel(oldLabel, newLabel);
     }

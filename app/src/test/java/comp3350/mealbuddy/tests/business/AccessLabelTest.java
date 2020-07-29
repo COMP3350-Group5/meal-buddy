@@ -108,5 +108,14 @@ public class AccessLabelTest {
         }
     }
 
+    @Test
+    public void getLabel_nullValue_throwException(){
+        try {
+            accessLabel.getLabel(null);
+            Assert.fail();
+        } catch(NullPointerException iae){
+            Assert.assertTrue(true);
+        }
+    }
 
 }
