@@ -1,11 +1,8 @@
 package comp3350.mealbuddy.tests.business;
 
-import org.hsqldb.User;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.Arrays;
 
 import comp3350.mealbuddy.application.Main;
 import comp3350.mealbuddy.application.Services;
@@ -13,8 +10,6 @@ import comp3350.mealbuddy.business.AccessAccount;
 import comp3350.mealbuddy.objects.Account;
 import comp3350.mealbuddy.objects.Day;
 import comp3350.mealbuddy.objects.UserInfo;
-import comp3350.mealbuddy.objects.consumables.Edible;
-import comp3350.mealbuddy.objects.consumables.Food;
 import comp3350.mealbuddy.persistence.DataAccess;
 import comp3350.mealbuddy.tests.persistence.DataAccessStub;
 
@@ -27,8 +22,6 @@ public class AccessAccountTest {
     private static final String ACCOUNT_USERNAME = "TESTMuskyBoi";
     private static final String ACCOUNT_PASSWORD = "T3sla";
     private static final int DAY_OF_YEAR = 123;
-
-
 
 
     @Before
