@@ -78,4 +78,13 @@ public class UserInfo {
             throw new IllegalArgumentException("Age should not be less than zero or greater than 120");
         }
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserInfo userInfo = (UserInfo) o;
+        return username.equals(userInfo.username);
+    }
+
 }

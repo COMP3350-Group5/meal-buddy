@@ -170,4 +170,13 @@ public class Account {
         }
         return result;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Account account = (Account) o;
+        return user.equals(account.user);
+    }
+
 }

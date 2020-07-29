@@ -29,7 +29,10 @@ public class AccessAccount {
      *     @param a - The account to be added.
      */
     public void addAccount(Account a){
-        DAS.addAccount(a);
+        Account check = DAS.getAccount(a.user.username);
+        if (check == null) {
+            DAS.addAccount(a);
+        }
     }
 
     /*
@@ -73,6 +76,9 @@ public class AccessAccount {
      *     The account if valid, null if not valid.
      */
     public Account validateLogin(String username, String password){
+        Account acc = getAccount(username);
+        if(acc != null && password.equals(acc.user.password))
+            return acc;
         return null;
     }
 
@@ -89,6 +95,17 @@ public class AccessAccount {
         if (!DAS.isDayTracked(userName, day))
             DAS.addDay(userName, day);
         return DAS.getDay(userName, day);
+    }
+
+    /*
+     * updateDay
+     * Update a day for an account
+     * Parameters:
+     *     @param username - The account to update a day for
+     *     @param day - The day to update
+     */
+    public void updateDay(String userName, Day day) {
+        DAS.updateDay(userName, day);
     }
 
     /*
