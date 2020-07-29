@@ -4,6 +4,8 @@
  ****************************************/
 package comp3350.mealbuddy.business;
 
+import androidx.core.app.NavUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +32,10 @@ public class AccessEdible {
      *     @param e - The edible to add to the database.
      */
     public void addEdible(Edible e) {
+        if (e == null)
+            throw new NullPointerException("Edible can't be null");
+        if (getEdible(e.name) != null)
+            return;
         DAS.addEdible(e);
     }
 
@@ -42,6 +48,13 @@ public class AccessEdible {
      *     @param e - The edible to update to.
      */
     public void updateEdible(String edibleToUpdate, Edible e){
+        if (edibleToUpdate == null)
+            throw new NullPointerException("Edible name can't be null");
+        if (e == null)
+            throw new NullPointerException("Edible can't be null");
+        if (getEdible(edibleToUpdate) == null)
+            throw new IllegalArgumentException("Edible being updated doesn't exist");
+
         DAS.updateEdible(edibleToUpdate, e);
     }
 
@@ -52,6 +65,10 @@ public class AccessEdible {
      *     @param e - The name of the edible to remove.
      */
     public void removeEdible(String e){
+        if (e == null)
+            throw new NullPointerException("Edible name can't be null");
+        if (getEdible(e) == null)
+            throw new IllegalArgumentException("Edible being removed doesn't exist");
         DAS.removeEdible(e);
     }
 
@@ -70,6 +87,8 @@ public class AccessEdible {
      *     the edible or null.
      */
     public Edible getEdible(String name){
+        if (name == null)
+            throw new NullPointerException("Edible name can't be null");
         List<Edible> e = getEdibles();
         for (Edible in : e){
             if (in.name.equals(name))

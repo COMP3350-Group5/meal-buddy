@@ -4,6 +4,9 @@ package comp3350.mealbuddy.tests;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
+import comp3350.mealbuddy.tests.business.AccessAccountTest;
+import comp3350.mealbuddy.tests.business.AccessEdibleTest;
+import comp3350.mealbuddy.tests.business.AccessLabelTest;
 import comp3350.mealbuddy.tests.business.CalculatorTest;
 //import comp3350.mealbuddy.tests.business.goalFactory.DefaultGoalFactorTest;
 import comp3350.mealbuddy.tests.business.goalFactory.DefaultGoalFactorTest;
@@ -48,7 +51,10 @@ import comp3350.mealbuddy.tests.persistence.DataAccessTest;
         DayTest.class,
         FoodIteratorTest.class,
         MealIteratorTest.class,
-        DataAccessTest.class
+        DataAccessTest.class,
+        AccessAccountTest.class,
+        AccessLabelTest.class,
+        AccessEdibleTest.class
 })
 
 public class AllTests {
