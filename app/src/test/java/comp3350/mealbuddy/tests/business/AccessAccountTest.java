@@ -55,7 +55,48 @@ public class AccessAccountTest {
         Assert.assertTrue(true); //we didnt crash
     }
 
+    @Test
+    public void updateAccountTest(){
+        //---normal cases----
+        //testing updating account
+        Assert.assertEquals(ACCOUNT_USERNAME, accessAccount.getAccount(ACCOUNT_USERNAME).user.username);
+        accessAccount.updateAccount(account.user.username, new Account(dummyUserInfo));
+        Assert.assertEquals(dummyUserInfo.username, accessAccount.getAccount(dummyUserInfo.username).user.username);
+        accessAccount.updateAccount(ACCOUNT_USERNAME, new Account(userInfo)); //reset it
+        Assert.assertEquals(ACCOUNT_USERNAME, accessAccount.getAccount(ACCOUNT_USERNAME).user.username);
 
+        //---testing edge cases---
+        //verify the following account isnt in the database for the next couple of tests
+        Assert.assertNull(accessAccount.getAccount("Idontexist"));
+        //trying to update an account that doesnt exist
+        accessAccount.updateAccount("Idontexist", null);
+        Assert.assertNull(accessAccount.getAccount("Idontexist"));
+
+        //trying to update null pointers
+        accessAccount.updateAccount(null, null);
+        Assert.assertTrue(true); //we didn't crash lol
+
+    }
+
+    @Test
+    public void removeAccountTest(){
+        //remove account normally
+        Assert.assertNotNull(accessAccount.getAccount(ACCOUNT_USERNAME));
+        accessAccount.removeAccount(ACCOUNT_USERNAME);
+        Assert.assertNull(accessAccount.getAccount(ACCOUNT_USERNAME));
+        accessAccount.addAccount(account);
+        Assert.assertNotNull(accessAccount.getAccount(ACCOUNT_USERNAME));
+
+        //verify the following account isnt in the database for the next couple of tests
+        Assert.assertNull(accessAccount.getAccount("Idontexist"));
+
+        //trying to remove and update accounts that dont exist
+        accessAccount.removeAccount("Idontexist");
+        Assert.assertNull(accessAccount.getAccount("Idontexist"));
+        //trying to remove and update null pointers
+        accessAccount.removeAccount(null);
+        Assert.assertTrue(true); //we didn't crash lol
+    }
 
     @Test
     public void getAndVerifyAccount(){
