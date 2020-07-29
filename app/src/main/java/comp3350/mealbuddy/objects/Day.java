@@ -104,9 +104,24 @@ public class Day {
         return getMealTime(MT).toString();
     }
 
+    /*
+     * addToMeal
+     * gets the correct list and adds the edible by quantity into the list
+     * Parameters:
+     *     @param MT - a mealtime enum value. {BREAKFAST, LUNCH, DINNER, SNACK}
+     *     @param edible - to add
+     *     @param quantity - the quantity
+     */
     public void addToMeal(MealTimeType MT, Edible edible, int quantity){
         getMealTime(MT).add(edible, quantity);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Day day = (Day) o;
+        return dayOfYear == day.dayOfYear;
+    }
 
 }

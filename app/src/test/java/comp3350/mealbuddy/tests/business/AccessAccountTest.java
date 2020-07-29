@@ -9,6 +9,7 @@ import comp3350.mealbuddy.application.Main;
 import comp3350.mealbuddy.application.Services;
 import comp3350.mealbuddy.business.AccessAccount;
 import comp3350.mealbuddy.objects.Account;
+import comp3350.mealbuddy.objects.Day;
 import comp3350.mealbuddy.objects.UserInfo;
 import comp3350.mealbuddy.persistence.DataAccess;
 import comp3350.mealbuddy.tests.persistence.DataAccessStub;
@@ -16,10 +17,14 @@ import comp3350.mealbuddy.tests.persistence.DataAccessStub;
 public class AccessAccountTest {
     private static AccessAccount accessAccount;
     private static Account account;
+    private static Day day;
     private static UserInfo userInfo;
     private static UserInfo dummyUserInfo;
     private static final String ACCOUNT_USERNAME = "TESTMuskyBoi";
     private static final String ACCOUNT_PASSWORD = "T3sla";
+    private static final int DAY_OF_YEAR = 123;
+
+
 
 
     @Before
@@ -28,9 +33,11 @@ public class AccessAccountTest {
         accessAccount = new AccessAccount();
         userInfo = new UserInfo("Elon Musk", ACCOUNT_USERNAME, ACCOUNT_PASSWORD, 280.0, 170.5, UserInfo.ActivityLevel.LOW, UserInfo.Sex.MALE, 40);
         account = new Account(userInfo);
+        day = new Day(DAY_OF_YEAR);
+        account.addDay(day);
         dummyUserInfo = new UserInfo("John Cena", "uCantCMe", "alwaysblue", 100.0, 180.0, UserInfo.ActivityLevel.LOW, UserInfo.Sex.MALE, 35);
-
         accessAccount.addAccount(account);
+
     }
 
     @Test
@@ -99,7 +106,7 @@ public class AccessAccountTest {
     }
 
     @Test
-    public void getAndVerifyAccount(){
+    public void getAndVerifyAccountTest(){
         //tests that should pass
         Assert.assertEquals(account, accessAccount.getAccount(ACCOUNT_USERNAME));
         Assert.assertEquals(account, accessAccount.validateLogin(ACCOUNT_USERNAME, ACCOUNT_PASSWORD));
@@ -120,5 +127,13 @@ public class AccessAccountTest {
         //---end of testing edge cases---
     }
 
+
+    /* Day Testing */
+
+    @Test
+    public void getDayTest(){
+        //get the dummy day
+        Assert.assertEquals(day,accessAccount.getDay(ACCOUNT_USERNAME, DAY_OF_YEAR));
+    }
 
 }
