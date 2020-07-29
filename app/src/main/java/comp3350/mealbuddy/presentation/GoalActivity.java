@@ -76,7 +76,7 @@ public class GoalActivity extends AppCompatActivity {
         //Update Goals Passed Body
         TextView passedGoalsBody = findViewById(R.id.txtPassedGoals);
         String passedGoalsString = "";
-        List<Goal> passedGoals = GoalTracker.getPassedGoals(calculator, day.goals);
+        List<Goal> passedGoals = GoalTracker.getPassedGoals(calculator, day.getGoals());
         for (Goal g : passedGoals) {
             passedGoalsString += g;
         }
@@ -147,7 +147,7 @@ public class GoalActivity extends AppCompatActivity {
         Button btnContinue = dialog.findViewById(R.id.btnContinue);
         btnContinue.setOnClickListener((view) -> {
             Day day = accessAccount.getDay(userName, dayOfYear);
-            day.goals.add(new CalorieGoal(Integer.parseInt(lowerBound.getText().toString()), Integer.parseInt(upperBound.getText().toString())));
+            day.addGoal(new CalorieGoal(Integer.parseInt(lowerBound.getText().toString()), Integer.parseInt(upperBound.getText().toString())));
             accessAccount.updateDay(userName, day);
 
             //Go back to the goal activity
@@ -186,7 +186,7 @@ public class GoalActivity extends AppCompatActivity {
         Button btnContinue = dialog.findViewById(R.id.btnContinue);
         btnContinue.setOnClickListener((view) -> {
             Day day = accessAccount.getDay(userName, dayOfYear);
-            day.goals.add(new LabelGoal(Integer.parseInt(lowerBound.getText().toString()), Integer.parseInt(upperBound.getText().toString()), Goal.GoalType.valueOf(goalType.getSelectedItem().toString()), labelSpinner.getSelectedItem().toString()));
+            day.addGoal(new LabelGoal(Integer.parseInt(lowerBound.getText().toString()), Integer.parseInt(upperBound.getText().toString()), Goal.GoalType.valueOf(goalType.getSelectedItem().toString()), labelSpinner.getSelectedItem().toString()));
             accessAccount.updateDay(userName, day);
 
             //Go back to the goal activity
@@ -217,7 +217,7 @@ public class GoalActivity extends AppCompatActivity {
         Button btnContinue = dialog.findViewById(R.id.btnContinue);
         btnContinue.setOnClickListener((view) -> {
             Day day = accessAccount.getDay(userName, dayOfYear);
-            day.goals.add(new MacroGoal(Integer.parseInt(lowerBound.getText().toString()), Integer.parseInt(upperBound.getText().toString()), Goal.GoalType.valueOf(goalType.getSelectedItem().toString()), Edible.Macros.valueOf(selectedMacro.getSelectedItem().toString())));
+            day.addGoal(new MacroGoal(Integer.parseInt(lowerBound.getText().toString()), Integer.parseInt(upperBound.getText().toString()), Goal.GoalType.valueOf(goalType.getSelectedItem().toString()), Edible.Macros.valueOf(selectedMacro.getSelectedItem().toString())));
             accessAccount.updateDay(userName, day);
 
             //Go back to the goal activity
@@ -247,7 +247,7 @@ public class GoalActivity extends AppCompatActivity {
         Button btnContinue = dialog.findViewById(R.id.btnContinue);
         btnContinue.setOnClickListener((view) -> {
             Day day = accessAccount.getDay(userName, dayOfYear);
-            day.goals.add(new MicroGoal(Integer.parseInt(lowerBound.getText().toString()), Integer.parseInt(upperBound.getText().toString()), Edible.Micros.valueOf(spinner.getSelectedItem().toString())));
+            day.addGoal(new MicroGoal(Integer.parseInt(lowerBound.getText().toString()), Integer.parseInt(upperBound.getText().toString()), Edible.Micros.valueOf(spinner.getSelectedItem().toString())));
             accessAccount.updateDay(userName, day);
 
             //Go back to the goal activity
@@ -274,7 +274,7 @@ public class GoalActivity extends AppCompatActivity {
         //Populate the spinner with the goals
         Spinner goalSpinner = dialog.findViewById(R.id.goals);
         List<String> goalList = new ArrayList<>();
-        for (Goal g : day.goals) {
+        for (Goal g : day.getGoals()) {
             goalList.add(g.toString());
         }
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, goalList);
@@ -284,8 +284,7 @@ public class GoalActivity extends AppCompatActivity {
         Button button = dialog.findViewById(R.id.btnContinue);
         button.setOnClickListener((view) -> {
             String selected = goalSpinner.getSelectedItem().toString();
-            int index = goalList.indexOf(selected);
-            day.goals.remove(index);
+            day.removeGoal(selected);
             accessAccount.updateDay(userName, day);
 
             //Back to goal activity
