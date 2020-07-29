@@ -30,7 +30,7 @@ public class AccessAccount {
      */
     public void addAccount(Account a){
         if (a == null)
-            return;
+            throw new IllegalArgumentException("Account cannot be null");;
         Account check = getAccount(a.user.username);
         if (check == null)
             DAS.addAccount(a);
@@ -44,7 +44,7 @@ public class AccessAccount {
      */
     public void addAccount(UserInfo u){
         if (u == null)
-            return;
+            throw new IllegalArgumentException("Userinfo cannot be null");
         addAccount(new Account(u));
     }
 
@@ -57,7 +57,7 @@ public class AccessAccount {
      */
     public void updateAccount(String usernameToUpdate, Account a){
         if (a == null)
-            return;
+            throw new IllegalArgumentException("Account cannot be null");;
         DAS.updateAccount(usernameToUpdate, a);
     }
 

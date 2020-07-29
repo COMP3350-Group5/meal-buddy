@@ -41,27 +41,55 @@ public class AccessAccountTest {
     }
 
     @Test
-    public void addAccountTest(){
-
-        //adding multiple accounts
-        Assert.assertNotNull(accessAccount.getAccount(userInfo.username));
-        for(int i = 0; i < 100; i++)
-            accessAccount.addAccount(userInfo);
-        Assert.assertNotNull(accessAccount.getAccount(userInfo.username));
-
-        //adding new account
-        accessAccount.removeAccount(ACCOUNT_USERNAME);
-        Assert.assertNull(accessAccount.getAccount(ACCOUNT_USERNAME));
-        accessAccount.addAccount(account);
-        Assert.assertNotNull(accessAccount.getAccount(ACCOUNT_USERNAME));
-
-        //adding a null account to the database
-        accessAccount.addAccount((Account)null);
-        Assert.assertTrue(true); //we didnt crash
-        accessAccount.addAccount((UserInfo)null);
-        Assert.assertTrue(true); //we didnt crash
+    public void addAccount_oneNewAccount_add(){
+        //verify that the account isnt in the database
+        Assert.assertNull(accessAccount.getAccount(dummyUserInfo.username));
+        //add
+        accessAccount.addAccount(dummyUserInfo);
+        //check if it was properly added
+        Assert.assertNotNull(accessAccount.getAccount(dummyUserInfo.username));
     }
 
+    @Test
+    public void addAccount_multipleAccounts_dontAdd(){
+        Assert.assertNotNull(accessAccount.getAccount(userInfo.username));
+        //add it 100 times
+        for(int i = 0; i < 100; i++)
+            accessAccount.addAccount(userInfo);
+        //check if the account is still the same
+        Assert.assertEquals(accessAccount.getAccount(userInfo.username), account);
+    }
+
+    @Test
+    public void addAccount_multipleUsername_dontAdd(){
+        Assert.assertEquals(userInfo, accessAccount.getAccount(ACCOUNT_USERNAME).user);
+        //create a new user with different info and try to add
+        UserInfo newUserInfo = new UserInfo(
+          "", ACCOUNT_USERNAME, "", 0, 0, UserInfo.ActivityLevel.LOW, UserInfo.Sex.MALE, 1
+        );
+        accessAccount.addAccount(newUserInfo);
+        //it shouldnt be the new user info, it should be the old one.
+        Assert.assertNotEquals(newUserInfo.password, accessAccount.getAccount(ACCOUNT_USERNAME).user.password);
+        Assert.assertEquals(userInfo, accessAccount.getAccount(ACCOUNT_USERNAME).user);
+    }
+
+    @Test
+    public void addAccount_nullAccount_throwException(){
+        //adding a null account to the database
+        try {
+            accessAccount.addAccount((Account) null);
+        } catch (IllegalArgumentException IAE){
+            Assert.assertTrue(true);
+        }
+        //adding a null userinfo to the database
+        try {
+            accessAccount.addAccount((UserInfo)null);
+        } catch (IllegalArgumentException IAE){
+            Assert.assertTrue(true);
+        }
+    }
+
+    
     @Test
     public void updateAccountTest(){
         //---normal cases----
@@ -131,9 +159,19 @@ public class AccessAccountTest {
     /* Day Testing */
 
     @Test
-    public void getDayTest(){
+    public void getDayTest() {
         //get the dummy day
-        Assert.assertEquals(day,accessAccount.getDay(ACCOUNT_USERNAME, DAY_OF_YEAR));
-    }
+        Assert.assertEquals(day, accessAccount.getDay(ACCOUNT_USERNAME, DAY_OF_YEAR));
 
+        //get a day that isn't currently being tracked by the account
+        Assert.assertEquals(new Day(244), accessAccount.getDay(ACCOUNT_USERNAME, 244));
+
+        //---testing edge cases
+        //invalid day
+        try {
+            accessAccount.getDay(ACCOUNT_USERNAME, 34234234);
+        } catch( IllegalArgumentException IAE) {
+            Assert.assertTrue(true);
+        }
+    }
 }
