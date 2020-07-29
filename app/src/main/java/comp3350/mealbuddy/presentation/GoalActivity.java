@@ -98,12 +98,19 @@ public class GoalActivity extends AppCompatActivity {
 
         Button removeGoal = findViewById(R.id.btnRemove);
         removeGoal.setOnClickListener((view) -> {
-            showRemoveGoal(username, dayOfYear, day.goals);
+            showRemoveGoal(username, dayOfYear);
         });
 
 
     }
 
+    /*
+     * showPopup
+     * Show the popup to add a goal
+     * Parameters:
+     *     @param userName
+     *     @param dayOfYear - The year to get
+     */
     public void showPopUp(String userName, int dayOfYear) {
         dialog.setContentView(R.layout.pop_up_goal);
 
@@ -125,6 +132,13 @@ public class GoalActivity extends AppCompatActivity {
         dialog.show();
     }
 
+    /*
+     * showMicroPopup
+     * Show the popup to add a calorie goal
+     * Parameters:
+     *     @param userName
+     *     @param dayOfYear - The year to get
+     */
     public void showCaloriePopUp(String userName, int dayOfYear) {
         dialog.setContentView(R.layout.add_calorie_goal);
 
@@ -146,6 +160,13 @@ public class GoalActivity extends AppCompatActivity {
         dialog.show();
     }
 
+    /*
+     * showMicroPopup
+     * Show the popup to add a macro goal
+     * Parameters:
+     *     @param userName
+     *     @param dayOfYear - The year to get
+     */
     public void showLabelPopUp(String userName, int dayOfYear) {
         dialog.setContentView(R.layout.add_label_goal);
 
@@ -178,6 +199,13 @@ public class GoalActivity extends AppCompatActivity {
         dialog.show();
     }
 
+    /*
+     * showMicroPopup
+     * Show the popup to add a macro goal
+     * Parameters:
+     *     @param userName
+     *     @param dayOfYear - The year to get
+     */
     public void showMacroPopUp(String userName, int dayOfYear) {
         dialog.setContentView(R.layout.add_macro_goal);
 
@@ -202,6 +230,13 @@ public class GoalActivity extends AppCompatActivity {
         dialog.show();
     }
 
+    /*
+     * showMicroPopup
+     * Show the popup to add a micro goal
+     * Parameters:
+     *     @param userName
+     *     @param dayOfYear - The year to get
+     */
     public void showMicroPopUp(String userName, int dayOfYear) {
         dialog.setContentView(R.layout.add_micro_goal);
 
@@ -225,13 +260,21 @@ public class GoalActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    public void showRemoveGoal(String userName, int dayOfYear, List<Goal> goals) {
+    /*
+     * showRemoveGoal
+     * Show the popup to remove a goal
+     * Parameters:
+     *     @param userName
+     *     @param dayOfYear - The day of year to get
+     */
+    public void showRemoveGoal(String userName, int dayOfYear) {
         dialog.setContentView(R.layout.remove_goal);
+        Day day = accessAccount.getDay(userName, dayOfYear);
 
         //Populate the spinner with the goals
         Spinner goalSpinner = dialog.findViewById(R.id.goals);
         List<String> goalList = new ArrayList<>();
-        for (Goal g : goals) {
+        for (Goal g : day.goals) {
             goalList.add(g.toString());
         }
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, goalList);
@@ -242,7 +285,6 @@ public class GoalActivity extends AppCompatActivity {
         button.setOnClickListener((view) -> {
             String selected = goalSpinner.getSelectedItem().toString();
             int index = goalList.indexOf(selected);
-            Day day = accessAccount.getDay(userName, dayOfYear);
             day.goals.remove(index);
             accessAccount.updateDay(userName, day);
 

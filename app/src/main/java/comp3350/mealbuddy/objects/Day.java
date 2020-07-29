@@ -114,7 +114,6 @@ public class Day {
      * Return:
      *      returns the string interpretation
      */
-
     public String getGoalString() {
         System.err.println("Getting goals for day: " + dayOfYear);
         String result = "";

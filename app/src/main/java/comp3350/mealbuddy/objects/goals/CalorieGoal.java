@@ -26,6 +26,12 @@ public class CalorieGoal extends Goal {
         super(lowerBound, upperBound, GoalType.QUANTITY, CALORIE_GOAL);
     }
 
+    /*
+     * toString
+     * returns string interpretation of the goal
+     * Return:
+     *      returns the string interpretation
+     */
     @NonNull
     @Override
     public String toString() {
