@@ -7,6 +7,7 @@ package comp3350.mealbuddy.presentation;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
@@ -16,13 +17,18 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import java.lang.reflect.Array;
+import java.util.List;
+
 import comp3350.mealbuddy.R;
 import comp3350.mealbuddy.business.AccessAccount;
+import comp3350.mealbuddy.business.AccessLabel;
 import comp3350.mealbuddy.business.Calculator;
 import comp3350.mealbuddy.objects.Day;
 import comp3350.mealbuddy.objects.consumables.Edible;
 import comp3350.mealbuddy.objects.goals.CalorieGoal;
 import comp3350.mealbuddy.objects.goals.Goal;
+import comp3350.mealbuddy.objects.goals.MacroGoal;
 import comp3350.mealbuddy.objects.goals.MicroGoal;
 
 public class GoalActivity extends AppCompatActivity {
@@ -67,6 +73,14 @@ public class GoalActivity extends AppCompatActivity {
             showPopUp(username, dayOfYear);
         });
 
+        //Back to timeline
+        Button backButton = findViewById(R.id.btnTimeline);
+        backButton.setOnClickListener((view) -> {
+            Intent intent = new Intent(GoalActivity.this, TimelineActivity.class);
+            intent.putExtra("username", username);
+            GoalActivity.this.startActivity(intent);
+        });
+
 
     }
 
@@ -99,10 +113,10 @@ public class GoalActivity extends AppCompatActivity {
             //find the right goal popup
             if (spnString.equals("Calorie Goal"))
                 showCaloriePopUp(userName, dayOfYear);
-//            else if (spnString.equals("Label Goal"))
-//                showLabelPopUp();
-//            else if (spnString.equals("Macro Goal"))
-//                showMacroPopUp();
+            else if (spnString.equals("Label Goal"))
+                showLabelPopUp(userName, dayOfYear);
+            else if (spnString.equals("Macro Goal"))
+                showMacroPopUp(userName, dayOfYear);
             else
                 showMicroPopUp(userName, dayOfYear);
         });
@@ -119,6 +133,59 @@ public class GoalActivity extends AppCompatActivity {
         btnContinue.setOnClickListener((view) -> {
             Day day = accessAccount.getDay(userName, dayOfYear);
             day.goals.add(new CalorieGoal(Integer.parseInt(lowerBound.getText().toString()), Integer.parseInt(upperBound.getText().toString())));
+            accessAccount.updateDay(userName, day);
+
+            //Go back to the goal activity
+            Intent intent = new Intent(GoalActivity.this, GoalActivity.class);
+            intent.putExtra("dayOfYear", dayOfYear);
+            intent.putExtra("username", userName);
+            GoalActivity.this.startActivity(intent);
+        });
+
+        dialog.show();
+    }
+
+    public void showLabelPopUp(String userName, int dayOfYear) {
+        dialog.setContentView(R.layout.add_label_goal);
+
+        //Set up the objects on screen
+        EditText lowerBound = dialog.findViewById(R.id.lowerBound);
+        EditText upperBound = dialog.findViewById(R.id.upperBound);
+        Spinner labelSpinner = dialog.findViewById(R.id.label);
+        AccessLabel accessLabel = new AccessLabel();
+        List<String> labels = accessLabel.getLabels();
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, labels);
+        labelSpinner.setAdapter(adapter);
+
+        Button btnContinue = dialog.findViewById(R.id.btnContinue);
+        btnContinue.setOnClickListener((view) -> {
+            Day day = accessAccount.getDay(userName, dayOfYear);
+            day.goals.add(new CalorieGoal(Integer.parseInt(lowerBound.getText().toString()), Integer.parseInt(upperBound.getText().toString())));
+            accessAccount.updateDay(userName, day);
+
+            //Go back to the goal activity
+            Intent intent = new Intent(GoalActivity.this, GoalActivity.class);
+            intent.putExtra("dayOfYear", dayOfYear);
+            intent.putExtra("username", userName);
+            GoalActivity.this.startActivity(intent);
+        });
+
+        dialog.show();
+    }
+
+    public void showMacroPopUp(String userName, int dayOfYear) {
+        dialog.setContentView(R.layout.add_macro_goal);
+
+        EditText lowerBound = dialog.findViewById(R.id.lowerBound);
+        EditText upperBound = dialog.findViewById(R.id.upperBound);
+        Spinner goalType = dialog.findViewById(R.id.spnType);
+        Spinner selectedMacro = dialog.findViewById(R.id.spnMacro);
+
+        Button btnContinue = dialog.findViewById(R.id.btnContinue);
+        btnContinue.setOnClickListener((view) -> {
+            Day day = accessAccount.getDay(userName, dayOfYear);
+            day.goals.add(new MacroGoal(Integer.parseInt(lowerBound.getText().toString()), Integer.parseInt(upperBound.getText().toString()), Goal.GoalType.valueOf(goalType.getSelectedItem().toString()), Edible.Macros.valueOf(selectedMacro.getSelectedItem().toString())));
             accessAccount.updateDay(userName, day);
 
             //Go back to the goal activity

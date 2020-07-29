@@ -48,14 +48,28 @@
                 app:autoSizeStepGranularity="1sp" />
 
         </RelativeLayout>
+
     </androidx.cardview.widget.CardView>
 
-    <Button
-        android:id="@+id/btnAddGoal"
-        android:layout_width="wrap_content"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardGoals2"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="ADD GOAL"
-        tools:layout_editor_absoluteX="151dp"
-        tools:layout_editor_absoluteY="667dp" />
+        tools:layout_editor_absoluteX="-16dp"
+        tools:layout_editor_absoluteY="186dp">
+
+        <Button
+            android:id="@+id/btnAddGoal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ADD GOAL" />
+
+        <Button
+            android:id="@+id/btnTimeline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="200dp"
+            android:text="Back to Day" />
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
