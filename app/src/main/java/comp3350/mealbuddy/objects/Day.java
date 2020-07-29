@@ -118,16 +118,6 @@ public class Day {
         return exerciseString;
     }
 
-    /*
-     * addToMeal
-     * adds a food to the meal.
-     * Parameters:
-     *     @param MT - a mealtime enum value. {BREAKFAST, LUNCH, DINNER, SNACK}
-     *     @param edible - an edible to add to the meal
-     *     @param quantity - the quantity of the edible to add to the meal
-     * Return:
-     *     returns the string interpretation.
-     */
     public void addToMeal(MealTimeType MT, Edible edible, int quantity){
         getMealTime(MT).add(edible, quantity);
     }
