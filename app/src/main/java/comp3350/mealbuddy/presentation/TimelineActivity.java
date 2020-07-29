@@ -68,12 +68,13 @@ public class TimelineActivity extends AppCompatActivity {
      * initializeCards
      * initializes the UI cards
      */
-    private void initializeCards(){
-        initializeTotals();
+    private void initializeCards() {
         initializeBreakfast();
         initializeLunch();
         initializeDinner();
         initializeSnacks();
+        initializeTotals();
+        initializeExercise();
     }
 
     /*
