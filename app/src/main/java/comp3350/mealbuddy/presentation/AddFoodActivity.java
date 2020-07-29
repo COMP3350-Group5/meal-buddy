@@ -104,17 +104,10 @@ public class AddFoodActivity extends AppCompatActivity {
                     editText.setError("Quantity is required");
                 } else {
                     //add the food
-                    Day.MealTimeType MT;
+
                     String spnString = spinner.getSelectedItem().toString();
                     //find the meal time
-                    if (spnString.equals("Breakfast"))
-                        MT = Day.MealTimeType.BREAKFAST;
-                    else if(spnString.equals("Lunch"))
-                        MT = Day.MealTimeType.LUNCH;
-                    else if(spnString.equals("Dinner"))
-                        MT = Day.MealTimeType.DINNER;
-                    else
-                        MT = Day.MealTimeType.SNACK;
+                    Day.MealTimeType MT = getMealTime(spnString);
                     Day day = accessAccount.getDay(username, dayOfYear);
 
                     //add the meal to the day and update the day in the user
@@ -133,5 +126,18 @@ public class AddFoodActivity extends AppCompatActivity {
 
         titleText.setText("Adding Food: " + edible.name);
         dialog.show();
+    }
+
+    private Day.MealTimeType getMealTime(String value) {
+        Day.MealTimeType MT;
+        if (value.equals("Breakfast"))
+            MT = Day.MealTimeType.BREAKFAST;
+        else if(value.equals("Lunch"))
+            MT = Day.MealTimeType.LUNCH;
+        else if(value.equals("Dinner"))
+            MT = Day.MealTimeType.DINNER;
+        else
+            MT = Day.MealTimeType.SNACK;
+        return MT;
     }
 }

@@ -62,14 +62,7 @@ public class AddExerciseActivity extends AppCompatActivity {
                 duration.setError("Duration is required");
             }else {
                 String spnString = spinner.getSelectedItem().toString();
-                Exercise.Intensity IT;
-                if (spnString.equals("Low"))
-                    IT = Exercise.Intensity.Low;
-                else if(spnString.equals("Medium"))
-                    IT = Exercise.Intensity.Medium;
-                else
-                    IT = Exercise.Intensity.High;
-
+                Exercise.Intensity IT = getIntensity(spnString);
                 Exercise exercise = new Exercise(name.getText().toString(), Double.parseDouble(duration.getText().toString()), IT);
                 day.addExercise(exercise);
                 accessAccount.updateDay(username, day);
@@ -80,6 +73,17 @@ public class AddExerciseActivity extends AppCompatActivity {
                 AddExerciseActivity.this.startActivity(intent);
             }
         });
+    }
+
+    private Exercise.Intensity getIntensity(String value) {
+        Exercise.Intensity IT;
+        if (value.equals("Low"))
+            IT = Exercise.Intensity.Low;
+        else if(value.equals("Medium"))
+            IT = Exercise.Intensity.Medium;
+        else
+            IT = Exercise.Intensity.High;
+        return IT;
     }
 
 }
