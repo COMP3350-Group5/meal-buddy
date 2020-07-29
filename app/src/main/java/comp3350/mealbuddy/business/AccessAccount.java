@@ -56,8 +56,13 @@ public class AccessAccount {
      *     @param a - The account to update to.
      */
     public void updateAccount(String usernameToUpdate, Account a){
+        if(getAccount(usernameToUpdate) == null)
+            throw new IllegalArgumentException("Username being updated doesn't exist in the database.");
         if (a == null)
-            throw new IllegalArgumentException("Account cannot be null");;
+            throw new IllegalArgumentException("Account cannot be null");
+        //if the account that is being updated is being updated with a username that already is in the db
+        if (!a.user.username.equals(usernameToUpdate) && getAccount(a.user.username) != null)
+            throw new IllegalArgumentException("Username already exists. Account cannot be updated");
         DAS.updateAccount(usernameToUpdate, a);
     }
 
