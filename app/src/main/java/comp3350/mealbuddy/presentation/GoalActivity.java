@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 
 import comp3350.mealbuddy.R;
@@ -87,12 +88,17 @@ public class GoalActivity extends AppCompatActivity {
             showPopUp(username, dayOfYear);
         });
 
-        //Back to timeline
+        //Back to timeline button
         Button backButton = findViewById(R.id.btnTimeline);
         backButton.setOnClickListener((view) -> {
             Intent intent = new Intent(GoalActivity.this, TimelineActivity.class);
             intent.putExtra("username", username);
             GoalActivity.this.startActivity(intent);
+        });
+
+        Button removeGoal = findViewById(R.id.btnRemove);
+        removeGoal.setOnClickListener((view) -> {
+            showRemoveGoal(username, dayOfYear, day.goals);
         });
 
 
@@ -219,4 +225,34 @@ public class GoalActivity extends AppCompatActivity {
         dialog.show();
     }
 
+    public void showRemoveGoal(String userName, int dayOfYear, List<Goal> goals) {
+        dialog.setContentView(R.layout.remove_goal);
+
+        //Populate the spinner with the goals
+        Spinner goalSpinner = dialog.findViewById(R.id.goals);
+        List<String> goalList = new ArrayList<>();
+        for (Goal g : goals) {
+            goalList.add(g.toString());
+        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, goalList);
+        goalSpinner.setAdapter(adapter);
+
+        //Remove a goal
+        Button button = dialog.findViewById(R.id.btnContinue);
+        button.setOnClickListener((view) -> {
+            String selected = goalSpinner.getSelectedItem().toString();
+            int index = goalList.indexOf(selected);
+            Day day = accessAccount.getDay(userName, dayOfYear);
+            day.goals.remove(index);
+            accessAccount.updateDay(userName, day);
+
+            //Back to goal activity
+            Intent intent = new Intent(GoalActivity.this, GoalActivity.class);
+            intent.putExtra("dayOfYear", dayOfYear);
+            intent.putExtra("username", userName);
+            GoalActivity.this.startActivity(intent);
+        });
+
+        dialog.show();
+    }
 }

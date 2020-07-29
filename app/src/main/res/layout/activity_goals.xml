@@ -96,18 +96,25 @@
             android:layout_height="match_parent">
 
             <Button
-                android:id="@+id/btnAddGoal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="100dp"
-                android:text="ADD GOAL" />
-
-            <Button
                 android:id="@+id/btnTimeline"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="250dp"
+                android:layout_marginLeft="20dp"
                 android:text="Back to Day" />
+
+            <Button
+                android:id="@+id/btnAddGoal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="175dp"
+                android:text="ADD GOAL" />
+
+            <Button
+                android:id="@+id/btnRemove"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="310dp"
+                android:text="Remove Goal" />
 
         </RelativeLayout>
 
