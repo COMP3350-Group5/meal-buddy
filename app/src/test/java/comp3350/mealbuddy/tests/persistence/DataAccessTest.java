@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import comp3350.mealbuddy.application.Main;
 import comp3350.mealbuddy.application.Services;
 import comp3350.mealbuddy.objects.Account;
 import comp3350.mealbuddy.objects.Day;
@@ -29,8 +30,8 @@ import static comp3350.mealbuddy.objects.consumables.Edible.Micros.Zinc;
 
 public class DataAccessTest {
 
-    //    private static DataAccess database = Services.createDataAccess(Main.DATABASE_NAME);  //HQSQLDB
-    private static DataAccess database = Services.createDataAccess(new DataAccessStub("StubDB"));         //STUBDB
+    private static DataAccess database = Services.createDataAccess(Main.DATABASE_NAME);  //HQSQLDB
+    //private static DataAccess database = Services.createDataAccess(new DataAccessStub("StubDB"));         //STUBDB
 
     public static Food durian;
     public static Food quinoa;

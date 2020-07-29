@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">mealbuddy</string>
+    <string name="add_new_food">Add New Food</string>
 </resources>

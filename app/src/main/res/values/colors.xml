@@ -3,4 +3,9 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
+    <color name="matDarkGrey">#121212</color>
+    <color name="matDarkPurp">#332940</color>
+    <color name="owlpink200">#FF7597</color>
+    <color name="owlpink500">#FF0266</color>
+
 </resources>

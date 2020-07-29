@@ -803,7 +803,6 @@ public class DataAccessObject implements DataAccess {
     public List<Day> getDays(String userName) {
         String query = "SELECT * FROM DAYS " +
                 "WHERE USERNAME = '" + userName + "'";
-        Day day;
         List<Day> days = new ArrayList<>();
         int dayOfYear;
         try {
