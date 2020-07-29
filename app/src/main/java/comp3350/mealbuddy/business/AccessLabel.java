@@ -38,7 +38,13 @@ public class AccessLabel {
      * Parameters:
      *     @param l - The label to remove.
      */
-    public void removeLabel(String l) { DAS.removeLabel(l); }
+    public void removeLabel(String l) {
+        if (l == null)
+            throw new NullPointerException("Label cannot be null");
+        if (getLabel(l) == null)
+            throw new IllegalArgumentException("Label being removed doesn't exist in the DB.");
+        DAS.removeLabel(l);
+    }
 
     /*
      * updateLabel
@@ -47,7 +53,14 @@ public class AccessLabel {
      *     @param oldLabel - The label to remove.
      *     @param newLabel - The label to be added.
      */
-    public void updateLabel(String oldLabel, String newLabel) { DAS.updateLabel(oldLabel, newLabel); }
+    public void updateLabel(String oldLabel, String newLabel) {
+        if (oldLabel == null || newLabel == null)
+            throw new NullPointerException("Labels cannot be null");
+        if (getLabel(oldLabel) == null)
+            throw new IllegalArgumentException("Label being updated doesn't exist in the DB.");
+
+        DAS.updateLabel(oldLabel, newLabel);
+    }
 
     /*
      * getLabels

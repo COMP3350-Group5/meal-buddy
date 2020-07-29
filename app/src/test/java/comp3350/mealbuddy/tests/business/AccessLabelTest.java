@@ -17,6 +17,7 @@ public class AccessLabelTest {
     public void initAccessLabelTests(){
         Services.initializeDB(Main.DATABASE_NAME);
         accessLabel = new AccessLabel();
+        accessLabel.addLabel(LABEL);
     }
 
     @Test
@@ -37,5 +38,26 @@ public class AccessLabelTest {
         Assert.assertNotNull(accessLabel.getLabel(LABEL));
     }
 
-    
+    @Test
+    public void removeLabel_nullLabel_throwException(){
+        try {
+            accessLabel.removeLabel(null);
+            Assert.fail();
+        } catch (NullPointerException npe){
+            Assert.assertTrue(true);
+        }
+    }
+
+    @Test
+    public void removeLabel_labelDoesntExist_throwException(){
+        try {
+            accessLabel.removeLabel("label doesnt exist");
+            Assert.fail();
+        } catch (IllegalArgumentException npe){
+            Assert.assertTrue(true);
+        }
+    }
+
+
+
 }
