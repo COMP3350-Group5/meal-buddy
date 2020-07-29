@@ -25,6 +25,8 @@ public class AccessLabel {
      *     @param l - The label to be added.
      */
     public void addLabel(String l){
+        if (l == null)
+            throw new NullPointerException("Label cannot be null");
         if (getLabel(l) != null)
             return;
         DAS.addLabel(l);
