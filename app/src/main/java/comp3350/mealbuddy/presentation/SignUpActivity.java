@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -58,18 +59,33 @@ public class SignUpActivity extends AppCompatActivity {
 
         //link the on click listeners
         createAccount.setOnClickListener((view) -> {
-            UserInfo userInfo = new UserInfo(fullName.getText().toString(),
-                    username.getText().toString(),
-                    password.getText().toString(),
-                    Double.parseDouble(height.getText().toString()),
-                    Double.parseDouble(weight.getText().toString()),
-                    ALT,
-                    ST,
-                    Integer.parseInt(age.getText().toString()));
-            accessAccount.addAccount(userInfo);
-            Intent intent = new Intent(SignUpActivity.this, TimelineActivity.class);
-            intent.putExtra("username",  username.getText().toString());
-            SignUpActivity.this.startActivity(intent);
+            if (TextUtils.isEmpty(username.getText())) {
+                username.setError("Username is required");
+            } else if (TextUtils.isEmpty(password.getText())){
+                password.setError("Password is required");
+            }  else if (TextUtils.isEmpty(fullName.getText())){
+                fullName.setError("Full Name is required");
+            } else if (TextUtils.isEmpty(age.getText())){
+                age.setError("Age is required");
+            } else if (TextUtils.isEmpty(height.getText())){
+                height.setError("Height is required");
+            } else if (TextUtils.isEmpty(weight.getText())){
+                weight.setError("Weight is required");
+            } else {
+                UserInfo userInfo = new UserInfo(fullName.getText().toString(),
+                        username.getText().toString(),
+                        password.getText().toString(),
+                        Double.parseDouble(height.getText().toString()),
+                        Double.parseDouble(weight.getText().toString()),
+                        ALT,
+                        ST,
+                        Integer.parseInt(age.getText().toString()));
+                accessAccount.addAccount(userInfo);
+                Intent intent = new Intent(SignUpActivity.this, TimelineActivity.class);
+                intent.putExtra("username",  username.getText().toString());
+                SignUpActivity.this.startActivity(intent);
+            }
+
         });
     }
 }

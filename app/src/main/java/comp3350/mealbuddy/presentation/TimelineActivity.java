@@ -29,6 +29,9 @@ public class TimelineActivity extends AppCompatActivity {
     private Day day;
     private Calculator calculator;
     private String username;
+    private boolean isFabOpen = false;
+    private FloatingActionButton fabFood;
+    private FloatingActionButton fabExercise;
 
     /*
      * onCreate
@@ -57,12 +60,27 @@ public class TimelineActivity extends AppCompatActivity {
         initializeCards();
 
         // the "addFood" button to go to the AddFoodActivity
-        FloatingActionButton addFood = findViewById(R.id.btnAddFood);
-        addFood.setOnClickListener((view) -> {
+        FloatingActionButton fab = findViewById(R.id.fabAdd);
+        fabFood = findViewById(R.id.fabFood);
+        fabExercise = findViewById(R.id.fabExercise);
+
+        fab.setOnClickListener((view) -> {
+            if(!isFabOpen) showFABMenu();
+            else closeFABMenu();
+        });
+
+        fabFood.setOnClickListener((view) -> {
                 Intent intent = new Intent(TimelineActivity.this, SearchFoodActivity.class);
                 intent.putExtra("dayOfYear", day.dayOfYear);
                 intent.putExtra("username", username);
                 TimelineActivity.this.startActivity(intent);
+        });
+
+        fabExercise.setOnClickListener((view) -> {
+            Intent intent = new Intent(TimelineActivity.this, AddExerciseActivity.class);
+            intent.putExtra("dayOfYear", day.dayOfYear);
+            intent.putExtra("username", username);
+            TimelineActivity.this.startActivity(intent);
         });
 
         //the "goals" button to view list of goals
@@ -73,7 +91,6 @@ public class TimelineActivity extends AppCompatActivity {
                 intent.putExtra("username", username);
                 TimelineActivity.this.startActivity(intent);
         });
-
     }
 
     /*
@@ -179,6 +196,17 @@ public class TimelineActivity extends AppCompatActivity {
         exerciseCals.setText(calculator.getTotalExerciseCalories(accessAccount.getAccount(username).user) + " Cals");
     }
 
+    private void showFABMenu(){
+        isFabOpen=true;
+        fabFood.animate().translationY(-getResources().getDimension(R.dimen.standard_65));
+        fabExercise.animate().translationY(-getResources().getDimension(R.dimen.standard_130));
+    }
+
+    private void closeFABMenu(){
+        isFabOpen=false;
+        fabFood.animate().translationY(0);
+        fabExercise.animate().translationY(0);
+    }
     @Override
     public void onBackPressed() {
        // empty to disable back button

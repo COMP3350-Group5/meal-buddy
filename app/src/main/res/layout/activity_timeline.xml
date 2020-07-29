@@ -262,19 +262,41 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/coordinatorLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="220dp"
         android:layout_marginBottom="10dp"
-        android:clipToPadding="false"
+        android:elevation="2dp"
         app:layout_constraintBottom_toBottomOf="parent">
 
+
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/btnAddFood"
+            android:id="@+id/fabExercise"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
             android:layout_marginRight="50dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="10dp"
+            android:clickable="true"
+            android:focusable="true"
+            app:srcCompat="@drawable/ic_exercise" />
 
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabFood"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_marginRight="50dp"
+            android:layout_marginBottom="10dp"
+            android:clickable="true"
+            android:focusable="true"
+            app:srcCompat="@drawable/ic_food" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabAdd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_marginRight="50dp"
+            android:layout_marginBottom="10dp"
             android:clickable="true"
             android:focusable="true"
             app:srcCompat="@android:drawable/ic_input_add" />
@@ -288,6 +310,8 @@
             app:layout_anchorGravity="end|center" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
