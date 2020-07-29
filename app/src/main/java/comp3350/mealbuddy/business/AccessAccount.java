@@ -29,10 +29,11 @@ public class AccessAccount {
      *     @param a - The account to be added.
      */
     public void addAccount(Account a){
-        Account check = DAS.getAccount(a.user.username);
-        if (check == null) {
+        if (a == null)
+            return;
+        Account check = getAccount(a.user.username);
+        if (check == null)
             DAS.addAccount(a);
-        }
     }
 
     /*
@@ -42,6 +43,8 @@ public class AccessAccount {
      *     @param u - The user to be added.
      */
     public void addAccount(UserInfo u){
+        if (u == null)
+            return;
         addAccount(new Account(u));
     }
 
@@ -53,6 +56,8 @@ public class AccessAccount {
      *     @param a - The account to update to.
      */
     public void updateAccount(String usernameToUpdate, Account a){
+        if (a == null)
+            return;
         DAS.updateAccount(usernameToUpdate, a);
     }
 
@@ -77,7 +82,7 @@ public class AccessAccount {
      */
     public Account validateLogin(String username, String password){
         Account acc = getAccount(username);
-        if(acc != null && password.equals(acc.user.password))
+        if(acc != null && acc.user.password.equals(password))
             return acc;
         return null;
     }
