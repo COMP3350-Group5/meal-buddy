@@ -5,6 +5,8 @@
 
 package comp3350.mealbuddy.objects;
 
+import java.util.Objects;
+
 public class Exercise {
 
     public enum Intensity {
@@ -30,9 +32,44 @@ public class Exercise {
         this.intensity = intensity;
     }
 
+    /*
+     * toString
+     * toString function
+     * Return:
+     *     The string representation of the exercise
+     */
+    @Override
+    public String toString() {
+        return name + " " + duration + " mins, " + intensity + " intensity ";
+    }
+
+    /*
+     * copyConstructor
+     * Return:
+     *     The new exercise
+     * Parameters:
+     *      @param original - the exercise to copy
+     */
     public Exercise(Exercise original) {
         this.name = original.name;
         this.duration = original.duration;
         this.intensity = original.intensity;
     }
+
+    /*
+     * equals
+     * Return:
+     *     true or false
+     * Parameters:
+     *      @param o - the object to compare to
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Exercise exercise = (Exercise) o;
+        return name.equals(exercise.name) &&
+                intensity == exercise.intensity;
+    }
+
 }

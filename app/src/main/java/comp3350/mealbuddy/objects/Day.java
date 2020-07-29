@@ -22,8 +22,8 @@ public class Day {
     public Meal lunch;
     public Meal dinner;
     public Meal snack;
-    public ArrayList<Goal> goals;
-    public ArrayList<Exercise> exercises;
+    private ArrayList<Goal> goals;
+    private ArrayList<Exercise> exercises;
     public static final String BREAKFAST_NAME = "Breakfast";
     public static final String LUNCH_NAME = "Lunch";
     public static final String DINNER_NAME = "Dinner";
@@ -104,11 +104,93 @@ public class Day {
         return getMealTime(MT).toString();
     }
 
+    /*
+     * getExerciseString
+     * returns string interpretation of the exercises.
+     * Return:
+     *     returns the string interpretation.
+     */
+    public String getExerciseString() {
+        String exerciseString= "";
+        for (Exercise exercise : exercises) {
+            exerciseString += exercise.toString() + "\n";
+        }
+        return exerciseString;
+    }
+
     public void addToMeal(MealTimeType MT, Edible edible, int quantity){
         getMealTime(MT).add(edible, quantity);
     }
 
+
     /*
+     * addExercise
+     * add an exercise to the day
+     * Parameters:
+     *     @param exercise - the exercise to add
+     */
+    public void addExercise(Exercise exercise) {
+        if (exercises.contains(exercise)) {
+            double oldDuration = exercises.get(exercises.indexOf(exercise)).duration;
+            exercises.remove(exercise);
+            exercises.add(new Exercise(exercise.name, exercise.duration + oldDuration, exercise.intensity ));
+        } else {
+            exercises.add(exercise);
+        }
+    }
+
+    /*
+     * removeExercise
+     * remove an exercise from the day
+     * Parameters:
+     *     @param exercise - the exercise to remove
+     */
+    public void removeExercise(Exercise exercise) {
+        exercises.remove(exercise);
+    }
+
+    /*
+     * addGoal
+     * add a goal to the day
+     * Parameters:
+     *     @param goal - the goal to add
+     */
+    public void addGoal(Goal goal) {
+        if (!goals.contains(goal)) {
+            goals.add(goal);
+        }
+    }
+
+    /*
+     * removeGoal
+     * remove a goal from the day
+     * Parameters:
+     *     @param goal - the goal to remove
+     */
+    public void removeGoal(Goal goal) {
+        goals.remove(goal);
+    }
+
+    /*
+     * getExercises
+     * get the exercises in a day.
+     * Return:
+     *     the exercise list
+     */
+    public ArrayList<Exercise> getExercises() {
+        return exercises;
+    }
+    
+    /*
+     * getGoals
+     * get the goals in a day.
+     * Return:
+     *     the goal list
+     */
+    public ArrayList<Goal> getGoals() {
+        return goals;
+    }
+
      * getGoalString
      * returns string interpretation of the goals
      * Return:

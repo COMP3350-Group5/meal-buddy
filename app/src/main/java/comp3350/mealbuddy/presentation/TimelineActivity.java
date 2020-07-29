@@ -28,6 +28,7 @@ public class TimelineActivity extends AppCompatActivity {
     private AccessAccount accessAccount;
     private Day day;
     private Calculator calculator;
+    private String username;
 
     /*
      * onCreate
@@ -41,7 +42,7 @@ public class TimelineActivity extends AppCompatActivity {
         setContentView(R.layout.activity_timeline);
 
         //get username from previous activity
-        final String username = this.getIntent().getStringExtra("username");
+        username = this.getIntent().getStringExtra("username");
 
         //get the day to display
         Calendar calendar = Calendar.getInstance();
@@ -79,12 +80,13 @@ public class TimelineActivity extends AppCompatActivity {
      * initializeCards
      * initializes the UI cards
      */
-    private void initializeCards(){
-        initializeTotals();
+    private void initializeCards() {
         initializeBreakfast();
         initializeLunch();
         initializeDinner();
         initializeSnacks();
+        initializeTotals();
+        initializeExercise();
     }
 
     /*
@@ -156,7 +158,29 @@ public class TimelineActivity extends AppCompatActivity {
         RelativeLayout totalsLayout = (RelativeLayout) totals.getChildAt(0);
         TextView cardTotalsTitle = (TextView) totalsLayout.getChildAt(0);
         cardTotalsTitle.setText("Totals");
-        TextView totalsCals = (TextView) totalsLayout.getChildAt(1);
-        totalsCals.setText(calculator.getTotalCalories() + " Cals");
+        TextView totalsEatenCals = (TextView) totalsLayout.getChildAt(1);
+        totalsEatenCals.setText(calculator.getTotalCalories() + " Cals eaten");
+        TextView netCals = (TextView) totalsLayout.getChildAt(2);
+        netCals.setText(calculator.getNetCalories(accessAccount.getAccount(username).user) + " net Cals");
+    }
+
+    /*
+     * initializeTotals
+     * initializes the exercise card
+     */
+    private void initializeExercise() {
+        CardView exercise = findViewById(R.id.cardExercise);
+        RelativeLayout exerciseLayout = (RelativeLayout) exercise.getChildAt(0);
+        TextView cardExerciseTitle = (TextView) exerciseLayout.getChildAt(0);
+        cardExerciseTitle.setText("Exercise");
+        TextView txtExercise = (TextView) exerciseLayout.getChildAt(1);
+        txtExercise.setText(day.getExerciseString());
+        TextView exerciseCals = (TextView) exerciseLayout.getChildAt(2);
+        exerciseCals.setText(calculator.getTotalExerciseCalories(accessAccount.getAccount(username).user) + " Cals");
+    }
+
+    @Override
+    public void onBackPressed() {
+       // empty to disable back button
     }
 }

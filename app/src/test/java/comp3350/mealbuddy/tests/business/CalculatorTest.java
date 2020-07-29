@@ -8,6 +8,8 @@ import java.util.ArrayList;
 
 import comp3350.mealbuddy.business.Calculator;
 import comp3350.mealbuddy.objects.Day;
+import comp3350.mealbuddy.objects.Exercise;
+import comp3350.mealbuddy.objects.UserInfo;
 import comp3350.mealbuddy.objects.consumables.Food;
 import comp3350.mealbuddy.objects.consumables.Meal;
 
@@ -36,6 +38,19 @@ public class CalculatorTest {
         day.dinner.add(fries);
 
         day.snack.add(bigMacMeal);
+
+        Exercise walk = new Exercise("walk", 60.0, Exercise.Intensity.Low);
+        Exercise jog = new Exercise("jog", 60.0, Exercise.Intensity.Medium);
+        Exercise bike = new Exercise("bike", 60.0, Exercise.Intensity.High);
+
+        day.addExercise(walk);
+        day.addExercise(jog);
+        day.addExercise(bike);
+
+    }
+
+    private UserInfo createDefaultUser() {
+        return new UserInfo("Elon Musk", "muskyboi", "elongatedmuskrat", 200, 188, UserInfo.ActivityLevel.LOW, UserInfo.Sex.MALE, 45);
     }
 
     @Test
@@ -383,6 +398,53 @@ public class CalculatorTest {
         Assert.assertEquals(expectedCalories, actualCalories);
     }
 
+    @Test
+    public void getExerciseCalories_oneExercise_returnCalories() {
+        int expectedCalories = 952;
+        UserInfo user = createDefaultUser();
+        Calculator calculator = new Calculator(day);
+        Exercise exercise = new Exercise("bike", 60.0, Exercise.Intensity.High);
+        int actualCalories = calculator.getExerciseCalories(exercise, user);
+
+        Assert.assertEquals(expectedCalories, actualCalories);
+
+    }
+
+    @Test
+    public void getExerciseCalories_multipleExercises_returnSummedCalories() {
+        int expectedCalories = 1713;
+        UserInfo user = createDefaultUser();
+        Calculator calculator = new Calculator(day);
+        int actualCalories = calculator.getTotalExerciseCalories(user);
+
+        Assert.assertEquals(expectedCalories, actualCalories);
+
+    }
+
+    @Test
+    public void getExerciseCalories_multipleExercises_returnZero() {
+        UserInfo user = createDefaultUser();
+        int expectedCalories = 0;
+        int dayOfYear = 1;
+        Day emptyDay = new Day(dayOfYear);
+        Calculator calculator = new Calculator(emptyDay);
+        int actualCalories = calculator.getTotalExerciseCalories(user);
+
+        Assert.assertEquals(expectedCalories, actualCalories);
+
+    }
+
+    @Test
+    public void getNetCalories_multipleExercisesMultipleMeals_returnCalories() {
+        int expectedCalories = 5987;
+        UserInfo user = createDefaultUser();
+        Calculator calculator = new Calculator(day);
+        int actualCalories = calculator.getNetCalories(user);
+
+        Assert.assertEquals(expectedCalories, actualCalories);
+
+    }
+
     private Food makeFries() {
         Food fries = new Food("Fries");
         fries.updateMacro(Carbohydrates, 100);
@@ -407,4 +469,5 @@ public class CalculatorTest {
         bigMacMeal.add(makeFries(), 1);
         return bigMacMeal;
     }
+
 }

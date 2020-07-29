@@ -780,8 +780,12 @@ public class DataAccessObject implements DataAccess {
     public Day getDay(String userName, int dayOfYear) {
         Day day = new Day(dayOfYear);
         try {
-            day.exercises = getDayExercises(userName, dayOfYear);
-            day.goals = getDayGoals(userName, dayOfYear);
+            for(Exercise exercise : getDayExercises(userName, dayOfYear)) {
+                day.addExercise(exercise);
+            }
+            for(Goal goal : getDayGoals(userName, dayOfYear)) {
+                day.addGoal(goal);
+            }
             day.breakfast = getMealTimeMeal(BREAKFAST, userName, dayOfYear);
             day.lunch = getMealTimeMeal(LUNCH, userName, dayOfYear);
             day.dinner = getMealTimeMeal(DINNER, userName, dayOfYear);
@@ -1086,7 +1090,7 @@ public class DataAccessObject implements DataAccess {
         checkWarning(st, updateCount);
 
         String insertNewGoals;
-        for (Goal goal : day.goals) {
+        for (Goal goal : day.getGoals()) {
             insertNewGoals = "INSERT INTO GOALS VALUES";
             insertNewGoals += "('" + userName + "'," + day.dayOfYear + ",'" +
                     "" + getGoalClass(goal) + "'," + goal.goalType.ordinal() +
@@ -1125,7 +1129,7 @@ public class DataAccessObject implements DataAccess {
         checkWarning(st, updateCount);
 
         String insertNewEx;
-        for (Exercise e : day.exercises) {
+        for (Exercise e : day.getExercises()) {
             insertNewEx = "INSERT INTO EXERCISE VALUES";
             insertNewEx += "('" + userName + "'," + day.dayOfYear + ",'" + e.name + "', " +
                     "" + e.intensity.ordinal() + "," + e.duration + ") ";
