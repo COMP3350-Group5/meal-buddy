@@ -28,6 +28,7 @@ import comp3350.mealbuddy.objects.Account;
 
 public class HomeActivity extends AppCompatActivity {
     private AccessAccount accessAccount;
+    private TextView error;
 
     /*
      * onCreate
@@ -44,6 +45,7 @@ public class HomeActivity extends AppCompatActivity {
         accessAccount = new AccessAccount();
         EditText username = findViewById(R.id.etUsername);
         EditText password = findViewById(R.id.etPassword);
+       error = findViewById(R.id.tvInvalidLogin);
         Button login = findViewById(R.id.btnLogin);
         TextView createAccount = findViewById(R.id.btnCreateAccount);
 
@@ -80,6 +82,7 @@ public class HomeActivity extends AppCompatActivity {
             //reset the input fields.
             user.clear();
             pass.clear();
+            error.setText("Invalid Login.");
         }
     }
 

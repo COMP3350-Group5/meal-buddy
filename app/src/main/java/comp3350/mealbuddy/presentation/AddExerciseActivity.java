@@ -12,6 +12,7 @@ import comp3350.mealbuddy.objects.consumables.Food;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -52,24 +53,32 @@ public class AddExerciseActivity extends AppCompatActivity {
 
         //on submit we want to create a new exercise
         submit.setOnClickListener ((view) -> {
-            String spnString = spinner.getSelectedItem().toString();
-            Exercise.Intensity IT;
-            if (spnString.equals("Low"))
-                IT = Exercise.Intensity.Low;
-            else if(spnString.equals("Medium"))
-                IT = Exercise.Intensity.Medium;
-            else
-                IT = Exercise.Intensity.High;
+            if (TextUtils.isEmpty(name.getText()) && TextUtils.isEmpty(duration.getText())) {
+                name.setError("Name is required");
+                duration.setError("Duration is required");
+            } else if (TextUtils.isEmpty(name.getText())) {
+                name.setError("Name is required");
+            } else if (TextUtils.isEmpty(duration.getText())) {
+                duration.setError("Duration is required");
+            }else {
+                String spnString = spinner.getSelectedItem().toString();
+                Exercise.Intensity IT;
+                if (spnString.equals("Low"))
+                    IT = Exercise.Intensity.Low;
+                else if(spnString.equals("Medium"))
+                    IT = Exercise.Intensity.Medium;
+                else
+                    IT = Exercise.Intensity.High;
 
-            Exercise exercise = new Exercise(name.getText().toString(), Double.parseDouble(duration.getText().toString()), IT);
-            day.addExercise(exercise);
-            accessAccount.updateDay(username, day);
+                Exercise exercise = new Exercise(name.getText().toString(), Double.parseDouble(duration.getText().toString()), IT);
+                day.addExercise(exercise);
+                accessAccount.updateDay(username, day);
 
-            //go back to the timeline activity and pass the username
-            Intent intent = new Intent(AddExerciseActivity.this, TimelineActivity.class);
-            intent.putExtra("username", username);
-            AddExerciseActivity.this.startActivity(intent);
-
+                //go back to the timeline activity and pass the username
+                Intent intent = new Intent(AddExerciseActivity.this, TimelineActivity.class);
+                intent.putExtra("username", username);
+                AddExerciseActivity.this.startActivity(intent);
+            }
         });
     }
 
