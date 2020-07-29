@@ -4,6 +4,8 @@
  ****************************************/
 package comp3350.mealbuddy.presentation;
 
+import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.RelativeLayout;
@@ -20,6 +22,7 @@ import comp3350.mealbuddy.objects.Day;
 public class GoalActivity extends AppCompatActivity {
 
     private AccessAccount accessAccount;
+    Dialog dialog;
 
     /*
      * onCreate
@@ -31,6 +34,7 @@ public class GoalActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_goals);
+        dialog = new Dialog(this);
 
         //get the passed values from the previous activity
         int dayOfYear = this.getIntent().getIntExtra("dayOfYear", -1);
@@ -51,7 +55,13 @@ public class GoalActivity extends AppCompatActivity {
         goalBody.setText(day.getGoalString());
 
         //Add Goal Button
-        Button addGoalButton = findViewById(R.id.btnAddGoal);
+        Button addGoal = findViewById(R.id.btnAddGoal);
+        addGoal.setOnClickListener((view) -> {
+            Intent intent = new Intent(GoalActivity.this, AddGoalActivity.class);
+            intent.putExtra("dayOfYear", dayOfYear);
+            intent.putExtra("username", username);
+            showPopUp(username, dayOfYear);
+        });
 
 
     }
@@ -73,6 +83,17 @@ public class GoalActivity extends AppCompatActivity {
         RelativeLayout goalsLayout = (RelativeLayout) goals.getChildAt(0);
         TextView cardGoalsTitle = (TextView)  goalsLayout.getChildAt(0);
         cardGoalsTitle.setText("Goals for the Day");
+    }
+
+    public void showPopUp(String userName, int dayOfYear) {
+        dialog.setContentView(R.layout.pop_up_goal);
+
+        Button btnContinue = dialog.findViewById(R.id.btnContinue);
+        btnContinue.setOnClickListener((view) -> {
+            //
+        });
+
+        dialog.show();
     }
 
 }
