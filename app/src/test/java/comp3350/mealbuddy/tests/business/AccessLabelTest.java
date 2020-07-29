@@ -9,6 +9,8 @@ import java.util.List;
 import comp3350.mealbuddy.application.Main;
 import comp3350.mealbuddy.application.Services;
 import comp3350.mealbuddy.business.AccessLabel;
+import comp3350.mealbuddy.objects.Account;
+import comp3350.mealbuddy.objects.UserInfo;
 
 public class AccessLabelTest {
     private static AccessLabel accessLabel;
@@ -58,6 +60,53 @@ public class AccessLabelTest {
         }
     }
 
+    @Test
+    public void updateAccount_labelAlreadyExists_throwException(){
+        String s = "new label";
+        accessLabel.addLabel(s);
+        try {
+            accessLabel.updateLabel(s, LABEL);
+            Assert.fail();
+        } catch(IllegalArgumentException IAE){
+            Assert.assertTrue(true);
+        }
+    }
+
+    @Test
+    public void updateLabel_labelDoesntExist_throwException(){
+        try {
+            //confirm that it doesnt exist
+            Assert.assertNull(accessLabel.getLabel("Idontexist"));
+            //trying to update an account that doesnt exist
+            accessLabel.updateLabel("Idontexist", "newLabel");
+            Assert.fail();
+        } catch(IllegalArgumentException iae){
+            //confirm that it wasnt added
+            Assert.assertNull(accessLabel.getLabel("Idontexist"));
+        }
+    }
+
+    @Test
+    public void updateLabel_nullValues_throwException(){
+        try {
+            accessLabel.updateLabel(null, null);
+            Assert.fail();
+        } catch(NullPointerException iae){
+            Assert.assertTrue(true);
+        }
+        try {
+            accessLabel.updateLabel(null, "null");
+            Assert.fail();
+        } catch(NullPointerException iae){
+            Assert.assertTrue(true);
+        }
+        try {
+            accessLabel.updateLabel("null", null);
+            Assert.fail();
+        } catch(NullPointerException iae){
+            Assert.assertTrue(true);
+        }
+    }
 
 
 }
