@@ -329,6 +329,14 @@ public class Calculator {
         return totalCalories;
     }
 
+        /*
+     * getNetCalories
+     * Get the net total calories. (i.e., total calories - total burned calories)
+     * Parameters:
+     *     @param userInfo - The userInfo of the user performing the exercises
+     * Return:
+     *     The total calories
+     */
     public int getNetCalories(UserInfo userInfo) {
         return getTotalCalories() - getTotalExerciseCalories(userInfo);
     }
