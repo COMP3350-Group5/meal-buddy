@@ -36,9 +36,9 @@ public class MicroGoal extends Goal {
     @NonNull
     public String toString() {
         return "MicroGoal{" +
-                "id=" + id +"mg"+
-                ", lowerBound=" + lowerBound +
-                ", upperBound=" + upperBound +
+                "id=" + id +
+                ", lowerBound=" + lowerBound + "mg" +
+                ", upperBound=" + upperBound + "mg" +
                 '}';
     }
 

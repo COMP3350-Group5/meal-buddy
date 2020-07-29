@@ -11,7 +11,6 @@
         android:theme="@style/Theme.MaterialComponents">
         <activity android:name=".presentation.SearchFoodActivity"></activity>
         <activity android:name=".presentation.AddFoodActivity" />
-        <activity android:name=".presentation.AddGoalActivity" />
         <activity android:name=".presentation.SignUpActivity" />
         <activity android:name=".presentation.TimelineActivity" />
         <activity android:name=".presentation.GoalActivity" />

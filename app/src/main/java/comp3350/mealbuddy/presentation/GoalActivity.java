@@ -20,8 +20,10 @@ import comp3350.mealbuddy.R;
 import comp3350.mealbuddy.business.AccessAccount;
 import comp3350.mealbuddy.business.Calculator;
 import comp3350.mealbuddy.objects.Day;
+import comp3350.mealbuddy.objects.consumables.Edible;
 import comp3350.mealbuddy.objects.goals.CalorieGoal;
 import comp3350.mealbuddy.objects.goals.Goal;
+import comp3350.mealbuddy.objects.goals.MicroGoal;
 
 public class GoalActivity extends AppCompatActivity {
 
@@ -62,9 +64,6 @@ public class GoalActivity extends AppCompatActivity {
         //Add Goal Button
         Button addGoal = findViewById(R.id.btnAddGoal);
         addGoal.setOnClickListener((view) -> {
-            Intent intent = new Intent(GoalActivity.this, AddGoalActivity.class);
-            intent.putExtra("dayOfYear", dayOfYear);
-            intent.putExtra("username", username);
             showPopUp(username, dayOfYear);
         });
 
@@ -104,8 +103,8 @@ public class GoalActivity extends AppCompatActivity {
 //                showLabelPopUp();
 //            else if (spnString.equals("Macro Goal"))
 //                showMacroPopUp();
-//            else
-//                showMicroPopUp();
+            else
+                showMicroPopUp(userName, dayOfYear);
         });
 
         dialog.show();
@@ -120,6 +119,29 @@ public class GoalActivity extends AppCompatActivity {
         btnContinue.setOnClickListener((view) -> {
             Day day = accessAccount.getDay(userName, dayOfYear);
             day.goals.add(new CalorieGoal(Integer.parseInt(lowerBound.getText().toString()), Integer.parseInt(upperBound.getText().toString())));
+            accessAccount.updateDay(userName, day);
+
+            //Go back to the goal activity
+            Intent intent = new Intent(GoalActivity.this, GoalActivity.class);
+            intent.putExtra("dayOfYear", dayOfYear);
+            intent.putExtra("username", userName);
+            GoalActivity.this.startActivity(intent);
+        });
+
+        dialog.show();
+    }
+
+    public void showMicroPopUp(String userName, int dayOfYear) {
+        dialog.setContentView(R.layout.add_micro_goal);
+
+        EditText lowerBound = dialog.findViewById(R.id.lowerBound);
+        EditText upperBound = dialog.findViewById(R.id.upperBound);
+        Spinner spinner = dialog.findViewById(R.id.spnMicro);;
+
+        Button btnContinue = dialog.findViewById(R.id.btnContinue);
+        btnContinue.setOnClickListener((view) -> {
+            Day day = accessAccount.getDay(userName, dayOfYear);
+            day.goals.add(new MicroGoal(Integer.parseInt(lowerBound.getText().toString()), Integer.parseInt(upperBound.getText().toString()), Edible.Micros.valueOf(spinner.getSelectedItem().toString())));
             accessAccount.updateDay(userName, day);
 
             //Go back to the goal activity

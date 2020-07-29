@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="450dp"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:clipToPadding="false"
+    android:orientation="vertical"
+    android:padding="5dp">
+
+    <TextView
+        android:id="@+id/addMicroGoalTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Create New Micro Goal:"
+        android:textSize="35dp" />
+
+    <TextView
+        android:id="@+id/addMicroGoalBody1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Lower Bound:" />
+
+    <EditText
+        android:id="@+id/lowerBound"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:inputType="number" />
+
+    <TextView
+        android:id="@+id/addMicroGoalBody2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Upper Bound:" />
+
+    <EditText
+        android:id="@+id/upperBound"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:inputType="number" />
+
+    <TextView
+        android:id="@+id/addMicroGoalBody3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Micro:" />
+
+    <Spinner
+        android:id="@+id/spnMicro"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/matDarkPurp"
+        android:entries="@array/micro_array"
+        android:popupBackground="@color/matDarkPurp" />
+
+    <Button
+        android:id="@+id/btnContinue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="CONTINUE" />
+</LinearLayout>
