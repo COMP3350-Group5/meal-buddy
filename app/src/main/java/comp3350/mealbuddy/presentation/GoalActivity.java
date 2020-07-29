@@ -24,6 +24,7 @@ import comp3350.mealbuddy.R;
 import comp3350.mealbuddy.business.AccessAccount;
 import comp3350.mealbuddy.business.AccessLabel;
 import comp3350.mealbuddy.business.Calculator;
+import comp3350.mealbuddy.business.GoalTracker;
 import comp3350.mealbuddy.objects.Day;
 import comp3350.mealbuddy.objects.consumables.Edible;
 import comp3350.mealbuddy.objects.goals.CalorieGoal;
@@ -59,14 +60,26 @@ public class GoalActivity extends AppCompatActivity {
         final Day day = accessAccount.getDay(username, dayOfYear);
         Calculator calculator = new Calculator(day);
 
-        //Update Goal Text
+        //Update Goals Card
         TextView goalText = findViewById(R.id.txtGoalsTitle);
-        goalText.setText("Goals for Day: " + day.dayOfYear);
-        initializeCards();
+        goalText.setText("Goals for Day " + day.dayOfYear);
 
-        //Update Goal body
+        //Update Goals body
         TextView goalBody = findViewById(R.id.txtGoals);
         goalBody.setText(day.getGoalString());
+
+        //Update Goals Passed Title
+        TextView passedGoalsText = findViewById(R.id.txtPassedGoalsTitle);
+        passedGoalsText.setText("Goals Passed for Day " + day.dayOfYear);
+
+        //Update Goals Passed Body
+        TextView passedGoalsBody = findViewById(R.id.txtPassedGoals);
+        String passedGoalsString = "";
+        List<Goal> passedGoals = GoalTracker.getPassedGoals(calculator, day.goals);
+        for (Goal g : passedGoals) {
+            passedGoalsString += g;
+        }
+        passedGoalsBody.setText(passedGoalsString);
 
         //Add Goal Button
         Button addGoal = findViewById(R.id.btnAddGoal);
@@ -83,25 +96,6 @@ public class GoalActivity extends AppCompatActivity {
         });
 
 
-    }
-
-    /*
-     * initializeCards
-     * initializes the UI cards
-     */
-    private void initializeCards(){
-        initializeGoals();
-    }
-
-    /*
-     * initializeGoals
-     * initializes the the goal card
-     */
-    private void initializeGoals() {
-        CardView goals = findViewById(R.id.cardGoals);
-        RelativeLayout goalsLayout = (RelativeLayout) goals.getChildAt(0);
-        TextView cardGoalsTitle = (TextView)  goalsLayout.getChildAt(0);
-        cardGoalsTitle.setText("Goals for the Day");
     }
 
     public void showPopUp(String userName, int dayOfYear) {
