@@ -164,4 +164,9 @@ public class TimelineActivity extends AppCompatActivity {
         TextView exerciseCals = (TextView) exerciseLayout.getChildAt(2);
         exerciseCals.setText(calculator.getTotalExerciseCalories(accessAccount.getAccount(username).user) + " Cals");
     }
+
+    @Override
+    public void onBackPressed() {
+       // empty to disable back button
+    }
 }
