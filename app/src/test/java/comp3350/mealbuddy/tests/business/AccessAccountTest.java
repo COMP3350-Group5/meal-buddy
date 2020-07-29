@@ -43,6 +43,7 @@ public class AccessAccountTest {
     @Test
     public void addAccount_oneNewAccount_add(){
         //verify that the account isnt in the database
+        accessAccount.removeAccount(dummyUserInfo.username);
         Assert.assertNull(accessAccount.getAccount(dummyUserInfo.username));
         //add
         accessAccount.addAccount(dummyUserInfo);
@@ -162,64 +163,62 @@ public class AccessAccountTest {
     }
 
     @Test
-    public void removeAccountTest(){
+    public void removeAccount_accountExists_remove(){
         //remove account normally
         Assert.assertNotNull(accessAccount.getAccount(ACCOUNT_USERNAME));
         accessAccount.removeAccount(ACCOUNT_USERNAME);
         Assert.assertNull(accessAccount.getAccount(ACCOUNT_USERNAME));
+
+        //add it back for other tests
         accessAccount.addAccount(account);
         Assert.assertNotNull(accessAccount.getAccount(ACCOUNT_USERNAME));
-
-        //verify the following account isnt in the database for the next couple of tests
-        Assert.assertNull(accessAccount.getAccount("Idontexist"));
-
-        //trying to remove and update accounts that dont exist
-        accessAccount.removeAccount("Idontexist");
-        Assert.assertNull(accessAccount.getAccount("Idontexist"));
-        //trying to remove and update null pointers
-        accessAccount.removeAccount(null);
-        Assert.assertTrue(true); //we didn't crash lol
     }
 
     @Test
-    public void getAndVerifyAccountTest(){
-        //tests that should pass
+    public void removeAccount_usernameDoesntExist_throwException(){
+        try {
+            accessAccount.removeAccount("Idontexist");
+            Assert.fail();
+        } catch(NullPointerException npe) {
+            Assert.assertTrue(true);
+        }
+    }
+
+    @Test
+    public void removeAccount_nullUserName_throwException(){
+        try {
+            accessAccount.removeAccount(null);
+            Assert.fail();
+        } catch(NullPointerException npe) {
+            Assert.assertTrue(true);
+        }
+    }
+
+    @Test
+    public void getAndVerifyAccount_getUserInDb_returnAccount(){
         Assert.assertEquals(account, accessAccount.getAccount(ACCOUNT_USERNAME));
         Assert.assertEquals(account, accessAccount.validateLogin(ACCOUNT_USERNAME, ACCOUNT_PASSWORD));
 
-        //---testing edge cases---
-        //account not in DB
+    }
+
+    @Test
+    public void getAndVerifyAccount_getUserNotInDb_returnNull(){
         Assert.assertNull(accessAccount.getAccount("ThisDoesntExist"));
         Assert.assertNull(accessAccount.validateLogin("This doesntExist", "this doesnt exist"));
+    }
 
-        //account in DB but wrong password
+    @Test
+    public void verifyAccount_wrongPassword_returnNull(){
         Assert.assertNull(accessAccount.validateLogin(ACCOUNT_USERNAME, "wrong password"));
+    }
 
-        //passing null values
+    @Test
+    public void getAndVerifyAccount_nullValues_returnNull(){
         Assert.assertNull(accessAccount.getAccount(null));
         Assert.assertNull(accessAccount.validateLogin(ACCOUNT_USERNAME, null));
         Assert.assertNull(accessAccount.validateLogin(null, "password"));
         Assert.assertNull(accessAccount.validateLogin(null, null));
-        //---end of testing edge cases---
     }
 
 
-    /* Day Testing */
-
-    @Test
-    public void getDayTest() {
-        //get the dummy day
-        Assert.assertEquals(day, accessAccount.getDay(ACCOUNT_USERNAME, DAY_OF_YEAR));
-
-        //get a day that isn't currently being tracked by the account
-        Assert.assertEquals(new Day(244), accessAccount.getDay(ACCOUNT_USERNAME, 244));
-
-        //---testing edge cases
-        //invalid day
-        try {
-            accessAccount.getDay(ACCOUNT_USERNAME, 34234234);
-        } catch( IllegalArgumentException IAE) {
-            Assert.assertTrue(true);
-        }
-    }
 }

@@ -56,8 +56,8 @@ public class AccessAccount {
      *     @param a - The account to update to.
      */
     public void updateAccount(String usernameToUpdate, Account a){
-        if(getAccount(usernameToUpdate) == null)
-            throw new IllegalArgumentException("Username being updated doesn't exist in the database.");
+        if(usernameToUpdate == null || (usernameToUpdate) == null)
+            throw new NullPointerException("Username being updated doesn't exist in the database.");
         if (a == null)
             throw new IllegalArgumentException("Account cannot be null");
         //if the account that is being updated is being updated with a username that already is in the db
@@ -73,6 +73,8 @@ public class AccessAccount {
      *     @param a - The account to be removed.
      */
     public void removeAccount(String userName){
+        if (userName == null || getAccount(userName) == null)
+            throw new NullPointerException("Username being removed doesn't exist in the database.");
         DAS.removeAccount(userName);
     }
 
@@ -126,7 +128,9 @@ public class AccessAccount {
      * Return:
      *     The account for the given username.
      */
-    public Account getAccount(String username) { return DAS.getAccount(username); }
+    public Account getAccount(String username) {
+        return DAS.getAccount(username);
+    }
 
 
 }
