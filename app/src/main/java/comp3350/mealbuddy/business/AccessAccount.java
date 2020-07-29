@@ -117,6 +117,10 @@ public class AccessAccount {
      *     @param day - The day to update
      */
     public void updateDay(String userName, Day day) {
+        if (userName == null)
+            throw new IllegalArgumentException("Username cannot be null");
+        if (day == null)
+            throw new IllegalArgumentException("Day cannot be null to update");
         DAS.updateDay(userName, day);
     }
 

@@ -5,12 +5,16 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Arrays;
+
 import comp3350.mealbuddy.application.Main;
 import comp3350.mealbuddy.application.Services;
 import comp3350.mealbuddy.business.AccessAccount;
 import comp3350.mealbuddy.objects.Account;
 import comp3350.mealbuddy.objects.Day;
 import comp3350.mealbuddy.objects.UserInfo;
+import comp3350.mealbuddy.objects.consumables.Edible;
+import comp3350.mealbuddy.objects.consumables.Food;
 import comp3350.mealbuddy.persistence.DataAccess;
 import comp3350.mealbuddy.tests.persistence.DataAccessStub;
 
@@ -220,5 +224,43 @@ public class AccessAccountTest {
         Assert.assertNull(accessAccount.validateLogin(null, null));
     }
 
+    @Test
+    public void getDay_dayInTracked_returnDay(){
+        Assert.assertEquals(day, accessAccount.getDay(ACCOUNT_USERNAME, DAY_OF_YEAR));
+    }
 
+    @Test
+    public void getDay_dayNotBeingTracked_returnDay(){
+        Assert.assertEquals(new Day(244), accessAccount.getDay(ACCOUNT_USERNAME, 244));
+    }
+
+    @Test
+    public void getDay_dayOutOfRange_throwException(){
+        try {
+            accessAccount.getDay(ACCOUNT_USERNAME, 34234234);
+            Assert.fail();
+        } catch( IllegalArgumentException IAE) {
+            Assert.assertTrue(true);
+        }
+    }
+
+    @Test
+    public void updateDay_userNameDoesntExist_throwException(){
+        try {
+            accessAccount.updateDay(null, day);
+            Assert.fail();
+        } catch(IllegalArgumentException IAE){
+            Assert.assertTrue(true);
+        }
+    }
+
+    @Test
+    public void updateDay_dayIsNull_throwException(){
+        try {
+            accessAccount.updateDay(ACCOUNT_USERNAME, null);
+            Assert.fail();
+        } catch(IllegalArgumentException IAE){
+            Assert.assertTrue(true);
+        }
+    }
 }
