@@ -170,10 +170,22 @@ public class Day {
         goals.remove(goal);
     }
 
+    /*
+     * getExercises
+     * get the exercises in a day.
+     * Return:
+     *     the exercise list
+     */
     public ArrayList<Exercise> getExercises() {
         return exercises;
     }
-
+    
+    /*
+     * getGoals
+     * get the goals in a day.
+     * Return:
+     *     the goal list
+     */
     public ArrayList<Goal> getGoals() {
         return goals;
     }
