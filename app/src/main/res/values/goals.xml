@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="goal_array">
+        <item>Calorie Goal</item>
+        <item>Label Goal</item>
+        <item>Macro Goal</item>
+        <item>Micro Goal</item>
+    </string-array>
+</resources>

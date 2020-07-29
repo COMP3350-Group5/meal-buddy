@@ -6,6 +6,7 @@ package comp3350.mealbuddy.presentation;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -54,6 +55,7 @@ public class TimelineActivity extends AppCompatActivity {
         TextView timelineText = findViewById(R.id.txtTimeline);
         timelineText.setText("Day: " + day.dayOfYear);
         initializeCards();
+
         // the "addFood" button to go to the AddFoodActivity
         FloatingActionButton addFood = findViewById(R.id.btnAddFood);
         addFood.setOnClickListener((view) -> {
@@ -62,6 +64,16 @@ public class TimelineActivity extends AppCompatActivity {
                 intent.putExtra("username", username);
                 TimelineActivity.this.startActivity(intent);
         });
+
+        //the "goals" button to view list of goals
+        Button goals = findViewById(R.id.btnViewGoals);
+        goals.setOnClickListener((view) -> {
+                Intent intent = new Intent(TimelineActivity.this, GoalActivity.class);
+                intent.putExtra("dayOfYear", day.dayOfYear);
+                intent.putExtra("username", username);
+                TimelineActivity.this.startActivity(intent);
+        });
+
     }
 
     /*
