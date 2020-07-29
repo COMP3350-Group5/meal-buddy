@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="450dp"
+    android:layout_height="250dp"
+    android:padding="5dp"
+    android:layout_gravity="center"
+    tools:ignore="PrivateResource">
+
+    <TextView
+        android:id="@+id/tvPopUpTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Adding Exercise: "
+        android:textSize="35dp"
+        android:textColor="@color/cardview_light_background"/>
+
+    <TextView
+        android:id="@+id/tvSpinnerTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Select an intensity:"
+        android:textSize="15dp"
+        android:textColor="@color/cardview_light_background"/>
+    <Spinner
+        android:id="@+id/spnIntensity"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:entries="@array/intensityLevel_array"
+        />
+
+    <EditText
+        android:id="@+id/etDuration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Quantity"
+        android:inputType="number"
+        android:layout_gravity="center"
+        android:textColorHint="@color/cardview_light_background" />
+    <Button
+        android:id="@+id/btnConfirm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+
+        android:text="Confirm" />
+
+
+</LinearLayout>
