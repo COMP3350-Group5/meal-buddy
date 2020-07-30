@@ -25,9 +25,7 @@
         android:id="@+id/spnGoalType"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/matDarkPurp"
-        android:entries="@array/goal_array"
-        android:popupBackground="@color/matDarkPurp" />
+        android:entries="@array/goal_array" />
 
     <Button
         android:id="@+id/btnContinue"
