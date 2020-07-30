@@ -19,6 +19,8 @@ import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,6 +40,10 @@ public class SearchFoodActivity extends AppCompatActivity {
     ListView listview;
     AccessEdible accessEdible;
     AccessAccount accessAccount;
+    FloatingActionButton fabAdd;
+    FloatingActionButton fabMeal;
+    FloatingActionButton fabFood;
+    boolean isFabOpen = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +58,10 @@ public class SearchFoodActivity extends AppCompatActivity {
         //set up the access methods
         accessEdible = new AccessEdible();
         accessAccount = new AccessAccount();
+
+        fabAdd = findViewById(R.id.fabAdd);
+        fabFood = findViewById(R.id.fabFood);
+        fabMeal = findViewById(R.id.fabMeal);
 
         //set up the list view
         List<Edible> allEdibles = accessEdible.getEdibles();
@@ -157,6 +167,33 @@ public class SearchFoodActivity extends AppCompatActivity {
                   }
               }
         );
+    }
+
+    private void showFABMenu(){
+        isFabOpen=true;
+        fabFood.setVisibility(View.VISIBLE);
+        fabMeal.setVisibility(View.VISIBLE);
+        fabFood.animate().translationY(-getResources().getDimension(R.dimen.standard_65));
+        fabMeal.animate().translationY(-getResources().getDimension(R.dimen.standard_130));
+    }
+
+    private void closeFABMenu(){
+        isFabOpen=false;
+        fabFood.animate().translationY(0);
+        fabMeal.animate().translationY(0);
+        fabFood.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                fabFood.setVisibility(View.INVISIBLE);
+            }
+        }, 300);
+        fabMeal.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                fabMeal.setVisibility(View.INVISIBLE);
+            }
+        }, 300);
+
     }
 
 }
