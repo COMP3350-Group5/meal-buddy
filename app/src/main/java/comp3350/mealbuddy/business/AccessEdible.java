@@ -1,12 +1,9 @@
 /****************************************
- * AccessAccount
+ * AccessEdible
  * Business Objects for managing edibles
  ****************************************/
 package comp3350.mealbuddy.business;
 
-import androidx.core.app.NavUtils;
-
-import java.util.ArrayList;
 import java.util.List;
 
 import comp3350.mealbuddy.application.Main;
@@ -47,7 +44,7 @@ public class AccessEdible {
      *     @param edibleToUpdate - The edible to update.
      *     @param e - The edible to update to.
      */
-    public void updateEdible(String edibleToUpdate, Edible e){
+    public void updateEdible(String edibleToUpdate, Edible e) {
         if (edibleToUpdate == null)
             throw new NullPointerException("Edible name can't be null");
         if (e == null)
@@ -64,7 +61,7 @@ public class AccessEdible {
      * Parameters:
      *     @param e - The name of the edible to remove.
      */
-    public void removeEdible(String e){
+    public void removeEdible(String e) {
         if (e == null)
             throw new NullPointerException("Edible name can't be null");
         if (getEdible(e) == null)
@@ -78,7 +75,9 @@ public class AccessEdible {
      * Return:
      *     the list of food.
      */
-    public List<Edible> getEdibles(){ return DAS.getEdibles(); }
+    public List<Edible> getEdibles() {
+        return DAS.getEdibles();
+    }
 
     /*
      * getEdible
@@ -86,11 +85,11 @@ public class AccessEdible {
      * Return:
      *     the edible or null.
      */
-    public Edible getEdible(String name){
+    public Edible getEdible(String name) {
         if (name == null)
             throw new NullPointerException("Edible name can't be null");
         List<Edible> e = getEdibles();
-        for (Edible in : e){
+        for (Edible in : e) {
             if (in.name.equals(name))
                 return in;
         }

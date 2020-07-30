@@ -6,42 +6,13 @@ package comp3350.mealbuddy.objects.consumables;
 
 import androidx.annotation.NonNull;
 
-import java.util.EnumMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 public abstract class Edible implements Iterable<Edible> {
 
     public String name;
     public List<String> labels;
-
-    public enum Macros {
-        Fat, Carbohydrates, Protein, Alcohol
-    }
-
-    public enum Micros {
-        Iron, Zinc, VitaminA, VitaminB12, VitaminC, VitaminE, Calcium, Choline, Magnesium, Sodium, Potassium, Niacin
-    }
-
-    public static Edible copyEdible(Edible e) {
-        Edible result = null;
-        if (e instanceof Food) {
-            result = new Food((Food)e);
-        }
-        else if (e instanceof Meal) {
-            result = new Meal((Meal)e);
-        }
-        return result;
-    }
-
-    public abstract int getMacroGrams(Macros macro);
-
-    public abstract int getMicroGrams(Micros micro);
-
-    @NonNull
-    @Override
-    public abstract Iterator<Edible> iterator();
 
     /*
      * Constructor
@@ -56,6 +27,24 @@ public abstract class Edible implements Iterable<Edible> {
         this.name = name;
         this.labels = labels;
     }
+
+    public static Edible copyEdible(Edible e) {
+        Edible result = null;
+        if (e instanceof Food) {
+            result = new Food((Food) e);
+        } else if (e instanceof Meal) {
+            result = new Meal((Meal) e);
+        }
+        return result;
+    }
+
+    public abstract int getMacroGrams(Macros macro);
+
+    public abstract int getMicroGrams(Micros micro);
+
+    @NonNull
+    @Override
+    public abstract Iterator<Edible> iterator();
 
     /*
      * containsLabel
@@ -82,6 +71,14 @@ public abstract class Edible implements Iterable<Edible> {
             isEqual = name.equals(edibleIntPair.edible.name);
         }
         return isEqual;
+    }
+
+    public enum Macros {
+        Fat, Carbohydrates, Protein, Alcohol
+    }
+
+    public enum Micros {
+        Iron, Zinc, VitaminA, VitaminB12, VitaminC, VitaminE, Calcium, Choline, Magnesium, Sodium, Potassium, Niacin
     }
 
 

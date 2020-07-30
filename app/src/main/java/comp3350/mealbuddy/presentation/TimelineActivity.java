@@ -9,13 +9,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
@@ -59,12 +57,10 @@ public class TimelineActivity extends AppCompatActivity {
         dayOfYear = this.getIntent().getIntExtra("dayOfYear", calendar.get(Calendar.DAY_OF_YEAR));
         username = this.getIntent().getStringExtra("username");
 
+        //initialize the access methods and day based on the given values
         calendar.set(Calendar.DAY_OF_YEAR, dayOfYear);
-
         accessAccount = new AccessAccount();
         day = accessAccount.getDay(username, dayOfYear);
-
-
         calculator = new Calculator(day);
 
         //update the timeline text
@@ -83,7 +79,7 @@ public class TimelineActivity extends AppCompatActivity {
 
             cv.setOnDateChangeListener((calendarView, y, m, d) -> {
                 Calendar newCalendar = Calendar.getInstance();
-                newCalendar.set(y,m,d);
+                newCalendar.set(y, m, d);
                 int newDayOfYear = newCalendar.get(Calendar.DAY_OF_YEAR);
                 Intent intent = new Intent(TimelineActivity.this, TimelineActivity.class);
                 intent.putExtra("dayOfYear", newDayOfYear);
@@ -103,22 +99,16 @@ public class TimelineActivity extends AppCompatActivity {
         fabExercise.setVisibility(View.INVISIBLE);
 
         fab.setOnClickListener((view) -> {
-            if(!isFabOpen) showFABMenu();
+            if (!isFabOpen) showFABMenu();
             else closeFABMenu();
         });
 
         fabFood.setOnClickListener((view) -> {
-                Intent intent = new Intent(TimelineActivity.this, SearchFoodActivity.class);
-                intent.putExtra("dayOfYear", day.dayOfYear);
-                intent.putExtra("username", username);
-                TimelineActivity.this.startActivity(intent);
+            ChangeActivityHelper.changeActivity(TimelineActivity.this, SearchFoodActivity.class, username, dayOfYear);
         });
 
         fabExercise.setOnClickListener((view) -> {
-            Intent intent = new Intent(TimelineActivity.this, AddExerciseActivity.class);
-            intent.putExtra("dayOfYear", day.dayOfYear);
-            intent.putExtra("username", username);
-            TimelineActivity.this.startActivity(intent);
+            ChangeActivityHelper.changeActivity(TimelineActivity.this, AddExerciseActivity.class, username, dayOfYear);
         });
 
         BottomNavigationView nav = findViewById(R.id.bottom_navigation);
@@ -126,16 +116,10 @@ public class TimelineActivity extends AppCompatActivity {
             Intent intent;
             switch (item.getItemId()) {
                 case R.id.action_goals:
-                    intent = new Intent(TimelineActivity.this, GoalActivity.class);
-                    intent.putExtra("dayOfYear", day.dayOfYear);
-                    intent.putExtra("username", username);
-                    TimelineActivity.this.startActivity(intent);
+                    ChangeActivityHelper.changeActivity(TimelineActivity.this, GoalActivity.class, username, dayOfYear);
                     break;
                 case R.id.action_account:
-                    intent = new Intent(TimelineActivity.this, AccountActivity.class);
-                    intent.putExtra("dayOfYear", day.dayOfYear);
-                    intent.putExtra("username", username);
-                    TimelineActivity.this.startActivity(intent);
+                    ChangeActivityHelper.changeActivity(TimelineActivity.this, AccountActivity.class, username, dayOfYear);
                     break;
                 case R.id.action_timeline:
                     // do nothing, this is where we are
@@ -250,16 +234,24 @@ public class TimelineActivity extends AppCompatActivity {
         exerciseCals.setText(calculator.getTotalExerciseCalories(accessAccount.getAccount(username).user) + " Cals");
     }
 
-    private void showFABMenu(){
-        isFabOpen=true;
+    /*
+     * showFABMenu
+     * shows the floating action button menu
+     */
+    private void showFABMenu() {
+        isFabOpen = true;
         fabFood.setVisibility(View.VISIBLE);
         fabExercise.setVisibility(View.VISIBLE);
         fabFood.animate().translationY(-getResources().getDimension(R.dimen.standard_65));
         fabExercise.animate().translationY(-getResources().getDimension(R.dimen.standard_130));
     }
 
-    private void closeFABMenu(){
-        isFabOpen=false;
+    /*
+     * closeFABMenu
+     * closes the floating action button menu
+     */
+    private void closeFABMenu() {
+        isFabOpen = false;
         fabFood.animate().translationY(0);
         fabExercise.animate().translationY(0);
         fabExercise.postDelayed(new Runnable() {
@@ -276,8 +268,13 @@ public class TimelineActivity extends AppCompatActivity {
         }, 300);
 
     }
+
+    /*
+     * onBackPressed
+     * disable back button
+     */
     @Override
     public void onBackPressed() {
-       // empty to disable back button
+        // empty to disable back button
     }
 }

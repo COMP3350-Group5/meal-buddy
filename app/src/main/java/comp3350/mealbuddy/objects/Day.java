@@ -8,15 +8,14 @@ package comp3350.mealbuddy.objects;
 import java.util.ArrayList;
 
 import comp3350.mealbuddy.objects.consumables.Edible;
-import comp3350.mealbuddy.objects.consumables.EdibleIntPair;
 import comp3350.mealbuddy.objects.consumables.Meal;
 import comp3350.mealbuddy.objects.goals.Goal;
 
 public class Day {
-    public enum MealTimeType {
-        BREAKFAST, LUNCH, DINNER, SNACK
-    }
-
+    public static final String BREAKFAST_NAME = "Breakfast";
+    public static final String LUNCH_NAME = "Lunch";
+    public static final String DINNER_NAME = "Dinner";
+    public static final String SNACK_NAME = "Snack";
     public int dayOfYear; // represented as day-of-year (1-365)
     public Meal breakfast;
     public Meal lunch;
@@ -24,11 +23,6 @@ public class Day {
     public Meal snack;
     private ArrayList<Goal> goals;
     private ArrayList<Exercise> exercises;
-    public static final String BREAKFAST_NAME = "Breakfast";
-    public static final String LUNCH_NAME = "Lunch";
-    public static final String DINNER_NAME = "Dinner";
-    public static final String SNACK_NAME = "Snack";
-
     /*
      * Constructor
      * initializes the day object from a dayOfYear parameter
@@ -91,7 +85,6 @@ public class Day {
         return null;
     }
 
-
     /*
      * getMealString
      * returns string interpretation of the meal.
@@ -104,21 +97,20 @@ public class Day {
         return getMealTime(MT).toString();
     }
 
-
-     /*
+    /*
      * getExerciseString
      * returns string interpretation of the exercises.
      * Return:
      *     returns the string interpretation.
      */
     public String getExerciseString() {
-        String exerciseString= "";
+        String exerciseString = "";
         for (Exercise exercise : exercises) {
             exerciseString += exercise.toString() + "\n";
         }
         return exerciseString;
     }
-    
+
     /*
      * addToMeal
      * gets the correct list and adds the edible by quantity into the list
@@ -127,7 +119,7 @@ public class Day {
      *     @param edible - to add
      *     @param quantity - the quantity
      */
-    public void addToMeal(MealTimeType MT, Edible edible, int quantity){
+    public void addToMeal(MealTimeType MT, Edible edible, int quantity) {
         getMealTime(MT).add(edible, quantity);
     }
 
@@ -149,7 +141,7 @@ public class Day {
         if (exercises.contains(exercise)) {
             double oldDuration = exercises.get(exercises.indexOf(exercise)).duration;
             exercises.remove(exercise);
-            exercises.add(new Exercise(exercise.name, exercise.duration + oldDuration, exercise.intensity ));
+            exercises.add(new Exercise(exercise.name, exercise.duration + oldDuration, exercise.intensity));
         } else {
             exercises.add(exercise);
         }
@@ -193,7 +185,10 @@ public class Day {
      * Parameters:
      *     @param string - the goal id to remove
      */
-    public void removeGoal(int index) { goals.remove(index); }
+    public void removeGoal(int index) {
+        goals.remove(index);
+    }
+
     /*
      * getExercises
      * get the exercises in a day.
@@ -203,7 +198,7 @@ public class Day {
     public ArrayList<Exercise> getExercises() {
         return exercises;
     }
-    
+
     /*
      * getGoals
      * get the goals in a day.
@@ -214,7 +209,7 @@ public class Day {
         return goals;
     }
 
-     /* getGoalString
+    /* getGoalString
      * returns string interpretation of the goals
      * Return:
      *      returns the string interpretation
@@ -227,6 +222,10 @@ public class Day {
         }
         return result;
 
+    }
+
+    public enum MealTimeType {
+        BREAKFAST, LUNCH, DINNER, SNACK
     }
 
 }

@@ -5,22 +5,18 @@
 package comp3350.mealbuddy.presentation;
 
 import android.app.Dialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,8 +35,8 @@ import comp3350.mealbuddy.objects.goals.MicroGoal;
 
 public class GoalActivity extends AppCompatActivity {
 
-    private AccessAccount accessAccount;
     Dialog dialog;
+    private AccessAccount accessAccount;
     private String username;
     private int dayOfYear;
 
@@ -139,7 +135,7 @@ public class GoalActivity extends AppCompatActivity {
         btnContinue.setOnClickListener((view) -> {
             if (TextUtils.isEmpty(lowerBound.getText())) {
                 lowerBound.setError("Lower bound is required");
-            } else if(TextUtils.isEmpty(upperBound.getText())) {
+            } else if (TextUtils.isEmpty(upperBound.getText())) {
                 upperBound.setError("Upper bound is required");
             } else {
                 Day day = accessAccount.getDay(username, dayOfYear);
@@ -147,10 +143,7 @@ public class GoalActivity extends AppCompatActivity {
                 accessAccount.updateDay(username, day);
 
                 //Go back to the goal activity
-                Intent intent = new Intent(GoalActivity.this, GoalActivity.class);
-                intent.putExtra("dayOfYear", dayOfYear);
-                intent.putExtra("username", username);
-                GoalActivity.this.startActivity(intent);
+                ChangeActivityHelper.changeActivity(GoalActivity.this, GoalActivity.class, username, dayOfYear);
             }
         });
 
@@ -181,7 +174,7 @@ public class GoalActivity extends AppCompatActivity {
         btnContinue.setOnClickListener((view) -> {
             if (TextUtils.isEmpty(lowerBound.getText())) {
                 lowerBound.setError("Lower bound is required");
-            } else if(TextUtils.isEmpty(upperBound.getText())) {
+            } else if (TextUtils.isEmpty(upperBound.getText())) {
                 upperBound.setError("Upper bound is required");
             } else {
                 Day day = accessAccount.getDay(username, dayOfYear);
@@ -189,10 +182,7 @@ public class GoalActivity extends AppCompatActivity {
                 accessAccount.updateDay(username, day);
 
                 //Go back to the goal activity
-                Intent intent = new Intent(GoalActivity.this, GoalActivity.class);
-                intent.putExtra("dayOfYear", dayOfYear);
-                intent.putExtra("username", username);
-                GoalActivity.this.startActivity(intent);
+                ChangeActivityHelper.changeActivity(GoalActivity.this, GoalActivity.class, username, dayOfYear);
             }
         });
 
@@ -215,7 +205,7 @@ public class GoalActivity extends AppCompatActivity {
         btnContinue.setOnClickListener((view) -> {
             if (TextUtils.isEmpty(lowerBound.getText())) {
                 lowerBound.setError("Lower bound is required");
-            } else if(TextUtils.isEmpty(upperBound.getText())) {
+            } else if (TextUtils.isEmpty(upperBound.getText())) {
                 upperBound.setError("Upper bound is required");
             } else {
                 // add goal
@@ -224,10 +214,7 @@ public class GoalActivity extends AppCompatActivity {
                 accessAccount.updateDay(username, day);
 
                 //Go back to the goal activity
-                Intent intent = new Intent(GoalActivity.this, GoalActivity.class);
-                intent.putExtra("dayOfYear", dayOfYear);
-                intent.putExtra("username", username);
-                GoalActivity.this.startActivity(intent);
+                ChangeActivityHelper.changeActivity(GoalActivity.this, GoalActivity.class, username, dayOfYear);
             }
         });
 
@@ -243,13 +230,14 @@ public class GoalActivity extends AppCompatActivity {
 
         EditText lowerBound = dialog.findViewById(R.id.lowerBound);
         EditText upperBound = dialog.findViewById(R.id.upperBound);
-        Spinner spinner = dialog.findViewById(R.id.spnMicro);;
+        Spinner spinner = dialog.findViewById(R.id.spnMicro);
+        ;
 
         Button btnContinue = dialog.findViewById(R.id.btnContinue);
         btnContinue.setOnClickListener((view) -> {
             if (TextUtils.isEmpty(lowerBound.getText())) {
                 lowerBound.setError("Lower bound is required");
-            } else if(TextUtils.isEmpty(upperBound.getText())) {
+            } else if (TextUtils.isEmpty(upperBound.getText())) {
                 upperBound.setError("Upper bound is required");
             } else {
                 // add goal
@@ -258,10 +246,7 @@ public class GoalActivity extends AppCompatActivity {
                 accessAccount.updateDay(username, day);
 
                 //Go back to the goal activity
-                Intent intent = new Intent(GoalActivity.this, GoalActivity.class);
-                intent.putExtra("dayOfYear", dayOfYear);
-                intent.putExtra("username", username);
-                GoalActivity.this.startActivity(intent);
+                ChangeActivityHelper.changeActivity(GoalActivity.this, GoalActivity.class, username, dayOfYear);
             }
         });
 
@@ -295,20 +280,20 @@ public class GoalActivity extends AppCompatActivity {
             accessAccount.updateDay(username, day);
 
             //Back to goal activity
-            Intent intent = new Intent(GoalActivity.this, GoalActivity.class);
-            intent.putExtra("dayOfYear", dayOfYear);
-            intent.putExtra("username", username);
-            GoalActivity.this.startActivity(intent);
+            ChangeActivityHelper.changeActivity(GoalActivity.this, GoalActivity.class, username, dayOfYear);
+
         });
 
         dialog.show();
     }
 
+    /*
+     * onBackPressed
+     * When the back button is pressed
+     */
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(GoalActivity.this, TimelineActivity.class);
-        intent.putExtra("dayOfYear", dayOfYear);
-        intent.putExtra("username", username);
-        GoalActivity.this.startActivity(intent);
+        ChangeActivityHelper.changeActivity(GoalActivity.this, TimelineActivity.class, username, dayOfYear);
+
     }
 }

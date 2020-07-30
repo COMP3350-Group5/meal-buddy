@@ -4,22 +4,13 @@
  ****************************************/
 package comp3350.mealbuddy.objects.goals;
 
-import androidx.annotation.NonNull;
-
-import java.util.Objects;
-
 import comp3350.mealbuddy.objects.consumables.Edible;
 
 public abstract class Goal {
-    public enum GoalType {
-        RATIO, QUANTITY
-    }
-
     public int lowerBound;
     public int upperBound;
     public GoalType goalType;
     public Object id;
-
     /*
      * Constructor
      * Creates a goal with a lower and upper bound, and a type.
@@ -36,19 +27,16 @@ public abstract class Goal {
         this.id = id;
     }
 
-     public static Goal copyGoal(Goal g) {
+    public static Goal copyGoal(Goal g) {
         Goal result = null;
         if (g instanceof LabelGoal) {
-            result = new LabelGoal(g.lowerBound, g.upperBound, g.goalType, (String)g.id);
-        }
-        else if (g instanceof CalorieGoal) {
-            result =  new CalorieGoal(g.lowerBound, g.upperBound);
-        }
-        else if (g instanceof MacroGoal) {
-            result = new MacroGoal(g.lowerBound, g.upperBound, g.goalType, (Edible.Macros)g.id);
-        }
-        else if (g instanceof MicroGoal) {
-            result =  new MicroGoal(g.lowerBound, g.upperBound, (Edible.Micros)g.id);
+            result = new LabelGoal(g.lowerBound, g.upperBound, g.goalType, (String) g.id);
+        } else if (g instanceof CalorieGoal) {
+            result = new CalorieGoal(g.lowerBound, g.upperBound);
+        } else if (g instanceof MacroGoal) {
+            result = new MacroGoal(g.lowerBound, g.upperBound, g.goalType, (Edible.Macros) g.id);
+        } else if (g instanceof MicroGoal) {
+            result = new MicroGoal(g.lowerBound, g.upperBound, (Edible.Micros) g.id);
         }
         return result;
     }
@@ -68,6 +56,10 @@ public abstract class Goal {
         if (!(o instanceof Goal)) return false;
         Goal goal = (Goal) o;
         return id.equals(goal.id);
+    }
+
+    public enum GoalType {
+        RATIO, QUANTITY
     }
 
 }

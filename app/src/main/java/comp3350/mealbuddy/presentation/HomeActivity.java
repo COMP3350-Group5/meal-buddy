@@ -5,7 +5,6 @@
 package comp3350.mealbuddy.presentation;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.text.Editable;
@@ -37,7 +36,7 @@ public class HomeActivity extends AppCompatActivity {
      *     @param savedInstanceState
      */
     @Override
-    protected synchronized void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         copyDatabaseToDevice();
@@ -45,7 +44,7 @@ public class HomeActivity extends AppCompatActivity {
         accessAccount = new AccessAccount();
         EditText username = findViewById(R.id.etUsername);
         EditText password = findViewById(R.id.etPassword);
-       error = findViewById(R.id.tvInvalidLogin);
+        error = findViewById(R.id.tvInvalidLogin);
         Button login = findViewById(R.id.btnLogin);
         TextView createAccount = findViewById(R.id.btnCreateAccount);
 
@@ -53,11 +52,14 @@ public class HomeActivity extends AppCompatActivity {
         //link the on click listeners
         login.setOnClickListener((view) -> checkLogin(username.getText(), password.getText()));
         createAccount.setOnClickListener((view) -> {
-            Intent intent = new Intent(HomeActivity.this, SignUpActivity.class);
-            HomeActivity.this.startActivity(intent);
+            ChangeActivityHelper.changeActivity(HomeActivity.this, SignUpActivity.class);
         });
     }
 
+    /*
+     * onCreate
+     * called when the activity destroying.
+     */
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -73,11 +75,8 @@ public class HomeActivity extends AppCompatActivity {
      */
     public void checkLogin(Editable user, Editable pass) {
         Account account = accessAccount.validateLogin(user.toString(), pass.toString());
-        if(account != null){
-            Intent intent = new Intent(HomeActivity.this, TimelineActivity.class);
-            intent.putExtra("username", user.toString());
-            HomeActivity.this.startActivity(intent);
-        }
+        if (account != null)
+            ChangeActivityHelper.changeActivity(HomeActivity.this, TimelineActivity.class, user.toString());
         else {
             //reset the input fields.
             user.clear();

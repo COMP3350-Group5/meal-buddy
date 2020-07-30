@@ -384,7 +384,6 @@ public class MealTest {
     }
 
 
-
     @Test
     public void remove_foodNotInList_foodRemoved() {
         // arrange

@@ -102,12 +102,12 @@
             android:focusable="true"
             app:srcCompat="@android:drawable/ic_input_add" />
 
-            <Button
-                android:id="@+id/btnRemove"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom|center"
-                android:text="Remove Goal" />
+        <Button
+            android:id="@+id/btnRemove"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center"
+            android:text="Remove Goal" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

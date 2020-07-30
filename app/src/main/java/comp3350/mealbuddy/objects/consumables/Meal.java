@@ -226,7 +226,7 @@ public class Meal extends Edible {
     @Override
     public String toString() {
         String toRet = "";
-        for (EdibleIntPair edibleIntPair : ediblesInMeal){
+        for (EdibleIntPair edibleIntPair : ediblesInMeal) {
             toRet += (edibleIntPair.edible.name + " " + edibleIntPair.quantity);
         }
         return toRet;

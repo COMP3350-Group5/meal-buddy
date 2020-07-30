@@ -1,30 +1,28 @@
+/****************************************
+ * AddExerciseActivity
+ * the exercise activity
+ ****************************************/
 package comp3350.mealbuddy.presentation;
 
-import androidx.appcompat.app.AppCompatActivity;
-import comp3350.mealbuddy.R;
-import comp3350.mealbuddy.business.AccessAccount;
-import comp3350.mealbuddy.business.AccessEdible;
-import comp3350.mealbuddy.objects.Day;
-import comp3350.mealbuddy.objects.Exercise;
-import comp3350.mealbuddy.objects.consumables.Edible;
-import comp3350.mealbuddy.objects.consumables.Food;
-
 import android.app.Dialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import androidx.appcompat.app.AppCompatActivity;
+
+import comp3350.mealbuddy.R;
+import comp3350.mealbuddy.business.AccessAccount;
+import comp3350.mealbuddy.objects.Day;
+import comp3350.mealbuddy.objects.Exercise;
 
 public class AddExerciseActivity extends AppCompatActivity {
 
     AccessAccount accessAccount;
     Dialog dialog;
+
     /*
      * onCreate
      * called when the activity is initially created
@@ -52,7 +50,7 @@ public class AddExerciseActivity extends AppCompatActivity {
 
 
         //on submit we want to create a new exercise
-        submit.setOnClickListener ((view) -> {
+        submit.setOnClickListener((view) -> {
             if (TextUtils.isEmpty(name.getText()) && TextUtils.isEmpty(duration.getText())) {
                 name.setError("Name is required");
                 duration.setError("Duration is required");
@@ -60,7 +58,7 @@ public class AddExerciseActivity extends AppCompatActivity {
                 name.setError("Name is required");
             } else if (TextUtils.isEmpty(duration.getText())) {
                 duration.setError("Duration is required");
-            }else {
+            } else {
                 String spnString = spinner.getSelectedItem().toString();
                 Exercise.Intensity IT = getIntensity(spnString);
                 Exercise exercise = new Exercise(name.getText().toString(), Double.parseDouble(duration.getText().toString()), IT);
@@ -68,19 +66,20 @@ public class AddExerciseActivity extends AppCompatActivity {
                 accessAccount.updateDay(username, day);
 
                 //go back to the timeline activity and pass the username
-                Intent intent = new Intent(AddExerciseActivity.this, TimelineActivity.class);
-                intent.putExtra("dayOfYear", dayOfYear);
-                intent.putExtra("username", username);
-                AddExerciseActivity.this.startActivity(intent);
+                ChangeActivityHelper.changeActivity(AddExerciseActivity.this, TimelineActivity.class, username, dayOfYear);
             }
         });
     }
 
+    /*
+     * getIntensity
+     * returns the intensity value from the passed string
+     */
     private Exercise.Intensity getIntensity(String value) {
         Exercise.Intensity IT;
         if (value.equals("Low"))
             IT = Exercise.Intensity.Low;
-        else if(value.equals("Medium"))
+        else if (value.equals("Medium"))
             IT = Exercise.Intensity.Medium;
         else
             IT = Exercise.Intensity.High;

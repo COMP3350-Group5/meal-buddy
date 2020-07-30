@@ -30,15 +30,14 @@ public class EdibleIntPairTest {
 
 
     @Test
-    public void constructor_nullFood_throwException(){
+    public void constructor_nullFood_throwException() {
         //arrange
         String name = null;
         //act
-        try{
+        try {
             Food food = new Food(name);
             Assert.fail();
-        }
-        catch(NullPointerException e){
+        } catch (NullPointerException e) {
             //assert
             Assert.assertTrue(true);
         }

@@ -53,20 +53,17 @@ import static comp3350.mealbuddy.objects.consumables.Edible.Micros.Zinc;
 
 public class DataAccessObject implements DataAccess {
 
-    private Statement st;
-    private Connection c1;
-
-    private String dbName;
-    private String dbType;
-
-    private String cmdString;
-    private int updateCount;
-    private String result;
-
     private final String CALORIE_GOAL_CLASS = "Calorie";
     private final String MACRO_GOAL_CLASS = "Macro";
     private final String MICRO_GOAL_CLASS = "Micro";
     private final String LABEL_GOAL_CLASS = "Label";
+    private Statement st;
+    private Connection c1;
+    private String dbName;
+    private String dbType;
+    private String cmdString;
+    private int updateCount;
+    private String result;
 
     /*
      * Constructor
@@ -780,10 +777,10 @@ public class DataAccessObject implements DataAccess {
     public Day getDay(String userName, int dayOfYear) {
         Day day = new Day(dayOfYear);
         try {
-            for(Exercise exercise : getDayExercises(userName, dayOfYear)) {
+            for (Exercise exercise : getDayExercises(userName, dayOfYear)) {
                 day.addExercise(exercise);
             }
-            for(Goal goal : getDayGoals(userName, dayOfYear)) {
+            for (Goal goal : getDayGoals(userName, dayOfYear)) {
                 day.addGoal(goal);
             }
             day.breakfast = getMealTimeMeal(BREAKFAST, userName, dayOfYear);

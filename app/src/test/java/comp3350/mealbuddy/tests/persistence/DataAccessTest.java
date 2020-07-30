@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import comp3350.mealbuddy.application.Main;
 import comp3350.mealbuddy.application.Services;
 import comp3350.mealbuddy.objects.Account;
 import comp3350.mealbuddy.objects.Day;
@@ -30,18 +29,6 @@ import static comp3350.mealbuddy.objects.consumables.Edible.Micros.Zinc;
 
 public class DataAccessTest {
 
-    //private static DataAccess database = Services.createDataAccess(Main.DATABASE_NAME);  //HQSQLDB
-    private static DataAccess database = Services.createDataAccess(new DataAccessStub("StubDB"));         //STUBDB
-
-    public static Food durian;
-    public static Food quinoa;
-    public static Food bacon;
-    public static Food egg;
-    public static Food milk;
-    public static Food cheerios;
-    public static Meal nestedMeal;
-    public static Meal cereal;
-    public static Account account;
     public static final String ACCOUNT_USERNAME = "TESTMuskyBoi";
     public static final String DURIAN_NAME = "TESTDurian";
     public static final String CHEERIOS_NAME = "TESTCheerios";
@@ -53,7 +40,17 @@ public class DataAccessTest {
     public static final String CEREAL_NAME = "TESTCereal";
     public static final String KETO_LABEL = "TESTKeto";
     public static final String VEGAN_LABEL = "TESTVegan";
-
+    public static Food durian;
+    public static Food quinoa;
+    public static Food bacon;
+    public static Food egg;
+    public static Food milk;
+    public static Food cheerios;
+    public static Meal nestedMeal;
+    public static Meal cereal;
+    public static Account account;
+    //private static DataAccess database = Services.createDataAccess(Main.DATABASE_NAME);  //HQSQLDB
+    private static DataAccess database = Services.createDataAccess(new DataAccessStub("StubDB"));         //STUBDB
 
     @Before
     public void init() {
@@ -70,6 +67,7 @@ public class DataAccessTest {
         account = new Account(new UserInfo("Elon Musk", ACCOUNT_USERNAME, "T3sla", 280.0, 170.5, UserInfo.ActivityLevel.LOW, UserInfo.Sex.MALE, 40));
         database.addAccount(account);
     }
+
     @Test
     public void addRemoveUpdateAccount() {
         //accont added in before method
@@ -80,6 +78,7 @@ public class DataAccessTest {
         database.removeAccount("uCantCMe");
         Assert.assertNull(database.getAccount("uCantCMe"));
     }
+
     @Test
     public void addRemoveUpdateFood() {
         // Arrange
@@ -98,6 +97,7 @@ public class DataAccessTest {
         Assert.assertEquals(-1, edibles.indexOf(updatedFood));
         Assert.assertEquals(-1, edibles.indexOf(durian));
     }
+
     @Test
     public void getEdibles() {
         List<Food> addedFoods = database.getFoods();
@@ -110,6 +110,7 @@ public class DataAccessTest {
         Assert.assertTrue(addedEdibles.containsAll(addedFoods));
         Assert.assertTrue(addedEdibles.containsAll(addedMeals));
     }
+
     @Test
     public void labelTest() {
         String highProtein = "TESTHigh Protein";
@@ -125,6 +126,7 @@ public class DataAccessTest {
         labels = database.getLabels();
         Assert.assertFalse(labels.contains(lowProtein));
     }
+
     @Test
     public void daysTest() {
         Assert.assertFalse(database.isDayTracked(ACCOUNT_USERNAME, 1));
@@ -180,6 +182,7 @@ public class DataAccessTest {
         Assert.assertTrue(updatedCereal.containsEdible(MILK_NAME));
         Assert.assertTrue(updatedCereal.containsEdible(CHEERIOS_NAME));
     }
+
     @After
     public void clean() {
         database.removeEdible(NESTED_MEAL_NAME);
@@ -213,6 +216,7 @@ public class DataAccessTest {
         database.addEdible(nestedMeal);
         return nestedMeal;
     }
+
     private Meal makeCerealMeal() {
         milk = new Food(MILK_NAME);
         milk.updateMacro(Fat, 10);

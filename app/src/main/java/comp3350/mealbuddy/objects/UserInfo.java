@@ -7,14 +7,6 @@ package comp3350.mealbuddy.objects;
 
 public class UserInfo {
 
-    public enum Sex {
-      MALE, FEMALE,
-    }
-
-    public enum ActivityLevel {
-        LOW, MEDIUM, HIGH,
-    }
-
     public String fullname;
     public String username;
     public String password; //hash it in the future
@@ -23,7 +15,6 @@ public class UserInfo {
     public ActivityLevel activityLevel;
     public Sex sex;
     public int age;
-
     /*
      * Constructor
      * Initializes the values for the account
@@ -47,7 +38,6 @@ public class UserInfo {
         this.sex = sex;
         this.age = age;
     }
-
     public UserInfo(UserInfo original) {
         this.fullname = original.fullname;
         this.username = original.username;
@@ -59,10 +49,10 @@ public class UserInfo {
         this.age = original.age;
     }
 
-    public void validateUserInfo(){
+    public void validateUserInfo() {
         if (fullname == null) {
             throw new IllegalArgumentException("Null fullname");
-        } else if (username == null){
+        } else if (username == null) {
             throw new IllegalArgumentException("Null username");
         } else if (password == null) {
             throw new IllegalArgumentException("Null password");
@@ -74,7 +64,7 @@ public class UserInfo {
             throw new IllegalArgumentException("Activity level should be LOW, MEDIUM or HIGH");
         } else if (sex == null) {
             throw new IllegalArgumentException("Sex should be MALE or FEMALE");
-        } else if (age < 0 || age >120) {
+        } else if (age < 0 || age > 120) {
             throw new IllegalArgumentException("Age should not be less than zero or greater than 120");
         }
     }
@@ -106,6 +96,14 @@ public class UserInfo {
 
     private String getSexString() {
         return sex == Sex.MALE ? "Male" : "Female";
+    }
+
+    public enum Sex {
+        MALE, FEMALE,
+    }
+
+    public enum ActivityLevel {
+        LOW, MEDIUM, HIGH,
     }
 
 }

@@ -1,5 +1,5 @@
 /****************************************
-* AccessAccount
+ * AccessAccount
  * Business Objects for managing accounts
  ****************************************/
 package comp3350.mealbuddy.business;
@@ -18,7 +18,7 @@ public class AccessAccount {
      * Constructor
      * Create an object representing accounts in the database
      */
-    public AccessAccount(){
+    public AccessAccount() {
         DAS = Services.getDataAccess(Main.DATABASE_NAME);
     }
 
@@ -28,9 +28,10 @@ public class AccessAccount {
      * Parameters:
      *     @param a - The account to be added.
      */
-    public void addAccount(Account a){
+    public void addAccount(Account a) {
         if (a == null)
-            throw new IllegalArgumentException("Account cannot be null");;
+            throw new IllegalArgumentException("Account cannot be null");
+        ;
         Account check = getAccount(a.user.username);
         if (check == null)
             DAS.addAccount(a);
@@ -42,7 +43,7 @@ public class AccessAccount {
      * Parameters:
      *     @param u - The user to be added.
      */
-    public void addAccount(UserInfo u){
+    public void addAccount(UserInfo u) {
         if (u == null)
             throw new IllegalArgumentException("Userinfo cannot be null");
         addAccount(new Account(u));
@@ -55,8 +56,8 @@ public class AccessAccount {
      *     @param usernameToUpdate - The user to update.
      *     @param a - The account to update to.
      */
-    public void updateAccount(String usernameToUpdate, Account a){
-        if(usernameToUpdate == null || (usernameToUpdate) == null)
+    public void updateAccount(String usernameToUpdate, Account a) {
+        if (usernameToUpdate == null || (usernameToUpdate) == null)
             throw new NullPointerException("Username being updated doesn't exist in the database.");
         if (a == null)
             throw new IllegalArgumentException("Account cannot be null");
@@ -72,7 +73,7 @@ public class AccessAccount {
      * Parameters:
      *     @param a - The account to be removed.
      */
-    public void removeAccount(String userName){
+    public void removeAccount(String userName) {
         if (userName == null || getAccount(userName) == null)
             throw new NullPointerException("Username being removed doesn't exist in the database.");
         DAS.removeAccount(userName);
@@ -87,9 +88,9 @@ public class AccessAccount {
      * Return:
      *     The account if valid, null if not valid.
      */
-    public Account validateLogin(String username, String password){
+    public Account validateLogin(String username, String password) {
         Account acc = getAccount(username);
-        if(acc != null && acc.user.password.equals(password))
+        if (acc != null && acc.user.password.equals(password))
             return acc;
         return null;
     }
@@ -103,7 +104,7 @@ public class AccessAccount {
      * Return:
      *     The day object requested.
      */
-    public Day getDay(String userName, int day){
+    public Day getDay(String userName, int day) {
         if (!DAS.isDayTracked(userName, day))
             DAS.addDay(userName, day);
         return DAS.getDay(userName, day);
