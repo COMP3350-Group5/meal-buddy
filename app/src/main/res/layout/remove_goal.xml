@@ -24,9 +24,7 @@
     <Spinner
         android:id="@+id/goals"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@color/matDarkPurp"
-        android:popupBackground="@color/matDarkPurp" />
+        android:layout_height="50dp" />
 
     <Button
         android:id="@+id/btnContinue"

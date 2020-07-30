@@ -7,6 +7,7 @@ package comp3350.mealbuddy.presentation;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,6 +17,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -83,17 +86,9 @@ public class GoalActivity extends AppCompatActivity {
         passedGoalsBody.setText(passedGoalsString);
 
         //Add Goal Button
-        Button addGoal = findViewById(R.id.btnAddGoal);
+        FloatingActionButton addGoal = findViewById(R.id.fabAddGoal);
         addGoal.setOnClickListener((view) -> {
             showPopUp(username, dayOfYear);
-        });
-
-        //Back to timeline button
-        Button backButton = findViewById(R.id.btnTimeline);
-        backButton.setOnClickListener((view) -> {
-            Intent intent = new Intent(GoalActivity.this, TimelineActivity.class);
-            intent.putExtra("username", username);
-            GoalActivity.this.startActivity(intent);
         });
 
         Button removeGoal = findViewById(R.id.btnRemove);
@@ -146,15 +141,21 @@ public class GoalActivity extends AppCompatActivity {
         EditText upperBound = dialog.findViewById(R.id.upperBound);
         Button btnContinue = dialog.findViewById(R.id.btnContinue);
         btnContinue.setOnClickListener((view) -> {
-            Day day = accessAccount.getDay(userName, dayOfYear);
-            day.addGoal(new CalorieGoal(Integer.parseInt(lowerBound.getText().toString()), Integer.parseInt(upperBound.getText().toString())));
-            accessAccount.updateDay(userName, day);
+            if (TextUtils.isEmpty(lowerBound.getText())) {
+                lowerBound.setError("Lower bound is required");
+            } else if(TextUtils.isEmpty(upperBound.getText())) {
+                upperBound.setError("Upper bound is required");
+            } else {
+                Day day = accessAccount.getDay(userName, dayOfYear);
+                day.addGoal(new CalorieGoal(Integer.parseInt(lowerBound.getText().toString()), Integer.parseInt(upperBound.getText().toString())));
+                accessAccount.updateDay(userName, day);
 
-            //Go back to the goal activity
-            Intent intent = new Intent(GoalActivity.this, GoalActivity.class);
-            intent.putExtra("dayOfYear", dayOfYear);
-            intent.putExtra("username", userName);
-            GoalActivity.this.startActivity(intent);
+                //Go back to the goal activity
+                Intent intent = new Intent(GoalActivity.this, GoalActivity.class);
+                intent.putExtra("dayOfYear", dayOfYear);
+                intent.putExtra("username", userName);
+                GoalActivity.this.startActivity(intent);
+            }
         });
 
         dialog.show();
@@ -185,15 +186,21 @@ public class GoalActivity extends AppCompatActivity {
         //Submit the goal
         Button btnContinue = dialog.findViewById(R.id.btnContinue);
         btnContinue.setOnClickListener((view) -> {
-            Day day = accessAccount.getDay(userName, dayOfYear);
-            day.addGoal(new LabelGoal(Integer.parseInt(lowerBound.getText().toString()), Integer.parseInt(upperBound.getText().toString()), Goal.GoalType.valueOf(goalType.getSelectedItem().toString()), labelSpinner.getSelectedItem().toString()));
-            accessAccount.updateDay(userName, day);
+            if (TextUtils.isEmpty(lowerBound.getText())) {
+                lowerBound.setError("Lower bound is required");
+            } else if(TextUtils.isEmpty(upperBound.getText())) {
+                upperBound.setError("Upper bound is required");
+            } else {
+                Day day = accessAccount.getDay(userName, dayOfYear);
+                day.addGoal(new LabelGoal(Integer.parseInt(lowerBound.getText().toString()), Integer.parseInt(upperBound.getText().toString()), Goal.GoalType.valueOf(goalType.getSelectedItem().toString()), labelSpinner.getSelectedItem().toString()));
+                accessAccount.updateDay(userName, day);
 
-            //Go back to the goal activity
-            Intent intent = new Intent(GoalActivity.this, GoalActivity.class);
-            intent.putExtra("dayOfYear", dayOfYear);
-            intent.putExtra("username", userName);
-            GoalActivity.this.startActivity(intent);
+                //Go back to the goal activity
+                Intent intent = new Intent(GoalActivity.this, GoalActivity.class);
+                intent.putExtra("dayOfYear", dayOfYear);
+                intent.putExtra("username", userName);
+                GoalActivity.this.startActivity(intent);
+            }
         });
 
         dialog.show();
@@ -216,15 +223,22 @@ public class GoalActivity extends AppCompatActivity {
 
         Button btnContinue = dialog.findViewById(R.id.btnContinue);
         btnContinue.setOnClickListener((view) -> {
-            Day day = accessAccount.getDay(userName, dayOfYear);
-            day.addGoal(new MacroGoal(Integer.parseInt(lowerBound.getText().toString()), Integer.parseInt(upperBound.getText().toString()), Goal.GoalType.valueOf(goalType.getSelectedItem().toString()), Edible.Macros.valueOf(selectedMacro.getSelectedItem().toString())));
-            accessAccount.updateDay(userName, day);
+            if (TextUtils.isEmpty(lowerBound.getText())) {
+                lowerBound.setError("Lower bound is required");
+            } else if(TextUtils.isEmpty(upperBound.getText())) {
+                upperBound.setError("Upper bound is required");
+            } else {
+                // add goal
+                Day day = accessAccount.getDay(userName, dayOfYear);
+                day.addGoal(new MacroGoal(Integer.parseInt(lowerBound.getText().toString()), Integer.parseInt(upperBound.getText().toString()), Goal.GoalType.valueOf(goalType.getSelectedItem().toString()), Edible.Macros.valueOf(selectedMacro.getSelectedItem().toString())));
+                accessAccount.updateDay(userName, day);
 
-            //Go back to the goal activity
-            Intent intent = new Intent(GoalActivity.this, GoalActivity.class);
-            intent.putExtra("dayOfYear", dayOfYear);
-            intent.putExtra("username", userName);
-            GoalActivity.this.startActivity(intent);
+                //Go back to the goal activity
+                Intent intent = new Intent(GoalActivity.this, GoalActivity.class);
+                intent.putExtra("dayOfYear", dayOfYear);
+                intent.putExtra("username", userName);
+                GoalActivity.this.startActivity(intent);
+            }
         });
 
         dialog.show();
@@ -246,15 +260,22 @@ public class GoalActivity extends AppCompatActivity {
 
         Button btnContinue = dialog.findViewById(R.id.btnContinue);
         btnContinue.setOnClickListener((view) -> {
-            Day day = accessAccount.getDay(userName, dayOfYear);
-            day.addGoal(new MicroGoal(Integer.parseInt(lowerBound.getText().toString()), Integer.parseInt(upperBound.getText().toString()), Edible.Micros.valueOf(spinner.getSelectedItem().toString())));
-            accessAccount.updateDay(userName, day);
+            if (TextUtils.isEmpty(lowerBound.getText())) {
+                lowerBound.setError("Lower bound is required");
+            } else if(TextUtils.isEmpty(upperBound.getText())) {
+                upperBound.setError("Upper bound is required");
+            } else {
+                // add goal
+                Day day = accessAccount.getDay(userName, dayOfYear);
+                day.addGoal(new MicroGoal(Integer.parseInt(lowerBound.getText().toString()), Integer.parseInt(upperBound.getText().toString()), Edible.Micros.valueOf(spinner.getSelectedItem().toString())));
+                accessAccount.updateDay(userName, day);
 
-            //Go back to the goal activity
-            Intent intent = new Intent(GoalActivity.this, GoalActivity.class);
-            intent.putExtra("dayOfYear", dayOfYear);
-            intent.putExtra("username", userName);
-            GoalActivity.this.startActivity(intent);
+                //Go back to the goal activity
+                Intent intent = new Intent(GoalActivity.this, GoalActivity.class);
+                intent.putExtra("dayOfYear", dayOfYear);
+                intent.putExtra("username", userName);
+                GoalActivity.this.startActivity(intent);
+            }
         });
 
         dialog.show();
