@@ -4,10 +4,13 @@
  ****************************************/
 package comp3350.mealbuddy.presentation;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.CalendarView;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -27,6 +30,7 @@ import comp3350.mealbuddy.objects.Day;
 
 public class TimelineActivity extends AppCompatActivity {
 
+    private Dialog dialog;
     private AccessAccount accessAccount;
     private Day day;
     private Calculator calculator;
@@ -53,13 +57,25 @@ public class TimelineActivity extends AppCompatActivity {
         Calendar calendar = Calendar.getInstance();
         accessAccount = new AccessAccount();
         day = accessAccount.getDay(username, calendar.get(Calendar.DAY_OF_YEAR));
-        System.err.println(day.dayOfYear);
+
         calculator = new Calculator(day);
 
         //update the timeline text
         TextView timelineText = findViewById(R.id.txtTimeline);
         timelineText.setText("Day: " + day.dayOfYear);
         initializeCards();
+
+        //set up the timeline button
+        ImageView iv = findViewById(R.id.ivCalendar);
+        iv.setOnClickListener((view) -> {
+            dialog.setContentView(R.layout.pop_up_calendar);
+
+            //get the calendar view
+            CalendarView cv = dialog.findViewById(R.id.cvPopUp);
+            cv.setDate(day.dayOfYear);
+
+            dialog.show();
+        });
 
         // the "addFood" button to go to the AddFoodActivity
         FloatingActionButton fab = findViewById(R.id.fabAdd);
@@ -101,6 +117,8 @@ public class TimelineActivity extends AppCompatActivity {
             }
             return true;
         });
+
+
     }
 
     /*
