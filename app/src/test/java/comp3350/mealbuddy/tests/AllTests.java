@@ -8,10 +8,7 @@ import comp3350.mealbuddy.tests.business.AccessAccountTest;
 import comp3350.mealbuddy.tests.business.AccessEdibleTest;
 import comp3350.mealbuddy.tests.business.AccessLabelTest;
 import comp3350.mealbuddy.tests.business.CalculatorTest;
-//import comp3350.mealbuddy.tests.business.goalFactory.DefaultGoalFactorTest;
-import comp3350.mealbuddy.tests.business.goalFactory.DefaultGoalFactorTest;
 import comp3350.mealbuddy.tests.business.GoalTrackerTest;
-import comp3350.mealbuddy.tests.business.goalFactory.RecommendedCalorieCalculatorTest;
 import comp3350.mealbuddy.tests.objects.AccountTest;
 import comp3350.mealbuddy.tests.objects.DayTest;
 import comp3350.mealbuddy.tests.objects.ExerciseTest;
@@ -44,8 +41,6 @@ import comp3350.mealbuddy.tests.persistence.DataAccessTest;
         EdibleTest.class,
         GoalTrackerTest.class,
         CalculatorTest.class,
-        DefaultGoalFactorTest.class,
-        RecommendedCalorieCalculatorTest.class,
         ExerciseTest.class,
         UserInfoTest.class,
         DayTest.class,
