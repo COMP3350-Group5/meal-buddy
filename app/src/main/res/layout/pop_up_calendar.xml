@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="400dp"
-    android:layout_height="400dp"
+    android:layout_height="310dp"
     android:layout_gravity="center_horizontal">
     <CalendarView
         android:id="@+id/cvPopUp"

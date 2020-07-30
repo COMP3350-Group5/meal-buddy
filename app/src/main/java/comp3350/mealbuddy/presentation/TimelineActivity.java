@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
@@ -49,14 +50,18 @@ public class TimelineActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeline);
-
+        dialog = new Dialog(this);
         //get username from previous activity
         username = this.getIntent().getStringExtra("username");
 
         //get the day to display
-        Calendar calendar = Calendar.getInstance();
+        final Calendar calendar = Calendar.getInstance();
         accessAccount = new AccessAccount();
         day = accessAccount.getDay(username, calendar.get(Calendar.DAY_OF_YEAR));
+        calendar.set(Calendar.YEAR, calendar.get(Calendar.YEAR));
+        calendar.set(Calendar.MONTH, calendar.get(Calendar.MONTH));
+        calendar.set(Calendar.DAY_OF_MONTH, calendar.get(Calendar.DAY_OF_MONTH));
+
 
         calculator = new Calculator(day);
 
@@ -72,7 +77,13 @@ public class TimelineActivity extends AppCompatActivity {
 
             //get the calendar view
             CalendarView cv = dialog.findViewById(R.id.cvPopUp);
-            cv.setDate(day.dayOfYear);
+            cv.setDate(calendar.getTimeInMillis(), true, true);
+
+            cv.setOnDateChangeListener((calendarView, y, m, d) -> {
+                Calendar newCalendar = Calendar.getInstance();
+                newCalendar.set(y,m,d);
+                day = accessAccount.getDay(username, calendar.get(Calendar.DAY_OF_YEAR));
+            });
 
             dialog.show();
         });
