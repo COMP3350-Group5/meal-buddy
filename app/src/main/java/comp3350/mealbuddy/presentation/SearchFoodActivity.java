@@ -84,7 +84,7 @@ public class SearchFoodActivity extends AppCompatActivity {
 
         //call back for clicking a list item
         listview.setOnItemClickListener((parent, view, pos, id) -> {
-            showPopUp(allEdibles.get(pos), username, dayOfYear);
+            showPopUp(accessEdible.getEdible(stringArrayAdapter.getItem(pos).trim()), username, dayOfYear);
         });
 
         fabAdd.setOnClickListener((view) -> {
@@ -134,7 +134,6 @@ public class SearchFoodActivity extends AppCompatActivity {
                 editText.setError("Quantity is required");
             } else {
                 //add the food
-
                 String spnString = spinner.getSelectedItem().toString();
                 //find the meal time
                 Day.MealTimeType MT = getMealTime(spnString);
