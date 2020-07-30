@@ -81,6 +81,8 @@ public class SearchFoodActivity extends AppCompatActivity {
         Button createMeal = findViewById(R.id.btnCreateMeal);
         createMeal.setOnClickListener( (view) -> {
             Intent intent = new Intent(SearchFoodActivity.this, CreateMealActivity.class);
+            intent.putExtra("dayOfYear", dayOfYear);
+            intent.putExtra("username", username);
             SearchFoodActivity.this.startActivity(intent);
         });
 
