@@ -1,4 +1,5 @@
 package comp3350.mealbuddy.tests.business;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -116,6 +117,13 @@ public class AccessLabelTest {
         } catch(NullPointerException iae){
             Assert.assertTrue(true);
         }
+    }
+
+    @After
+    public void clean(){
+        try {
+            accessLabel.removeLabel(LABEL);
+        } catch (IllegalArgumentException iae) {}
     }
 
 }
