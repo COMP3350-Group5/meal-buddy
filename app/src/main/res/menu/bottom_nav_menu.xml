@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_timeline"
+        android:enabled="true"
+        android:icon="@drawable/ic_action_timeline"
+        android:title="Timeline"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_goals"
+        android:enabled="true"
+        android:icon="@drawable/ic_action_goals"
+        android:title="Goals"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_nearby"
+        android:enabled="true"
+        android:icon="@drawable/ic_action_user"
+        android:title="Account"
+        app:showAsAction="ifRoom" />
+</menu>
