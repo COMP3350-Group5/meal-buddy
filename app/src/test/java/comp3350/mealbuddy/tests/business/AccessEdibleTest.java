@@ -1,5 +1,6 @@
 package comp3350.mealbuddy.tests.business;
 
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -111,4 +112,17 @@ public class AccessEdibleTest {
             Assert.assertTrue(true);
         }
     }
+
+    @After
+    public void clean(){
+        //remove the food and labels if they still exist
+        try {
+            accessEdible.removeEdible(EDIBLE_NAME);
+        } catch(IllegalArgumentException iae){}
+        try {
+            for (String label : LABELS)
+                accessLabel.removeLabel(label);
+        } catch(IllegalArgumentException iae){}
+    }
+
 }

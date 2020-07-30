@@ -2,6 +2,7 @@ package comp3350.mealbuddy.tests.business;
 
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.After;
 import org.junit.Test;
 
 import comp3350.mealbuddy.application.Main;
@@ -35,7 +36,6 @@ public class AccessAccountTest {
         dummyUserInfo = new UserInfo("John Cena", "uCantCMe", "alwaysblue", 100.0, 180.0, UserInfo.ActivityLevel.LOW, UserInfo.Sex.MALE, 35);
         accessAccount.addAccount(account);
         accessAccount.addAccount(dummyUserInfo);
-
     }
 
     @Test
@@ -256,5 +256,16 @@ public class AccessAccountTest {
         } catch(IllegalArgumentException IAE){
             Assert.assertTrue(true);
         }
+    }
+
+    @After
+    public void clean(){
+        //remove if the accounts still exist
+        try {
+            accessAccount.removeAccount(ACCOUNT_USERNAME);
+        } catch(IllegalArgumentException iae){}
+        try {
+            accessAccount.removeAccount(dummyUserInfo.username);
+        } catch(IllegalArgumentException iae){}
     }
 }
