@@ -18,6 +18,8 @@ import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,6 +39,10 @@ public class SearchFoodActivity extends AppCompatActivity {
     ListView listview;
     AccessEdible accessEdible;
     AccessAccount accessAccount;
+    FloatingActionButton fabAdd;
+    FloatingActionButton fabMeal;
+    FloatingActionButton fabFood;
+    boolean isFabOpen = false;
 
     /*
      * onCreate
@@ -58,6 +64,10 @@ public class SearchFoodActivity extends AppCompatActivity {
         accessEdible = new AccessEdible();
         accessAccount = new AccessAccount();
 
+        fabAdd = findViewById(R.id.fabAdd);
+        fabFood = findViewById(R.id.fabFood);
+        fabMeal = findViewById(R.id.fabMeal);
+
         //set up the list view
         List<Edible> allEdibles = accessEdible.getEdibles();
         listview = findViewById(R.id.lvSearchbar);
@@ -73,17 +83,23 @@ public class SearchFoodActivity extends AppCompatActivity {
             showPopUp(allEdibles.get(pos), username, dayOfYear);
         });
 
-        //set up the button for creating a new food
-        Button btn = findViewById(R.id.btnAddNewFood);
-        btn.setOnClickListener( (view) -> {
-            ChangeActivityHelper.changeActivity(SearchFoodActivity.this, AddFoodActivity.class, username, dayOfYear);
-
+        fabAdd.setOnClickListener((view) -> {
+            if(!isFabOpen) showFABMenu();
+            else closeFABMenu();
         });
 
-        //set up the button for building a meal
-        Button createMeal = findViewById(R.id.btnCreateMeal);
-        createMeal.setOnClickListener( (view) -> {
-            ChangeActivityHelper.changeActivity(SearchFoodActivity.this, CreateMealActivity.class, username, dayOfYear);
+        fabFood.setOnClickListener((view) -> {
+            Intent intent = new Intent(SearchFoodActivity.this, AddFoodActivity.class);
+            intent.putExtra("dayOfYear", dayOfYear);
+            intent.putExtra("username", username);
+            SearchFoodActivity.this.startActivity(intent);
+        });
+
+        fabMeal.setOnClickListener((view) -> {
+            Intent intent = new Intent(SearchFoodActivity.this, CreateMealActivity.class);
+            intent.putExtra("dayOfYear", dayOfYear);
+            intent.putExtra("username", username);
+            SearchFoodActivity.this.startActivity(intent);
         });
     }
 
@@ -182,6 +198,33 @@ public class SearchFoodActivity extends AppCompatActivity {
         else
             MT = Day.MealTimeType.SNACK;
         return MT;
+    }
+
+    private void showFABMenu(){
+        isFabOpen=true;
+        fabFood.setVisibility(View.VISIBLE);
+        fabMeal.setVisibility(View.VISIBLE);
+        fabFood.animate().translationY(-getResources().getDimension(R.dimen.standard_65));
+        fabMeal.animate().translationY(-getResources().getDimension(R.dimen.standard_130));
+    }
+
+    private void closeFABMenu(){
+        isFabOpen=false;
+        fabFood.animate().translationY(0);
+        fabMeal.animate().translationY(0);
+        fabFood.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                fabFood.setVisibility(View.INVISIBLE);
+            }
+        }, 300);
+        fabMeal.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                fabMeal.setVisibility(View.INVISIBLE);
+            }
+        }, 300);
+
     }
 
 }
