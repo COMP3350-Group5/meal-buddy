@@ -105,23 +105,24 @@
         android:id="@+id/txtActivityLevel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="20dp"
         android:text="Activity Level"
         android:textSize="12dp"
-        app:layout_constraintBottom_toTopOf="@id/spnActivityLevel"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.132"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.499"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spnSex" />
 
     <Spinner
         android:id="@+id/spnActivityLevel"
         android:layout_width="460dp"
         android:layout_height="50dp"
-        android:layout_marginBottom="56dp"
+        android:layout_marginTop="20dp"
         android:entries="@array/activityLevel_array"
-        app:layout_constraintBottom_toTopOf="@+id/btnCreateAccount"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtActivityLevel" />
 
     <Button
         android:id="@+id/btnCreateAccount"
