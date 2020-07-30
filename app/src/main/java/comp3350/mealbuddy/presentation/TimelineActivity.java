@@ -4,14 +4,18 @@
  ****************************************/
 package comp3350.mealbuddy.presentation;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CalendarView;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
@@ -28,10 +32,13 @@ import comp3350.mealbuddy.objects.Day;
 
 public class TimelineActivity extends AppCompatActivity {
 
+    private Dialog dialog;
     private AccessAccount accessAccount;
     private Day day;
     private Calculator calculator;
     private String username;
+    private int dayOfYear;
+
     private boolean isFabOpen = false;
     private FloatingActionButton fabFood;
     private FloatingActionButton fabExercise;
@@ -46,21 +53,47 @@ public class TimelineActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeline);
-
+        dialog = new Dialog(this);
         //get username from previous activity
+        Calendar calendar = Calendar.getInstance();
+        dayOfYear = this.getIntent().getIntExtra("dayOfYear", calendar.get(Calendar.DAY_OF_YEAR));
         username = this.getIntent().getStringExtra("username");
 
-        //get the day to display
-        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.DAY_OF_YEAR, dayOfYear);
+
         accessAccount = new AccessAccount();
-        day = accessAccount.getDay(username, calendar.get(Calendar.DAY_OF_YEAR));
-        System.err.println(day.dayOfYear);
+        day = accessAccount.getDay(username, dayOfYear);
+
+
         calculator = new Calculator(day);
 
         //update the timeline text
         TextView timelineText = findViewById(R.id.txtTimeline);
         timelineText.setText("Day: " + day.dayOfYear);
         initializeCards();
+
+        //set up the timeline button
+        ImageView iv = findViewById(R.id.ivCalendar);
+        iv.setOnClickListener((view) -> {
+            dialog.setContentView(R.layout.pop_up_calendar);
+
+            //get the calendar view
+            CalendarView cv = dialog.findViewById(R.id.cvPopUp);
+            cv.setDate(calendar.getTimeInMillis(), true, true);
+
+            cv.setOnDateChangeListener((calendarView, y, m, d) -> {
+                Calendar newCalendar = Calendar.getInstance();
+                newCalendar.set(y,m,d);
+                int newDayOfYear = newCalendar.get(Calendar.DAY_OF_YEAR);
+                Intent intent = new Intent(TimelineActivity.this, TimelineActivity.class);
+                intent.putExtra("dayOfYear", newDayOfYear);
+                intent.putExtra("username", username);
+                TimelineActivity.this.startActivity(intent);
+
+            });
+
+            dialog.show();
+        });
 
         // the "addFood" button to go to the AddFoodActivity
         FloatingActionButton fab = findViewById(R.id.fabAdd);
@@ -110,6 +143,8 @@ public class TimelineActivity extends AppCompatActivity {
             }
             return true;
         });
+
+
     }
 
     /*

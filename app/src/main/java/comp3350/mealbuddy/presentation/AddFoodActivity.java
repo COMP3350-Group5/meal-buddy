@@ -24,6 +24,7 @@ import java.util.Arrays;
 import comp3350.mealbuddy.R;
 import comp3350.mealbuddy.business.AccessAccount;
 import comp3350.mealbuddy.business.AccessEdible;
+import comp3350.mealbuddy.business.AccessLabel;
 import comp3350.mealbuddy.objects.Account;
 import comp3350.mealbuddy.objects.Day;
 import comp3350.mealbuddy.objects.consumables.Edible;
@@ -33,6 +34,7 @@ public class AddFoodActivity extends AppCompatActivity {
 
     AccessAccount accessAccount;
     AccessEdible accessEdible;
+    AccessLabel accessLabel;
     Dialog dialog;
     /*
      * onCreate
@@ -53,6 +55,7 @@ public class AddFoodActivity extends AppCompatActivity {
         //get the day to display
         accessAccount = new AccessAccount();
         accessEdible = new AccessEdible(); //needed so we can add the food to the DB
+        accessLabel = new AccessLabel();
         final Day day = accessAccount.getDay(username, dayOfYear);
 
         //obtain all the UI components to grab values from
@@ -79,6 +82,9 @@ public class AddFoodActivity extends AppCompatActivity {
             } else {
                 //get the labels from the label UI
                 ArrayList<String> labelList = new ArrayList<>(Arrays.asList(labels.getText().toString().split(",")));
+                for (String label : labelList){
+                    accessLabel.addLabel(label.trim());
+                }
                 //grab the food name and initialize with the labels
                 Food food = new Food(name.getText().toString(), labelList);
 
@@ -119,6 +125,7 @@ public class AddFoodActivity extends AppCompatActivity {
 
                     //go back to the timeline activity and pass the username
                     Intent intent = new Intent(AddFoodActivity.this, TimelineActivity.class);
+                    intent.putExtra("dayOfYear", dayOfYear);
                     intent.putExtra("username", username);
                     AddFoodActivity.this.startActivity(intent);
                 }

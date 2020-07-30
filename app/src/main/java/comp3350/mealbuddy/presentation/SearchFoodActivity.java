@@ -127,6 +127,7 @@ public class SearchFoodActivity extends AppCompatActivity {
 
                 //go back to the timeline activity and pass the username
                 Intent intent = new Intent(SearchFoodActivity.this, TimelineActivity.class);
+                intent.putExtra("dayOfYear", dayOfYear);
                 intent.putExtra("username", username);
                 SearchFoodActivity.this.startActivity(intent);
             }
