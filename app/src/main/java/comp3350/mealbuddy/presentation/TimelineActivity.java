@@ -8,6 +8,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.ImageView;
@@ -98,6 +99,8 @@ public class TimelineActivity extends AppCompatActivity {
         FloatingActionButton fab = findViewById(R.id.fabAdd);
         fabFood = findViewById(R.id.fabFood);
         fabExercise = findViewById(R.id.fabExercise);
+        fabFood.setVisibility(View.INVISIBLE);
+        fabExercise.setVisibility(View.INVISIBLE);
 
         fab.setOnClickListener((view) -> {
             if(!isFabOpen) showFABMenu();
@@ -120,16 +123,22 @@ public class TimelineActivity extends AppCompatActivity {
 
         BottomNavigationView nav = findViewById(R.id.bottom_navigation);
         nav.setOnNavigationItemSelectedListener((MenuItem item) -> {
+            Intent intent;
             switch (item.getItemId()) {
                 case R.id.action_goals:
-                    Intent intent = new Intent(TimelineActivity.this, GoalActivity.class);
+                    intent = new Intent(TimelineActivity.this, GoalActivity.class);
                     intent.putExtra("dayOfYear", day.dayOfYear);
                     intent.putExtra("username", username);
                     TimelineActivity.this.startActivity(intent);
                     break;
                 case R.id.action_account:
+                    intent = new Intent(TimelineActivity.this, AccountActivity.class);
+                    intent.putExtra("dayOfYear", day.dayOfYear);
+                    intent.putExtra("username", username);
+                    TimelineActivity.this.startActivity(intent);
                     break;
                 case R.id.action_timeline:
+                    // do nothing, this is where we are
                     break;
             }
             return true;
@@ -243,6 +252,8 @@ public class TimelineActivity extends AppCompatActivity {
 
     private void showFABMenu(){
         isFabOpen=true;
+        fabFood.setVisibility(View.VISIBLE);
+        fabExercise.setVisibility(View.VISIBLE);
         fabFood.animate().translationY(-getResources().getDimension(R.dimen.standard_65));
         fabExercise.animate().translationY(-getResources().getDimension(R.dimen.standard_130));
     }
@@ -251,6 +262,19 @@ public class TimelineActivity extends AppCompatActivity {
         isFabOpen=false;
         fabFood.animate().translationY(0);
         fabExercise.animate().translationY(0);
+        fabExercise.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                fabExercise.setVisibility(View.INVISIBLE);
+            }
+        }, 300);
+        fabFood.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                fabFood.setVisibility(View.INVISIBLE);
+            }
+        }, 300);
+
     }
     @Override
     public void onBackPressed() {
