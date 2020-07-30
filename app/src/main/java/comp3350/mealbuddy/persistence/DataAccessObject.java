@@ -780,10 +780,10 @@ public class DataAccessObject implements DataAccess {
     public Day getDay(String userName, int dayOfYear) {
         Day day = new Day(dayOfYear);
         try {
-            for(Exercise exercise : getDayExercises(userName, dayOfYear)) {
+            for (Exercise exercise : getDayExercises(userName, dayOfYear)) {
                 day.addExercise(exercise);
             }
-            for(Goal goal : getDayGoals(userName, dayOfYear)) {
+            for (Goal goal : getDayGoals(userName, dayOfYear)) {
                 day.addGoal(goal);
             }
             day.breakfast = getMealTimeMeal(BREAKFAST, userName, dayOfYear);

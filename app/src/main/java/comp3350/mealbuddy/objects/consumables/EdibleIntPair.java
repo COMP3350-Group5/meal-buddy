@@ -4,12 +4,6 @@
  ****************************************/
 package comp3350.mealbuddy.objects.consumables;
 
-import android.os.Build;
-
-import androidx.annotation.RequiresApi;
-
-import java.util.Objects;
-
 public class EdibleIntPair {
 
     public Edible edible;

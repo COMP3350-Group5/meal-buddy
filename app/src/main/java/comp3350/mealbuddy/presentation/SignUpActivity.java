@@ -4,23 +4,21 @@
  ****************************************/
 package comp3350.mealbuddy.presentation;
 
-import comp3350.mealbuddy.R;
-import comp3350.mealbuddy.business.AccessAccount;
-import comp3350.mealbuddy.objects.Account;
-import comp3350.mealbuddy.objects.Day;
-import comp3350.mealbuddy.objects.UserInfo;
-
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import comp3350.mealbuddy.R;
+import comp3350.mealbuddy.business.AccessAccount;
+import comp3350.mealbuddy.objects.UserInfo;
+
 public class SignUpActivity extends AppCompatActivity {
     private AccessAccount accessAccount;
+
     /*
      * onCreate
      * called when the activity is initially created
@@ -51,8 +49,8 @@ public class SignUpActivity extends AppCompatActivity {
         String activityLevelValue = activityLevel.getSelectedItem().toString();
         UserInfo.ActivityLevel ALT;
         if (activityLevelValue.equals("Low"))
-           ALT = UserInfo.ActivityLevel.LOW;
-        else if(activityLevelValue.equals("Medium"))
+            ALT = UserInfo.ActivityLevel.LOW;
+        else if (activityLevelValue.equals("Medium"))
             ALT = UserInfo.ActivityLevel.MEDIUM;
         else
             ALT = UserInfo.ActivityLevel.HIGH;
@@ -61,15 +59,15 @@ public class SignUpActivity extends AppCompatActivity {
         createAccount.setOnClickListener((view) -> {
             if (TextUtils.isEmpty(username.getText())) {
                 username.setError("Username is required");
-            } else if (TextUtils.isEmpty(password.getText())){
+            } else if (TextUtils.isEmpty(password.getText())) {
                 password.setError("Password is required");
-            }  else if (TextUtils.isEmpty(fullName.getText())){
+            } else if (TextUtils.isEmpty(fullName.getText())) {
                 fullName.setError("Full Name is required");
-            } else if (TextUtils.isEmpty(age.getText())){
+            } else if (TextUtils.isEmpty(age.getText())) {
                 age.setError("Age is required");
-            } else if (TextUtils.isEmpty(height.getText())){
+            } else if (TextUtils.isEmpty(height.getText())) {
                 height.setError("Height is required");
-            } else if (TextUtils.isEmpty(weight.getText())){
+            } else if (TextUtils.isEmpty(weight.getText())) {
                 weight.setError("Weight is required");
             } else {
                 UserInfo userInfo = new UserInfo(fullName.getText().toString(),

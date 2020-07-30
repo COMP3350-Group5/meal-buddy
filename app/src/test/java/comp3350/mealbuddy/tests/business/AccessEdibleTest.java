@@ -26,7 +26,7 @@ public class AccessEdibleTest {
 
 
     @Before
-    public void initAccessEdibleTest(){
+    public void initAccessEdibleTest() {
         Services.initializeDB(Main.DATABASE_NAME);
         accessEdible = new AccessEdible();
         accessLabel = new AccessLabel();
@@ -37,17 +37,17 @@ public class AccessEdibleTest {
     }
 
     @Test
-    public void addEdible_nullEdible_throwException(){
+    public void addEdible_nullEdible_throwException() {
         try {
             accessEdible.addEdible(null);
             Assert.fail();
-        } catch (NullPointerException npe){
+        } catch (NullPointerException npe) {
             Assert.assertTrue(true);
         }
     }
 
     @Test
-    public void addEdible_duplicateEdible_dontAdd(){
+    public void addEdible_duplicateEdible_dontAdd() {
         Assert.assertNotNull(accessEdible.getEdible(EDIBLE_NAME));
         for (int x = 0; x < 100; x++)
             accessEdible.addEdible(edible);
@@ -55,74 +55,77 @@ public class AccessEdibleTest {
     }
 
     @Test
-    public void updateEdible_nullFoodString_throwException(){
+    public void updateEdible_nullFoodString_throwException() {
         try {
             accessEdible.updateEdible(null, edible);
             Assert.fail();
-        } catch (NullPointerException npe){
+        } catch (NullPointerException npe) {
             Assert.assertTrue(true);
         }
     }
 
     @Test
-    public void updateEdible_nullFood_throwException(){
+    public void updateEdible_nullFood_throwException() {
         try {
             accessEdible.updateEdible(EDIBLE_NAME, null);
             Assert.fail();
-        } catch (NullPointerException npe){
+        } catch (NullPointerException npe) {
             Assert.assertTrue(true);
         }
     }
 
     @Test
-    public void updateEdible_foodDoesntExist_throwException(){
+    public void updateEdible_foodDoesntExist_throwException() {
         try {
             accessEdible.updateEdible("edible name that doesnt exist", edible);
             Assert.fail();
-        } catch (IllegalArgumentException npe){
+        } catch (IllegalArgumentException npe) {
             Assert.assertTrue(true);
         }
     }
+
     @Test
-    public void removeEdible_nullFood_throwException(){
+    public void removeEdible_nullFood_throwException() {
         try {
             accessEdible.removeEdible(null);
             Assert.fail();
-        } catch (NullPointerException npe){
+        } catch (NullPointerException npe) {
             Assert.assertTrue(true);
         }
     }
 
     @Test
-    public void removeEdible_foodDoesntExist_throwException(){
+    public void removeEdible_foodDoesntExist_throwException() {
         try {
             accessEdible.removeEdible("edible name that doesnt exist");
             Assert.fail();
-        } catch (IllegalArgumentException npe){
+        } catch (IllegalArgumentException npe) {
             Assert.assertTrue(true);
         }
     }
 
     @Test
-    public void getEdible_nullName_throwException(){
+    public void getEdible_nullName_throwException() {
         try {
             accessEdible.getEdible(null);
             Assert.fail();
-        } catch (NullPointerException npe){
+        } catch (NullPointerException npe) {
             Assert.assertTrue(true);
         }
     }
 
     @After
-    public void clean(){
+    public void clean() {
         //remove the food and labels if they still exist
         try {
             accessEdible.removeEdible(EDIBLE_NAME);
-        } catch(IllegalArgumentException iae){}
+        } catch (IllegalArgumentException iae) {
+        }
         try {
             for (String label : LABELS)
                 accessLabel.removeLabel(label);
-        } catch(IllegalArgumentException iae){}
+        } catch (IllegalArgumentException iae) {
+        }
     }
 
 }

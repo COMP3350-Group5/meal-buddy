@@ -4,10 +4,9 @@
  ****************************************/
 package comp3350.mealbuddy.objects.goals;
 
-import comp3350.mealbuddy.objects.consumables.Edible.Macros;
-
-
 import androidx.annotation.NonNull;
+
+import comp3350.mealbuddy.objects.consumables.Edible.Macros;
 
 public class MacroGoal extends Goal {
 
@@ -24,7 +23,7 @@ public class MacroGoal extends Goal {
      */
     public MacroGoal(int lowerBound, int upperBound, GoalType goalType, Macros id) {
         super(lowerBound, upperBound, goalType, id);
-        if(id ==null)
+        if (id == null)
             throw new IllegalArgumentException("Macro must be specified");
         this.id = id;
     }

@@ -8,7 +8,7 @@ package comp3350.mealbuddy.objects;
 public class UserInfo {
 
     public enum Sex {
-      MALE, FEMALE,
+        MALE, FEMALE,
     }
 
     public enum ActivityLevel {
@@ -59,10 +59,10 @@ public class UserInfo {
         this.age = original.age;
     }
 
-    public void validateUserInfo(){
+    public void validateUserInfo() {
         if (fullname == null) {
             throw new IllegalArgumentException("Null fullname");
-        } else if (username == null){
+        } else if (username == null) {
             throw new IllegalArgumentException("Null username");
         } else if (password == null) {
             throw new IllegalArgumentException("Null password");
@@ -74,7 +74,7 @@ public class UserInfo {
             throw new IllegalArgumentException("Activity level should be LOW, MEDIUM or HIGH");
         } else if (sex == null) {
             throw new IllegalArgumentException("Sex should be MALE or FEMALE");
-        } else if (age < 0 || age >120) {
+        } else if (age < 0 || age > 120) {
             throw new IllegalArgumentException("Age should not be less than zero or greater than 120");
         }
     }

@@ -1,4 +1,3 @@
-
 package comp3350.mealbuddy.tests;
 
 import org.junit.runner.RunWith;
@@ -13,8 +12,8 @@ import comp3350.mealbuddy.tests.objects.AccountTest;
 import comp3350.mealbuddy.tests.objects.DayTest;
 import comp3350.mealbuddy.tests.objects.ExerciseTest;
 import comp3350.mealbuddy.tests.objects.UserInfoTest;
-import comp3350.mealbuddy.tests.objects.consumables.EdibleTest;
 import comp3350.mealbuddy.tests.objects.consumables.EdibleIntPairTest;
+import comp3350.mealbuddy.tests.objects.consumables.EdibleTest;
 import comp3350.mealbuddy.tests.objects.consumables.FoodIteratorTest;
 import comp3350.mealbuddy.tests.objects.consumables.FoodTest;
 import comp3350.mealbuddy.tests.objects.consumables.MealIteratorTest;

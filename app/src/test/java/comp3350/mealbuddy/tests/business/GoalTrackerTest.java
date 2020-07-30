@@ -17,8 +17,8 @@ import comp3350.mealbuddy.objects.goals.MacroGoal;
 import static comp3350.mealbuddy.objects.consumables.Edible.Macros.Fat;
 import static comp3350.mealbuddy.objects.consumables.Edible.Macros.Protein;
 import static comp3350.mealbuddy.objects.consumables.Edible.Micros.Sodium;
-import static comp3350.mealbuddy.objects.goals.Goal.GoalType.RATIO;
 import static comp3350.mealbuddy.objects.goals.Goal.GoalType.QUANTITY;
+import static comp3350.mealbuddy.objects.goals.Goal.GoalType.RATIO;
 
 public class GoalTrackerTest {
 
@@ -55,8 +55,7 @@ public class GoalTrackerTest {
         try {
             List<Goal> passedGoals = GoalTracker.getPassedGoals(calculator, nullList);
             Assert.fail();
-        }
-        catch (NullPointerException npe) {
+        } catch (NullPointerException npe) {
             //Nice
             //assert
             Assert.assertTrue(true);
@@ -73,8 +72,7 @@ public class GoalTrackerTest {
         try {
             List<Goal> passedGoals = GoalTracker.getPassedGoals(nullCalculator, goals);
             Assert.fail();
-        }
-        catch (NullPointerException npe) {
+        } catch (NullPointerException npe) {
             //Nice
             //assert
             Assert.assertTrue(true);

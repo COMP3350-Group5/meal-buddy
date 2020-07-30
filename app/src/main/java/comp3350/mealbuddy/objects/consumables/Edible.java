@@ -6,10 +6,8 @@ package comp3350.mealbuddy.objects.consumables;
 
 import androidx.annotation.NonNull;
 
-import java.util.EnumMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 public abstract class Edible implements Iterable<Edible> {
 
@@ -27,10 +25,9 @@ public abstract class Edible implements Iterable<Edible> {
     public static Edible copyEdible(Edible e) {
         Edible result = null;
         if (e instanceof Food) {
-            result = new Food((Food)e);
-        }
-        else if (e instanceof Meal) {
-            result = new Meal((Meal)e);
+            result = new Food((Food) e);
+        } else if (e instanceof Meal) {
+            result = new Meal((Meal) e);
         }
         return result;
     }

@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import comp3350.mealbuddy.application.Main;
 import comp3350.mealbuddy.application.Services;
 import comp3350.mealbuddy.objects.Account;
 import comp3350.mealbuddy.objects.Day;
@@ -70,6 +69,7 @@ public class DataAccessTest {
         account = new Account(new UserInfo("Elon Musk", ACCOUNT_USERNAME, "T3sla", 280.0, 170.5, UserInfo.ActivityLevel.LOW, UserInfo.Sex.MALE, 40));
         database.addAccount(account);
     }
+
     @Test
     public void addRemoveUpdateAccount() {
         //accont added in before method
@@ -80,6 +80,7 @@ public class DataAccessTest {
         database.removeAccount("uCantCMe");
         Assert.assertNull(database.getAccount("uCantCMe"));
     }
+
     @Test
     public void addRemoveUpdateFood() {
         // Arrange
@@ -98,6 +99,7 @@ public class DataAccessTest {
         Assert.assertEquals(-1, edibles.indexOf(updatedFood));
         Assert.assertEquals(-1, edibles.indexOf(durian));
     }
+
     @Test
     public void getEdibles() {
         List<Food> addedFoods = database.getFoods();
@@ -110,6 +112,7 @@ public class DataAccessTest {
         Assert.assertTrue(addedEdibles.containsAll(addedFoods));
         Assert.assertTrue(addedEdibles.containsAll(addedMeals));
     }
+
     @Test
     public void labelTest() {
         String highProtein = "TESTHigh Protein";
@@ -125,6 +128,7 @@ public class DataAccessTest {
         labels = database.getLabels();
         Assert.assertFalse(labels.contains(lowProtein));
     }
+
     @Test
     public void daysTest() {
         Assert.assertFalse(database.isDayTracked(ACCOUNT_USERNAME, 1));
@@ -180,6 +184,7 @@ public class DataAccessTest {
         Assert.assertTrue(updatedCereal.containsEdible(MILK_NAME));
         Assert.assertTrue(updatedCereal.containsEdible(CHEERIOS_NAME));
     }
+
     @After
     public void clean() {
         database.removeEdible(NESTED_MEAL_NAME);
@@ -213,6 +218,7 @@ public class DataAccessTest {
         database.addEdible(nestedMeal);
         return nestedMeal;
     }
+
     private Meal makeCerealMeal() {
         milk = new Food(MILK_NAME);
         milk.updateMacro(Fat, 10);

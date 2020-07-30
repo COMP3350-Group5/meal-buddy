@@ -5,7 +5,6 @@
 package comp3350.mealbuddy.presentation;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.text.Editable;
@@ -45,7 +44,7 @@ public class HomeActivity extends AppCompatActivity {
         accessAccount = new AccessAccount();
         EditText username = findViewById(R.id.etUsername);
         EditText password = findViewById(R.id.etPassword);
-       error = findViewById(R.id.tvInvalidLogin);
+        error = findViewById(R.id.tvInvalidLogin);
         Button login = findViewById(R.id.btnLogin);
         TextView createAccount = findViewById(R.id.btnCreateAccount);
 
@@ -76,7 +75,7 @@ public class HomeActivity extends AppCompatActivity {
      */
     public void checkLogin(Editable user, Editable pass) {
         Account account = accessAccount.validateLogin(user.toString(), pass.toString());
-        if(account != null)
+        if (account != null)
             ChangeActivityHelper.changeActivity(HomeActivity.this, TimelineActivity.class, user.toString());
         else {
             //reset the input fields.

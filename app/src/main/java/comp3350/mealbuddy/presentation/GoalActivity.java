@@ -5,22 +5,18 @@
 package comp3350.mealbuddy.presentation;
 
 import android.app.Dialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -139,7 +135,7 @@ public class GoalActivity extends AppCompatActivity {
         btnContinue.setOnClickListener((view) -> {
             if (TextUtils.isEmpty(lowerBound.getText())) {
                 lowerBound.setError("Lower bound is required");
-            } else if(TextUtils.isEmpty(upperBound.getText())) {
+            } else if (TextUtils.isEmpty(upperBound.getText())) {
                 upperBound.setError("Upper bound is required");
             } else {
                 Day day = accessAccount.getDay(username, dayOfYear);
@@ -178,7 +174,7 @@ public class GoalActivity extends AppCompatActivity {
         btnContinue.setOnClickListener((view) -> {
             if (TextUtils.isEmpty(lowerBound.getText())) {
                 lowerBound.setError("Lower bound is required");
-            } else if(TextUtils.isEmpty(upperBound.getText())) {
+            } else if (TextUtils.isEmpty(upperBound.getText())) {
                 upperBound.setError("Upper bound is required");
             } else {
                 Day day = accessAccount.getDay(username, dayOfYear);
@@ -209,7 +205,7 @@ public class GoalActivity extends AppCompatActivity {
         btnContinue.setOnClickListener((view) -> {
             if (TextUtils.isEmpty(lowerBound.getText())) {
                 lowerBound.setError("Lower bound is required");
-            } else if(TextUtils.isEmpty(upperBound.getText())) {
+            } else if (TextUtils.isEmpty(upperBound.getText())) {
                 upperBound.setError("Upper bound is required");
             } else {
                 // add goal
@@ -234,13 +230,14 @@ public class GoalActivity extends AppCompatActivity {
 
         EditText lowerBound = dialog.findViewById(R.id.lowerBound);
         EditText upperBound = dialog.findViewById(R.id.upperBound);
-        Spinner spinner = dialog.findViewById(R.id.spnMicro);;
+        Spinner spinner = dialog.findViewById(R.id.spnMicro);
+        ;
 
         Button btnContinue = dialog.findViewById(R.id.btnContinue);
         btnContinue.setOnClickListener((view) -> {
             if (TextUtils.isEmpty(lowerBound.getText())) {
                 lowerBound.setError("Lower bound is required");
-            } else if(TextUtils.isEmpty(upperBound.getText())) {
+            } else if (TextUtils.isEmpty(upperBound.getText())) {
                 upperBound.setError("Upper bound is required");
             } else {
                 // add goal

@@ -4,15 +4,16 @@ public class Main {
 
     public static final String DATABASE_NAME = "mealBuddyDB";
     private static String dbPathName = "database/mealBuddyDB";
-    public static void main(String[] args){
+
+    public static void main(String[] args) {
         // do stuff
     }
 
-    public static void startUp(){
+    public static void startUp() {
         Services.createDataAccess(DATABASE_NAME);
     }
 
-    public static void shutDown(){
+    public static void shutDown() {
         Services.closeDAS();
     }
 

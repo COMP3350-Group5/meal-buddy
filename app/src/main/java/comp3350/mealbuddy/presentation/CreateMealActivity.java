@@ -1,13 +1,13 @@
+/****************************************
+ * CreateMealActivity
+ * the meal activity
+ ****************************************/
 package comp3350.mealbuddy.presentation;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.SparseBooleanArray;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckedTextView;
 import android.widget.EditText;
 import android.widget.ListView;
 
@@ -18,7 +18,6 @@ import java.util.List;
 
 import comp3350.mealbuddy.R;
 import comp3350.mealbuddy.business.AccessEdible;
-import comp3350.mealbuddy.business.AccessLabel;
 import comp3350.mealbuddy.objects.consumables.Edible;
 import comp3350.mealbuddy.objects.consumables.Meal;
 
@@ -60,7 +59,7 @@ public class CreateMealActivity extends AppCompatActivity {
             String mealName = mealTitle.getText().toString();
             Meal newMeal = new Meal(mealName);
             SparseBooleanArray checkedItems = foodList.getCheckedItemPositions();
-            for (int i = 0; i<checkedItems.size();i++) {
+            for (int i = 0; i < checkedItems.size(); i++) {
                 newMeal.add(edibles.get(checkedItems.keyAt(i)));
             }
             accessEdible.addEdible(newMeal);

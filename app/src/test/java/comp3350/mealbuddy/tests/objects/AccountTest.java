@@ -16,7 +16,7 @@ public class AccountTest {
     private static UserInfo userInfo;
 
     @Before
-    public void initAccountTest(){
+    public void initAccountTest() {
         String name = "Mike Spencer";
         String username = "Mike.spencer";
         String password = "mike_spencer";
@@ -44,7 +44,7 @@ public class AccountTest {
     }
 
     @Test
-    public void addGoal_goalNotContained_GoalAdded(){
+    public void addGoal_goalNotContained_GoalAdded() {
         //arrange
         Goal goal = new CalorieGoal(0, 1);
 
@@ -56,7 +56,7 @@ public class AccountTest {
     }
 
     @Test
-    public void addGoal_goalContained_GoalNotAdded(){
+    public void addGoal_goalContained_GoalNotAdded() {
         //arrange
         int expectedSize = 1;
         Goal goal = new CalorieGoal(0, 1);
@@ -70,7 +70,7 @@ public class AccountTest {
     }
 
     @Test
-    public void getDay_dayNotContained_dayCreated(){
+    public void getDay_dayNotContained_dayCreated() {
         //arrange
         int dayOfYear = 69;
 
@@ -82,7 +82,7 @@ public class AccountTest {
     }
 
     @Test
-    public void getDay_dayContained_dayFetched(){
+    public void getDay_dayContained_dayFetched() {
         //arrange
         int day2Date = 69;
         Day day1 = new Day(6);
@@ -100,12 +100,11 @@ public class AccountTest {
     }
 
 
-
     @Test
     public void copyConstructor() {
         //arrange
         Account updatedAccount = new Account(account);
-        Goal testGoal = new CalorieGoal(1,100);
+        Goal testGoal = new CalorieGoal(1, 100);
 
         //act
         updatedAccount.addDay(12);

@@ -1,7 +1,6 @@
 package comp3350.mealbuddy.tests.objects.consumables;
 
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -10,7 +9,10 @@ import java.util.List;
 import comp3350.mealbuddy.objects.consumables.Edible;
 import comp3350.mealbuddy.objects.consumables.Food;
 
-import static comp3350.mealbuddy.objects.consumables.Edible.Macros.*;
+import static comp3350.mealbuddy.objects.consumables.Edible.Macros.Alcohol;
+import static comp3350.mealbuddy.objects.consumables.Edible.Macros.Carbohydrates;
+import static comp3350.mealbuddy.objects.consumables.Edible.Macros.Fat;
+import static comp3350.mealbuddy.objects.consumables.Edible.Macros.Protein;
 import static comp3350.mealbuddy.objects.consumables.Edible.Micros.Calcium;
 import static comp3350.mealbuddy.objects.consumables.Edible.Micros.Choline;
 import static comp3350.mealbuddy.objects.consumables.Edible.Micros.Iron;
@@ -29,47 +31,44 @@ public class FoodTest {
 
 
     @Test
-    public void constructorTwoParam_nullList_throwException(){
+    public void constructorTwoParam_nullList_throwException() {
         //arrange
         List<String> nullList = null;
         String name = "egg";
         //act
-        try{
+        try {
             Food food = new Food(name, nullList);
             Assert.fail();
-        }
-        catch(NullPointerException e){
+        } catch (NullPointerException e) {
             //assert
             Assert.assertTrue(true);
         }
     }
 
     @Test
-    public void constructorTwoParam_nullName_throwException(){
+    public void constructorTwoParam_nullName_throwException() {
         //arrange
         List<String> nullList = new ArrayList<>();
         String name = null;
         //act
-        try{
+        try {
             Food food = new Food(name, nullList);
             Assert.fail();
-        }
-        catch(NullPointerException e){
+        } catch (NullPointerException e) {
             //assert
             Assert.assertTrue(true);
         }
     }
 
     @Test
-    public void constructorSingleParam_nullName_throwException(){
+    public void constructorSingleParam_nullName_throwException() {
         //arrange
         String name = null;
         //act
-        try{
+        try {
             Food food = new Food(name);
             Assert.fail();
-        }
-        catch(NullPointerException e){
+        } catch (NullPointerException e) {
             //assert
             Assert.assertTrue(true);
         }

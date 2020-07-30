@@ -1,15 +1,16 @@
+/****************************************
+ * SearchFoodActivity
+ * the search food activity
+ ****************************************/
 package comp3350.mealbuddy.presentation;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.MenuItemCompat;
-
 import android.app.Dialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,6 +18,9 @@ import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.MenuItemCompat;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -71,7 +75,7 @@ public class SearchFoodActivity extends AppCompatActivity {
         //set up the list view
         List<Edible> allEdibles = accessEdible.getEdibles();
         listview = findViewById(R.id.lvSearchbar);
-        for (Edible e: allEdibles)
+        for (Edible e : allEdibles)
             foodNames.add(e.name);
 
         //set up the adapter
@@ -84,22 +88,16 @@ public class SearchFoodActivity extends AppCompatActivity {
         });
 
         fabAdd.setOnClickListener((view) -> {
-            if(!isFabOpen) showFABMenu();
+            if (!isFabOpen) showFABMenu();
             else closeFABMenu();
         });
 
         fabFood.setOnClickListener((view) -> {
-            Intent intent = new Intent(SearchFoodActivity.this, AddFoodActivity.class);
-            intent.putExtra("dayOfYear", dayOfYear);
-            intent.putExtra("username", username);
-            SearchFoodActivity.this.startActivity(intent);
+            ChangeActivityHelper.changeActivity(SearchFoodActivity.this, AddFoodActivity.class, username, dayOfYear);
         });
 
         fabMeal.setOnClickListener((view) -> {
-            Intent intent = new Intent(SearchFoodActivity.this, CreateMealActivity.class);
-            intent.putExtra("dayOfYear", dayOfYear);
-            intent.putExtra("username", username);
-            SearchFoodActivity.this.startActivity(intent);
+            ChangeActivityHelper.changeActivity(SearchFoodActivity.this, CreateMealActivity.class, username, dayOfYear);
         });
     }
 
@@ -110,7 +108,7 @@ public class SearchFoodActivity extends AppCompatActivity {
      *     @param menu - the menu
      */
     @Override
-    public boolean onCreateOptionsMenu(Menu menu){
+    public boolean onCreateOptionsMenu(Menu menu) {
         addSearchBar(menu);
         return super.onCreateOptionsMenu(menu);
     }
@@ -123,7 +121,7 @@ public class SearchFoodActivity extends AppCompatActivity {
      *      @param username - the account to add to
      *      @param dayOfYear - the day to add to
      */
-    public void showPopUp(Edible edible, String username, int dayOfYear){
+    public void showPopUp(Edible edible, String username, int dayOfYear) {
         dialog.setContentView(R.layout.pop_up_food);
         //initialize dialog components
         TextView titleText = dialog.findViewById(R.id.tvPopUpTitle);
@@ -132,7 +130,7 @@ public class SearchFoodActivity extends AppCompatActivity {
         EditText editText = dialog.findViewById(R.id.etQuantity);
 
         btn.setOnClickListener((view) -> {
-            if(TextUtils.isEmpty(editText.getText())) {
+            if (TextUtils.isEmpty(editText.getText())) {
                 editText.setError("Quantity is required");
             } else {
                 //add the food
@@ -162,24 +160,24 @@ public class SearchFoodActivity extends AppCompatActivity {
      * Parameters:
      *      @param menu - menu
      */
-    private void addSearchBar(Menu menu){
+    private void addSearchBar(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.search_menu, menu);
 
         MenuItem menuItem = menu.findItem(R.id.sbFood);
         SearchView searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-              @Override
-              public boolean onQueryTextSubmit(String s) {
-                  return false;
-              }
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
 
-              @Override
-              public boolean onQueryTextChange(String s) {
-                  //filter the adapter by the string
-                  stringArrayAdapter.getFilter().filter(s);
-                  return false;
-              }
+            @Override
+            public boolean onQueryTextChange(String s) {
+                //filter the adapter by the string
+                stringArrayAdapter.getFilter().filter(s);
+                return false;
+            }
         });
     }
 
@@ -191,25 +189,25 @@ public class SearchFoodActivity extends AppCompatActivity {
         Day.MealTimeType MT;
         if (value.equals("Breakfast"))
             MT = Day.MealTimeType.BREAKFAST;
-        else if(value.equals("Lunch"))
+        else if (value.equals("Lunch"))
             MT = Day.MealTimeType.LUNCH;
-        else if(value.equals("Dinner"))
+        else if (value.equals("Dinner"))
             MT = Day.MealTimeType.DINNER;
         else
             MT = Day.MealTimeType.SNACK;
         return MT;
     }
 
-    private void showFABMenu(){
-        isFabOpen=true;
+    private void showFABMenu() {
+        isFabOpen = true;
         fabFood.setVisibility(View.VISIBLE);
         fabMeal.setVisibility(View.VISIBLE);
         fabFood.animate().translationY(-getResources().getDimension(R.dimen.standard_65));
         fabMeal.animate().translationY(-getResources().getDimension(R.dimen.standard_130));
     }
 
-    private void closeFABMenu(){
-        isFabOpen=false;
+    private void closeFABMenu() {
+        isFabOpen = false;
         fabFood.animate().translationY(0);
         fabMeal.animate().translationY(0);
         fabFood.postDelayed(new Runnable() {

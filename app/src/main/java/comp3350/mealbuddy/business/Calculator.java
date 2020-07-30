@@ -224,7 +224,7 @@ public class Calculator {
      */
     private int getConversionFactor(Edible.Macros macro) {
         int conversionFactor = -1;
-        switch(macro) {
+        switch (macro) {
             case Fat:
                 conversionFactor = FAT_CONVERSION;
                 break;
@@ -286,7 +286,7 @@ public class Calculator {
      */
     private int getMets(Exercise exercise) {
         int mets = -1;
-        switch(exercise.intensity) {
+        switch (exercise.intensity) {
             case Low:
                 mets = LOW_MET;
                 break;
@@ -299,6 +299,7 @@ public class Calculator {
         }
         return mets;
     }
+
     /*
      * getExerciseCalories
      * Get the calories burned in an exercise.
@@ -310,7 +311,7 @@ public class Calculator {
      */
     public int getExerciseCalories(Exercise exercise, UserInfo userInfo) {
         int met = getMets(exercise);
-        return (int)(((userInfo.weight / KG_CONVERSION) * MET_MULTIPLIER * met * exercise.duration) / MET_DIVISOR);
+        return (int) (((userInfo.weight / KG_CONVERSION) * MET_MULTIPLIER * met * exercise.duration) / MET_DIVISOR);
     }
 
     /*
@@ -329,7 +330,7 @@ public class Calculator {
         return totalCalories;
     }
 
-        /*
+    /*
      * getNetCalories
      * Get the net total calories. (i.e., total calories - total burned calories)
      * Parameters:

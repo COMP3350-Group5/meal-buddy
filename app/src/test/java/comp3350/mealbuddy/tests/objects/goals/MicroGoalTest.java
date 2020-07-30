@@ -13,12 +13,11 @@ import static org.junit.Assert.fail;
 public class MicroGoalTest {
 
 
-
     @Test
-    public void equals_sameId_isEqual(){
+    public void equals_sameId_isEqual() {
         //arrange
-        int lowerBound1=0, upperBound1 = 0;
-        int lowerBound2=3, upperBound2 = 3;
+        int lowerBound1 = 0, upperBound1 = 0;
+        int lowerBound2 = 3, upperBound2 = 3;
 
         //act
         MacroGoal goal1 = new MacroGoal(lowerBound1, upperBound1, Goal.GoalType.RATIO, Edible.Macros.Fat);
@@ -29,7 +28,7 @@ public class MicroGoalTest {
     }
 
     @Test
-    public void constructor_nullMacro_throwException(){
+    public void constructor_nullMacro_throwException() {
         //arrange
         Goal.GoalType nullGoalType = Goal.GoalType.RATIO;
         int lowerBound = 10;
@@ -37,11 +36,11 @@ public class MicroGoalTest {
         Edible.Micros nullMicro = null;
 
         //act
-        try{
+        try {
             Goal goal = new MicroGoal(lowerBound, upperBound, nullMicro);
             fail();
         }//assert
-        catch(IllegalArgumentException e){
+        catch (IllegalArgumentException e) {
             Assert.assertTrue(true);
         }
     }

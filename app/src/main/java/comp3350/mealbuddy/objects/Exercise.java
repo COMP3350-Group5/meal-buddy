@@ -5,8 +5,6 @@
 
 package comp3350.mealbuddy.objects;
 
-import java.util.Objects;
-
 public class Exercise {
 
     public enum Intensity {

@@ -1,8 +1,8 @@
 package comp3350.mealbuddy.tests.business;
 
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.After;
 import org.junit.Test;
 
 import comp3350.mealbuddy.application.Main;
@@ -11,8 +11,6 @@ import comp3350.mealbuddy.business.AccessAccount;
 import comp3350.mealbuddy.objects.Account;
 import comp3350.mealbuddy.objects.Day;
 import comp3350.mealbuddy.objects.UserInfo;
-import comp3350.mealbuddy.persistence.DataAccess;
-import comp3350.mealbuddy.tests.persistence.DataAccessStub;
 
 public class AccessAccountTest {
     private static AccessAccount accessAccount;
@@ -26,7 +24,7 @@ public class AccessAccountTest {
 
 
     @Before
-    public void initAccessAccount(){
+    public void initAccessAccount() {
         Services.initializeDB(Main.DATABASE_NAME);
         accessAccount = new AccessAccount();
         userInfo = new UserInfo("Elon Musk", ACCOUNT_USERNAME, ACCOUNT_PASSWORD, 280.0, 170.5, UserInfo.ActivityLevel.LOW, UserInfo.Sex.MALE, 40);
@@ -39,7 +37,7 @@ public class AccessAccountTest {
     }
 
     @Test
-    public void addAccount_oneNewAccount_add(){
+    public void addAccount_oneNewAccount_add() {
         //verify that the account isnt in the database
         accessAccount.removeAccount(dummyUserInfo.username);
         Assert.assertNull(accessAccount.getAccount(dummyUserInfo.username));
@@ -50,21 +48,21 @@ public class AccessAccountTest {
     }
 
     @Test
-    public void addAccount_multipleAccounts_dontAdd(){
+    public void addAccount_multipleAccounts_dontAdd() {
         Assert.assertNotNull(accessAccount.getAccount(userInfo.username));
         //add it 100 times
-        for(int i = 0; i < 100; i++)
+        for (int i = 0; i < 100; i++)
             accessAccount.addAccount(userInfo);
         //check if the account is still the same
         Assert.assertEquals(accessAccount.getAccount(userInfo.username), account);
     }
 
     @Test
-    public void addAccount_multipleUsername_dontAdd(){
+    public void addAccount_multipleUsername_dontAdd() {
         Assert.assertEquals(userInfo, accessAccount.getAccount(ACCOUNT_USERNAME).user);
         //create a new user with different info and try to add
         UserInfo newUserInfo = new UserInfo(
-          "", ACCOUNT_USERNAME, "", 0, 0, UserInfo.ActivityLevel.LOW, UserInfo.Sex.MALE, 1
+                "", ACCOUNT_USERNAME, "", 0, 0, UserInfo.ActivityLevel.LOW, UserInfo.Sex.MALE, 1
         );
         accessAccount.addAccount(newUserInfo);
         //it shouldnt be the new user info, it should be the old one.
@@ -73,25 +71,25 @@ public class AccessAccountTest {
     }
 
     @Test
-    public void addAccount_nullAccount_throwException(){
+    public void addAccount_nullAccount_throwException() {
         //adding a null account to the database
         try {
             accessAccount.addAccount((Account) null);
             Assert.fail();
-        } catch (IllegalArgumentException IAE){
+        } catch (IllegalArgumentException IAE) {
             Assert.assertTrue(true);
         }
         //adding a null userinfo to the database
         try {
-            accessAccount.addAccount((UserInfo)null);
+            accessAccount.addAccount((UserInfo) null);
             Assert.fail();
-        } catch (IllegalArgumentException IAE){
+        } catch (IllegalArgumentException IAE) {
             Assert.assertTrue(true);
         }
     }
 
     @Test
-    public void updateAccount_sameUserName_update(){
+    public void updateAccount_sameUserName_update() {
         //testing updating account
         Assert.assertEquals(ACCOUNT_USERNAME, accessAccount.getAccount(ACCOUNT_USERNAME).user.username);
         //update with dummy info
@@ -107,18 +105,18 @@ public class AccessAccountTest {
     }
 
     @Test
-    public void updateAccount_changeUserNameToExistingUser_throwException(){
+    public void updateAccount_changeUserNameToExistingUser_throwException() {
         //update with dummy info
         try {
             accessAccount.updateAccount(account.user.username, new Account(dummyUserInfo));
             Assert.fail();
-        }catch(IllegalArgumentException iae){
+        } catch (IllegalArgumentException iae) {
             Assert.assertTrue(true);
         }
     }
 
     @Test
-    public void updateAccount_changeUserName_update(){
+    public void updateAccount_changeUserName_update() {
         UserInfo ui = new UserInfo(dummyUserInfo);
         UserInfo ui2 = new UserInfo(userInfo);
         ui2.username = "firstUsername";
@@ -137,31 +135,31 @@ public class AccessAccountTest {
     }
 
     @Test
-    public void updateAccount_usernameDoesntExist_throwException(){
+    public void updateAccount_usernameDoesntExist_throwException() {
         try {
             //confirm that it doesnt exist
             Assert.assertNull(accessAccount.getAccount("Idontexist"));
             //trying to update an account that doesnt exist
             accessAccount.updateAccount("Idontexist", new Account(dummyUserInfo));
             Assert.fail();
-        } catch(IllegalArgumentException iae){
+        } catch (IllegalArgumentException iae) {
             //confirm that it wasnt added
             Assert.assertNull(accessAccount.getAccount("Idontexist"));
         }
     }
 
     @Test
-    public void updateAccount_nullAccount_throwException(){
+    public void updateAccount_nullAccount_throwException() {
         try {
             accessAccount.updateAccount("Idontexist", null);
             Assert.fail();
-        } catch(IllegalArgumentException iae){
+        } catch (IllegalArgumentException iae) {
             Assert.assertTrue(true);
         }
     }
 
     @Test
-    public void removeAccount_accountExists_remove(){
+    public void removeAccount_accountExists_remove() {
         //remove account normally
         Assert.assertNotNull(accessAccount.getAccount(ACCOUNT_USERNAME));
         accessAccount.removeAccount(ACCOUNT_USERNAME);
@@ -173,45 +171,45 @@ public class AccessAccountTest {
     }
 
     @Test
-    public void removeAccount_usernameDoesntExist_throwException(){
+    public void removeAccount_usernameDoesntExist_throwException() {
         try {
             accessAccount.removeAccount("Idontexist");
             Assert.fail();
-        } catch(NullPointerException npe) {
+        } catch (NullPointerException npe) {
             Assert.assertTrue(true);
         }
     }
 
     @Test
-    public void removeAccount_nullUserName_throwException(){
+    public void removeAccount_nullUserName_throwException() {
         try {
             accessAccount.removeAccount(null);
             Assert.fail();
-        } catch(NullPointerException npe) {
+        } catch (NullPointerException npe) {
             Assert.assertTrue(true);
         }
     }
 
     @Test
-    public void getAndVerifyAccount_getUserInDb_returnAccount(){
+    public void getAndVerifyAccount_getUserInDb_returnAccount() {
         Assert.assertEquals(account, accessAccount.getAccount(ACCOUNT_USERNAME));
         Assert.assertEquals(account, accessAccount.validateLogin(ACCOUNT_USERNAME, ACCOUNT_PASSWORD));
 
     }
 
     @Test
-    public void getAndVerifyAccount_getUserNotInDb_returnNull(){
+    public void getAndVerifyAccount_getUserNotInDb_returnNull() {
         Assert.assertNull(accessAccount.getAccount("ThisDoesntExist"));
         Assert.assertNull(accessAccount.validateLogin("This doesntExist", "this doesnt exist"));
     }
 
     @Test
-    public void verifyAccount_wrongPassword_returnNull(){
+    public void verifyAccount_wrongPassword_returnNull() {
         Assert.assertNull(accessAccount.validateLogin(ACCOUNT_USERNAME, "wrong password"));
     }
 
     @Test
-    public void getAndVerifyAccount_nullValues_returnNull(){
+    public void getAndVerifyAccount_nullValues_returnNull() {
         Assert.assertNull(accessAccount.getAccount(null));
         Assert.assertNull(accessAccount.validateLogin(ACCOUNT_USERNAME, null));
         Assert.assertNull(accessAccount.validateLogin(null, "password"));
@@ -219,53 +217,55 @@ public class AccessAccountTest {
     }
 
     @Test
-    public void getDay_dayInTracked_returnDay(){
+    public void getDay_dayInTracked_returnDay() {
         Assert.assertEquals(day, accessAccount.getDay(ACCOUNT_USERNAME, DAY_OF_YEAR));
     }
 
     @Test
-    public void getDay_dayNotBeingTracked_returnDay(){
+    public void getDay_dayNotBeingTracked_returnDay() {
         Assert.assertEquals(new Day(244), accessAccount.getDay(ACCOUNT_USERNAME, 244));
     }
 
     @Test
-    public void getDay_dayOutOfRange_throwException(){
+    public void getDay_dayOutOfRange_throwException() {
         try {
             accessAccount.getDay(ACCOUNT_USERNAME, 34234234);
             Assert.fail();
-        } catch( IllegalArgumentException IAE) {
+        } catch (IllegalArgumentException IAE) {
             Assert.assertTrue(true);
         }
     }
 
     @Test
-    public void updateDay_userNameDoesntExist_throwException(){
+    public void updateDay_userNameDoesntExist_throwException() {
         try {
             accessAccount.updateDay(null, day);
             Assert.fail();
-        } catch(IllegalArgumentException IAE){
+        } catch (IllegalArgumentException IAE) {
             Assert.assertTrue(true);
         }
     }
 
     @Test
-    public void updateDay_dayIsNull_throwException(){
+    public void updateDay_dayIsNull_throwException() {
         try {
             accessAccount.updateDay(ACCOUNT_USERNAME, null);
             Assert.fail();
-        } catch(IllegalArgumentException IAE){
+        } catch (IllegalArgumentException IAE) {
             Assert.assertTrue(true);
         }
     }
 
     @After
-    public void clean(){
+    public void clean() {
         //remove if the accounts still exist
         try {
             accessAccount.removeAccount(ACCOUNT_USERNAME);
-        } catch(IllegalArgumentException iae){}
+        } catch (IllegalArgumentException iae) {
+        }
         try {
             accessAccount.removeAccount(dummyUserInfo.username);
-        } catch(IllegalArgumentException iae){}
+        } catch (IllegalArgumentException iae) {
+        }
     }
 }

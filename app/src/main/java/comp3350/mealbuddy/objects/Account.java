@@ -56,7 +56,7 @@ public class Account {
      *     @param g - goal being added
      */
     public void addGoal(Goal g) {
-        if(!goals.contains(g))
+        if (!goals.contains(g))
             goals.add(g);
     }
 
@@ -64,31 +64,31 @@ public class Account {
      * containsGoal
      * Check if the goal list contains a goal
      * Parameters:
-     *     @param g - The goal to check for   
+     *     @param g - The goal to check for
      * Return:
      *     A boolean stating if the goal list contains the goal.
      */
-    public boolean containsGoal(Goal g){
+    public boolean containsGoal(Goal g) {
         return goals.contains(g);
     }
-  
+
     /*
      * getGoalSize
      * Get the size of the goal list
      * Return:
      *     The size of the goal list.
      */
-    public int getGoalSize(){
+    public int getGoalSize() {
         return goals.size();
     }
-  
+
     /*
      * removeGoal
      * removes goal from the list, if it exists.
      * Parameters:
      *     @param g - remove this goal
      */
-    public void removeGoal(Goal g){
+    public void removeGoal(Goal g) {
         int index = goals.indexOf(g);
         if (index != -1)
             goals.remove(g);
@@ -101,7 +101,7 @@ public class Account {
      *     @param d - the day being added. (DAY OBJECT)
      */
     public void addDay(Day d) {
-        if(!daysTracked.contains(d))
+        if (!daysTracked.contains(d))
             daysTracked.add(d);
     }
 
@@ -111,7 +111,7 @@ public class Account {
      * Parameters:
      *     @param d - the day being added. (takes an integer day, representing dayOfYear [1-365])
      */
-    public void addDay(int day){
+    public void addDay(int day) {
         addDay(new Day(day));
     }
 
@@ -121,7 +121,7 @@ public class Account {
      * Parameters:
      *     @param d - remove this day
      */
-    public void removeDay(Day d){
+    public void removeDay(Day d) {
         int index = daysTracked.indexOf(d);
         if (index != -1)
             daysTracked.remove(d);
@@ -139,7 +139,7 @@ public class Account {
         if (day < 1 || day > 365)
             throw new IllegalArgumentException("Invalid day passed.");
 
-        for (Day d : daysTracked){
+        for (Day d : daysTracked) {
             if (d.dayOfYear == day)
                 return d;
         }

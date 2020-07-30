@@ -5,7 +5,6 @@
 package comp3350.mealbuddy.objects.goals;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import static comp3350.mealbuddy.objects.goals.CalorieGoal.CalorieId.CALORIE_GOAL;
 

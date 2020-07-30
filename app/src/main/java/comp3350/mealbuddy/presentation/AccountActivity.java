@@ -1,6 +1,8 @@
+/****************************************
+ * AccountActivity
+ * the account page
+ ****************************************/
 package comp3350.mealbuddy.presentation;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
 import android.os.Bundle;
@@ -11,6 +13,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -87,18 +91,18 @@ public class AccountActivity extends AppCompatActivity {
         Button btnUpdate = dialog.findViewById(R.id.btnUpdate);
         Spinner spinner = dialog.findViewById(R.id.spnUserInfo);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-          public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-              if(i == 0)
-                  showName();
-              else if (i == 1)
-                  showWeight();
-              else
-                  showActivityLevel();
-          }
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if (i == 0)
+                    showName();
+                else if (i == 1)
+                    showWeight();
+                else
+                    showActivityLevel();
+            }
 
-          public void onNothingSelected(AdapterView<?> adapterView) {
-              return;
-          }
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                return;
+            }
         });
 
         btnUpdate.setOnClickListener((view) -> {
@@ -148,7 +152,7 @@ public class AccountActivity extends AppCompatActivity {
         UserInfo.ActivityLevel ALT;
         if (activityLevelValue.equals("Low"))
             ALT = UserInfo.ActivityLevel.LOW;
-        else if(activityLevelValue.equals("Medium"))
+        else if (activityLevelValue.equals("Medium"))
             ALT = UserInfo.ActivityLevel.MEDIUM;
         else
             ALT = UserInfo.ActivityLevel.HIGH;

@@ -9,27 +9,23 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.sql.Time;
 import java.util.Calendar;
 
 import comp3350.mealbuddy.R;
 import comp3350.mealbuddy.business.AccessAccount;
 import comp3350.mealbuddy.business.Calculator;
 import comp3350.mealbuddy.objects.Day;
-import comp3350.mealbuddy.objects.goals.Goal;
 
 
 public class TimelineActivity extends AppCompatActivity {
@@ -83,7 +79,7 @@ public class TimelineActivity extends AppCompatActivity {
 
             cv.setOnDateChangeListener((calendarView, y, m, d) -> {
                 Calendar newCalendar = Calendar.getInstance();
-                newCalendar.set(y,m,d);
+                newCalendar.set(y, m, d);
                 int newDayOfYear = newCalendar.get(Calendar.DAY_OF_YEAR);
                 Intent intent = new Intent(TimelineActivity.this, TimelineActivity.class);
                 intent.putExtra("dayOfYear", newDayOfYear);
@@ -103,7 +99,7 @@ public class TimelineActivity extends AppCompatActivity {
         fabExercise.setVisibility(View.INVISIBLE);
 
         fab.setOnClickListener((view) -> {
-            if(!isFabOpen) showFABMenu();
+            if (!isFabOpen) showFABMenu();
             else closeFABMenu();
         });
 
@@ -242,8 +238,8 @@ public class TimelineActivity extends AppCompatActivity {
      * showFABMenu
      * shows the floating action button menu
      */
-    private void showFABMenu(){
-        isFabOpen=true;
+    private void showFABMenu() {
+        isFabOpen = true;
         fabFood.setVisibility(View.VISIBLE);
         fabExercise.setVisibility(View.VISIBLE);
         fabFood.animate().translationY(-getResources().getDimension(R.dimen.standard_65));
@@ -254,8 +250,8 @@ public class TimelineActivity extends AppCompatActivity {
      * closeFABMenu
      * closes the floating action button menu
      */
-    private void closeFABMenu(){
-        isFabOpen=false;
+    private void closeFABMenu() {
+        isFabOpen = false;
         fabFood.animate().translationY(0);
         fabExercise.animate().translationY(0);
         fabExercise.postDelayed(new Runnable() {
@@ -279,6 +275,6 @@ public class TimelineActivity extends AppCompatActivity {
      */
     @Override
     public void onBackPressed() {
-       // empty to disable back button
+        // empty to disable back button
     }
 }

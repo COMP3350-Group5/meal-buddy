@@ -62,8 +62,7 @@ public class CalculatorTest {
             Calculator newCalculator = new Calculator(nullDay);
             Assert.fail();
             //Food machine broke
-        }
-        catch (NullPointerException npe) {
+        } catch (NullPointerException npe) {
             //Understandable, have a good day
             //assert
             Assert.assertTrue(true);

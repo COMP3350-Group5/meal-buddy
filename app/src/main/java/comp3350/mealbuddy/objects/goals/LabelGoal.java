@@ -21,10 +21,9 @@ public class LabelGoal extends Goal {
      */
     public LabelGoal(int lowerBound, int upperBound, GoalType goalType, String id) {
         super(lowerBound, upperBound, goalType, id);
-        if(id == null) throw new IllegalArgumentException("Label id cant be null");
+        if (id == null) throw new IllegalArgumentException("Label id cant be null");
         this.id = id;
     }
-
 
 
     /*
