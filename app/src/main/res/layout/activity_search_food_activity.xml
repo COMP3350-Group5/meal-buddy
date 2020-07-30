@@ -14,32 +14,22 @@
         android:textAlignment="center"
         android:textSize="30dp"
         android:gravity="center_horizontal"
-        android:layout_alignParentLeft="true"/>
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/btnAddNewFood"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:text="@string/add_new_food" />
-
-    <Button
-        android:id="@+id/btnCreateMeal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="147dp"
-        android:text="Create a Meal" />
 
     <ListView
         android:id="@+id/lvSearchbar"
-        android:layout_below="@id/btnAddNewFood"
         android:layout_width="match_parent"
         android:layout_height="600dp"
         android:background="@color/cardview_dark_background"
         android:divider="@android:color/background_dark"
         android:dividerHeight="1.5dp"
         tools:listitem="@android:layout/simple_list_item_1"
-        tools:ignore="PrivateResource" >
+        tools:ignore="PrivateResource"
+        app:layout_constraintTop_toBottomOf="@id/tvSearchTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
     </ListView>
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -58,7 +48,7 @@
             android:layout_marginBottom="10dp"
             android:clickable="true"
             android:focusable="true"
-            android:text="Create New Meal" />
+            app:srcCompat="@drawable/ic_food" />
 
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -70,7 +60,7 @@
             android:layout_marginBottom="10dp"
             android:clickable="true"
             android:focusable="true"
-            android:text="Create New Food" />
+            app:srcCompat="@drawable/ic_food_single" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fabAdd"

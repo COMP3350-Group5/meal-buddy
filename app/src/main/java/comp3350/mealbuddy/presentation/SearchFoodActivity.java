@@ -78,18 +78,19 @@ public class SearchFoodActivity extends AppCompatActivity {
             showPopUp(allEdibles.get(pos), username, dayOfYear);
         });
 
-        //set up the button for creating a new food
-        Button btn = findViewById(R.id.btnAddNewFood);
-        btn.setOnClickListener( (view) -> {
+        fabAdd.setOnClickListener((view) -> {
+            if(!isFabOpen) showFABMenu();
+            else closeFABMenu();
+        });
+
+        fabFood.setOnClickListener((view) -> {
             Intent intent = new Intent(SearchFoodActivity.this, AddFoodActivity.class);
             intent.putExtra("dayOfYear", dayOfYear);
             intent.putExtra("username", username);
             SearchFoodActivity.this.startActivity(intent);
         });
 
-        //set up the button for building a meal
-        Button createMeal = findViewById(R.id.btnCreateMeal);
-        createMeal.setOnClickListener( (view) -> {
+        fabMeal.setOnClickListener((view) -> {
             Intent intent = new Intent(SearchFoodActivity.this, CreateMealActivity.class);
             intent.putExtra("dayOfYear", dayOfYear);
             intent.putExtra("username", username);
