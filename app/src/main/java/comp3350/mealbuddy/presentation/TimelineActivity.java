@@ -6,6 +6,7 @@ package comp3350.mealbuddy.presentation;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.Calendar;
@@ -83,13 +85,21 @@ public class TimelineActivity extends AppCompatActivity {
             TimelineActivity.this.startActivity(intent);
         });
 
-        //the "goals" button to view list of goals
-        Button goals = findViewById(R.id.btnViewGoals);
-        goals.setOnClickListener((view) -> {
-                Intent intent = new Intent(TimelineActivity.this, GoalActivity.class);
-                intent.putExtra("dayOfYear", day.dayOfYear);
-                intent.putExtra("username", username);
-                TimelineActivity.this.startActivity(intent);
+        BottomNavigationView nav = findViewById(R.id.bottom_navigation);
+        nav.setOnNavigationItemSelectedListener((MenuItem item) -> {
+            switch (item.getItemId()) {
+                case R.id.action_goals:
+                    Intent intent = new Intent(TimelineActivity.this, GoalActivity.class);
+                    intent.putExtra("dayOfYear", day.dayOfYear);
+                    intent.putExtra("username", username);
+                    TimelineActivity.this.startActivity(intent);
+                    break;
+                case R.id.action_account:
+                    break;
+                case R.id.action_timeline:
+                    break;
+            }
+            return true;
         });
     }
 

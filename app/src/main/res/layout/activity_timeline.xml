@@ -267,13 +267,6 @@
         android:elevation="2dp"
         app:layout_constraintBottom_toBottomOf="parent">
 
-        <Button
-            android:id="@+id/btnViewGoals"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="View Goals"
-            android:layout_gravity="bottom|center" />
-
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fabExercise"
             android:layout_width="wrap_content"
