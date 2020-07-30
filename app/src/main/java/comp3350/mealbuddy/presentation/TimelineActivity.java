@@ -36,6 +36,8 @@ public class TimelineActivity extends AppCompatActivity {
     private Day day;
     private Calculator calculator;
     private String username;
+    private int dayOfYear;
+
     private boolean isFabOpen = false;
     private FloatingActionButton fabFood;
     private FloatingActionButton fabExercise;
@@ -52,15 +54,14 @@ public class TimelineActivity extends AppCompatActivity {
         setContentView(R.layout.activity_timeline);
         dialog = new Dialog(this);
         //get username from previous activity
+        Calendar calendar = Calendar.getInstance();
+        dayOfYear = this.getIntent().getIntExtra("dayOfYear", calendar.get(Calendar.DAY_OF_YEAR));
         username = this.getIntent().getStringExtra("username");
 
-        //get the day to display
-        final Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.DAY_OF_YEAR, dayOfYear);
+
         accessAccount = new AccessAccount();
-        day = accessAccount.getDay(username, calendar.get(Calendar.DAY_OF_YEAR));
-        calendar.set(Calendar.YEAR, calendar.get(Calendar.YEAR));
-        calendar.set(Calendar.MONTH, calendar.get(Calendar.MONTH));
-        calendar.set(Calendar.DAY_OF_MONTH, calendar.get(Calendar.DAY_OF_MONTH));
+        day = accessAccount.getDay(username, dayOfYear);
 
 
         calculator = new Calculator(day);
@@ -82,7 +83,12 @@ public class TimelineActivity extends AppCompatActivity {
             cv.setOnDateChangeListener((calendarView, y, m, d) -> {
                 Calendar newCalendar = Calendar.getInstance();
                 newCalendar.set(y,m,d);
-                day = accessAccount.getDay(username, calendar.get(Calendar.DAY_OF_YEAR));
+                int newDayOfYear = newCalendar.get(Calendar.DAY_OF_YEAR);
+                Intent intent = new Intent(TimelineActivity.this, TimelineActivity.class);
+                intent.putExtra("dayOfYear", newDayOfYear);
+                intent.putExtra("username", username);
+                TimelineActivity.this.startActivity(intent);
+
             });
 
             dialog.show();

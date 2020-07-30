@@ -307,6 +307,7 @@ public class GoalActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         Intent intent = new Intent(GoalActivity.this, TimelineActivity.class);
+        intent.putExtra("dayOfYear", dayOfYear);
         intent.putExtra("username", username);
         GoalActivity.this.startActivity(intent);
     }
