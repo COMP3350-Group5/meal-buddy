@@ -89,7 +89,7 @@ public class UserInfo {
 
     @Override
     public String toString() {
-        return "Name: " + fullname + "\nUsername: " + username + "\nHeight: " + height + "\nSex: " + getSexString() + "\nAge: " + age + "\nActvitiy Level: " + getActivityLevelString() + "\nWeight: " + weight;
+        return "Name: " + fullname + "\nUsername: " + username + "\nHeight: " + height + "\nSex: " + getSexString() + "\nAge: " + age + "\nActivity Level: " + getActivityLevelString() + "\nWeight: " + weight;
     }
 
     private String getActivityLevelString() {
