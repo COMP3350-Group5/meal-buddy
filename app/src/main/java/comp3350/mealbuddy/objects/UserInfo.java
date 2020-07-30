@@ -87,4 +87,25 @@ public class UserInfo {
         return username.equals(userInfo.username);
     }
 
+    @Override
+    public String toString() {
+        return "Name: " + fullname + "\nUsername: " + username + "\nHeight: " + height + "\nSex: " + getSexString() + "\nAge: " + age + "\nActvitiy Level: " + getActivityLevelString() + "\nWeight: " + weight;
+    }
+
+    private String getActivityLevelString() {
+        String output = "";
+        if (activityLevel == ActivityLevel.LOW) {
+            output = "Low";
+        } else if (activityLevel == ActivityLevel.MEDIUM) {
+            output = "Medium";
+        } else if (activityLevel == ActivityLevel.HIGH) {
+            output = "High";
+        }
+        return output;
+    }
+
+    private String getSexString() {
+        return sex == Sex.MALE ? "Male" : "Female";
+    }
+
 }

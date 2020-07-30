@@ -87,16 +87,22 @@ public class TimelineActivity extends AppCompatActivity {
 
         BottomNavigationView nav = findViewById(R.id.bottom_navigation);
         nav.setOnNavigationItemSelectedListener((MenuItem item) -> {
+            Intent intent;
             switch (item.getItemId()) {
                 case R.id.action_goals:
-                    Intent intent = new Intent(TimelineActivity.this, GoalActivity.class);
+                    intent = new Intent(TimelineActivity.this, GoalActivity.class);
                     intent.putExtra("dayOfYear", day.dayOfYear);
                     intent.putExtra("username", username);
                     TimelineActivity.this.startActivity(intent);
                     break;
                 case R.id.action_account:
+                    intent = new Intent(TimelineActivity.this, AccountActivity.class);
+                    intent.putExtra("dayOfYear", day.dayOfYear);
+                    intent.putExtra("username", username);
+                    TimelineActivity.this.startActivity(intent);
                     break;
                 case R.id.action_timeline:
+                    // do nothing, this is where we are
                     break;
             }
             return true;

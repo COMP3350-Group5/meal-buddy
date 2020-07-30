@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".presentation.AddExerciseActivity"></activity>
+        <activity android:name=".presentation.AccountActivity"></activity>
+        <activity android:name=".presentation.AddExerciseActivity" />
         <activity
             android:name=".presentation.SearchFoodActivity"
             android:theme="@style/TitleTheme" />
