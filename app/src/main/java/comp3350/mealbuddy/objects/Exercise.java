@@ -7,14 +7,9 @@ package comp3350.mealbuddy.objects;
 
 public class Exercise {
 
-    public enum Intensity {
-        Low, Medium, High,
-    }
-
     public String name;
     public double duration;
     public Intensity intensity;
-
     /*
      * Constructor
      * Creates an Exercise
@@ -31,17 +26,6 @@ public class Exercise {
     }
 
     /*
-     * toString
-     * toString function
-     * Return:
-     *     The string representation of the exercise
-     */
-    @Override
-    public String toString() {
-        return name + " " + duration + " mins, " + intensity + " intensity ";
-    }
-
-    /*
      * copyConstructor
      * Return:
      *     The new exercise
@@ -52,6 +36,17 @@ public class Exercise {
         this.name = original.name;
         this.duration = original.duration;
         this.intensity = original.intensity;
+    }
+
+    /*
+     * toString
+     * toString function
+     * Return:
+     *     The string representation of the exercise
+     */
+    @Override
+    public String toString() {
+        return name + " " + duration + " mins, " + intensity + " intensity ";
     }
 
     /*
@@ -68,6 +63,10 @@ public class Exercise {
         Exercise exercise = (Exercise) o;
         return name.equals(exercise.name) &&
                 intensity == exercise.intensity;
+    }
+
+    public enum Intensity {
+        Low, Medium, High,
     }
 
 }

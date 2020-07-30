@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="450dp"
     android:layout_height="250dp"
-    android:padding="5dp"
     android:layout_gravity="center"
+    android:orientation="vertical"
+    android:padding="5dp"
     tools:ignore="PrivateResource">
 
     <TextView
@@ -13,8 +13,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Adding Food: "
-        android:textSize="35dp"
-        android:textColor="@color/cardview_light_background"/>
+        android:textColor="@color/cardview_light_background"
+        android:textSize="35dp" />
 
     <TextView
         android:id="@+id/tvSpinnerTitle"
@@ -22,23 +22,24 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="Select a meal time:"
-        android:textSize="15dp"
-        android:textColor="@color/cardview_light_background"/>
+        android:textColor="@color/cardview_light_background"
+        android:textSize="15dp" />
+
     <Spinner
         android:id="@+id/spnMealtimes"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:entries="@array/mealtimes_array"
-        />
+        android:entries="@array/mealtimes_array" />
 
     <EditText
         android:id="@+id/etQuantity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:hint="Quantity"
         android:inputType="number"
-        android:layout_gravity="center"
         android:textColorHint="@color/cardview_light_background" />
+
     <Button
         android:id="@+id/btnConfirm"
         android:layout_width="wrap_content"

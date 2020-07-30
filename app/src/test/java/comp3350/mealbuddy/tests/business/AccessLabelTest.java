@@ -10,8 +10,8 @@ import comp3350.mealbuddy.application.Services;
 import comp3350.mealbuddy.business.AccessLabel;
 
 public class AccessLabelTest {
-    private static AccessLabel accessLabel;
     private static final String LABEL = "labeltest123";
+    private static AccessLabel accessLabel;
 
     @Before
     public void initAccessLabelTests() {

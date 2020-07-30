@@ -10,10 +10,6 @@ import static comp3350.mealbuddy.objects.goals.CalorieGoal.CalorieId.CALORIE_GOA
 
 public class CalorieGoal extends Goal {
 
-    public enum CalorieId {
-        CALORIE_GOAL
-    }
-
     /*
      * Constructor
      * Create a new CalorieGoal
@@ -38,5 +34,9 @@ public class CalorieGoal extends Goal {
                 "lowerBound=" + lowerBound +
                 ", upperBound=" + upperBound +
                 '}';
+    }
+
+    public enum CalorieId {
+        CALORIE_GOAL
     }
 }

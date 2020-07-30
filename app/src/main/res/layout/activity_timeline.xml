@@ -25,30 +25,34 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtTimeline">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <TextView
                 android:id="@+id/txtTotalCardTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="TextView" />
+
             <TextView
-            android:id="@+id/txtTotalsCals"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="TextView"/>
-            <TextView
-                android:id="@+id/txtTotalsNetCals"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentLeft="true"
+                android:id="@+id/txtTotalsCals"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView"/>
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:text="TextView" />
+
+            <TextView
+                android:id="@+id/txtTotalsNetCals"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentBottom="true"
+                android:text="TextView" />
 
         </RelativeLayout>
 
@@ -61,11 +65,12 @@
         android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardTotals"
-        >
+        app:layout_constraintTop_toBottomOf="@+id/cardTotals">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <TextView
                 android:id="@+id/txtBreakfastCardTitle"
                 android:layout_width="wrap_content"
@@ -77,26 +82,27 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="50dp"
-                android:layout_marginRight="50dp"
                 android:layout_marginTop="25dp"
-                app:autoSizeTextType="uniform"
-                app:autoSizeMinTextSize="12sp"
+                android:layout_marginRight="50dp"
+                android:text="TextView"
                 app:autoSizeMaxTextSize="18sp"
+                app:autoSizeMinTextSize="12sp"
                 app:autoSizeStepGranularity="1sp"
-                android:text="TextView" />
+                app:autoSizeTextType="uniform" />
 
             <TextView
                 android:id="@+id/txtBreakfastCals"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView"/>
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:text="TextView" />
         </RelativeLayout>
 
 
     </androidx.cardview.widget.CardView>
+
     <androidx.cardview.widget.CardView
         android:id="@+id/cardLunch"
         android:layout_width="500dp"
@@ -148,9 +154,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardLunch">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <TextView
                 android:id="@+id/txtDinnerCardTitle"
                 android:layout_width="wrap_content"
@@ -162,21 +170,22 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="50dp"
-                android:layout_marginRight="50dp"
                 android:layout_marginTop="25dp"
-                app:autoSizeTextType="uniform"
-                app:autoSizeMinTextSize="12sp"
+                android:layout_marginRight="50dp"
+                android:text="TextView"
                 app:autoSizeMaxTextSize="18sp"
+                app:autoSizeMinTextSize="12sp"
                 app:autoSizeStepGranularity="1sp"
-                android:text="TextView" />
+                app:autoSizeTextType="uniform" />
+
             <TextView
                 android:id="@+id/txtDinnerCals"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView"/>
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:text="TextView" />
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 
@@ -188,9 +197,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardDinner">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <TextView
                 android:id="@+id/txtSnacksCardTitle"
                 android:layout_width="wrap_content"
@@ -202,21 +213,22 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="50dp"
-                android:layout_marginRight="50dp"
                 android:layout_marginTop="25dp"
-                app:autoSizeTextType="uniform"
-                app:autoSizeMinTextSize="12sp"
+                android:layout_marginRight="50dp"
+                android:text="TextView"
                 app:autoSizeMaxTextSize="18sp"
+                app:autoSizeMinTextSize="12sp"
                 app:autoSizeStepGranularity="1sp"
-                android:text="TextView" />
+                app:autoSizeTextType="uniform" />
+
             <TextView
                 android:id="@+id/txtSnacksCals"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView"/>
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:text="TextView" />
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 
@@ -228,9 +240,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardSnacks">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <TextView
                 android:id="@+id/txtExerciseCardTitle"
                 android:layout_width="wrap_content"
@@ -242,23 +256,25 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="50dp"
-                android:layout_marginRight="50dp"
                 android:layout_marginTop="25dp"
-                app:autoSizeTextType="uniform"
-                app:autoSizeMinTextSize="12sp"
+                android:layout_marginRight="50dp"
+                android:text="TextView"
                 app:autoSizeMaxTextSize="18sp"
+                app:autoSizeMinTextSize="12sp"
                 app:autoSizeStepGranularity="1sp"
-                android:text="TextView" />
+                app:autoSizeTextType="uniform" />
+
             <TextView
                 android:id="@+id/txtExerciseCals"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView"/>
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:text="TextView" />
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/coordinatorLayout"
         android:layout_width="match_parent"
@@ -302,19 +318,16 @@
             app:srcCompat="@android:drawable/ic_input_add" />
 
 
-
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-
 
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/bottom_nav_menu" />
 
     <ImageView

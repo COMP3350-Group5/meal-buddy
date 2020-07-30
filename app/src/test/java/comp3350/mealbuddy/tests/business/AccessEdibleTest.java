@@ -17,13 +17,11 @@ import comp3350.mealbuddy.objects.consumables.Food;
 
 public class AccessEdibleTest {
 
-    private static AccessEdible accessEdible;
-    private static AccessLabel accessLabel;
-
-    private static Edible edible;
     private static final String EDIBLE_NAME = "testfood123123";
     private static final List<String> LABELS = Arrays.asList("labeltest123");
-
+    private static AccessEdible accessEdible;
+    private static AccessLabel accessLabel;
+    private static Edible edible;
 
     @Before
     public void initAccessEdibleTest() {

@@ -10,12 +10,12 @@
         android:id="@+id/tvSearchTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
         android:text="Select an existing food to add."
         android:textAlignment="center"
         android:textSize="30dp"
-        android:gravity="center_horizontal"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <ListView
@@ -25,13 +25,14 @@
         android:background="@color/cardview_dark_background"
         android:divider="@android:color/background_dark"
         android:dividerHeight="1.5dp"
-        tools:listitem="@android:layout/simple_list_item_1"
-        tools:ignore="PrivateResource"
-        app:layout_constraintTop_toBottomOf="@id/tvSearchTitle"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/tvSearchTitle"
+        tools:ignore="PrivateResource"
+        tools:listitem="@android:layout/simple_list_item_1">
 
     </ListView>
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/coordinatorLayout"
         android:layout_width="match_parent"
@@ -72,7 +73,6 @@
             android:clickable="true"
             android:focusable="true"
             app:srcCompat="@android:drawable/ic_input_add" />
-
 
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -29,18 +29,6 @@ import static comp3350.mealbuddy.objects.consumables.Edible.Micros.Zinc;
 
 public class DataAccessTest {
 
-    //private static DataAccess database = Services.createDataAccess(Main.DATABASE_NAME);  //HQSQLDB
-    private static DataAccess database = Services.createDataAccess(new DataAccessStub("StubDB"));         //STUBDB
-
-    public static Food durian;
-    public static Food quinoa;
-    public static Food bacon;
-    public static Food egg;
-    public static Food milk;
-    public static Food cheerios;
-    public static Meal nestedMeal;
-    public static Meal cereal;
-    public static Account account;
     public static final String ACCOUNT_USERNAME = "TESTMuskyBoi";
     public static final String DURIAN_NAME = "TESTDurian";
     public static final String CHEERIOS_NAME = "TESTCheerios";
@@ -52,7 +40,17 @@ public class DataAccessTest {
     public static final String CEREAL_NAME = "TESTCereal";
     public static final String KETO_LABEL = "TESTKeto";
     public static final String VEGAN_LABEL = "TESTVegan";
-
+    public static Food durian;
+    public static Food quinoa;
+    public static Food bacon;
+    public static Food egg;
+    public static Food milk;
+    public static Food cheerios;
+    public static Meal nestedMeal;
+    public static Meal cereal;
+    public static Account account;
+    //private static DataAccess database = Services.createDataAccess(Main.DATABASE_NAME);  //HQSQLDB
+    private static DataAccess database = Services.createDataAccess(new DataAccessStub("StubDB"));         //STUBDB
 
     @Before
     public void init() {

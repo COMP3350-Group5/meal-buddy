@@ -12,10 +12,10 @@ import comp3350.mealbuddy.objects.consumables.Meal;
 import comp3350.mealbuddy.objects.goals.Goal;
 
 public class Day {
-    public enum MealTimeType {
-        BREAKFAST, LUNCH, DINNER, SNACK
-    }
-
+    public static final String BREAKFAST_NAME = "Breakfast";
+    public static final String LUNCH_NAME = "Lunch";
+    public static final String DINNER_NAME = "Dinner";
+    public static final String SNACK_NAME = "Snack";
     public int dayOfYear; // represented as day-of-year (1-365)
     public Meal breakfast;
     public Meal lunch;
@@ -23,11 +23,6 @@ public class Day {
     public Meal snack;
     private ArrayList<Goal> goals;
     private ArrayList<Exercise> exercises;
-    public static final String BREAKFAST_NAME = "Breakfast";
-    public static final String LUNCH_NAME = "Lunch";
-    public static final String DINNER_NAME = "Dinner";
-    public static final String SNACK_NAME = "Snack";
-
     /*
      * Constructor
      * initializes the day object from a dayOfYear parameter
@@ -90,7 +85,6 @@ public class Day {
         return null;
     }
 
-
     /*
      * getMealString
      * returns string interpretation of the meal.
@@ -102,7 +96,6 @@ public class Day {
     public String getMealString(MealTimeType MT) {
         return getMealTime(MT).toString();
     }
-
 
     /*
      * getExerciseString
@@ -229,6 +222,10 @@ public class Day {
         }
         return result;
 
+    }
+
+    public enum MealTimeType {
+        BREAKFAST, LUNCH, DINNER, SNACK
     }
 
 }

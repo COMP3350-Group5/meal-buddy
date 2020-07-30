@@ -7,14 +7,6 @@ package comp3350.mealbuddy.objects;
 
 public class UserInfo {
 
-    public enum Sex {
-        MALE, FEMALE,
-    }
-
-    public enum ActivityLevel {
-        LOW, MEDIUM, HIGH,
-    }
-
     public String fullname;
     public String username;
     public String password; //hash it in the future
@@ -23,7 +15,6 @@ public class UserInfo {
     public ActivityLevel activityLevel;
     public Sex sex;
     public int age;
-
     /*
      * Constructor
      * Initializes the values for the account
@@ -47,7 +38,6 @@ public class UserInfo {
         this.sex = sex;
         this.age = age;
     }
-
     public UserInfo(UserInfo original) {
         this.fullname = original.fullname;
         this.username = original.username;
@@ -106,6 +96,14 @@ public class UserInfo {
 
     private String getSexString() {
         return sex == Sex.MALE ? "Male" : "Female";
+    }
+
+    public enum Sex {
+        MALE, FEMALE,
+    }
+
+    public enum ActivityLevel {
+        LOW, MEDIUM, HIGH,
     }
 
 }

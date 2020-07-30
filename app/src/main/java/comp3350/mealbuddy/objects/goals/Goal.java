@@ -7,15 +7,10 @@ package comp3350.mealbuddy.objects.goals;
 import comp3350.mealbuddy.objects.consumables.Edible;
 
 public abstract class Goal {
-    public enum GoalType {
-        RATIO, QUANTITY
-    }
-
     public int lowerBound;
     public int upperBound;
     public GoalType goalType;
     public Object id;
-
     /*
      * Constructor
      * Creates a goal with a lower and upper bound, and a type.
@@ -61,6 +56,10 @@ public abstract class Goal {
         if (!(o instanceof Goal)) return false;
         Goal goal = (Goal) o;
         return id.equals(goal.id);
+    }
+
+    public enum GoalType {
+        RATIO, QUANTITY
     }
 
 }

@@ -13,15 +13,14 @@ import comp3350.mealbuddy.objects.Day;
 import comp3350.mealbuddy.objects.UserInfo;
 
 public class AccessAccountTest {
+    private static final String ACCOUNT_USERNAME = "TESTMuskyBoi";
+    private static final String ACCOUNT_PASSWORD = "T3sla";
+    private static final int DAY_OF_YEAR = 123;
     private static AccessAccount accessAccount;
     private static Account account;
     private static Day day;
     private static UserInfo userInfo;
     private static UserInfo dummyUserInfo;
-    private static final String ACCOUNT_USERNAME = "TESTMuskyBoi";
-    private static final String ACCOUNT_PASSWORD = "T3sla";
-    private static final int DAY_OF_YEAR = 123;
-
 
     @Before
     public void initAccessAccount() {

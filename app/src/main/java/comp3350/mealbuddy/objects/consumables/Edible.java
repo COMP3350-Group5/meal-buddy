@@ -14,12 +14,18 @@ public abstract class Edible implements Iterable<Edible> {
     public String name;
     public List<String> labels;
 
-    public enum Macros {
-        Fat, Carbohydrates, Protein, Alcohol
-    }
-
-    public enum Micros {
-        Iron, Zinc, VitaminA, VitaminB12, VitaminC, VitaminE, Calcium, Choline, Magnesium, Sodium, Potassium, Niacin
+    /*
+     * Constructor
+     * Creates an edible object.
+     * Parameters:
+     *     @param name - The name of the edible
+     *     @param labels - The labels associated with the edible.
+     */
+    public Edible(String name, List<String> labels) {
+        if (name == null || labels == null)
+            throw new NullPointerException("Name and labels can't be null");
+        this.name = name;
+        this.labels = labels;
     }
 
     public static Edible copyEdible(Edible e) {
@@ -39,20 +45,6 @@ public abstract class Edible implements Iterable<Edible> {
     @NonNull
     @Override
     public abstract Iterator<Edible> iterator();
-
-    /*
-     * Constructor
-     * Creates an edible object.
-     * Parameters:
-     *     @param name - The name of the edible
-     *     @param labels - The labels associated with the edible.
-     */
-    public Edible(String name, List<String> labels) {
-        if (name == null || labels == null)
-            throw new NullPointerException("Name and labels can't be null");
-        this.name = name;
-        this.labels = labels;
-    }
 
     /*
      * containsLabel
@@ -79,6 +71,14 @@ public abstract class Edible implements Iterable<Edible> {
             isEqual = name.equals(edibleIntPair.edible.name);
         }
         return isEqual;
+    }
+
+    public enum Macros {
+        Fat, Carbohydrates, Protein, Alcohol
+    }
+
+    public enum Micros {
+        Iron, Zinc, VitaminA, VitaminB12, VitaminC, VitaminE, Calcium, Choline, Magnesium, Sodium, Potassium, Niacin
     }
 
 

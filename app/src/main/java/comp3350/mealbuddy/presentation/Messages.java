@@ -6,7 +6,6 @@ package comp3350.mealbuddy.presentation;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 
 public class Messages {
     /*

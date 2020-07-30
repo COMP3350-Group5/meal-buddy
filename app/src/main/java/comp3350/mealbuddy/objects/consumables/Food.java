@@ -64,16 +64,6 @@ public class Food extends Edible {
     }
 
     /*
-     * iterator
-     * inits all the nutrients of a food to 0
-     */
-    private void initNutrientLists() {
-        micros = makeMicros();
-        macros = makeMacros();
-    }
-
-
-    /*
      * makeMacros
      * Function to create the macros enum map for an edible
      */
@@ -99,6 +89,14 @@ public class Food extends Edible {
         return microMap;
     }
 
+    /*
+     * iterator
+     * inits all the nutrients of a food to 0
+     */
+    private void initNutrientLists() {
+        micros = makeMicros();
+        macros = makeMacros();
+    }
 
     /*
      * updateMacro

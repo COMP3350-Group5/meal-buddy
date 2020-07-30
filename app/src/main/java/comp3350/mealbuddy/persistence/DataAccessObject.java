@@ -53,20 +53,17 @@ import static comp3350.mealbuddy.objects.consumables.Edible.Micros.Zinc;
 
 public class DataAccessObject implements DataAccess {
 
-    private Statement st;
-    private Connection c1;
-
-    private String dbName;
-    private String dbType;
-
-    private String cmdString;
-    private int updateCount;
-    private String result;
-
     private final String CALORIE_GOAL_CLASS = "Calorie";
     private final String MACRO_GOAL_CLASS = "Macro";
     private final String MICRO_GOAL_CLASS = "Micro";
     private final String LABEL_GOAL_CLASS = "Label";
+    private Statement st;
+    private Connection c1;
+    private String dbName;
+    private String dbType;
+    private String cmdString;
+    private int updateCount;
+    private String result;
 
     /*
      * Constructor

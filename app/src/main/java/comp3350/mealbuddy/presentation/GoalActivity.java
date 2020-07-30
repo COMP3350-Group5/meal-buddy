@@ -35,8 +35,8 @@ import comp3350.mealbuddy.objects.goals.MicroGoal;
 
 public class GoalActivity extends AppCompatActivity {
 
-    private AccessAccount accessAccount;
     Dialog dialog;
+    private AccessAccount accessAccount;
     private String username;
     private int dayOfYear;
 
