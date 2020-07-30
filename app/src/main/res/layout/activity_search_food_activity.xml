@@ -23,6 +23,13 @@
         android:layout_alignParentRight="true"
         android:text="@string/add_new_food" />
 
+    <Button
+        android:id="@+id/btnCreateMeal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="147dp"
+        android:text="Create a Meal" />
+
     <ListView
         android:id="@+id/lvSearchbar"
         android:layout_below="@id/btnAddNewFood"
@@ -32,6 +39,9 @@
         android:divider="@android:color/background_dark"
         android:dividerHeight="1.5dp"
         tools:listitem="@android:layout/simple_list_item_1"
-        tools:ignore="PrivateResource" />
+        tools:ignore="PrivateResource" >
+
+    </ListView>
 
 </RelativeLayout>
+
