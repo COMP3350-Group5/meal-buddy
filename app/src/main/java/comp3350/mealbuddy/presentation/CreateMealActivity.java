@@ -44,7 +44,7 @@ public class CreateMealActivity extends AppCompatActivity {
         ListView foodList = findViewById(R.id.foodList);
         Button addMeal = findViewById(R.id.btnAdd);
 
-        //Fill the list with interviews
+        //Fill the list with edibles
         AccessEdible accessEdible = new AccessEdible();
         List<Edible> edibles = accessEdible.getEdibles();
         List<String> ediblesString = new ArrayList();
