@@ -61,12 +61,10 @@ public class TimelineActivity extends AppCompatActivity {
         dayOfYear = this.getIntent().getIntExtra("dayOfYear", calendar.get(Calendar.DAY_OF_YEAR));
         username = this.getIntent().getStringExtra("username");
 
+        //initialize the access methods and day based on the given values
         calendar.set(Calendar.DAY_OF_YEAR, dayOfYear);
-
         accessAccount = new AccessAccount();
         day = accessAccount.getDay(username, dayOfYear);
-
-
         calculator = new Calculator(day);
 
         //update the timeline text
@@ -240,6 +238,10 @@ public class TimelineActivity extends AppCompatActivity {
         exerciseCals.setText(calculator.getTotalExerciseCalories(accessAccount.getAccount(username).user) + " Cals");
     }
 
+    /*
+     * showFABMenu
+     * shows the floating action button menu
+     */
     private void showFABMenu(){
         isFabOpen=true;
         fabFood.setVisibility(View.VISIBLE);
@@ -248,6 +250,10 @@ public class TimelineActivity extends AppCompatActivity {
         fabExercise.animate().translationY(-getResources().getDimension(R.dimen.standard_130));
     }
 
+    /*
+     * closeFABMenu
+     * closes the floating action button menu
+     */
     private void closeFABMenu(){
         isFabOpen=false;
         fabFood.animate().translationY(0);
@@ -266,6 +272,11 @@ public class TimelineActivity extends AppCompatActivity {
         }, 300);
 
     }
+
+    /*
+     * onBackPressed
+     * disable back button
+     */
     @Override
     public void onBackPressed() {
        // empty to disable back button

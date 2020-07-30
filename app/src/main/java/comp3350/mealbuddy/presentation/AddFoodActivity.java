@@ -36,6 +36,7 @@ public class AddFoodActivity extends AppCompatActivity {
     AccessEdible accessEdible;
     AccessLabel accessLabel;
     Dialog dialog;
+
     /*
      * onCreate
      * called when the activity is initially created
@@ -98,6 +99,15 @@ public class AddFoodActivity extends AppCompatActivity {
             }
         });
     }
+
+    /*
+     * showPopUp
+     * shows the pop up with the corresponding information.
+     * Parameters:
+     *      @param edible - the edible to show
+     *      @param username - the account to add to
+     *      @param dayOfYear - the day to add to
+     */
     public void showPopUp(Edible edible, String username, int dayOfYear){
         dialog.setContentView(R.layout.pop_up_food);
         //initialize dialog components
@@ -111,7 +121,6 @@ public class AddFoodActivity extends AppCompatActivity {
                     editText.setError("Quantity is required");
                 } else {
                     //add the food
-
                     String spnString = spinner.getSelectedItem().toString();
                     //find the meal time
                     Day.MealTimeType MT = getMealTime(spnString);
@@ -122,17 +131,19 @@ public class AddFoodActivity extends AppCompatActivity {
                     accessAccount.updateDay(username, day);
                     accessEdible.addEdible(edible); //this adds the food to the foods database.
 
-
                     //go back to the timeline activity and pass the username
                     ChangeActivityHelper.changeActivity(AddFoodActivity.this, TimelineActivity.class, username, dayOfYear);
                 }
-
         });
 
         titleText.setText("Adding Food: " + edible.name);
         dialog.show();
     }
 
+    /*
+     * getMealTime
+     * returns the mealtime type from the string value
+     */
     private Day.MealTimeType getMealTime(String value) {
         Day.MealTimeType MT;
         if (value.equals("Breakfast"))

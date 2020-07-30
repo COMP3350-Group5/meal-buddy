@@ -290,6 +290,10 @@ public class GoalActivity extends AppCompatActivity {
         dialog.show();
     }
 
+    /*
+     * onBackPressed
+     * When the back button is pressed
+     */
     @Override
     public void onBackPressed() {
         ChangeActivityHelper.changeActivity(GoalActivity.this, TimelineActivity.class, username, dayOfYear);

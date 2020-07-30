@@ -73,6 +73,10 @@ public class AddExerciseActivity extends AppCompatActivity {
         });
     }
 
+    /*
+     * getIntensity
+     * returns the intensity value from the passed string
+     */
     private Exercise.Intensity getIntensity(String value) {
         Exercise.Intensity IT;
         if (value.equals("Low"))

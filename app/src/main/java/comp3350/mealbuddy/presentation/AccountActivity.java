@@ -32,6 +32,12 @@ public class AccountActivity extends AppCompatActivity {
     private TextView userInfoTxt;
     private TextView tvSpnTitle;
 
+    /*
+     * onCreate
+     * called when the activity is initially created
+     * Parameters:
+     *     @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,8 +52,6 @@ public class AccountActivity extends AppCompatActivity {
         dayOfYear = this.getIntent().getIntExtra("dayOfYear", -1);
         username = this.getIntent().getStringExtra("username");
 
-
-
         userInfoTxt = findViewById(R.id.txtUserInfo);
 
         // display the user info
@@ -61,6 +65,10 @@ public class AccountActivity extends AppCompatActivity {
 
     }
 
+    /*
+     * updateUserInfo
+     * updates the user info
+     */
     private void updateUserInfo() {
         userInfoTxt.setText(accessAccount.getAccount(username).user.toString());
     }
@@ -92,6 +100,7 @@ public class AccountActivity extends AppCompatActivity {
               return;
           }
         });
+
         btnUpdate.setOnClickListener((view) -> {
             String spnString = spinner.getSelectedItem().toString();
             if (spnString.equals("Activity Level"))
@@ -105,11 +114,19 @@ public class AccountActivity extends AppCompatActivity {
         dialog.show();
     }
 
+    /*
+     * hidePopup
+     * hide pop up and updates the user info
+     */
     private void hidePopUp() {
         dialog.hide();
         updateUserInfo();
     }
 
+    /*
+     * updateWeight
+     * updates the weight
+     */
     private void updateWeight() {
         if (TextUtils.isEmpty(etNum.getText())) {
             etNum.setError("Weight required");
@@ -121,6 +138,10 @@ public class AccountActivity extends AppCompatActivity {
         }
     }
 
+    /*
+     * updateActivityLevel
+     * updates the activity level
+     */
     private void updateActivityLevel() {
         Account newAccount = new Account(accessAccount.getAccount(username));
         String activityLevelValue = spnActivityLevel.getSelectedItem().toString();
@@ -136,6 +157,10 @@ public class AccountActivity extends AppCompatActivity {
         hidePopUp();
     }
 
+    /*
+     * updateName
+     * updates the name
+     */
     private void updateName() {
         if (TextUtils.isEmpty(etText.getText())) {
             etText.setError("Name required");
@@ -147,6 +172,10 @@ public class AccountActivity extends AppCompatActivity {
         }
     }
 
+    /*
+     * showName
+     * shows the name
+     */
     private void showName() {
         etNum.setVisibility(View.INVISIBLE);
         spnActivityLevel.setVisibility(View.INVISIBLE);
@@ -155,6 +184,10 @@ public class AccountActivity extends AppCompatActivity {
         etText.setHint("Name");
     }
 
+    /*
+     * showWeight
+     * shows the weight
+     */
     private void showWeight() {
         etText.setVisibility(View.INVISIBLE);
         spnActivityLevel.setVisibility(View.INVISIBLE);
@@ -163,6 +196,10 @@ public class AccountActivity extends AppCompatActivity {
         etNum.setHint("Weight (lbs)");
     }
 
+    /*
+     * showWeight
+     * shows the activity level
+     */
     private void showActivityLevel() {
         etNum.setVisibility(View.INVISIBLE);
         etText.setVisibility(View.INVISIBLE);

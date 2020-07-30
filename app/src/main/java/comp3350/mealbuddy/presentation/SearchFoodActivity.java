@@ -38,6 +38,12 @@ public class SearchFoodActivity extends AppCompatActivity {
     AccessEdible accessEdible;
     AccessAccount accessAccount;
 
+    /*
+     * onCreate
+     * called when the activity is initially created
+     * Parameters:
+     *     @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,13 +87,26 @@ public class SearchFoodActivity extends AppCompatActivity {
         });
     }
 
+    /*
+     * onCreateOptionsMenu
+     * overrides the default menu creation options. adds a search bar to it.
+     * Parameters:
+     *     @param menu - the menu
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         addSearchBar(menu);
-
         return super.onCreateOptionsMenu(menu);
     }
 
+    /*
+     * showPopUp
+     * shows the pop up with the corresponding information.
+     * Parameters:
+     *      @param edible - the edible to show
+     *      @param username - the account to add to
+     *      @param dayOfYear - the day to add to
+     */
     public void showPopUp(Edible edible, String username, int dayOfYear){
         dialog.setContentView(R.layout.pop_up_food);
         //initialize dialog components
@@ -101,17 +120,11 @@ public class SearchFoodActivity extends AppCompatActivity {
                 editText.setError("Quantity is required");
             } else {
                 //add the food
-                Day.MealTimeType MT;
+
                 String spnString = spinner.getSelectedItem().toString();
                 //find the meal time
-                if (spnString.equals("Breakfast"))
-                    MT = Day.MealTimeType.BREAKFAST;
-                else if(spnString.equals("Lunch"))
-                    MT = Day.MealTimeType.LUNCH;
-                else if(spnString.equals("Dinner"))
-                    MT = Day.MealTimeType.DINNER;
-                else
-                    MT = Day.MealTimeType.SNACK;
+                Day.MealTimeType MT = getMealTime(spnString);
+
                 Day day = accessAccount.getDay(username, dayOfYear);
 
                 //add the meal to the day and update the day in the user
@@ -127,6 +140,12 @@ public class SearchFoodActivity extends AppCompatActivity {
         dialog.show();
     }
 
+    /*
+     * addSearchBar
+     * adds the search bar to the menu
+     * Parameters:
+     *      @param menu - menu
+     */
     private void addSearchBar(Menu menu){
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.search_menu, menu);
@@ -134,19 +153,35 @@ public class SearchFoodActivity extends AppCompatActivity {
         MenuItem menuItem = menu.findItem(R.id.sbFood);
         SearchView searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-                  @Override
-                  public boolean onQueryTextSubmit(String s) {
-                      return false;
-                  }
-
-                  @Override
-                  public boolean onQueryTextChange(String s) {
-                      //filter the adapter by the string
-                      stringArrayAdapter.getFilter().filter(s);
-                      return false;
-                  }
+              @Override
+              public boolean onQueryTextSubmit(String s) {
+                  return false;
               }
-        );
+
+              @Override
+              public boolean onQueryTextChange(String s) {
+                  //filter the adapter by the string
+                  stringArrayAdapter.getFilter().filter(s);
+                  return false;
+              }
+        });
+    }
+
+    /*
+     * getMealTime
+     * returns the mealtime type from the string value
+     */
+    private Day.MealTimeType getMealTime(String value) {
+        Day.MealTimeType MT;
+        if (value.equals("Breakfast"))
+            MT = Day.MealTimeType.BREAKFAST;
+        else if(value.equals("Lunch"))
+            MT = Day.MealTimeType.LUNCH;
+        else if(value.equals("Dinner"))
+            MT = Day.MealTimeType.DINNER;
+        else
+            MT = Day.MealTimeType.SNACK;
+        return MT;
     }
 
 }

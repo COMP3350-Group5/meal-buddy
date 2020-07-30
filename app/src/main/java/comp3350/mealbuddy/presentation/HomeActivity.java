@@ -37,7 +37,7 @@ public class HomeActivity extends AppCompatActivity {
      *     @param savedInstanceState
      */
     @Override
-    protected synchronized void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         copyDatabaseToDevice();
@@ -57,6 +57,10 @@ public class HomeActivity extends AppCompatActivity {
         });
     }
 
+    /*
+     * onCreate
+     * called when the activity destroying.
+     */
     @Override
     protected void onDestroy() {
         super.onDestroy();
