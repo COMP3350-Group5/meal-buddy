@@ -124,10 +124,7 @@ public class AddFoodActivity extends AppCompatActivity {
 
 
                     //go back to the timeline activity and pass the username
-                    Intent intent = new Intent(AddFoodActivity.this, TimelineActivity.class);
-                    intent.putExtra("dayOfYear", dayOfYear);
-                    intent.putExtra("username", username);
-                    AddFoodActivity.this.startActivity(intent);
+                    ChangeActivityHelper.changeActivity(AddFoodActivity.this, TimelineActivity.class, username, dayOfYear);
                 }
 
         });

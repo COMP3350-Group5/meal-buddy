@@ -10,7 +10,6 @@ import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -71,21 +70,15 @@ public class SearchFoodActivity extends AppCompatActivity {
         //set up the button for creating a new food
         Button btn = findViewById(R.id.btnAddNewFood);
         btn.setOnClickListener( (view) -> {
-            Intent intent = new Intent(SearchFoodActivity.this, AddFoodActivity.class);
-            intent.putExtra("dayOfYear", dayOfYear);
-            intent.putExtra("username", username);
-            SearchFoodActivity.this.startActivity(intent);
+            ChangeActivityHelper.changeActivity(SearchFoodActivity.this, AddFoodActivity.class, username, dayOfYear);
+
         });
 
         //set up the button for building a meal
         Button createMeal = findViewById(R.id.btnCreateMeal);
         createMeal.setOnClickListener( (view) -> {
-            Intent intent = new Intent(SearchFoodActivity.this, CreateMealActivity.class);
-            intent.putExtra("dayOfYear", dayOfYear);
-            intent.putExtra("username", username);
-            SearchFoodActivity.this.startActivity(intent);
+            ChangeActivityHelper.changeActivity(SearchFoodActivity.this, CreateMealActivity.class, username, dayOfYear);
         });
-
     }
 
     @Override
@@ -126,10 +119,7 @@ public class SearchFoodActivity extends AppCompatActivity {
                 accessAccount.updateDay(username, day);
 
                 //go back to the timeline activity and pass the username
-                Intent intent = new Intent(SearchFoodActivity.this, TimelineActivity.class);
-                intent.putExtra("dayOfYear", dayOfYear);
-                intent.putExtra("username", username);
-                SearchFoodActivity.this.startActivity(intent);
+                ChangeActivityHelper.changeActivity(SearchFoodActivity.this, TimelineActivity.class, username, dayOfYear);
             }
         });
 

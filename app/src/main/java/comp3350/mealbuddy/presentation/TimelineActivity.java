@@ -22,12 +22,14 @@ import androidx.cardview.widget.CardView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.sql.Time;
 import java.util.Calendar;
 
 import comp3350.mealbuddy.R;
 import comp3350.mealbuddy.business.AccessAccount;
 import comp3350.mealbuddy.business.Calculator;
 import comp3350.mealbuddy.objects.Day;
+import comp3350.mealbuddy.objects.goals.Goal;
 
 
 public class TimelineActivity extends AppCompatActivity {
@@ -108,17 +110,11 @@ public class TimelineActivity extends AppCompatActivity {
         });
 
         fabFood.setOnClickListener((view) -> {
-                Intent intent = new Intent(TimelineActivity.this, SearchFoodActivity.class);
-                intent.putExtra("dayOfYear", day.dayOfYear);
-                intent.putExtra("username", username);
-                TimelineActivity.this.startActivity(intent);
+            ChangeActivityHelper.changeActivity(TimelineActivity.this, SearchFoodActivity.class, username, dayOfYear);
         });
 
         fabExercise.setOnClickListener((view) -> {
-            Intent intent = new Intent(TimelineActivity.this, AddExerciseActivity.class);
-            intent.putExtra("dayOfYear", day.dayOfYear);
-            intent.putExtra("username", username);
-            TimelineActivity.this.startActivity(intent);
+            ChangeActivityHelper.changeActivity(TimelineActivity.this, AddExerciseActivity.class, username, dayOfYear);
         });
 
         BottomNavigationView nav = findViewById(R.id.bottom_navigation);
@@ -126,16 +122,10 @@ public class TimelineActivity extends AppCompatActivity {
             Intent intent;
             switch (item.getItemId()) {
                 case R.id.action_goals:
-                    intent = new Intent(TimelineActivity.this, GoalActivity.class);
-                    intent.putExtra("dayOfYear", day.dayOfYear);
-                    intent.putExtra("username", username);
-                    TimelineActivity.this.startActivity(intent);
+                    ChangeActivityHelper.changeActivity(TimelineActivity.this, GoalActivity.class, username, dayOfYear);
                     break;
                 case R.id.action_account:
-                    intent = new Intent(TimelineActivity.this, AccountActivity.class);
-                    intent.putExtra("dayOfYear", day.dayOfYear);
-                    intent.putExtra("username", username);
-                    TimelineActivity.this.startActivity(intent);
+                    ChangeActivityHelper.changeActivity(TimelineActivity.this, AccountActivity.class, username, dayOfYear);
                     break;
                 case R.id.action_timeline:
                     // do nothing, this is where we are

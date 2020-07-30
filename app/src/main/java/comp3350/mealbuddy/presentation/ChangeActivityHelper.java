@@ -6,7 +6,7 @@ import android.content.Intent;
 
 public class ChangeActivityHelper {
 
-    public static void changeActivity(Context src, Class dest, int day, String username){
+    public static void changeActivity(Context src, Class dest, String username, int day){
         Intent intent = new Intent(src, dest);
         intent.putExtra("dayOfYear", day);
         intent.putExtra("username", username);

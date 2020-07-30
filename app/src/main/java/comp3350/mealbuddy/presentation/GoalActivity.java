@@ -147,10 +147,7 @@ public class GoalActivity extends AppCompatActivity {
                 accessAccount.updateDay(username, day);
 
                 //Go back to the goal activity
-                Intent intent = new Intent(GoalActivity.this, GoalActivity.class);
-                intent.putExtra("dayOfYear", dayOfYear);
-                intent.putExtra("username", username);
-                GoalActivity.this.startActivity(intent);
+                ChangeActivityHelper.changeActivity(GoalActivity.this, GoalActivity.class, username, dayOfYear);
             }
         });
 
@@ -189,10 +186,7 @@ public class GoalActivity extends AppCompatActivity {
                 accessAccount.updateDay(username, day);
 
                 //Go back to the goal activity
-                Intent intent = new Intent(GoalActivity.this, GoalActivity.class);
-                intent.putExtra("dayOfYear", dayOfYear);
-                intent.putExtra("username", username);
-                GoalActivity.this.startActivity(intent);
+                ChangeActivityHelper.changeActivity(GoalActivity.this, GoalActivity.class, username, dayOfYear);
             }
         });
 
@@ -224,10 +218,7 @@ public class GoalActivity extends AppCompatActivity {
                 accessAccount.updateDay(username, day);
 
                 //Go back to the goal activity
-                Intent intent = new Intent(GoalActivity.this, GoalActivity.class);
-                intent.putExtra("dayOfYear", dayOfYear);
-                intent.putExtra("username", username);
-                GoalActivity.this.startActivity(intent);
+                ChangeActivityHelper.changeActivity(GoalActivity.this, GoalActivity.class, username, dayOfYear);
             }
         });
 
@@ -258,10 +249,7 @@ public class GoalActivity extends AppCompatActivity {
                 accessAccount.updateDay(username, day);
 
                 //Go back to the goal activity
-                Intent intent = new Intent(GoalActivity.this, GoalActivity.class);
-                intent.putExtra("dayOfYear", dayOfYear);
-                intent.putExtra("username", username);
-                GoalActivity.this.startActivity(intent);
+                ChangeActivityHelper.changeActivity(GoalActivity.this, GoalActivity.class, username, dayOfYear);
             }
         });
 
@@ -295,10 +283,8 @@ public class GoalActivity extends AppCompatActivity {
             accessAccount.updateDay(username, day);
 
             //Back to goal activity
-            Intent intent = new Intent(GoalActivity.this, GoalActivity.class);
-            intent.putExtra("dayOfYear", dayOfYear);
-            intent.putExtra("username", username);
-            GoalActivity.this.startActivity(intent);
+            ChangeActivityHelper.changeActivity(GoalActivity.this, GoalActivity.class, username, dayOfYear);
+
         });
 
         dialog.show();
@@ -306,9 +292,7 @@ public class GoalActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(GoalActivity.this, TimelineActivity.class);
-        intent.putExtra("dayOfYear", dayOfYear);
-        intent.putExtra("username", username);
-        GoalActivity.this.startActivity(intent);
+        ChangeActivityHelper.changeActivity(GoalActivity.this, TimelineActivity.class, username, dayOfYear);
+
     }
 }

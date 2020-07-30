@@ -64,10 +64,7 @@ public class CreateMealActivity extends AppCompatActivity {
                 newMeal.add(edibles.get(checkedItems.keyAt(i)));
             }
             accessEdible.addEdible(newMeal);
-            Intent intent = new Intent(CreateMealActivity.this, SearchFoodActivity.class);
-            intent.putExtra("dayOfYear", dayOfYear);
-            intent.putExtra("username", username);
-            CreateMealActivity.this.startActivity(intent);
+            ChangeActivityHelper.changeActivity(CreateMealActivity.this, SearchFoodActivity.class, username, dayOfYear);
         });
 
     }

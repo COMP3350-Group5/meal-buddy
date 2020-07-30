@@ -68,10 +68,7 @@ public class AddExerciseActivity extends AppCompatActivity {
                 accessAccount.updateDay(username, day);
 
                 //go back to the timeline activity and pass the username
-                Intent intent = new Intent(AddExerciseActivity.this, TimelineActivity.class);
-                intent.putExtra("dayOfYear", dayOfYear);
-                intent.putExtra("username", username);
-                AddExerciseActivity.this.startActivity(intent);
+                ChangeActivityHelper.changeActivity(AddExerciseActivity.this, TimelineActivity.class, username, dayOfYear);
             }
         });
     }

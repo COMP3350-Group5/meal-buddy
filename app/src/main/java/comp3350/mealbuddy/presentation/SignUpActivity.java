@@ -81,9 +81,8 @@ public class SignUpActivity extends AppCompatActivity {
                         ST,
                         Integer.parseInt(age.getText().toString()));
                 accessAccount.addAccount(userInfo);
-                Intent intent = new Intent(SignUpActivity.this, TimelineActivity.class);
-                intent.putExtra("username",  username.getText().toString());
-                SignUpActivity.this.startActivity(intent);
+
+                ChangeActivityHelper.changeActivity(SignUpActivity.this, TimelineActivity.class, userInfo.username);
             }
 
         });

@@ -53,8 +53,7 @@ public class HomeActivity extends AppCompatActivity {
         //link the on click listeners
         login.setOnClickListener((view) -> checkLogin(username.getText(), password.getText()));
         createAccount.setOnClickListener((view) -> {
-            Intent intent = new Intent(HomeActivity.this, SignUpActivity.class);
-            HomeActivity.this.startActivity(intent);
+            ChangeActivityHelper.changeActivity(HomeActivity.this, SignUpActivity.class);
         });
     }
 
@@ -73,11 +72,8 @@ public class HomeActivity extends AppCompatActivity {
      */
     public void checkLogin(Editable user, Editable pass) {
         Account account = accessAccount.validateLogin(user.toString(), pass.toString());
-        if(account != null){
-            Intent intent = new Intent(HomeActivity.this, TimelineActivity.class);
-            intent.putExtra("username", user.toString());
-            HomeActivity.this.startActivity(intent);
-        }
+        if(account != null)
+            ChangeActivityHelper.changeActivity(HomeActivity.this, TimelineActivity.class, user.toString());
         else {
             //reset the input fields.
             user.clear();
