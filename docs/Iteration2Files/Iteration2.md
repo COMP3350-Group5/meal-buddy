@@ -26,6 +26,11 @@ The contents of the electronic submission are as follows:
         |    |___ activity files xml...
         |___ values
         |    |___ spinner arrays..
+|____ docs
+     |__ iteration files...
+|
+|
+... misc files ...
 
 ```
 
@@ -54,10 +59,7 @@ allows the user to create a meal (meal is comprised of other edibles)
 
 ## Additional information
 
-Log is kept in google docs:
-[link to google docs](https://docs.google.com/document/d/1vSGLt0tYSggLiW37SI4Xh2EagJ64Fbn786I-1gTtyyk/edit?usp=sharing)
-
-Also a .txt file under the name of log_iteration2.txt.
+Log is kept in the iteration 2 deliverable, also in a .txt file under the name of log_iteration2.txt.
 
 Link to the private github repository:
 [link to repo](https://github.com/COMP3350-Group5/meal-buddy)
