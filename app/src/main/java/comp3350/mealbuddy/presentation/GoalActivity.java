@@ -41,6 +41,8 @@ public class GoalActivity extends AppCompatActivity {
 
     private AccessAccount accessAccount;
     Dialog dialog;
+    private String username;
+    private int dayOfYear;
 
     /*
      * onCreate
@@ -56,8 +58,8 @@ public class GoalActivity extends AppCompatActivity {
 
         //get the passed values from the previous activity
         accessAccount = new AccessAccount();
-        int dayOfYear = this.getIntent().getIntExtra("dayOfYear", -1);
-        final String username = this.getIntent().getStringExtra("username");
+        dayOfYear = this.getIntent().getIntExtra("dayOfYear", -1);
+        username = this.getIntent().getStringExtra("username");
 
         //Get the day, create a calculator
         AccessAccount accessAccount = new AccessAccount();
@@ -88,12 +90,12 @@ public class GoalActivity extends AppCompatActivity {
         //Add Goal Button
         FloatingActionButton addGoal = findViewById(R.id.fabAddGoal);
         addGoal.setOnClickListener((view) -> {
-            showPopUp(username, dayOfYear);
+            showPopUp();
         });
 
         Button removeGoal = findViewById(R.id.btnRemove);
         removeGoal.setOnClickListener((view) -> {
-            showRemoveGoal(username, dayOfYear);
+            showRemoveGoal();
         });
 
 
@@ -102,11 +104,8 @@ public class GoalActivity extends AppCompatActivity {
     /*
      * showPopup
      * Show the popup to add a goal
-     * Parameters:
-     *     @param userName
-     *     @param dayOfYear - The year to get
      */
-    public void showPopUp(String userName, int dayOfYear) {
+    public void showPopUp() {
         dialog.setContentView(R.layout.pop_up_goal);
 
         Button btnContinue = dialog.findViewById(R.id.btnContinue);
@@ -115,13 +114,13 @@ public class GoalActivity extends AppCompatActivity {
             String spnString = spinner.getSelectedItem().toString();
             //find the right goal popup
             if (spnString.equals("Calorie Goal"))
-                showCaloriePopUp(userName, dayOfYear);
+                showCaloriePopUp();
             else if (spnString.equals("Label Goal"))
-                showLabelPopUp(userName, dayOfYear);
+                showLabelPopUp();
             else if (spnString.equals("Macro Goal"))
-                showMacroPopUp(userName, dayOfYear);
+                showMacroPopUp();
             else
-                showMicroPopUp(userName, dayOfYear);
+                showMicroPopUp();
         });
 
         dialog.show();
@@ -130,11 +129,8 @@ public class GoalActivity extends AppCompatActivity {
     /*
      * showMicroPopup
      * Show the popup to add a calorie goal
-     * Parameters:
-     *     @param userName
-     *     @param dayOfYear - The year to get
      */
-    public void showCaloriePopUp(String userName, int dayOfYear) {
+    public void showCaloriePopUp() {
         dialog.setContentView(R.layout.add_calorie_goal);
 
         EditText lowerBound = dialog.findViewById(R.id.lowerBound);
@@ -146,14 +142,14 @@ public class GoalActivity extends AppCompatActivity {
             } else if(TextUtils.isEmpty(upperBound.getText())) {
                 upperBound.setError("Upper bound is required");
             } else {
-                Day day = accessAccount.getDay(userName, dayOfYear);
+                Day day = accessAccount.getDay(username, dayOfYear);
                 day.addGoal(new CalorieGoal(Integer.parseInt(lowerBound.getText().toString()), Integer.parseInt(upperBound.getText().toString())));
-                accessAccount.updateDay(userName, day);
+                accessAccount.updateDay(username, day);
 
                 //Go back to the goal activity
                 Intent intent = new Intent(GoalActivity.this, GoalActivity.class);
                 intent.putExtra("dayOfYear", dayOfYear);
-                intent.putExtra("username", userName);
+                intent.putExtra("username", username);
                 GoalActivity.this.startActivity(intent);
             }
         });
@@ -164,11 +160,8 @@ public class GoalActivity extends AppCompatActivity {
     /*
      * showMicroPopup
      * Show the popup to add a macro goal
-     * Parameters:
-     *     @param userName
-     *     @param dayOfYear - The year to get
      */
-    public void showLabelPopUp(String userName, int dayOfYear) {
+    public void showLabelPopUp() {
         dialog.setContentView(R.layout.add_label_goal);
 
         //Set up the objects on screen
@@ -191,14 +184,14 @@ public class GoalActivity extends AppCompatActivity {
             } else if(TextUtils.isEmpty(upperBound.getText())) {
                 upperBound.setError("Upper bound is required");
             } else {
-                Day day = accessAccount.getDay(userName, dayOfYear);
+                Day day = accessAccount.getDay(username, dayOfYear);
                 day.addGoal(new LabelGoal(Integer.parseInt(lowerBound.getText().toString()), Integer.parseInt(upperBound.getText().toString()), Goal.GoalType.valueOf(goalType.getSelectedItem().toString()), labelSpinner.getSelectedItem().toString()));
-                accessAccount.updateDay(userName, day);
+                accessAccount.updateDay(username, day);
 
                 //Go back to the goal activity
                 Intent intent = new Intent(GoalActivity.this, GoalActivity.class);
                 intent.putExtra("dayOfYear", dayOfYear);
-                intent.putExtra("username", userName);
+                intent.putExtra("username", username);
                 GoalActivity.this.startActivity(intent);
             }
         });
@@ -209,11 +202,8 @@ public class GoalActivity extends AppCompatActivity {
     /*
      * showMicroPopup
      * Show the popup to add a macro goal
-     * Parameters:
-     *     @param userName
-     *     @param dayOfYear - The year to get
      */
-    public void showMacroPopUp(String userName, int dayOfYear) {
+    public void showMacroPopUp() {
         dialog.setContentView(R.layout.add_macro_goal);
 
         EditText lowerBound = dialog.findViewById(R.id.lowerBound);
@@ -229,14 +219,14 @@ public class GoalActivity extends AppCompatActivity {
                 upperBound.setError("Upper bound is required");
             } else {
                 // add goal
-                Day day = accessAccount.getDay(userName, dayOfYear);
+                Day day = accessAccount.getDay(username, dayOfYear);
                 day.addGoal(new MacroGoal(Integer.parseInt(lowerBound.getText().toString()), Integer.parseInt(upperBound.getText().toString()), Goal.GoalType.valueOf(goalType.getSelectedItem().toString()), Edible.Macros.valueOf(selectedMacro.getSelectedItem().toString())));
-                accessAccount.updateDay(userName, day);
+                accessAccount.updateDay(username, day);
 
                 //Go back to the goal activity
                 Intent intent = new Intent(GoalActivity.this, GoalActivity.class);
                 intent.putExtra("dayOfYear", dayOfYear);
-                intent.putExtra("username", userName);
+                intent.putExtra("username", username);
                 GoalActivity.this.startActivity(intent);
             }
         });
@@ -247,11 +237,8 @@ public class GoalActivity extends AppCompatActivity {
     /*
      * showMicroPopup
      * Show the popup to add a micro goal
-     * Parameters:
-     *     @param userName
-     *     @param dayOfYear - The year to get
      */
-    public void showMicroPopUp(String userName, int dayOfYear) {
+    public void showMicroPopUp() {
         dialog.setContentView(R.layout.add_micro_goal);
 
         EditText lowerBound = dialog.findViewById(R.id.lowerBound);
@@ -266,14 +253,14 @@ public class GoalActivity extends AppCompatActivity {
                 upperBound.setError("Upper bound is required");
             } else {
                 // add goal
-                Day day = accessAccount.getDay(userName, dayOfYear);
+                Day day = accessAccount.getDay(username, dayOfYear);
                 day.addGoal(new MicroGoal(Integer.parseInt(lowerBound.getText().toString()), Integer.parseInt(upperBound.getText().toString()), Edible.Micros.valueOf(spinner.getSelectedItem().toString())));
-                accessAccount.updateDay(userName, day);
+                accessAccount.updateDay(username, day);
 
                 //Go back to the goal activity
                 Intent intent = new Intent(GoalActivity.this, GoalActivity.class);
                 intent.putExtra("dayOfYear", dayOfYear);
-                intent.putExtra("username", userName);
+                intent.putExtra("username", username);
                 GoalActivity.this.startActivity(intent);
             }
         });
@@ -284,13 +271,10 @@ public class GoalActivity extends AppCompatActivity {
     /*
      * showRemoveGoal
      * Show the popup to remove a goal
-     * Parameters:
-     *     @param userName
-     *     @param dayOfYear - The day of year to get
      */
-    public void showRemoveGoal(String userName, int dayOfYear) {
+    public void showRemoveGoal() {
         dialog.setContentView(R.layout.remove_goal);
-        Day day = accessAccount.getDay(userName, dayOfYear);
+        Day day = accessAccount.getDay(username, dayOfYear);
 
         //Populate the spinner with the goals
         Spinner goalSpinner = dialog.findViewById(R.id.goals);
@@ -305,16 +289,25 @@ public class GoalActivity extends AppCompatActivity {
         Button button = dialog.findViewById(R.id.btnContinue);
         button.setOnClickListener((view) -> {
             String selected = goalSpinner.getSelectedItem().toString();
-            day.removeGoal(selected);
-            accessAccount.updateDay(userName, day);
+            int index = goalList.indexOf(selected);
+            goalList.remove(index);
+            day.removeGoal(index);
+            accessAccount.updateDay(username, day);
 
             //Back to goal activity
             Intent intent = new Intent(GoalActivity.this, GoalActivity.class);
             intent.putExtra("dayOfYear", dayOfYear);
-            intent.putExtra("username", userName);
+            intent.putExtra("username", username);
             GoalActivity.this.startActivity(intent);
         });
 
         dialog.show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(GoalActivity.this, TimelineActivity.class);
+        intent.putExtra("username", username);
+        GoalActivity.this.startActivity(intent);
     }
 }

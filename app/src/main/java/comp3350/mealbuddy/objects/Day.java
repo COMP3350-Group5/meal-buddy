@@ -193,7 +193,7 @@ public class Day {
      * Parameters:
      *     @param string - the goal id to remove
      */
-    public void removeGoal(String goal) { goals.remove(goal); }
+    public void removeGoal(int index) { goals.remove(index); }
     /*
      * getExercises
      * get the exercises in a day.
