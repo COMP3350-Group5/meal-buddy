@@ -33,7 +33,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:inputType="number"
-        android:visibility="invisible" />
+        android:visibility="invisible"
+        android:maxLength="3"/>
 
     <EditText
         android:id="@+id/etText"
