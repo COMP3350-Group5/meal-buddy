@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 import comp3350.mealbuddy.application.Services;
@@ -152,11 +153,15 @@ public class DataAccessTest {
         newDay.snack.add(quinoa);
         database.updateDay(ACCOUNT_USERNAME, newDay);
         Day updatedDay = database.getDay(ACCOUNT_USERNAME, 1);
-        Exercise updatedExercise = updatedDay.getExercises().get(0);
+        Exercise updatedExercise = updatedDay.getExercises().next();
         Assert.assertEquals("Running", updatedExercise.name);
         Assert.assertEquals(30.0, updatedExercise.duration, 0.1);
         Assert.assertEquals(Exercise.Intensity.High, updatedExercise.intensity);
-        List<Goal> updatedGoals = updatedDay.getGoals();
+        Iterator<Goal> goalIterator = updatedDay.getGoals();
+        List<Goal> updatedGoals = new ArrayList<>();
+        while (goalIterator.hasNext()) {
+            updatedGoals.add(goalIterator.next());
+        }
         Assert.assertTrue(updatedGoals.contains(calorieGoal));
         Assert.assertTrue(updatedGoals.contains(microGoal));
         Assert.assertTrue(updatedGoals.contains(macroGoal));
