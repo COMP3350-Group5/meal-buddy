@@ -15,6 +15,7 @@ import comp3350.mealbuddy.business.AccessLabel;
 import comp3350.mealbuddy.objects.consumables.Edible;
 import comp3350.mealbuddy.objects.consumables.Food;
 
+@SuppressWarnings("CatchMayIgnoreException")
 public class AccessEdibleTest {
 
     private static final String EDIBLE_NAME = "testfood123123";

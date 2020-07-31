@@ -89,9 +89,12 @@ public class Account {
      *     @param g - remove this goal
      */
     public void removeGoal(Goal g) {
+
         int index = goals.indexOf(g);
         if (index != -1)
             goals.remove(g);
+        else
+            throw new IllegalArgumentException("Goal Doesn't Exist");
     }
 
     /*
@@ -166,6 +169,7 @@ public class Account {
         for (Day d : daysTracked) {
             if (d.dayOfYear == dayOfYear) {
                 result = true;
+                break;
             }
         }
         return result;

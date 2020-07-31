@@ -142,14 +142,20 @@ public class AddFoodActivity extends AppCompatActivity {
      */
     private Day.MealTimeType getMealTime(String value) {
         Day.MealTimeType MT;
-        if (value.equals("Breakfast"))
-            MT = Day.MealTimeType.BREAKFAST;
-        else if (value.equals("Lunch"))
-            MT = Day.MealTimeType.LUNCH;
-        else if (value.equals("Dinner"))
-            MT = Day.MealTimeType.DINNER;
-        else
-            MT = Day.MealTimeType.SNACK;
+        switch (value) {
+            case "Breakfast":
+                MT = Day.MealTimeType.BREAKFAST;
+                break;
+            case "Lunch":
+                MT = Day.MealTimeType.LUNCH;
+                break;
+            case "Dinner":
+                MT = Day.MealTimeType.DINNER;
+                break;
+            default:
+                MT = Day.MealTimeType.SNACK;
+                break;
+        }
         return MT;
     }
 }

@@ -26,10 +26,8 @@ import comp3350.mealbuddy.objects.UserInfo;
 public class AccountActivity extends AppCompatActivity {
 
     private AccessAccount accessAccount;
-    private int dayOfYear;
     private String username;
     private Dialog dialog;
-    private FloatingActionButton fabEdit;
     private EditText etNum;
     private EditText etText;
     private Spinner spnActivityLevel;
@@ -49,11 +47,11 @@ public class AccountActivity extends AppCompatActivity {
 
         dialog = new Dialog(this);
 
-        fabEdit = findViewById(R.id.fabEdit);
+        FloatingActionButton fabEdit = findViewById(R.id.fabEdit);
 
         //get the passed values from the previous activity
         accessAccount = new AccessAccount();
-        dayOfYear = this.getIntent().getIntExtra("dayOfYear", -1);
+        int dayOfYear = this.getIntent().getIntExtra("dayOfYear", -1);
         username = this.getIntent().getStringExtra("username");
 
         userInfoTxt = findViewById(R.id.txtUserInfo);
@@ -63,9 +61,7 @@ public class AccountActivity extends AppCompatActivity {
 
         //Add Edit Button
         fabEdit = findViewById(R.id.fabEdit);
-        fabEdit.setOnClickListener((view) -> {
-            showPopUp();
-        });
+        fabEdit.setOnClickListener((view) -> showPopUp());
 
     }
 

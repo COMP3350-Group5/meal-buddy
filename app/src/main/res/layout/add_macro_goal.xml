@@ -53,9 +53,7 @@
         android:id="@+id/spnType"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/matDarkPurp"
-        android:entries="@array/goal_types"
-        android:popupBackground="@color/matDarkPurp" />
+        android:entries="@array/goal_types" />
 
     <TextView
         android:id="@+id/macroTypeTitle"
@@ -68,9 +66,7 @@
         android:id="@+id/spnMacro"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/matDarkPurp"
-        android:entries="@array/macro_array"
-        android:popupBackground="@color/matDarkPurp" />
+        android:entries="@array/macro_array" />
 
     <Button
         android:id="@+id/btnContinue"

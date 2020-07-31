@@ -15,6 +15,7 @@ public class UserInfo {
     public ActivityLevel activityLevel;
     public Sex sex;
     public int age;
+
     /*
      * Constructor
      * Initializes the values for the account
@@ -38,6 +39,7 @@ public class UserInfo {
         this.sex = sex;
         this.age = age;
     }
+
     public UserInfo(UserInfo original) {
         this.fullname = original.fullname;
         this.username = original.username;

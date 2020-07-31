@@ -11,6 +11,7 @@ public abstract class Goal {
     public int upperBound;
     public GoalType goalType;
     public Object id;
+
     /*
      * Constructor
      * Creates a goal with a lower and upper bound, and a type.

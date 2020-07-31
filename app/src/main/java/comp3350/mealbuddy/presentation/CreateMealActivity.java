@@ -46,7 +46,7 @@ public class CreateMealActivity extends AppCompatActivity {
         //Fill the list with edibles
         AccessEdible accessEdible = new AccessEdible();
         List<Edible> edibles = accessEdible.getEdibles();
-        List<String> ediblesString = new ArrayList();
+        ArrayList<String> ediblesString = new ArrayList<>();
         for (Edible e : edibles) {
             ediblesString.add(e.name);
         }

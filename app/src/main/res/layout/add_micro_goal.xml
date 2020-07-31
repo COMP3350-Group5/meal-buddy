@@ -53,9 +53,7 @@
         android:id="@+id/spnMicro"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/matDarkPurp"
-        android:entries="@array/micro_array"
-        android:popupBackground="@color/matDarkPurp" />
+        android:entries="@array/micro_array" />
 
     <Button
         android:id="@+id/btnContinue"

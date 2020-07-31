@@ -70,6 +70,39 @@ public class AccountTest {
     }
 
     @Test
+    public void removeGoal_goalContained_removeGoal(){
+        Goal goal = new CalorieGoal(0, 1);
+        account.addGoal(goal);
+
+        account.removeGoal(goal);
+        Assert.assertFalse(account.containsGoal(goal));
+    }
+
+    @Test
+    public void removeGoal_goalNotContained_throwException(){
+        Goal goal = new CalorieGoal(0, 1);
+
+        try {
+            account.removeGoal(goal);
+            Assert.fail();
+        } catch (IllegalArgumentException IAE)
+        {
+            Assert.assertTrue(true);
+        }
+    }
+
+    @Test
+    public void removeGoal_null_throwException(){
+        try {
+            account.removeGoal(null);
+            Assert.fail();
+        } catch (IllegalArgumentException IAE)
+        {
+            Assert.assertTrue(true);
+        }
+    }
+
+    @Test
     public void getDay_dayNotContained_dayCreated() {
         //arrange
         int dayOfYear = 69;
