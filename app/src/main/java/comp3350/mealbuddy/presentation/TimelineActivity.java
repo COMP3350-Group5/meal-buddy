@@ -103,13 +103,9 @@ public class TimelineActivity extends AppCompatActivity {
             else closeFABMenu();
         });
 
-        fabFood.setOnClickListener((view) -> {
-            ChangeActivityHelper.changeActivity(TimelineActivity.this, SearchFoodActivity.class, username, dayOfYear);
-        });
+        fabFood.setOnClickListener((view) -> ChangeActivityHelper.changeActivity(TimelineActivity.this, SearchFoodActivity.class, username, dayOfYear));
 
-        fabExercise.setOnClickListener((view) -> {
-            ChangeActivityHelper.changeActivity(TimelineActivity.this, AddExerciseActivity.class, username, dayOfYear);
-        });
+        fabExercise.setOnClickListener((view) -> ChangeActivityHelper.changeActivity(TimelineActivity.this, AddExerciseActivity.class, username, dayOfYear));
 
         BottomNavigationView nav = findViewById(R.id.bottom_navigation);
         nav.setOnNavigationItemSelectedListener((MenuItem item) -> {
@@ -254,18 +250,8 @@ public class TimelineActivity extends AppCompatActivity {
         isFabOpen = false;
         fabFood.animate().translationY(0);
         fabExercise.animate().translationY(0);
-        fabExercise.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                fabExercise.setVisibility(View.INVISIBLE);
-            }
-        }, 300);
-        fabFood.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                fabFood.setVisibility(View.INVISIBLE);
-            }
-        }, 300);
+        fabExercise.postDelayed(() -> fabExercise.setVisibility(View.INVISIBLE), 300);
+        fabFood.postDelayed(() -> fabFood.setVisibility(View.INVISIBLE), 300);
 
     }
 

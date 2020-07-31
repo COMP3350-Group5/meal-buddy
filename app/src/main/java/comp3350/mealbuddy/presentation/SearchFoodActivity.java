@@ -83,22 +83,16 @@ public class SearchFoodActivity extends AppCompatActivity {
         listview.setAdapter(stringArrayAdapter);
 
         //call back for clicking a list item
-        listview.setOnItemClickListener((parent, view, pos, id) -> {
-            showPopUp(accessEdible.getEdible(stringArrayAdapter.getItem(pos).trim()), username, dayOfYear);
-        });
+        listview.setOnItemClickListener((parent, view, pos, id) -> showPopUp(accessEdible.getEdible(stringArrayAdapter.getItem(pos).trim()), username, dayOfYear));
 
         fabAdd.setOnClickListener((view) -> {
             if (!isFabOpen) showFABMenu();
             else closeFABMenu();
         });
 
-        fabFood.setOnClickListener((view) -> {
-            ChangeActivityHelper.changeActivity(SearchFoodActivity.this, AddFoodActivity.class, username, dayOfYear);
-        });
+        fabFood.setOnClickListener((view) -> ChangeActivityHelper.changeActivity(SearchFoodActivity.this, AddFoodActivity.class, username, dayOfYear));
 
-        fabMeal.setOnClickListener((view) -> {
-            ChangeActivityHelper.changeActivity(SearchFoodActivity.this, CreateMealActivity.class, username, dayOfYear);
-        });
+        fabMeal.setOnClickListener((view) -> ChangeActivityHelper.changeActivity(SearchFoodActivity.this, CreateMealActivity.class, username, dayOfYear));
     }
 
     /*
@@ -164,7 +158,7 @@ public class SearchFoodActivity extends AppCompatActivity {
         menuInflater.inflate(R.menu.search_menu, menu);
 
         MenuItem menuItem = menu.findItem(R.id.sbFood);
-        SearchView searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
+        @SuppressWarnings("deprecation") SearchView searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
@@ -186,14 +180,20 @@ public class SearchFoodActivity extends AppCompatActivity {
      */
     private Day.MealTimeType getMealTime(String value) {
         Day.MealTimeType MT;
-        if (value.equals("Breakfast"))
-            MT = Day.MealTimeType.BREAKFAST;
-        else if (value.equals("Lunch"))
-            MT = Day.MealTimeType.LUNCH;
-        else if (value.equals("Dinner"))
-            MT = Day.MealTimeType.DINNER;
-        else
-            MT = Day.MealTimeType.SNACK;
+        switch (value) {
+            case "Breakfast":
+                MT = Day.MealTimeType.BREAKFAST;
+                break;
+            case "Lunch":
+                MT = Day.MealTimeType.LUNCH;
+                break;
+            case "Dinner":
+                MT = Day.MealTimeType.DINNER;
+                break;
+            default:
+                MT = Day.MealTimeType.SNACK;
+                break;
+        }
         return MT;
     }
 
@@ -209,18 +209,8 @@ public class SearchFoodActivity extends AppCompatActivity {
         isFabOpen = false;
         fabFood.animate().translationY(0);
         fabMeal.animate().translationY(0);
-        fabFood.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                fabFood.setVisibility(View.INVISIBLE);
-            }
-        }, 300);
-        fabMeal.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                fabMeal.setVisibility(View.INVISIBLE);
-            }
-        }, 300);
+        fabFood.postDelayed(() -> fabFood.setVisibility(View.INVISIBLE), 300);
+        fabMeal.postDelayed(() -> fabMeal.setVisibility(View.INVISIBLE), 300);
 
     }
 

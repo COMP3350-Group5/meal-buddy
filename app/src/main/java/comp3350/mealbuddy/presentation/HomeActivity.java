@@ -51,9 +51,7 @@ public class HomeActivity extends AppCompatActivity {
 
         //link the on click listeners
         login.setOnClickListener((view) -> checkLogin(username.getText(), password.getText()));
-        createAccount.setOnClickListener((view) -> {
-            ChangeActivityHelper.changeActivity(HomeActivity.this, SignUpActivity.class);
-        });
+        createAccount.setOnClickListener((view) -> ChangeActivityHelper.changeActivity(HomeActivity.this, SignUpActivity.class));
     }
 
     /*
