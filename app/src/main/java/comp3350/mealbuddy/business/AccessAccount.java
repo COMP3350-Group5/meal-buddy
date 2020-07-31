@@ -31,7 +31,6 @@ public class AccessAccount {
     public void addAccount(Account a) {
         if (a == null)
             throw new IllegalArgumentException("Account cannot be null");
-        ;
         Account check = getAccount(a.user.username);
         if (check == null)
             DAS.addAccount(a);

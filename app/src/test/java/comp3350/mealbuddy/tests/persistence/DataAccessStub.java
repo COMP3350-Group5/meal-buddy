@@ -27,7 +27,6 @@ public class DataAccessStub implements DataAccess {
     //the "databases"
     private ArrayList<Edible> edibles;
     private ArrayList<Account> accounts;
-    private ArrayList<Exercise> exercises;
     private ArrayList<String> labels;
 
     private Day day;
@@ -53,7 +52,6 @@ public class DataAccessStub implements DataAccess {
         //initialize the arrays
         edibles = new ArrayList<>();
         accounts = new ArrayList<>();
-        exercises = new ArrayList<>();
         labels = new ArrayList<>();
 
         //initialize the data
@@ -122,15 +120,6 @@ public class DataAccessStub implements DataAccess {
             edibles.add(edible);
         }
 
-    }
-
-    /*
-     * initDay
-     * initializes a day
-     */
-    private void initDay() {
-        Calendar calendar = Calendar.getInstance();
-        day = new Day(calendar.get(Calendar.DAY_OF_YEAR));
     }
 
     /*
@@ -372,9 +361,7 @@ public class DataAccessStub implements DataAccess {
     @Override
     public List<String> getLabels() {
         ArrayList<String> result = new ArrayList<>();
-        for (String l : labels) {
-            result.add(l);
-        }
+        result.addAll(labels);
         return result;
     }
 
@@ -454,6 +441,7 @@ public class DataAccessStub implements DataAccess {
         for (Day d : daysTracked) {
             if (d.dayOfYear == dayOfYear) {
                 isTracked = true;
+                break;
             }
         }
         return isTracked;
