@@ -26,7 +26,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:inputType="number" />
+        android:inputType="number"
+        android:maxLength="4"/>
 
     <TextView
         android:id="@+id/addCalorieGoalBody2"
@@ -40,7 +41,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:inputType="number" />
+        android:inputType="number"
+        android:maxLength="4"/>
 
     <Button
         android:id="@+id/btnContinue"
