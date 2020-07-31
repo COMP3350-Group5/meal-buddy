@@ -151,7 +151,7 @@ public class DayTest {
     @Test
     public void addGoal_notInList_add() {
         Day newDay = new Day(1);
-        Goal goal = new CalorieGoal(1,1);
+        Goal goal = new CalorieGoal(1, 1);
 
         //confirm that exercises is empty
         Assert.assertTrue(newDay.getGoals().isEmpty());
@@ -163,7 +163,7 @@ public class DayTest {
     @Test
     public void addGoal_InList_dontAdd() {
         Day newDay = new Day(1);
-        Goal goal = new CalorieGoal(1,1);
+        Goal goal = new CalorieGoal(1, 1);
 
         //confirm that exercises is empty
         Assert.assertTrue(newDay.getGoals().isEmpty());
@@ -176,7 +176,7 @@ public class DayTest {
             //should fail since we don't add duplicates
             newDay.getGoals().get(1);
             Assert.fail();
-        } catch(IndexOutOfBoundsException ioe) {
+        } catch (IndexOutOfBoundsException ioe) {
             Assert.assertTrue(true);
         }
     }
@@ -237,7 +237,7 @@ public class DayTest {
     @Test
     public void removeGoal_byIteminList_remove() {
         Day newDay = new Day(1);
-        Goal goal = new CalorieGoal(1,2);
+        Goal goal = new CalorieGoal(1, 2);
         //confirm that exercises is empty
         Assert.assertTrue(newDay.getGoals().isEmpty());
         newDay.addGoal(goal);
@@ -252,7 +252,7 @@ public class DayTest {
     @Test
     public void removeGoal_byItemNotInList_throwException() {
         Day newDay = new Day(1);
-        Goal goal = new CalorieGoal(1,2);
+        Goal goal = new CalorieGoal(1, 2);
         try {
             //remove the item
             newDay.removeGoal(goal);
@@ -277,7 +277,7 @@ public class DayTest {
     @Test
     public void removeGoal_byIndexInList_remove() {
         Day newDay = new Day(1);
-        Goal goal = new CalorieGoal(1,2);
+        Goal goal = new CalorieGoal(1, 2);
         //confirm that exercises is empty
         Assert.assertTrue(newDay.getGoals().isEmpty());
         newDay.addGoal(goal);

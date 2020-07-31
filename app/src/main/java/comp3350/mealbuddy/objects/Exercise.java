@@ -10,6 +10,7 @@ public class Exercise {
     public String name;
     public double duration;
     public Intensity intensity;
+
     /*
      * Constructor
      * Creates an Exercise

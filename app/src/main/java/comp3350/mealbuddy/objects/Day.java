@@ -23,6 +23,7 @@ public class Day {
     public Meal snack;
     private ArrayList<Goal> goals;
     private ArrayList<Exercise> exercises;
+
     /*
      * Constructor
      * initializes the day object from a dayOfYear parameter
