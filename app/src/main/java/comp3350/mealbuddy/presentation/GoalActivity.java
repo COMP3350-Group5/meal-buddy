@@ -85,14 +85,10 @@ public class GoalActivity extends AppCompatActivity {
 
         //Add Goal Button
         FloatingActionButton addGoal = findViewById(R.id.fabAddGoal);
-        addGoal.setOnClickListener((view) -> {
-            showPopUp();
-        });
+        addGoal.setOnClickListener((view) -> showPopUp());
 
         Button removeGoal = findViewById(R.id.btnRemove);
-        removeGoal.setOnClickListener((view) -> {
-            showRemoveGoal();
-        });
+        removeGoal.setOnClickListener((view) -> showRemoveGoal());
 
 
     }
@@ -109,14 +105,20 @@ public class GoalActivity extends AppCompatActivity {
         btnContinue.setOnClickListener((view) -> {
             String spnString = spinner.getSelectedItem().toString();
             //find the right goal popup
-            if (spnString.equals("Calorie Goal"))
-                showCaloriePopUp();
-            else if (spnString.equals("Label Goal"))
-                showLabelPopUp();
-            else if (spnString.equals("Macro Goal"))
-                showMacroPopUp();
-            else
-                showMicroPopUp();
+            switch (spnString) {
+                case "Calorie Goal":
+                    showCaloriePopUp();
+                    break;
+                case "Label Goal":
+                    showLabelPopUp();
+                    break;
+                case "Macro Goal":
+                    showMacroPopUp();
+                    break;
+                default:
+                    showMicroPopUp();
+                    break;
+            }
         });
 
         dialog.show();
@@ -166,7 +168,7 @@ public class GoalActivity extends AppCompatActivity {
         //Populate the labels
         AccessLabel accessLabel = new AccessLabel();
         List<String> labels = accessLabel.getLabels();
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, labels);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, labels);
         labelSpinner.setAdapter(adapter);
 
         //Submit the goal
@@ -231,7 +233,6 @@ public class GoalActivity extends AppCompatActivity {
         EditText lowerBound = dialog.findViewById(R.id.lowerBound);
         EditText upperBound = dialog.findViewById(R.id.upperBound);
         Spinner spinner = dialog.findViewById(R.id.spnMicro);
-        ;
 
         Button btnContinue = dialog.findViewById(R.id.btnContinue);
         btnContinue.setOnClickListener((view) -> {
@@ -267,7 +268,7 @@ public class GoalActivity extends AppCompatActivity {
         for (Goal g : day.getGoals()) {
             goalList.add(g.toString());
         }
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, goalList);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, goalList);
         goalSpinner.setAdapter(adapter);
 
         //Remove a goal
