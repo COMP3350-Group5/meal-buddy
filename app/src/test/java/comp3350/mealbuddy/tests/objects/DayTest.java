@@ -131,9 +131,9 @@ public class DayTest {
         Assert.assertTrue(newDay.getExercises().isEmpty());
         newDay.addExercise(exer);
         Assert.assertEquals(newDay.getExercises().get(0), exer);
-        Assert.assertTrue(newDay.getExercises().get(0).duration == 1);
+        Assert.assertEquals(1, newDay.getExercises().get(0).duration, 0.0);
         newDay.addExercise(exer); //add it again
-        Assert.assertTrue(newDay.getExercises().get(0).duration == 2);
+        Assert.assertEquals(2, newDay.getExercises().get(0).duration, 0.0);
     }
 
     @Test
@@ -148,7 +148,50 @@ public class DayTest {
         }
     }
 
-    
+    @Test
+    public void addGoal_notInList_add() {
+        Day newDay = new Day(1);
+        Goal goal = new CalorieGoal(1,1);
+
+        //confirm that exercises is empty
+        Assert.assertTrue(newDay.getGoals().isEmpty());
+        newDay.addGoal(goal);
+        //check that its added
+        Assert.assertEquals(newDay.getGoals().get(0), goal);
+    }
+
+    @Test
+    public void addGoal_InList_dontAdd() {
+        Day newDay = new Day(1);
+        Goal goal = new CalorieGoal(1,1);
+
+        //confirm that exercises is empty
+        Assert.assertTrue(newDay.getGoals().isEmpty());
+        newDay.addGoal(goal);
+        //check that its added
+        Assert.assertEquals(newDay.getGoals().get(0), goal);
+        newDay.addGoal(goal);
+        //try to get the new one
+        try {
+            //should fail since we don't add duplicates
+            newDay.getGoals().get(1);
+            Assert.fail();
+        } catch(IndexOutOfBoundsException ioe) {
+            Assert.assertTrue(true);
+        }
+    }
+
+    @Test
+    public void addGoal_nullItem_throwException() {
+        Day newDay = new Day(1);
+        try {
+            //remove the item
+            newDay.addGoal(null);
+            Assert.fail();
+        } catch (NullPointerException IAE) {
+            Assert.assertTrue(true);
+        }
+    }
 
     @Test
     public void removeExercise_inList_remove() {

@@ -140,6 +140,7 @@ public class Day {
     public void addExercise(Exercise exercise) {
         if (exercise == null)
             throw new NullPointerException("Exercise can't be null");
+
         if (exercises.contains(exercise)) {
             double oldDuration = exercises.get(exercises.indexOf(exercise)).duration;
             exercises.remove(exercise);
@@ -170,6 +171,8 @@ public class Day {
      *     @param goal - the goal to add
      */
     public void addGoal(Goal goal) {
+        if (goal == null)
+            throw new NullPointerException("Goal can't be null");
         if (!goals.contains(goal)) {
             goals.add(goal);
         }
