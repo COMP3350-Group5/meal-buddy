@@ -138,6 +138,8 @@ public class Day {
      *     @param exercise - the exercise to add
      */
     public void addExercise(Exercise exercise) {
+        if (exercise == null)
+            throw new NullPointerException("Exercise can't be null");
         if (exercises.contains(exercise)) {
             double oldDuration = exercises.get(exercises.indexOf(exercise)).duration;
             exercises.remove(exercise);
@@ -154,6 +156,10 @@ public class Day {
      *     @param exercise - the exercise to remove
      */
     public void removeExercise(Exercise exercise) {
+        if (exercise == null)
+            throw new NullPointerException("Exercise doesn't exist");
+        if (!exercises.contains(exercise))
+            throw new IllegalArgumentException("Exercise doesn't exist");
         exercises.remove(exercise);
     }
 
@@ -176,6 +182,10 @@ public class Day {
      *     @param goal - the goal to remove
      */
     public void removeGoal(Goal goal) {
+        if (goal == null)
+            throw new NullPointerException("Goal doesn't exist");
+        if (!exercises.contains(goal))
+            throw new IllegalArgumentException("Goal doesn't exist");
         goals.remove(goal);
     }
 
@@ -186,6 +196,8 @@ public class Day {
      *     @param string - the goal id to remove
      */
     public void removeGoal(int index) {
+        if (index < 0 || index >= goals.size())
+            throw new IndexOutOfBoundsException("Index out of bounds in goal list");
         goals.remove(index);
     }
 
