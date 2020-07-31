@@ -187,7 +187,7 @@ public class Day {
     public void removeGoal(Goal goal) {
         if (goal == null)
             throw new NullPointerException("Goal doesn't exist");
-        if (!exercises.contains(goal))
+        if (!goals.contains(goal))
             throw new IllegalArgumentException("Goal doesn't exist");
         goals.remove(goal);
     }

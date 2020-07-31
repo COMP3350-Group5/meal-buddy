@@ -93,11 +93,10 @@ public class AccessAccountTest {
         Assert.assertEquals(ACCOUNT_USERNAME, accessAccount.getAccount(ACCOUNT_USERNAME).user.username);
         //update with dummy info
         dummyUserInfo.username = ACCOUNT_USERNAME;
-        accessAccount.updateAccount(account.user.username, new Account(dummyUserInfo));
-        dummyUserInfo.username = "uCantCMe";
+        accessAccount.updateAccount(ACCOUNT_USERNAME, new Account(dummyUserInfo));
 
         //verify that it updated
-        Assert.assertEquals(dummyUserInfo.username, accessAccount.getAccount(dummyUserInfo.username).user.username);
+        Assert.assertEquals(dummyUserInfo, accessAccount.getAccount(ACCOUNT_USERNAME).user);
         //reset it back to the other account
         accessAccount.updateAccount(ACCOUNT_USERNAME, new Account(userInfo));
         Assert.assertEquals(ACCOUNT_USERNAME, accessAccount.getAccount(ACCOUNT_USERNAME).user.username);
@@ -141,7 +140,7 @@ public class AccessAccountTest {
             //trying to update an account that doesnt exist
             accessAccount.updateAccount("Idontexist", new Account(dummyUserInfo));
             Assert.fail();
-        } catch (IllegalArgumentException iae) {
+        } catch (NullPointerException iae) {
             //confirm that it wasnt added
             Assert.assertNull(accessAccount.getAccount("Idontexist"));
         }
@@ -152,7 +151,7 @@ public class AccessAccountTest {
         try {
             accessAccount.updateAccount("Idontexist", null);
             Assert.fail();
-        } catch (IllegalArgumentException iae) {
+        } catch (NullPointerException iae) {
             Assert.assertTrue(true);
         }
     }
@@ -260,11 +259,11 @@ public class AccessAccountTest {
         //remove if the accounts still exist
         try {
             accessAccount.removeAccount(ACCOUNT_USERNAME);
-        } catch (IllegalArgumentException iae) {
+        } catch (NullPointerException iae) {
         }
         try {
             accessAccount.removeAccount(dummyUserInfo.username);
-        } catch (IllegalArgumentException iae) {
+        } catch (NullPointerException iae) {
         }
     }
 }
