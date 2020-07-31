@@ -57,7 +57,7 @@ public class AccessAccount {
      *     @param a - The account to update to.
      */
     public void updateAccount(String usernameToUpdate, Account a) {
-        if (usernameToUpdate == null || (usernameToUpdate) == null)
+        if (usernameToUpdate == null || getAccount(usernameToUpdate) == null)
             throw new NullPointerException("Username being updated doesn't exist in the database.");
         if (a == null)
             throw new IllegalArgumentException("Account cannot be null");
