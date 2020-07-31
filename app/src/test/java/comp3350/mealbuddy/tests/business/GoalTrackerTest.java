@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import comp3350.mealbuddy.business.Calculator;
@@ -38,10 +39,10 @@ public class GoalTrackerTest {
     @Test
     public void getPassedGoals_noGoals_returnEmptyList() {
         //arrange
-        List<Goal> emptyList = new ArrayList<>();
+        Day emptyDay = new Day(2);
 
         //act
-        List<Goal> passedGoals = GoalTracker.getPassedGoals(calculator, emptyList);
+        List<Goal> passedGoals = GoalTracker.getPassedGoals(calculator, emptyDay.getGoals());
 
         //assert
         Assert.assertTrue(passedGoals.isEmpty());
@@ -50,10 +51,10 @@ public class GoalTrackerTest {
     @Test
     public void getPassedGoals_nullGoalList_throwException() {
         //arrange
-        List<Goal> nullList = null;
+        Iterator<Goal> nullIterator = null;
         //act
         try {
-            List<Goal> passedGoals = GoalTracker.getPassedGoals(calculator, nullList);
+            List<Goal> passedGoals = GoalTracker.getPassedGoals(calculator, nullIterator);
             Assert.fail();
         } catch (NullPointerException npe) {
             //Nice
@@ -70,7 +71,7 @@ public class GoalTrackerTest {
         Calculator nullCalculator = null;
         //act
         try {
-            List<Goal> passedGoals = GoalTracker.getPassedGoals(nullCalculator, goals);
+            List<Goal> passedGoals = GoalTracker.getPassedGoals(nullCalculator, goals.iterator());
             Assert.fail();
         } catch (NullPointerException npe) {
             //Nice
@@ -89,7 +90,7 @@ public class GoalTrackerTest {
         int expectedUpperBound = 1000;
 
         //act
-        List<Goal> passedGoals = GoalTracker.getPassedGoals(calculator, quantityGoals);
+        List<Goal> passedGoals = GoalTracker.getPassedGoals(calculator, quantityGoals.iterator());
 
         //assert
         Assert.assertEquals(expectedPasses, passedGoals.size());
@@ -108,7 +109,7 @@ public class GoalTrackerTest {
         int expectedNumPassedGoals = 2;
 
         //act
-        List<Goal> passedGoals = GoalTracker.getPassedGoals(calculator, quantityGoals);
+        List<Goal> passedGoals = GoalTracker.getPassedGoals(calculator, quantityGoals.iterator());
 
         //assert
         Assert.assertEquals(expectedNumPassedGoals, passedGoals.size());
@@ -123,7 +124,7 @@ public class GoalTrackerTest {
         int expectedUpperBound = 80;
 
         //act
-        List<Goal> passedGoals = GoalTracker.getPassedGoals(calculator, ratioGoals);
+        List<Goal> passedGoals = GoalTracker.getPassedGoals(calculator, ratioGoals.iterator());
 
         //assert
         Assert.assertEquals(expectedPasses, passedGoals.size());
@@ -142,7 +143,7 @@ public class GoalTrackerTest {
         int expectedNumPassedGoals = 2;
 
         //act
-        List<Goal> passedGoals = GoalTracker.getPassedGoals(calculator, ratioGoals);
+        List<Goal> passedGoals = GoalTracker.getPassedGoals(calculator, ratioGoals.iterator());
 
         //assert
         Assert.assertEquals(expectedNumPassedGoals, passedGoals.size());
@@ -157,7 +158,7 @@ public class GoalTrackerTest {
         int expectedNumPassedGoals = 2;
 
         //act
-        List<Goal> passedGoals = GoalTracker.getPassedGoals(calculator, quantityGoals);
+        List<Goal> passedGoals = GoalTracker.getPassedGoals(calculator, quantityGoals.iterator());
 
         //assert
         Assert.assertEquals(expectedNumPassedGoals, passedGoals.size());

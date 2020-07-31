@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import comp3350.mealbuddy.R;
@@ -265,7 +266,10 @@ public class GoalActivity extends AppCompatActivity {
         //Populate the spinner with the goals
         Spinner goalSpinner = dialog.findViewById(R.id.goals);
         List<String> goalList = new ArrayList<>();
-        for (Goal g : day.getGoals()) {
+        Iterator<Goal> dayGoals = day.getGoals();
+        Goal g;
+        while (dayGoals.hasNext()) {
+            g = dayGoals.next();
             goalList.add(g.toString());
         }
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, goalList);

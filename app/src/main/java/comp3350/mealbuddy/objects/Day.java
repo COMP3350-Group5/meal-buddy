@@ -6,6 +6,7 @@
 package comp3350.mealbuddy.objects;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import comp3350.mealbuddy.objects.consumables.Edible;
 import comp3350.mealbuddy.objects.consumables.Meal;
@@ -206,13 +207,33 @@ public class Day {
     }
 
     /*
+     * isGoalsEmpty
+     * sees if there are goals in a day
+     * Return:
+     *     true if there are no goals in the day
+     */
+    public boolean isGoalsEmpty() {
+        return goals.isEmpty();
+    }
+
+    /*
+     * isExerciseEmpty
+     * sees if there are exercises in a day
+     * Return:
+     *     true if there are no exercises in the day
+     */
+    public boolean isExerciseEmpty() {
+        return exercises.isEmpty();
+    }
+
+    /*
      * getExercises
      * get the exercises in a day.
      * Return:
      *     the exercise list
      */
-    public ArrayList<Exercise> getExercises() {
-        return exercises;
+    public Iterator<Exercise> getExercises() {
+        return exercises.iterator();
     }
 
     /*
@@ -221,8 +242,8 @@ public class Day {
      * Return:
      *     the goal list
      */
-    public ArrayList<Goal> getGoals() {
-        return goals;
+    public Iterator<Goal> getGoals() {
+        return goals.iterator();
     }
 
     /* getGoalString

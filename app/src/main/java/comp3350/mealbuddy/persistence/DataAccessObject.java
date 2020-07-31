@@ -1087,7 +1087,10 @@ public class DataAccessObject implements DataAccess {
         checkWarning(st, updateCount);
 
         String insertNewGoals;
-        for (Goal goal : day.getGoals()) {
+        Iterator<Goal> dayGoals = day.getGoals();
+        Goal goal;
+        while (dayGoals.hasNext()) {
+            goal = dayGoals.next();
             insertNewGoals = "INSERT INTO GOALS VALUES";
             insertNewGoals += "('" + userName + "'," + day.dayOfYear + ",'" +
                     "" + getGoalClass(goal) + "'," + goal.goalType.ordinal() +
@@ -1126,7 +1129,10 @@ public class DataAccessObject implements DataAccess {
         checkWarning(st, updateCount);
 
         String insertNewEx;
-        for (Exercise e : day.getExercises()) {
+        Iterator<Exercise> dayExercises = day.getExercises();
+        Exercise e;
+        while (dayExercises.hasNext()) {
+            e = dayExercises.next();
             insertNewEx = "INSERT INTO EXERCISE VALUES";
             insertNewEx += "('" + userName + "'," + day.dayOfYear + ",'" + e.name + "', " +
                     "" + e.intensity.ordinal() + "," + e.duration + ") ";

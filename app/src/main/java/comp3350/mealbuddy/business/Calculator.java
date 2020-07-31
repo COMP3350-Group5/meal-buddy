@@ -4,6 +4,8 @@
  ***************************************/
 package comp3350.mealbuddy.business;
 
+import java.util.Iterator;
+
 import comp3350.mealbuddy.objects.Day;
 import comp3350.mealbuddy.objects.Exercise;
 import comp3350.mealbuddy.objects.UserInfo;
@@ -324,7 +326,10 @@ public class Calculator {
      */
     public int getTotalExerciseCalories(UserInfo userInfo) {
         int totalCalories = 0;
-        for (Exercise exercise : day.getExercises()) {
+        Iterator<Exercise> dayExercises = day.getExercises();
+        Exercise exercise;
+        while (dayExercises.hasNext()) {
+            exercise = dayExercises.next();
             totalCalories += getExerciseCalories(exercise, userInfo);
         }
         return totalCalories;

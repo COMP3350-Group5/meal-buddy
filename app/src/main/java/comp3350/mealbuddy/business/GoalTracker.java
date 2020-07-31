@@ -5,6 +5,7 @@
 package comp3350.mealbuddy.business;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import comp3350.mealbuddy.objects.goals.Goal;
@@ -23,13 +24,15 @@ public class GoalTracker {
      * Return:
      *     The list of passed goals for the day.
      */
-    public static List<Goal> getPassedGoals(Calculator calc, List<Goal> goals) {
+    public static List<Goal> getPassedGoals(Calculator calc, Iterator<Goal> goals) {
         if (calc == null || goals == null) {
             throw new NullPointerException("Calculator and goals must be not null");
         }
 
         ArrayList<Goal> passedGoals = new ArrayList<>();
-        for (Goal g : goals) {
+        Goal g;
+        while (goals.hasNext()) {
+            g = goals.next();
             //if its a ratio, convert to ratio
             int actualVal = (Goal.GoalType.RATIO == g.goalType)
                     ? (int) (100 * (getAmount(calc, g) / (double) calc.getTotalCalories()))
