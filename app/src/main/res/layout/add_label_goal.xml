@@ -53,9 +53,7 @@
         android:id="@+id/spnType"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/matDarkPurp"
-        android:entries="@array/goal_types"
-        android:popupBackground="@color/matDarkPurp" />
+        android:entries="@array/goal_types" />
 
     <TextView
         android:id="@+id/labelTitle"
@@ -67,9 +65,7 @@
     <Spinner
         android:id="@+id/label"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@color/matDarkPurp"
-        android:popupBackground="@color/matDarkPurp" />
+        android:layout_height="50dp" />
 
     <Button
         android:id="@+id/btnContinue"
