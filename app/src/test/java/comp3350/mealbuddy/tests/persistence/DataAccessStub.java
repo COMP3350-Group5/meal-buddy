@@ -5,19 +5,19 @@
 package comp3350.mealbuddy.tests.persistence;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
 
 import comp3350.mealbuddy.objects.Account;
 import comp3350.mealbuddy.objects.Day;
-import comp3350.mealbuddy.objects.Exercise;
 import comp3350.mealbuddy.objects.UserInfo;
 import comp3350.mealbuddy.objects.consumables.Edible;
 import comp3350.mealbuddy.objects.consumables.Edible.Macros;
 import comp3350.mealbuddy.objects.consumables.Edible.Micros;
 import comp3350.mealbuddy.objects.consumables.Food;
 import comp3350.mealbuddy.objects.consumables.Meal;
+import comp3350.mealbuddy.objects.goals.Goal;
+import comp3350.mealbuddy.objects.goals.LabelGoal;
 import comp3350.mealbuddy.persistence.DataAccess;
 
 public class DataAccessStub implements DataAccess {
@@ -29,7 +29,6 @@ public class DataAccessStub implements DataAccess {
     private ArrayList<Account> accounts;
     private ArrayList<String> labels;
 
-    private Day day;
 
     /*
      * Constructor
@@ -147,7 +146,7 @@ public class DataAccessStub implements DataAccess {
                     (int) user[7]
             );
             acc = new Account(userInfo);
-            acc.addDay(day);
+            acc.addDay(new Day(1));
             accounts.add(acc);
         }
     }
@@ -331,9 +330,33 @@ public class DataAccessStub implements DataAccess {
      */
     @Override
     public String updateLabel(String oldLabel, String newLabel) {
+        updateLabelGoals(oldLabel, newLabel);
         removeLabel(oldLabel);
         addLabel(newLabel);
         return "";
+    }
+
+
+    /*
+     * updateLabelGoals
+     * updates the label goals associated with the label
+     * Parameters:
+     *     @param oldLabel - the name of the label to update
+     *     @param newLabel - the name to update to
+     */
+    private void updateLabelGoals(String oldLabel, String newLabel) {
+        Iterator<Day> dayIterator;
+        Day day;
+        Goal labelGoalToChange = new LabelGoal(0, 0, Goal.GoalType.QUANTITY, oldLabel);
+        Goal goal;
+        for (Account account : accounts) {
+            dayIterator = account.getDayIterator();
+            while (dayIterator.hasNext()) {
+                goal = dayIterator.next().getGoal(labelGoalToChange);
+                if (goal != null)
+                    goal.id = newLabel;
+            }
+        }
     }
 
     /*
@@ -351,7 +374,28 @@ public class DataAccessStub implements DataAccess {
                 iter.remove();
             }
         }
+        removeLabelGoals(label);
         return "";
+    }
+
+    /*
+     * removeLabelGoals
+     * updates the label goals associated with the label
+     * Parameters:
+     *     @param oldLabel - the name of the label to remove
+     */
+    private void removeLabelGoals(String labelToRemove) {
+        Iterator<Day> dayIterator;
+        Goal labelGoalToRemove = new LabelGoal(0, 0, Goal.GoalType.QUANTITY, labelToRemove);
+        Day day;
+        for (Account account : accounts) {
+            dayIterator = account.getDayIterator();
+            while (dayIterator.hasNext()) {
+                day = dayIterator.next();
+                if (day.containsGoal(labelGoalToRemove))
+                    day.removeGoal(labelGoalToRemove);
+            }
+        }
     }
 
     /*

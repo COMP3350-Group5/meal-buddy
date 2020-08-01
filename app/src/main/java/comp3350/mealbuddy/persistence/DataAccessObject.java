@@ -697,10 +697,25 @@ public class DataAccessObject implements DataAccess {
             cmdString = query;
             updateCount = st.executeUpdate(cmdString);
             result = checkWarning(st, updateCount);
+            updateLabelGoals(oldLabel, newLabel);
         } catch (Exception e) {
             result = processSQLError(e);
         }
         return result;
+    }
+
+    /*
+     * updateLabelGoals
+     * updates the labelGoals in the db
+     * Parameters:
+     *     @param oldLabel - the name of the label to update
+     *     @param newLabel - the name to update to
+     */
+    public void updateLabelGoals(String oldLabel, String newLabel) throws SQLException {
+        String query = "UPDATE GOALS SET GOAL_ID='" + newLabel + "' WHERE GOAL_ID='" + oldLabel + "';";
+        cmdString = query;
+        updateCount = st.executeUpdate(cmdString);
+        result = checkWarning(st, updateCount);
     }
 
     /*
@@ -717,10 +732,25 @@ public class DataAccessObject implements DataAccess {
             cmdString = query;
             updateCount = st.executeUpdate(cmdString);
             result = checkWarning(st, updateCount);
+            removeLabelGoals(label);
         } catch (Exception e) {
             result = processSQLError(e);
         }
         return result;
+    }
+
+
+    /*
+     * removeLabelGoals
+     * remove all goals with the label from the db
+     * Parameters:
+     *      @label - label to remove
+     */
+    private void removeLabelGoals(String label) throws SQLException {
+        String query = "DELETE FROM GOALS WHERE GOAL_ID ='" + label + "';";
+        cmdString = query;
+        updateCount = st.executeUpdate(cmdString);
+        result = checkWarning(st, updateCount);
     }
 
     /*
