@@ -22,14 +22,6 @@ public class Services {
         return DAS;
     }
 
-    public static void initializeDB(String databaseName) {
-        if (DAS == null) {
-            DAS = new DataAccessObject(databaseName);
-            DAS.open(Main.getDBPathName());
-        }
-    }
-
-
     public static DataAccess getDataAccess(String databaseName) {
         if (DAS == null) {
             System.out.println("Database not instantiated.");

@@ -61,7 +61,7 @@ public class AccessLabel {
             throw new NullPointerException("Labels cannot be null");
         if (getLabel(oldLabel) == null)
             throw new IllegalArgumentException("Label being updated doesn't exist in the DB.");
-        if (!oldLabel.equals(newLabel) && (newLabel) != null)
+        if (!oldLabel.equals(newLabel) && getLabel(newLabel) != null)
             throw new IllegalArgumentException("Label already exists. Label cannot be updated");
         DAS.updateLabel(oldLabel, newLabel);
     }
@@ -80,7 +80,7 @@ public class AccessLabel {
      * Return:
      *     the edible or null.
      */
-    public String getLabel(String name) {
+    private String getLabel(String name) {
         if (name == null)
             throw new NullPointerException("Label name can't be null");
         List<String> l = getLabels();

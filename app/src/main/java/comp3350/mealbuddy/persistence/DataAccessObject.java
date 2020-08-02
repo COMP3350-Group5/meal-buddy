@@ -529,27 +529,6 @@ public class DataAccessObject implements DataAccess {
         return edibles;
     }
 
-    /*
-     * getFoods
-     * gets all the food in the db
-     */
-    @Override
-    public List<Food> getFoods() {
-        String query = "SELECT * FROM EDIBLES WHERE IS_MEAL=FALSE;";
-        List<Food> foods = new ArrayList<>();
-        try {
-            cmdString = query;
-            ResultSet rs = st.executeQuery(cmdString);
-            // ResultSetMetaData md5 = rs.getMetaData();
-            while (rs.next()) {
-                foods.add(getFoodFromRs(rs));
-            }
-            rs.close();
-        } catch (Exception e) {
-            processSQLError(e);
-        }
-        return foods;
-    }
 
     /*
      * getFoodFromRs
@@ -602,32 +581,6 @@ public class DataAccessObject implements DataAccess {
         return labels;
     }
 
-    /*
-     * getMeals
-     * gets all the meals in the db
-     */
-    @Override
-    public List<Meal> getMeals() {
-        String query = "SELECT * FROM EDIBLES WHERE IS_MEAL=TRUE;";
-        Meal meal;
-        String name;
-        List<Meal> meals = new ArrayList<>();
-        ArrayList<String> labels = new ArrayList<>();
-        try {
-            cmdString = query;
-            ResultSet results = st.executeQuery(cmdString);
-            // ResultSetMetaData md5 = rs.getMetaData();
-            while (results.next()) {
-                name = results.getString("EDIBLE_NAME");
-                meal = getEntireMeal(name);
-                meals.add(meal);
-            }
-            results.close();
-        } catch (Exception e) {
-            processSQLError(e);
-        }
-        return meals;
-    }
 
     /*
      * getEntireMeal
