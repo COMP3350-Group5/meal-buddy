@@ -207,6 +207,18 @@ public class Day {
     }
 
     /*
+     * containsGoal
+     * check if the goal is in the list
+     * Parameters:
+     *     @param goal - the goal to check
+     * Return:
+     *      True if goal is in list
+     */
+    public boolean containsGoal(Goal goal) {
+        return goals.contains(goal);
+    }
+
+    /*
      * isGoalsEmpty
      * sees if there are goals in a day
      * Return:
@@ -230,7 +242,7 @@ public class Day {
      * getExercises
      * get the exercises in a day.
      * Return:
-     *     the exercise list
+     *     an iterator over the list of exercises
      */
     public Iterator<Exercise> getExercises() {
         return exercises.iterator();
@@ -240,10 +252,41 @@ public class Day {
      * getGoals
      * get the goals in a day.
      * Return:
-     *     the goal list
+     *     an iterator over the list of goals
      */
     public Iterator<Goal> getGoals() {
         return goals.iterator();
+    }
+
+    /*
+     * getGoal
+     * get the goal in the day or null if not in the day
+     * Parameter:
+     *      @goal - the goal to retrieve form the day
+     * Return:
+     *     the goal
+     */
+    public Goal getGoal(Goal goal) {
+        Goal goalInList = null;
+        if (goals.contains(goal))
+            goalInList = goals.get(goals.indexOf(goal));
+        return goalInList;
+    }
+
+
+    /*
+     * getExercise
+     * get the exercise in the day or null if not in the day
+     * Parameter:
+     *      @exercise - the exercise to retrieve form the day
+     * Return:
+     *     the exercise
+     */
+    public Exercise getExercise(Exercise exercise) {
+        Exercise exerciseInList = null;
+        if (exercises.contains(exercise))
+            exerciseInList = exercises.get(exercises.indexOf(exercise));
+        return exerciseInList;
     }
 
     /* getGoalString

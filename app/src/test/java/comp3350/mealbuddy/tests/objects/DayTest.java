@@ -5,7 +5,6 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 
 import comp3350.mealbuddy.objects.Day;
 import comp3350.mealbuddy.objects.Exercise;
@@ -132,6 +131,39 @@ public class DayTest {
         Assert.assertFalse(newDay.isGoalsEmpty());
     }
 
+    @Test
+    public void containsGoal_avgCases_trueIfContians() {
+        Day newDay = new Day(1);
+        Goal goal = new CalorieGoal(1, 4);
+
+        Assert.assertFalse(newDay.containsGoal(goal));
+
+        newDay.addGoal(goal);
+        Assert.assertTrue(newDay.containsGoal(goal));
+    }
+
+    @Test
+    public void getGoal_avgCases_returnGoalIfInList() {
+        Day newDay = new Day(1);
+        Goal goal = new CalorieGoal(1, 4);
+
+        Assert.assertNull(newDay.getGoal(goal));
+
+        newDay.addGoal(goal);
+        Assert.assertEquals(goal, newDay.getGoal(goal));
+    }
+
+    @Test
+    public void getExercise_avgCases_returnExerciseIfInList() {
+        Day newDay = new Day(1);
+        Exercise exercise = new Exercise("run", 1, Exercise.Intensity.High);
+
+        Assert.assertNull(newDay.getExercise(exercise));
+
+        newDay.addExercise(exercise);
+        Assert.assertEquals(exercise, newDay.getExercise(exercise));
+    }
+
 
     @Test
     public void addExercise_notInList_add() {
@@ -153,11 +185,11 @@ public class DayTest {
         //confirm that exercises is empty
         Assert.assertTrue(newDay.isExerciseEmpty());
         newDay.addExercise(exer);
-        Exercise exAdded = newDay.getExercises().next();
+        Exercise exAdded = newDay.getExercise(exer);
         Assert.assertEquals(exAdded, exer);
         Assert.assertEquals(1, exAdded.duration, 0.0);
         newDay.addExercise(exer); //add it again
-        exAdded = newDay.getExercises().next();
+        exAdded = newDay.getExercise(exer);
         Assert.assertEquals(2, exAdded.duration, 0.0);
     }
 
@@ -182,24 +214,24 @@ public class DayTest {
         Assert.assertTrue(newDay.isGoalsEmpty());
         newDay.addGoal(goal);
         //check that its added
-        Assert.assertEquals(newDay.getGoals().next(), goal);
+        Assert.assertEquals(newDay.getGoal(goal), goal);
     }
 
     @Test
     public void addGoal_InList_dontAdd() {
         Day newDay = new Day(1);
         Goal goal = new CalorieGoal(1, 1);
+        Goal newGoal = new CalorieGoal(6, 9);
 
         //confirm that exercises is empty
         Assert.assertTrue(newDay.isGoalsEmpty());
         newDay.addGoal(goal);
         //check that its added
-        Assert.assertEquals(newDay.getGoals().next(), goal);
+        Assert.assertEquals(newDay.getGoal(goal), goal);
         newDay.addGoal(goal);
-        //try to get the new one
-        Iterator<Goal> goals = newDay.getGoals();
-        goals.next();   //should only be one goal in list since we dont add duplicates
-        Assert.assertFalse(goals.hasNext());
+        //should still have the old goal values
+        Assert.assertEquals(goal.lowerBound, newDay.getGoal(goal).lowerBound);
+        Assert.assertEquals(goal.upperBound, newDay.getGoal(goal).upperBound);
     }
 
     @Test
@@ -223,7 +255,7 @@ public class DayTest {
         Assert.assertTrue(newDay.isExerciseEmpty());
         newDay.addExercise(exer);
         //check that its added
-        Assert.assertEquals(newDay.getExercises().next(), exer);
+        Assert.assertEquals(newDay.getExercise(exer), exer);
         //remove the item
         newDay.removeExercise(exer);
         //check if the item is removed
@@ -263,7 +295,7 @@ public class DayTest {
         Assert.assertTrue(newDay.isGoalsEmpty());
         newDay.addGoal(goal);
         //check that its added
-        Assert.assertEquals(newDay.getGoals().next(), goal);
+        Assert.assertEquals(newDay.getGoal(goal), goal);
         //remove the item
         newDay.removeGoal(goal);
         //check if the item is removed
@@ -303,7 +335,7 @@ public class DayTest {
         Assert.assertTrue(newDay.isGoalsEmpty());
         newDay.addGoal(goal);
         //check that its added
-        Assert.assertEquals(newDay.getGoals().next(), goal);
+        Assert.assertEquals(newDay.getGoal(goal), goal);
         //remove the item
         newDay.removeGoal(0);
         //check if the item is removed

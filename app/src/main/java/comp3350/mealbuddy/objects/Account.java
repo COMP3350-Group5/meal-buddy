@@ -6,14 +6,12 @@
 package comp3350.mealbuddy.objects;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
-
-import comp3350.mealbuddy.objects.goals.Goal;
 
 public class Account {
 
     public UserInfo user;
-    private ArrayList<Goal> goals;
     private ArrayList<Day> daysTracked;
 
     /*
@@ -28,7 +26,6 @@ public class Account {
         }
         this.user = user;
         daysTracked = new ArrayList<>();
-        goals = new ArrayList<>();
     }
 
     /*
@@ -39,63 +36,12 @@ public class Account {
      */
     public Account(Account original) {
         this.user = new UserInfo(original.user);
-        goals = new ArrayList<>();
-        for (Goal g : original.goals) {
-            this.goals.add(Goal.copyGoal(g));
-        }
         daysTracked = new ArrayList<>();
         for (Day d : original.daysTracked) {
             this.daysTracked.add(new Day(d));
         }
     }
 
-    /*
-     * AddGoal
-     * Adds a goal to the users list, only adds unique goals.
-     * Parameters:
-     *     @param g - goal being added
-     */
-    public void addGoal(Goal g) {
-        if (!goals.contains(g))
-            goals.add(g);
-    }
-
-    /*
-     * containsGoal
-     * Check if the goal list contains a goal
-     * Parameters:
-     *     @param g - The goal to check for
-     * Return:
-     *     A boolean stating if the goal list contains the goal.
-     */
-    public boolean containsGoal(Goal g) {
-        return goals.contains(g);
-    }
-
-    /*
-     * getGoalSize
-     * Get the size of the goal list
-     * Return:
-     *     The size of the goal list.
-     */
-    public int getGoalSize() {
-        return goals.size();
-    }
-
-    /*
-     * removeGoal
-     * removes goal from the list, if it exists.
-     * Parameters:
-     *     @param g - remove this goal
-     */
-    public void removeGoal(Goal g) {
-
-        int index = goals.indexOf(g);
-        if (index != -1)
-            goals.remove(g);
-        else
-            throw new IllegalArgumentException("Goal Doesn't Exist");
-    }
 
     /*
      * addDay
@@ -150,6 +96,16 @@ public class Account {
         Day newDay = new Day(day);
         daysTracked.add(newDay);
         return newDay;
+    }
+
+    /*
+     * getDayIterator
+     * gets an iterator for all tracked days in the account
+     * Return:
+     *     A Iterator for the days in the account
+     */
+    public Iterator<Day> getDayIterator() {
+        return daysTracked.iterator();
     }
 
     /*

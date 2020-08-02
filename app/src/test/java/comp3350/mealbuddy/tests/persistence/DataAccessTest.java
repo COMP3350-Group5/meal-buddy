@@ -42,6 +42,8 @@ public class DataAccessTest {
     public static final String CEREAL_NAME = "TESTCereal";
     public static final String KETO_LABEL = "TESTKeto";
     public static final String VEGAN_LABEL = "TESTVegan";
+    public static final String LOW_PROTEIN = "TESTLow protein";
+    public static final String HIGH_PROTEIN = "TESTHigh protein";
     public static Food durian;
     public static Food quinoa;
     public static Food bacon;
@@ -146,31 +148,46 @@ public class DataAccessTest {
 
     @Test
     public void labelTest() {
-        String highProtein = "TESTHigh Protein";
-        String lowProtein = "TESTLow Protein";
-        database.addLabel(highProtein);
+        database.addLabel(HIGH_PROTEIN);
         List<String> labels = database.getLabels();
-        Assert.assertTrue(labels.contains(highProtein));
-        database.updateLabel(highProtein, lowProtein);
+        Assert.assertTrue(labels.contains(HIGH_PROTEIN));
+
+        Day day = new Day(1);
+        Goal goal = new LabelGoal(1, 2, Goal.GoalType.QUANTITY, HIGH_PROTEIN);
+        day.addGoal(goal);
+        database.addDay(account.user.username, day.dayOfYear);
+        database.updateDay(account.user.username, day);
+
+        database.updateLabel(HIGH_PROTEIN, LOW_PROTEIN);
         labels = database.getLabels();
-        Assert.assertTrue(labels.contains(lowProtein));
-        Assert.assertFalse(labels.contains(highProtein));
-        database.removeLabel(lowProtein);
+        Assert.assertTrue(labels.contains(LOW_PROTEIN));
+        Assert.assertFalse(labels.contains(HIGH_PROTEIN));
+        goal.id = LOW_PROTEIN;
+        Goal updateGoal = database.getDay(account.user.username, day.dayOfYear).getGoal(goal);
+        Assert.assertEquals(LOW_PROTEIN, updateGoal.id);
+
+        database.removeLabel(LOW_PROTEIN);
         labels = database.getLabels();
-        Assert.assertFalse(labels.contains(lowProtein));
+        Assert.assertFalse(labels.contains(LOW_PROTEIN));
+        Assert.assertTrue(database.getDay(account.user.username, day.dayOfYear).isGoalsEmpty());
     }
 
     @Test
     public void daysTest() {
         Assert.assertFalse(database.isDayTracked(ACCOUNT_USERNAME, 1));
+
         database.addDay(ACCOUNT_USERNAME, 1);
         database.addDay(ACCOUNT_USERNAME, 2);
         Assert.assertTrue(database.isDayTracked(ACCOUNT_USERNAME, 1));
+
         Day newDay = database.getDay(ACCOUNT_USERNAME, 1);
         Assert.assertEquals(1, newDay.dayOfYear);
+
         List<Day> days = database.getDays(ACCOUNT_USERNAME);
         Assert.assertEquals(2, days.size());
+
         newDay = new Day(1);
+
         CalorieGoal calorieGoal = new CalorieGoal(1, 100);
         MicroGoal microGoal = new MicroGoal(1, 100, Edible.Micros.Zinc);
         LabelGoal labelGoal = new LabelGoal(1, 100, Goal.GoalType.RATIO, KETO_LABEL);
@@ -179,16 +196,21 @@ public class DataAccessTest {
         newDay.addGoal(calorieGoal);
         newDay.addGoal(microGoal);
         newDay.addGoal(macroGoal);
-        newDay.addExercise(new Exercise("Running", 30, Exercise.Intensity.High));
+
+        Exercise exercise = new Exercise("Running", 30, Exercise.Intensity.High);
+        newDay.addExercise(exercise);
+
         newDay.breakfast.add(nestedMeal);
         newDay.snack.add(durian);
         newDay.snack.add(quinoa);
+
         database.updateDay(ACCOUNT_USERNAME, newDay);
         Day updatedDay = database.getDay(ACCOUNT_USERNAME, 1);
-        Exercise updatedExercise = updatedDay.getExercises().next();
+        Exercise updatedExercise = updatedDay.getExercise(exercise);
         Assert.assertEquals("Running", updatedExercise.name);
         Assert.assertEquals(30.0, updatedExercise.duration, 0.1);
         Assert.assertEquals(Exercise.Intensity.High, updatedExercise.intensity);
+
         Iterator<Goal> goalIterator = updatedDay.getGoals();
         List<Goal> updatedGoals = new ArrayList<>();
         while (goalIterator.hasNext()) {
@@ -203,18 +225,22 @@ public class DataAccessTest {
         Assert.assertEquals(macroGoal.upperBound, updatedMacroGoal.upperBound);
         Assert.assertEquals(macroGoal.goalType, updatedMacroGoal.goalType);
         Assert.assertEquals(macroGoal.id, updatedMacroGoal.id);
+
         Assert.assertTrue(updatedDay.lunch.isEmpty());
         Assert.assertTrue(updatedDay.dinner.isEmpty());
         Meal updatedSnack = updatedDay.snack;
         Assert.assertTrue(updatedSnack.containsEdible(durian));
         Assert.assertTrue(updatedSnack.containsEdible(quinoa));
+
         Meal updatedBreakfast = updatedDay.breakfast;
         Assert.assertTrue(updatedBreakfast.containsEdible(nestedMeal));
+
         Meal updatedNestedMeal = (Meal) updatedBreakfast.getEdibleIntPair(nestedMeal).edible;
         Assert.assertTrue(updatedNestedMeal.containsEdible(EGG_NAME));
         Assert.assertTrue(updatedNestedMeal.containsEdible(BACON_NAME));
         Assert.assertTrue(updatedNestedMeal.containsEdible(CEREAL_NAME));
         Assert.assertEquals(2, updatedNestedMeal.getQuantity(CEREAL_NAME));
+
         Meal updatedCereal = (Meal) nestedMeal.getEdibleIntPair(cereal).edible;
         Assert.assertTrue(updatedCereal.containsEdible(MILK_NAME));
         Assert.assertTrue(updatedCereal.containsEdible(CHEERIOS_NAME));
@@ -232,6 +258,8 @@ public class DataAccessTest {
         database.removeEdible(DURIAN_NAME);
         database.removeLabel(KETO_LABEL);
         database.removeLabel(VEGAN_LABEL);
+        database.removeLabel(HIGH_PROTEIN);
+        database.removeLabel(LOW_PROTEIN);
         database.removeAccount(ACCOUNT_USERNAME);
         database.removeAccount("uCantCMe");
     }
