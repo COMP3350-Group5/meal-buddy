@@ -8,12 +8,12 @@ import org.junit.Test;
 import java.util.Arrays;
 import java.util.List;
 
-import comp3350.mealbuddy.application.Main;
 import comp3350.mealbuddy.application.Services;
 import comp3350.mealbuddy.business.AccessEdible;
 import comp3350.mealbuddy.business.AccessLabel;
 import comp3350.mealbuddy.objects.consumables.Edible;
 import comp3350.mealbuddy.objects.consumables.Food;
+import comp3350.mealbuddy.tests.persistence.DataAccessStub;
 
 @SuppressWarnings("CatchMayIgnoreException")
 public class AccessEdibleTest {
@@ -26,7 +26,8 @@ public class AccessEdibleTest {
 
     @Before
     public void initAccessEdibleTest() {
-        Services.initializeDB(Main.DATABASE_NAME);
+        Services.createDataAccess(new DataAccessStub("Stub"));    //stub
+        //Services.createDataAccess(Main.DATABASE_NAME);    //hsql
         accessEdible = new AccessEdible();
         accessLabel = new AccessLabel();
         for (String label : LABELS)
@@ -125,6 +126,7 @@ public class AccessEdibleTest {
                 accessLabel.removeLabel(label);
         } catch (IllegalArgumentException iae) {
         }
+        Services.closeDAS();
     }
 
 }
