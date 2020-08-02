@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
+import comp3350.mealbuddy.application.Main;
 import comp3350.mealbuddy.application.Services;
 import comp3350.mealbuddy.objects.Account;
 import comp3350.mealbuddy.objects.Day;
@@ -50,8 +51,39 @@ public class DataAccessTest {
     public static Meal nestedMeal;
     public static Meal cereal;
     public static Account account;
-    //private static DataAccess database = Services.createDataAccess(Main.DATABASE_NAME);  //HQSQLDB
-    private static DataAccess database = Services.createDataAccess(new DataAccessStub("StubDB"));         //STUBDB
+    //private static DataAccess database = Services.createDataAccess(new DataAccessStub("StubDB"));         //STUBDB
+    public DataAccess database;
+
+    public DataAccessTest() {
+        //this.database = Services.createDataAccess(new DataAccessStub("StubDB"));
+        this.database = Services.createDataAccess(Main.DATABASE_NAME);  //HQSQLDB
+    }
+
+    // this code will run the tests on the given DAO
+    public static void dataAccessTest(DataAccess dataAccess) {
+        DataAccessTest dataAccessTest = new DataAccessTest();
+        dataAccessTest.database = dataAccess;
+
+        dataAccessTest.init();
+        dataAccessTest.addRemoveUpdateAccount();
+        dataAccessTest.clean();
+
+        dataAccessTest.init();
+        dataAccessTest.addRemoveUpdateFood();
+        dataAccessTest.clean();
+
+        dataAccessTest.init();
+        dataAccessTest.getEdibles();
+        dataAccessTest.clean();
+
+        dataAccessTest.init();
+        dataAccessTest.labelTest();
+        dataAccessTest.clean();
+
+        dataAccessTest.init();
+        dataAccessTest.daysTest();
+        dataAccessTest.clean();
+    }
 
     @Before
     public void init() {
