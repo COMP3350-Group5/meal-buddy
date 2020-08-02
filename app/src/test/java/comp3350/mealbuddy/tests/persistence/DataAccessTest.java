@@ -6,11 +6,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
-import comp3350.mealbuddy.application.Main;
 import comp3350.mealbuddy.application.Services;
 import comp3350.mealbuddy.objects.Account;
 import comp3350.mealbuddy.objects.Day;
@@ -32,7 +30,9 @@ import static comp3350.mealbuddy.objects.consumables.Edible.Micros.Zinc;
 public class DataAccessTest {
 
     public static final String ACCOUNT_USERNAME = "TESTMuskyBoi";
+    public static final String UPDATED_ACC_NAME = "uCantCMe";
     public static final String DURIAN_NAME = "TESTDurian";
+    public static final String TACO_NAME = "TESTTaco";
     public static final String CHEERIOS_NAME = "TESTCheerios";
     public static final String QUINOA_NAME = "TESTQuinoa";
     public static final String BACON_NAME = "TESTBacon";
@@ -53,12 +53,11 @@ public class DataAccessTest {
     public static Meal nestedMeal;
     public static Meal cereal;
     public static Account account;
-    //private static DataAccess database = Services.createDataAccess(new DataAccessStub("StubDB"));         //STUBDB
     public DataAccess database;
 
     public DataAccessTest() {
-        //this.database = Services.createDataAccess(new DataAccessStub("StubDB"));
-        this.database = Services.createDataAccess(Main.DATABASE_NAME);  //HQSQLDB
+        this.database = Services.createDataAccess(new DataAccessStub("StubDB"));
+        //this.database = Services.createDataAccess(Main.DATABASE_NAME);  //HQSQLDB
     }
 
     // this code will run the tests on the given DAO
@@ -107,17 +106,17 @@ public class DataAccessTest {
     public void addRemoveUpdateAccount() {
         //accont added in before method
         Assert.assertEquals(account.user.username, database.getAccount(ACCOUNT_USERNAME).user.username);
-        Account updatedAccount = new Account(new UserInfo("John Cena", "uCantCMe", "alwaysblue", 100.0, 180.0, UserInfo.ActivityLevel.LOW, UserInfo.Sex.MALE, 35));
+        Account updatedAccount = new Account(new UserInfo("John Cena", UPDATED_ACC_NAME, "alwaysblue", 100.0, 180.0, UserInfo.ActivityLevel.LOW, UserInfo.Sex.MALE, 35));
         database.updateAccount(ACCOUNT_USERNAME, updatedAccount);
-        Assert.assertEquals(updatedAccount.user.username, database.getAccount("uCantCMe").user.username);
-        database.removeAccount("uCantCMe");
-        Assert.assertNull(database.getAccount("uCantCMe"));
+        Assert.assertEquals(updatedAccount.user.username, database.getAccount(UPDATED_ACC_NAME).user.username);
+        database.removeAccount(UPDATED_ACC_NAME);
+        Assert.assertNull(database.getAccount(UPDATED_ACC_NAME));
     }
 
     @Test
     public void addRemoveUpdateFood() {
-        // Arrange
-        Food updatedFood = new Food("TESTTaco", new ArrayList<>(Arrays.asList("TESTKeto")));
+        Food updatedFood = new Food(TACO_NAME);
+        updatedFood.labels.add(KETO_LABEL);
         List<Edible> edibles;
         //Check if the food was added
         edibles = database.getEdibles();
@@ -135,15 +134,12 @@ public class DataAccessTest {
 
     @Test
     public void getEdibles() {
-        List<Food> addedFoods = database.getFoods();
-        List<Meal> addedMeals = database.getMeals();
         List<Edible> addedEdibles = database.getEdibles();
-        Assert.assertTrue(addedFoods.contains(durian));
-        Assert.assertTrue(addedFoods.contains(quinoa));
-        Assert.assertTrue(addedMeals.contains(nestedMeal));
-        Assert.assertTrue(addedMeals.contains(cereal));
-        Assert.assertTrue(addedEdibles.containsAll(addedFoods));
-        Assert.assertTrue(addedEdibles.containsAll(addedMeals));
+        Assert.assertTrue(addedEdibles.contains(durian));
+        Assert.assertTrue(addedEdibles.contains(quinoa));
+        Assert.assertTrue(addedEdibles.contains(nestedMeal));
+        Assert.assertTrue(addedEdibles.contains(cereal));
+        Assert.assertFalse(addedEdibles.contains("FAKE"));
     }
 
     @Test
@@ -248,7 +244,10 @@ public class DataAccessTest {
 
     @After
     public void clean() {
+        database.removeAccount(ACCOUNT_USERNAME);
+        database.removeAccount(UPDATED_ACC_NAME);
         database.removeEdible(NESTED_MEAL_NAME);
+        database.removeEdible(TACO_NAME);
         database.removeEdible(BACON_NAME);
         database.removeEdible(CEREAL_NAME);
         database.removeEdible(EGG_NAME);
@@ -260,8 +259,6 @@ public class DataAccessTest {
         database.removeLabel(VEGAN_LABEL);
         database.removeLabel(HIGH_PROTEIN);
         database.removeLabel(LOW_PROTEIN);
-        database.removeAccount(ACCOUNT_USERNAME);
-        database.removeAccount("uCantCMe");
     }
 
     private Meal makeNestedMeal() {

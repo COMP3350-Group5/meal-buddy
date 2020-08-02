@@ -79,6 +79,18 @@ public class AccessAccount {
     }
 
     /*
+     * getAccount
+     * Get the account for a username.
+     * Parameters:
+     *     @param username - The username for the requested account
+     * Return:
+     *     The account for the given username.
+     */
+    public Account getAccount(String username) {
+        return DAS.getAccount(username);
+    }
+
+    /*
      * validateLogin
      * Validates if the username and password result in a successful login.
      * Parameters:
@@ -123,18 +135,5 @@ public class AccessAccount {
             throw new IllegalArgumentException("Day cannot be null to update");
         DAS.updateDay(userName, day);
     }
-
-    /*
-     * getAccount
-     * Get the account for a username.
-     * Parameters:
-     *     @param username - The username for the requested account
-     * Return:
-     *     The account for the given username.
-     */
-    public Account getAccount(String username) {
-        return DAS.getAccount(username);
-    }
-
 
 }
