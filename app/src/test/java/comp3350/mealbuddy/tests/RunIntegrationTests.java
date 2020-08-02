@@ -51,6 +51,7 @@ import comp3350.mealbuddy.tests.persistence.DataAccessTest;
         AccessEdibleTest.class
 })
 
-public class AllTests {
+public class RunIntegrationTests {
     // This class remains empty, it is used only as a holder for the above annotations
 }
+
