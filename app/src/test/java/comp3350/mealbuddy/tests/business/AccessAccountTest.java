@@ -5,12 +5,12 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import comp3350.mealbuddy.application.Main;
 import comp3350.mealbuddy.application.Services;
 import comp3350.mealbuddy.business.AccessAccount;
 import comp3350.mealbuddy.objects.Account;
 import comp3350.mealbuddy.objects.Day;
 import comp3350.mealbuddy.objects.UserInfo;
+import comp3350.mealbuddy.tests.persistence.DataAccessStub;
 
 public class AccessAccountTest {
     private static final String ACCOUNT_USERNAME = "TESTMuskyBoi";
@@ -24,7 +24,8 @@ public class AccessAccountTest {
 
     @Before
     public void initAccessAccount() {
-        Services.initializeDB(Main.DATABASE_NAME);
+        Services.createDataAccess(new DataAccessStub("Stub"));  //stub
+        // Services.createDataAccess(Main.DATABASE_NAME);    //hsql
         accessAccount = new AccessAccount();
         userInfo = new UserInfo("Elon Musk", ACCOUNT_USERNAME, ACCOUNT_PASSWORD, 280.0, 170.5, UserInfo.ActivityLevel.LOW, UserInfo.Sex.MALE, 40);
         account = new Account(userInfo);
@@ -265,5 +266,6 @@ public class AccessAccountTest {
             accessAccount.removeAccount(dummyUserInfo.username);
         } catch (NullPointerException iae) {
         }
+        Services.closeDAS();
     }
 }
