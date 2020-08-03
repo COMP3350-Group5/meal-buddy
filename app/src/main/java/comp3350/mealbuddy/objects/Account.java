@@ -143,44 +143,6 @@ public class Account {
         return result;
     }
 
-    /*
-     * resetDefaultDay
-     * Resets the default day to an empty day
-     */
-    public void resetDefaultDay() {
-        removeDay(DEFAULT_DAY_NUM);
-        addDay(new Day(DEFAULT_DAY_NUM));
-    }
-
-    /*
-     * setDefaultDay
-     * Sets the default day to the parameter day by doing a deep copy
-     *      @day - the day for the default to be set to.
-     */
-    public void setDefaultDay(Day day) {
-        if (day == null)
-            throw new NullPointerException("Day cannot be null for default day");
-        removeDay(DEFAULT_DAY_NUM);
-        Day newDay = new Day(day);
-        newDay.dayOfYear = DEFAULT_DAY_NUM;
-        addDay(newDay);
-    }
-
-
-    /*
-     * getDefaultDay
-     * Gets the default day
-     * Parameters:
-     *      @dayOfYear - the day of year to set the copy to
-     * Returns: a copy of the default day set to the dayOfYear passed in
-     */
-    public Day getDefaultDayCopy(int dayOfYear) {
-        if (dayOfYear < 1 || dayOfYear > 366)
-            throw new IllegalArgumentException("Must be a valid day number (0-366) day:" + dayOfYear);
-        Day copyDay = new Day(getDay(DEFAULT_DAY_NUM));
-        copyDay.dayOfYear = dayOfYear;
-        return copyDay;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -189,5 +151,4 @@ public class Account {
         Account account = (Account) o;
         return user.equals(account.user);
     }
-
 }

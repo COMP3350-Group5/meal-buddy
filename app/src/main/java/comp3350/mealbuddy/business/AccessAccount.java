@@ -55,6 +55,7 @@ public class AccessAccount {
      *     @param usernameToUpdate - The user to update.
      *     @param a - The account to update to.
      */
+    ///TODO Disambiguate between userinfo and days in account.
     public void updateAccount(String usernameToUpdate, Account a) {
         if (usernameToUpdate == null || getAccount(usernameToUpdate) == null)
             throw new NullPointerException("Username being updated doesn't exist in the database.");
@@ -117,11 +118,23 @@ public class AccessAccount {
      */
     public Day getDay(String userName, int day) {
         if (!DAS.isDayTracked(userName, day)) {
-            DAS.addDay(userName, day);
-            Day defaultDayCopy = DAS.getAccount(userName).getDefaultDayCopy(day);
-            DAS.updateDay(userName, defaultDayCopy);
+            setDayToDefault(userName, day);
         }
         return DAS.getDay(userName, day);
+    }
+
+    /*
+     * setDayToDefault
+     * set the default value for the day specified
+     * Parameters:
+     *     @param userName - The account to retrieve a day for
+     *     @param day - The day of year to set the default for
+     */
+    private void setDayToDefault(String userName, int day) {
+        DAS.addDay(userName, day);
+        Day defaultDayCopy = DAS.getDay(userName, Account.DEFAULT_DAY_NUM);
+        defaultDayCopy.dayOfYear = day;
+        DAS.updateDay(userName, defaultDayCopy);
     }
 
 
@@ -137,6 +150,8 @@ public class AccessAccount {
             throw new IllegalArgumentException("Username cannot be null");
         if (day == null)
             throw new IllegalArgumentException("Day cannot be null to update");
+        if (!DAS.isDayTracked(userName, day.dayOfYear))
+            DAS.addDay(userName, day.dayOfYear);
         DAS.updateDay(userName, day);
     }
 

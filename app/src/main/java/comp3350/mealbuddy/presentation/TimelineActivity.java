@@ -131,8 +131,9 @@ public class TimelineActivity extends AppCompatActivity {
 
         setDefaultDay.setOnClickListener((view) -> {
             Account a = accessAccount.getAccount(username);
-            a.setDefaultDay(day);
-            accessAccount.updateAccount(a.user.username, a);
+            Day newDefault = new Day(day);
+            newDefault.dayOfYear = Account.DEFAULT_DAY_NUM;
+            accessAccount.updateDay(a.user.username, newDefault);
         });
 
         // the "addFood" button to go to the AddFoodActivity
@@ -140,8 +141,7 @@ public class TimelineActivity extends AppCompatActivity {
 
         resetDefaultDay.setOnClickListener((view) -> {
             Account a = accessAccount.getAccount(username);
-            a.resetDefaultDay();
-            accessAccount.updateAccount(a.user.username, a);
+            accessAccount.updateDay(a.user.username, new Day(Account.DEFAULT_DAY_NUM));
         });
 
     }
