@@ -116,10 +116,14 @@ public class AccessAccount {
      *     The day object requested.
      */
     public Day getDay(String userName, int day) {
-        if (!DAS.isDayTracked(userName, day))
+        if (!DAS.isDayTracked(userName, day)) {
             DAS.addDay(userName, day);
+            Day defaultDayCopy = DAS.getAccount(userName).getDefaultDayCopy(day);
+            DAS.updateDay(userName, defaultDayCopy);
+        }
         return DAS.getDay(userName, day);
     }
+
 
     /*
      * updateDay

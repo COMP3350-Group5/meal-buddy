@@ -8,6 +8,7 @@ import java.util.Iterator;
 
 import comp3350.mealbuddy.objects.Account;
 import comp3350.mealbuddy.objects.Day;
+import comp3350.mealbuddy.objects.Exercise;
 import comp3350.mealbuddy.objects.UserInfo;
 import comp3350.mealbuddy.objects.goals.CalorieGoal;
 import comp3350.mealbuddy.objects.goals.Goal;
@@ -39,6 +40,7 @@ public class AccountTest {
         // Act
         try {
             account = new Account(userInfo);
+            Assert.fail();
         } catch (IllegalArgumentException e) {
             //Assert
             Assert.assertTrue(true);
@@ -77,16 +79,84 @@ public class AccountTest {
     }
 
     @Test
+    public void setDefaultDay_illegalArguments_exceptionThrown() {
+        //arrange
+        Day day = null;
+        //act
+        try {
+            account.setDefaultDay(day);
+            Assert.fail();
+        } catch (NullPointerException e) {
+            //Assert
+            Assert.assertTrue(true);
+        }
+    }
+
+    @Test
+    public void setDefaultDay_AvgValue_defaultDaySetToValue() {
+        Day newDefault = new Day(42);
+        Exercise exercise = new Exercise("run", 1, Exercise.Intensity.High);
+        newDefault.addExercise(exercise);
+        account.setDefaultDay(newDefault);
+        Assert.assertEquals(exercise, account.getDefaultDayCopy(1).getExercise(exercise));
+    }
+
+    @Test
+    public void getDefaultDayCopy_variousValues_defaultDeepCopyReturned() {
+        Day newDefault = new Day(69);
+        Exercise exercise = new Exercise("run", 1, Exercise.Intensity.High);
+        newDefault.addExercise(exercise);
+        account.setDefaultDay(newDefault);
+        Day actualDefaultDay = account.getDefaultDayCopy(69);
+        Assert.assertEquals(69, actualDefaultDay.dayOfYear);
+        Assert.assertEquals(exercise, actualDefaultDay.getExercise(exercise));
+        actualDefaultDay.getExercise(exercise).name = "Sprint";
+        Assert.assertEquals("run", account.getDefaultDayCopy(1).getExercise(exercise).name);    //changing the new copy doesnt change the default
+    }
+
+    @Test
+    public void getDefaultDayCopy_illegalValues_ExceptionThrown() {
+        try {
+            account.getDefaultDayCopy(Account.DEFAULT_DAY_NUM); //dont allow duplicates of default day
+            Assert.fail();
+        } catch (IllegalArgumentException e) {
+            Assert.assertTrue(true);
+        }
+        try {
+            account.getDefaultDayCopy(400);
+            Assert.fail();
+        } catch (IllegalArgumentException e) {
+            Assert.assertTrue(true);
+        }
+    }
+
+    @Test
+    public void resetDefaultDay_defaultSet_defaultSetToZero() {
+        //arrange
+        Day defaultDay = new Day(5);
+        Exercise e = new Exercise("run", 1, Exercise.Intensity.High);
+        defaultDay.addExercise(e);
+        account.setDefaultDay(defaultDay);
+
+        //act
+        Assert.assertEquals(e, account.getDefaultDayCopy(4).getExercise(e));
+        account.resetDefaultDay();
+
+        //assert
+        Assert.assertTrue(account.getDefaultDayCopy(4).isExerciseEmpty());
+    }
+
+    @Test
     public void getDayIterator_avgCases_iteratesOverDays() {
         //arrange
         Iterator<Day> dayIterator = account.getDayIterator();
 
-        Assert.assertFalse(dayIterator.hasNext());
-
         account.addDay(new Day(1));
         dayIterator = account.getDayIterator();
         Assert.assertTrue(dayIterator.hasNext());
+        Assert.assertEquals(0, dayIterator.next().dayOfYear);   //default day
         Assert.assertEquals(1, dayIterator.next().dayOfYear);
+        Assert.assertFalse(dayIterator.hasNext());
     }
 
 

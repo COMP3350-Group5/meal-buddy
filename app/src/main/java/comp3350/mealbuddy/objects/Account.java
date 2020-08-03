@@ -13,6 +13,7 @@ public class Account {
 
     public UserInfo user;
     private ArrayList<Day> daysTracked;
+    public static final int DEFAULT_DAY_NUM = 0;
 
     /*
      * Constructor
@@ -26,6 +27,7 @@ public class Account {
         }
         this.user = user;
         daysTracked = new ArrayList<>();
+        daysTracked.add(new Day(DEFAULT_DAY_NUM));
     }
 
     /*
@@ -77,6 +79,16 @@ public class Account {
     }
 
     /*
+     * removeDay
+     * removes day with the day number from the tracked list, if it exists.
+     * Parameters:
+     *     @param d - the day number to remove
+     */
+    private void removeDay(int d) {
+        removeDay(new Day(d));
+    }
+
+    /*
      * getDay
      * gets a day from the users tracked list, if the day doesn't exist it creates a new day from the ID.
      * Parameters:
@@ -85,7 +97,7 @@ public class Account {
      *     returns the day if found, else creates a new day on the id.
      */
     public Day getDay(int day) {
-        if (day < 1 || day > 365)
+        if (day < 0 || day > 365)
             throw new IllegalArgumentException("Invalid day passed.");
 
         for (Day d : daysTracked) {
@@ -129,6 +141,45 @@ public class Account {
             }
         }
         return result;
+    }
+
+    /*
+     * resetDefaultDay
+     * Resets the default day to an empty day
+     */
+    public void resetDefaultDay() {
+        removeDay(DEFAULT_DAY_NUM);
+        addDay(new Day(DEFAULT_DAY_NUM));
+    }
+
+    /*
+     * setDefaultDay
+     * Sets the default day to the parameter day by doing a deep copy
+     *      @day - the day for the default to be set to.
+     */
+    public void setDefaultDay(Day day) {
+        if (day == null)
+            throw new NullPointerException("Day cannot be null for default day");
+        removeDay(DEFAULT_DAY_NUM);
+        Day newDay = new Day(day);
+        newDay.dayOfYear = DEFAULT_DAY_NUM;
+        addDay(newDay);
+    }
+
+
+    /*
+     * getDefaultDay
+     * Gets the default day
+     * Parameters:
+     *      @dayOfYear - the day of year to set the copy to
+     * Returns: a copy of the default day set to the dayOfYear passed in
+     */
+    public Day getDefaultDayCopy(int dayOfYear) {
+        if (dayOfYear < 1 || dayOfYear > 366)
+            throw new IllegalArgumentException("Must be a valid day number (0-366) day:" + dayOfYear);
+        Day copyDay = new Day(getDay(DEFAULT_DAY_NUM));
+        copyDay.dayOfYear = dayOfYear;
+        return copyDay;
     }
 
     @Override

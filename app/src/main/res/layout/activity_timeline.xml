@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/setdefualt"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".presentation.TimelineActivity">
@@ -283,6 +284,24 @@
         android:elevation="2dp"
         app:layout_constraintBottom_toBottomOf="parent">
 
+        <Button
+            android:id="@+id/defaultDay"
+            android:layout_width="220dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="50dp"
+            android:layout_marginBottom="10dp"
+            android:text="Set Day As Default" />
+
+        <Button
+            android:id="@+id/resetDefault"
+            android:layout_width="131dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center"
+            android:layout_marginLeft="150dp"
+            android:layout_marginBottom="10dp"
+            android:text="Reset Default" />
+
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fabExercise"
             android:layout_width="wrap_content"
@@ -341,5 +360,12 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_calendar"
         tools:ignore="VectorDrawableCompat" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="20dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
