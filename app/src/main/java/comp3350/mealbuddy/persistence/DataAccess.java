@@ -12,8 +12,6 @@ import comp3350.mealbuddy.objects.Account;
 import comp3350.mealbuddy.objects.Day;
 import comp3350.mealbuddy.objects.UserInfo;
 import comp3350.mealbuddy.objects.consumables.Edible;
-import comp3350.mealbuddy.objects.consumables.Food;
-import comp3350.mealbuddy.objects.consumables.Meal;
 
 public interface DataAccess {
 
@@ -96,18 +94,6 @@ public interface DataAccess {
      * gets all the edibles in the db
      */
     List<Edible> getEdibles();
-
-    /*
-     * getFoods
-     * gets all the food in the db
-     */
-    List<Food> getFoods();
-
-    /*
-     * getMeals
-     * gets all the meals in the db
-     */
-    List<Meal> getMeals();
 
     /*
      * addLabel

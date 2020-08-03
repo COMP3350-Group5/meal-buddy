@@ -15,7 +15,6 @@ import comp3350.mealbuddy.objects.consumables.Edible;
 import comp3350.mealbuddy.objects.consumables.Edible.Macros;
 import comp3350.mealbuddy.objects.consumables.Edible.Micros;
 import comp3350.mealbuddy.objects.consumables.Food;
-import comp3350.mealbuddy.objects.consumables.Meal;
 import comp3350.mealbuddy.objects.goals.Goal;
 import comp3350.mealbuddy.objects.goals.LabelGoal;
 import comp3350.mealbuddy.persistence.DataAccess;
@@ -293,36 +292,6 @@ public class DataAccessStub implements DataAccess {
         ArrayList<Edible> result = new ArrayList<>();
         for (Edible edible : edibles) {
             result.add(Edible.copyEdible(edible));
-        }
-        return result;
-    }
-
-    /*
-     * getFoods
-     * gets all the food in the db
-     */
-    @Override
-    public List<Food> getFoods() {
-        ArrayList<Food> result = new ArrayList<>();
-        for (Edible edible : edibles) {
-            if (edible instanceof Food) {
-                result.add((Food) Edible.copyEdible(edible));
-            }
-        }
-        return result;
-    }
-
-    /*
-     * getMeals
-     * gets all the meals in the db
-     */
-    @Override
-    public List<Meal> getMeals() {
-        ArrayList<Meal> result = new ArrayList<>();
-        for (Edible edible : edibles) {
-            if (edible instanceof Meal) {
-                result.add((Meal) Edible.copyEdible(edible));
-            }
         }
         return result;
     }

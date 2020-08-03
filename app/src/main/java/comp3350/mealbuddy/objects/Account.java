@@ -13,6 +13,7 @@ public class Account {
 
     public UserInfo user;
     private ArrayList<Day> daysTracked;
+    public static final int DEFAULT_DAY_NUM = 0;
 
     /*
      * Constructor
@@ -26,6 +27,7 @@ public class Account {
         }
         this.user = user;
         daysTracked = new ArrayList<>();
+        daysTracked.add(new Day(DEFAULT_DAY_NUM));
     }
 
     /*
@@ -77,6 +79,16 @@ public class Account {
     }
 
     /*
+     * removeDay
+     * removes day with the day number from the tracked list, if it exists.
+     * Parameters:
+     *     @param d - the day number to remove
+     */
+    private void removeDay(int d) {
+        removeDay(new Day(d));
+    }
+
+    /*
      * getDay
      * gets a day from the users tracked list, if the day doesn't exist it creates a new day from the ID.
      * Parameters:
@@ -85,7 +97,7 @@ public class Account {
      *     returns the day if found, else creates a new day on the id.
      */
     public Day getDay(int day) {
-        if (day < 1 || day > 365)
+        if (day < 0 || day > 365)
             throw new IllegalArgumentException("Invalid day passed.");
 
         for (Day d : daysTracked) {
@@ -131,6 +143,7 @@ public class Account {
         return result;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -138,5 +151,4 @@ public class Account {
         Account account = (Account) o;
         return user.equals(account.user);
     }
-
 }

@@ -39,6 +39,7 @@ public class AccountTest {
         // Act
         try {
             account = new Account(userInfo);
+            Assert.fail();
         } catch (IllegalArgumentException e) {
             //Assert
             Assert.assertTrue(true);
@@ -81,12 +82,12 @@ public class AccountTest {
         //arrange
         Iterator<Day> dayIterator = account.getDayIterator();
 
-        Assert.assertFalse(dayIterator.hasNext());
-
         account.addDay(new Day(1));
         dayIterator = account.getDayIterator();
         Assert.assertTrue(dayIterator.hasNext());
+        Assert.assertEquals(0, dayIterator.next().dayOfYear);   //default day
         Assert.assertEquals(1, dayIterator.next().dayOfYear);
+        Assert.assertFalse(dayIterator.hasNext());
     }
 
 

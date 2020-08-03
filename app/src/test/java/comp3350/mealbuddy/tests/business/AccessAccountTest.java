@@ -5,12 +5,14 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import comp3350.mealbuddy.application.Main;
 import comp3350.mealbuddy.application.Services;
 import comp3350.mealbuddy.business.AccessAccount;
 import comp3350.mealbuddy.objects.Account;
 import comp3350.mealbuddy.objects.Day;
 import comp3350.mealbuddy.objects.UserInfo;
+import comp3350.mealbuddy.objects.goals.CalorieGoal;
+import comp3350.mealbuddy.objects.goals.Goal;
+import comp3350.mealbuddy.tests.persistence.DataAccessStub;
 
 public class AccessAccountTest {
     private static final String ACCOUNT_USERNAME = "TESTMuskyBoi";
@@ -24,7 +26,8 @@ public class AccessAccountTest {
 
     @Before
     public void initAccessAccount() {
-        Services.initializeDB(Main.DATABASE_NAME);
+        Services.createDataAccess(new DataAccessStub("Stub"));  //stub
+        // Services.createDataAccess(Main.DATABASE_NAME);    //hsql
         accessAccount = new AccessAccount();
         userInfo = new UserInfo("Elon Musk", ACCOUNT_USERNAME, ACCOUNT_PASSWORD, 280.0, 170.5, UserInfo.ActivityLevel.LOW, UserInfo.Sex.MALE, 40);
         account = new Account(userInfo);
@@ -224,6 +227,25 @@ public class AccessAccountTest {
         Assert.assertEquals(new Day(244), accessAccount.getDay(ACCOUNT_USERNAME, 244));
     }
 
+
+    @Test
+    public void getDay_dayNotBeingTracked_returnDefaultDay() {
+        //arrange
+        Day defaultDay = new Day(2);
+        Goal goal = new CalorieGoal(1, 2);
+        defaultDay.addGoal(new CalorieGoal(1, 2));
+        account.setDefaultDay(defaultDay);
+        accessAccount.updateAccount(ACCOUNT_USERNAME, account);
+
+        //act
+        Day fetchedDay = accessAccount.getDay(ACCOUNT_USERNAME, 300);
+
+        //assert
+        Assert.assertEquals(300, fetchedDay.dayOfYear);
+        Assert.assertTrue(fetchedDay.isExerciseEmpty());
+        Assert.assertEquals(goal, fetchedDay.getGoal(goal));
+    }
+
     @Test
     public void getDay_dayOutOfRange_throwException() {
         try {
@@ -265,5 +287,6 @@ public class AccessAccountTest {
             accessAccount.removeAccount(dummyUserInfo.username);
         } catch (NullPointerException iae) {
         }
+        Services.closeDAS();
     }
 }
