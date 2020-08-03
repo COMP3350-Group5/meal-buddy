@@ -29,12 +29,6 @@ public class Services {
         }
     }
 
-    public static void initializeDB(DataAccess alternateDataAccess) {
-        if (DAS == null) {
-            DAS = alternateDataAccess;
-            DAS.open(Main.getDBPathName());
-        }
-    }
 
     public static DataAccess getDataAccess(String databaseName) {
         if (DAS == null) {

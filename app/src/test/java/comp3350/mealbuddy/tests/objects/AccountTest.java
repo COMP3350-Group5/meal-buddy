@@ -4,6 +4,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Iterator;
+
 import comp3350.mealbuddy.objects.Account;
 import comp3350.mealbuddy.objects.Day;
 import comp3350.mealbuddy.objects.UserInfo;
@@ -43,64 +45,6 @@ public class AccountTest {
         }
     }
 
-    @Test
-    public void addGoal_goalNotContained_GoalAdded() {
-        //arrange
-        Goal goal = new CalorieGoal(0, 1);
-
-        //act
-        account.addGoal(goal);
-
-        //assert
-        Assert.assertTrue(account.containsGoal(goal));
-    }
-
-    @Test
-    public void addGoal_goalContained_GoalNotAdded() {
-        //arrange
-        int expectedSize = 1;
-        Goal goal = new CalorieGoal(0, 1);
-        account.addGoal(goal);
-
-        //act
-        account.addGoal(goal);
-
-        //assert
-        Assert.assertEquals(expectedSize, account.getGoalSize());
-    }
-
-    @Test
-    public void removeGoal_goalContained_removeGoal(){
-        Goal goal = new CalorieGoal(0, 1);
-        account.addGoal(goal);
-
-        account.removeGoal(goal);
-        Assert.assertFalse(account.containsGoal(goal));
-    }
-
-    @Test
-    public void removeGoal_goalNotContained_throwException(){
-        Goal goal = new CalorieGoal(0, 1);
-
-        try {
-            account.removeGoal(goal);
-            Assert.fail();
-        } catch (IllegalArgumentException IAE)
-        {
-            Assert.assertTrue(true);
-        }
-    }
-
-    @Test
-    public void removeGoal_null_throwException(){
-        try {
-            account.removeGoal(null);
-            Assert.fail();
-        } catch (IllegalArgumentException IAE)
-        {
-            Assert.assertTrue(true);
-        }
-    }
 
     @Test
     public void getDay_dayNotContained_dayCreated() {
@@ -132,6 +76,19 @@ public class AccountTest {
         Assert.assertEquals(day2, retrievedDay);
     }
 
+    @Test
+    public void getDayIterator_avgCases_iteratesOverDays() {
+        //arrange
+        Iterator<Day> dayIterator = account.getDayIterator();
+
+        Assert.assertFalse(dayIterator.hasNext());
+
+        account.addDay(new Day(1));
+        dayIterator = account.getDayIterator();
+        Assert.assertTrue(dayIterator.hasNext());
+        Assert.assertEquals(1, dayIterator.next().dayOfYear);
+    }
+
 
     @Test
     public void copyConstructor() {
@@ -141,12 +98,9 @@ public class AccountTest {
 
         //act
         updatedAccount.addDay(12);
-        updatedAccount.addGoal(testGoal);
 
         //assert
         Assert.assertFalse(account.isDayTracked(12));
-        Assert.assertTrue(updatedAccount.containsGoal(testGoal));
-        Assert.assertFalse(account.containsGoal(testGoal));
     }
 
 }
