@@ -10,6 +10,7 @@ import java.util.List;
 
 import comp3350.mealbuddy.objects.Account;
 import comp3350.mealbuddy.objects.Day;
+import comp3350.mealbuddy.objects.UserInfo;
 import comp3350.mealbuddy.objects.consumables.Edible;
 import comp3350.mealbuddy.objects.consumables.Food;
 import comp3350.mealbuddy.objects.consumables.Meal;
@@ -39,15 +40,15 @@ public interface DataAccess {
     String addAccount(Account account);
 
     /*
-     * updateAccount
+     * updateUserInfo
      * Updates an account already present
      * in the db
      * Parameters:
      *     @param userNameToUpdate - the username of the account to update
-     *     @param account - the account holding the new info to update
+     *     @param userInfo - the UserInfo holding the new info to update
      *                      the old info to
      */
-    String updateAccount(String usernameToUpdate, Account account);
+    String updateUserInfo(String usernameToUpdate, UserInfo userInfo);
 
     /*
      * removeAccount
@@ -58,13 +59,13 @@ public interface DataAccess {
     String removeAccount(String userName);
 
     /*
-     * getAccount
-     * gets the account associated with the username.
+     * getUserInfo
+     * gets the UserInfo associated with the username.
      * returns null if not in db
      * Parameters:
-     *     @param userName - username associated with the account to get
+     *     @param userName - username associated with the info to get
      */
-    Account getAccount(String username);
+    UserInfo getUserInfo(String username);
 
     /*
      * addEdible

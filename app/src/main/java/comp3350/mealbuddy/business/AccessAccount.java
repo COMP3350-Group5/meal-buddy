@@ -49,21 +49,21 @@ public class AccessAccount {
     }
 
     /*
-     * updateAccount
+     * updateUserInfo
      * Update an account in the database.
      * Parameters:
      *     @param usernameToUpdate - The user to update.
-     *     @param a - The account to update to.
+     *     @param userInfo - The info to update to.
      */
-    public void updateAccount(String usernameToUpdate, Account a) {
+    public void updateUserInfo(String usernameToUpdate, UserInfo userInfo) {
         if (usernameToUpdate == null || getAccount(usernameToUpdate) == null)
             throw new NullPointerException("Username being updated doesn't exist in the database.");
-        if (a == null)
+        if (userInfo == null)
             throw new IllegalArgumentException("Account cannot be null");
         //if the account that is being updated is being updated with a username that already is in the db
-        if (!a.user.username.equals(usernameToUpdate) && getAccount(a.user.username) != null)
+        if (!userInfo.username.equals(usernameToUpdate) && getAccount(userInfo.username) != null)
             throw new IllegalArgumentException("Username already exists. Account cannot be updated");
-        DAS.updateAccount(usernameToUpdate, a);
+        DAS.updateUserInfo(usernameToUpdate, userInfo);
     }
 
     /*
@@ -133,7 +133,7 @@ public class AccessAccount {
      *     The account for the given username.
      */
     public Account getAccount(String username) {
-        return DAS.getAccount(username);
+        return DAS.getUserInfo(username);
     }
 
 

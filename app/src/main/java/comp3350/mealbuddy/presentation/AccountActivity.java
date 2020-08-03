@@ -133,7 +133,7 @@ public class AccountActivity extends AppCompatActivity {
         } else {
             Account newAccount = new Account(accessAccount.getAccount(username));
             newAccount.user.weight = Double.parseDouble(etNum.getText().toString());
-            accessAccount.updateAccount(username, newAccount);
+            accessAccount.updateUserInfo(username, newAccount);
             hidePopUp();
         }
     }
@@ -153,7 +153,7 @@ public class AccountActivity extends AppCompatActivity {
         else
             ALT = UserInfo.ActivityLevel.HIGH;
         newAccount.user.activityLevel = ALT;
-        accessAccount.updateAccount(username, newAccount);
+        accessAccount.updateUserInfo(username, newAccount);
         hidePopUp();
     }
 
@@ -167,7 +167,7 @@ public class AccountActivity extends AppCompatActivity {
         } else {
             Account newAccount = new Account(accessAccount.getAccount(username));
             newAccount.user.fullname = etText.getText().toString();
-            accessAccount.updateAccount(username, newAccount);
+            accessAccount.updateUserInfo(username, newAccount);
             hidePopUp();
         }
     }

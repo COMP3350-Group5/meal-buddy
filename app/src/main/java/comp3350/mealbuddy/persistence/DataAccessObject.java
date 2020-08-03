@@ -187,7 +187,7 @@ public class DataAccessObject implements DataAccess {
     }
 
     /*
-     * updateAccount
+     * updateUserInfo
      * Updates an account already present
      * in the db
      * Parameters:
@@ -196,8 +196,7 @@ public class DataAccessObject implements DataAccess {
      *                      the old info to
      */
     @Override
-    public String updateAccount(String userNameToUpdate, Account account) {
-        UserInfo ui = account.user;
+    public String updateUserInfo(String userNameToUpdate, UserInfo ui) {
         String query = "UPDATE ACCOUNTS SET " +
                 "USERNAME ='" + ui.username + "'," +
                 "ACCOUNT_PASSWORD = '" + ui.password + "'," +
@@ -247,12 +246,12 @@ public class DataAccessObject implements DataAccess {
      *     @param userName - username associated with the account to get
      */
     @Override
-    public Account getAccount(String userName) {
-        Account account = null;
+    public UserInfo getUserInfo(String userName) {
         String password, fullname;
         int weight, height, age;
         UserInfo.ActivityLevel al;
         UserInfo.Sex sex;
+        UserInfo ui = null;
         try {
             cmdString = "SELECT * FROM ACCOUNTS WHERE USERNAME='" + userName + "'";
             ResultSet rs = st.executeQuery(cmdString);
@@ -264,14 +263,13 @@ public class DataAccessObject implements DataAccess {
                 age = rs.getInt("AGE");
                 al = UserInfo.ActivityLevel.values()[rs.getInt("ACTIVITY_LEVEL")];
                 sex = UserInfo.Sex.values()[rs.getInt("SEX")];
-                UserInfo ui = new UserInfo(fullname, userName, password, weight, height, al, sex, age);
-                account = new Account(ui);
+                ui = new UserInfo(fullname, userName, password, weight, height, al, sex, age);
             }
             rs.close();
         } catch (Exception e) {
             processSQLError(e);
         }
-        return account;
+        return ui;
     }
 
     /*
@@ -778,7 +776,7 @@ public class DataAccessObject implements DataAccess {
      * addDay
      * adds a new day to the db. Will always be an empty day
      * Parameters:
-     *     @param userName - the account to add the day under
+     *     @param userName - the userName to add the day under
      *     @param dayOfYear - the day of year to add the day to
      */
     @Override

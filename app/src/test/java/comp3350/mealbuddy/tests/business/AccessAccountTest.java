@@ -93,12 +93,12 @@ public class AccessAccountTest {
         Assert.assertEquals(ACCOUNT_USERNAME, accessAccount.getAccount(ACCOUNT_USERNAME).user.username);
         //update with dummy info
         dummyUserInfo.username = ACCOUNT_USERNAME;
-        accessAccount.updateAccount(ACCOUNT_USERNAME, new Account(dummyUserInfo));
+        accessAccount.updateUserInfo(ACCOUNT_USERNAME, new Account(dummyUserInfo));
 
         //verify that it updated
         Assert.assertEquals(dummyUserInfo, accessAccount.getAccount(ACCOUNT_USERNAME).user);
         //reset it back to the other account
-        accessAccount.updateAccount(ACCOUNT_USERNAME, new Account(userInfo));
+        accessAccount.updateUserInfo(ACCOUNT_USERNAME, new Account(userInfo));
         Assert.assertEquals(ACCOUNT_USERNAME, accessAccount.getAccount(ACCOUNT_USERNAME).user.username);
     }
 
@@ -106,7 +106,7 @@ public class AccessAccountTest {
     public void updateAccount_changeUserNameToExistingUser_throwException() {
         //update with dummy info
         try {
-            accessAccount.updateAccount(account.user.username, new Account(dummyUserInfo));
+            accessAccount.updateUserInfo(account.user.username, new Account(dummyUserInfo));
             Assert.fail();
         } catch (IllegalArgumentException iae) {
             Assert.assertTrue(true);
@@ -126,7 +126,7 @@ public class AccessAccountTest {
 
         //confirm that the new username isnt in the db first
         Assert.assertNull(accessAccount.getAccount(ui.username));
-        accessAccount.updateAccount(ui2.username, new Account(ui));
+        accessAccount.updateUserInfo(ui2.username, new Account(ui));
         Assert.assertNotNull(accessAccount.getAccount(ui.username));
 
         accessAccount.removeAccount(ui.username); //remove the new user
@@ -138,7 +138,7 @@ public class AccessAccountTest {
             //confirm that it doesnt exist
             Assert.assertNull(accessAccount.getAccount("Idontexist"));
             //trying to update an account that doesnt exist
-            accessAccount.updateAccount("Idontexist", new Account(dummyUserInfo));
+            accessAccount.updateUserInfo("Idontexist", new Account(dummyUserInfo));
             Assert.fail();
         } catch (NullPointerException iae) {
             //confirm that it wasnt added
@@ -149,7 +149,7 @@ public class AccessAccountTest {
     @Test
     public void updateAccount_nullAccount_throwException() {
         try {
-            accessAccount.updateAccount("Idontexist", null);
+            accessAccount.updateUserInfo("Idontexist", null);
             Assert.fail();
         } catch (NullPointerException iae) {
             Assert.assertTrue(true);

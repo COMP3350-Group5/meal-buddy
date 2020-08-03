@@ -74,12 +74,12 @@ public class DataAccessTest {
     @Test
     public void addRemoveUpdateAccount() {
         //accont added in before method
-        Assert.assertEquals(account.user.username, database.getAccount(ACCOUNT_USERNAME).user.username);
+        Assert.assertEquals(account.user.username, database.getUserInfo(ACCOUNT_USERNAME).user.username);
         Account updatedAccount = new Account(new UserInfo("John Cena", "uCantCMe", "alwaysblue", 100.0, 180.0, UserInfo.ActivityLevel.LOW, UserInfo.Sex.MALE, 35));
-        database.updateAccount(ACCOUNT_USERNAME, updatedAccount);
-        Assert.assertEquals(updatedAccount.user.username, database.getAccount("uCantCMe").user.username);
+        database.updateUserInfo(ACCOUNT_USERNAME, updatedAccount);
+        Assert.assertEquals(updatedAccount.user.username, database.getUserInfo("uCantCMe").user.username);
         database.removeAccount("uCantCMe");
-        Assert.assertNull(database.getAccount("uCantCMe"));
+        Assert.assertNull(database.getUserInfo("uCantCMe"));
     }
 
     @Test
