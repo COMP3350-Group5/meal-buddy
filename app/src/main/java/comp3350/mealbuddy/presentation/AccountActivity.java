@@ -20,7 +20,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import comp3350.mealbuddy.R;
 import comp3350.mealbuddy.business.AccessAccount;
-import comp3350.mealbuddy.objects.Account;
 import comp3350.mealbuddy.objects.UserInfo;
 
 public class AccountActivity extends AppCompatActivity {
@@ -70,7 +69,7 @@ public class AccountActivity extends AppCompatActivity {
      * updates the user info
      */
     private void updateUserInfo() {
-        userInfoTxt.setText(accessAccount.getAccount(username).user.toString());
+        userInfoTxt.setText(accessAccount.getUserInfo(username).toString());
     }
 
     /*
@@ -131,9 +130,9 @@ public class AccountActivity extends AppCompatActivity {
         if (TextUtils.isEmpty(etNum.getText())) {
             etNum.setError("Weight required");
         } else {
-            Account newAccount = new Account(accessAccount.getAccount(username));
-            newAccount.user.weight = Double.parseDouble(etNum.getText().toString());
-            accessAccount.updateUserInfo(username, newAccount);
+            UserInfo newUserInfo = accessAccount.getUserInfo(username);
+            newUserInfo.weight = Double.parseDouble(etNum.getText().toString());
+            accessAccount.updateUserInfo(username, newUserInfo);
             hidePopUp();
         }
     }
@@ -143,7 +142,7 @@ public class AccountActivity extends AppCompatActivity {
      * updates the activity level
      */
     private void updateActivityLevel() {
-        Account newAccount = new Account(accessAccount.getAccount(username));
+        UserInfo newUserInfo = accessAccount.getUserInfo(username);
         String activityLevelValue = spnActivityLevel.getSelectedItem().toString();
         UserInfo.ActivityLevel ALT;
         if (activityLevelValue.equals("Low"))
@@ -152,8 +151,8 @@ public class AccountActivity extends AppCompatActivity {
             ALT = UserInfo.ActivityLevel.MEDIUM;
         else
             ALT = UserInfo.ActivityLevel.HIGH;
-        newAccount.user.activityLevel = ALT;
-        accessAccount.updateUserInfo(username, newAccount);
+        newUserInfo.activityLevel = ALT;
+        accessAccount.updateUserInfo(username, newUserInfo);
         hidePopUp();
     }
 
@@ -165,9 +164,9 @@ public class AccountActivity extends AppCompatActivity {
         if (TextUtils.isEmpty(etText.getText())) {
             etText.setError("Name required");
         } else {
-            Account newAccount = new Account(accessAccount.getAccount(username));
-            newAccount.user.fullname = etText.getText().toString();
-            accessAccount.updateUserInfo(username, newAccount);
+            UserInfo newUserInfo = accessAccount.getUserInfo(username);
+            newUserInfo.fullname = etText.getText().toString();
+            accessAccount.updateUserInfo(username, newUserInfo);
             hidePopUp();
         }
     }

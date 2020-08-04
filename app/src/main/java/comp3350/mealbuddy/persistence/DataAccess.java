@@ -8,7 +8,6 @@ package comp3350.mealbuddy.persistence;
 
 import java.util.List;
 
-import comp3350.mealbuddy.objects.Account;
 import comp3350.mealbuddy.objects.Day;
 import comp3350.mealbuddy.objects.UserInfo;
 import comp3350.mealbuddy.objects.consumables.Edible;
@@ -33,9 +32,9 @@ public interface DataAccess {
      * addAccount
      * inserts an account to the db
      * Parameters:
-     *     @param account - the account to insert
+     *     @param userInfo - the info to insert into the account
      */
-    String addAccount(Account account);
+    String addAccount(UserInfo userInfo);
 
     /*
      * updateUserInfo

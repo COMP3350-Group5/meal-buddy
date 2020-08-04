@@ -163,27 +163,27 @@ public class DataAccessStub implements DataAccess {
      * addAccount
      * inserts an account to the db
      * Parameters:
-     *     @param account - the account to insert
+     *     @param userInfo - the userInfo to add
      */
     @Override
-    public String addAccount(Account account) {
-        accounts.add(account);
+    public String addAccount(UserInfo userInfo) {
+        accounts.add(new Account(userInfo));
         return "";
     }
 
     /*
-     * updateUserInfo
+     * updateAccount
      * Updates an account already present
      * in the db
      * Parameters:
      *     @param userNameToUpdate - the username of the account to update
-     *     @param account - the UserInfo holding the new info to update
+     *     @param userInfo - the userInfo holding the new info to update
      *                      the old info to
      */
     @Override
     public String updateUserInfo(String userNameToUpdate, UserInfo userInfo) {
         removeAccount(userNameToUpdate);
-        addAccount(new Account(userInfo));
+        addAccount(userInfo);
         return "";
     }
 
@@ -205,23 +205,21 @@ public class DataAccessStub implements DataAccess {
     }
 
     /*
-     * getUserInfo
+     * getAccount
      * gets the account associated with the username.
      * returns null if not in db
      * Parameters:
-     *     @param userName - username associated with the userInfo to get
+     *     @param userName - username associated with the account to get
      */
-    @Override
     public UserInfo getUserInfo(String userName) {
-        UserInfo infoToReturn = null;
+        UserInfo result = null;
         for (Account account : accounts) {
             if (account.user.username.equals(userName)) {
-                infoToReturn = new UserInfo(account.user);
+                result = new UserInfo(account.user);
             }
         }
-        return infoToReturn;
+        return result;
     }
-
 
     /*
      * getAccount
@@ -234,7 +232,7 @@ public class DataAccessStub implements DataAccess {
         Account result = null;
         for (Account account : accounts) {
             if (account.user.username.equals(userName)) {
-                result = new Account(account);
+                result = account;
             }
         }
         return result;
@@ -407,7 +405,6 @@ public class DataAccessStub implements DataAccess {
     public String addDay(String userName, int dayOfYear) {
         Account account = getAccount(userName);
         account.addDay(new Day(dayOfYear));
-        updateUserInfo(userName, account.user);
         return "";
     }
 
@@ -454,7 +451,6 @@ public class DataAccessStub implements DataAccess {
         int dayToUpdate = day.dayOfYear;
         account.removeDay(account.getDay(dayToUpdate));
         account.addDay(day);
-        updateUserInfo(userName, account.user);
         return "";
     }
 

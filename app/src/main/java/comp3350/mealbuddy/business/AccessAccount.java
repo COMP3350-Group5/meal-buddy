@@ -24,28 +24,36 @@ public class AccessAccount {
 
     /*
      * addAccount
-     * Add an account to the database.
+     * Add an account to the database. Also sets the default day for that account to an empty day
      * Parameters:
-     *     @param a - The account to be added.
+     *     @param userInfo - The user info to be added to a new account.
      */
-    public void addAccount(Account a) {
-        if (a == null)
+    public void addAccount(UserInfo userInfo) {
+        if (userInfo == null)
             throw new IllegalArgumentException("Account cannot be null");
-        Account check = getAccount(a.user.username);
-        if (check == null)
-            DAS.addAccount(a);
+        if (!accountExists(userInfo.username))
+            DAS.addAccount(userInfo);
     }
 
     /*
-     * addAccount
-     * Create a new account, and add it to the database.
-     * Parameters:
-     *     @param u - The user to be added.
+     * accountExists
+     * checks if account exists in db
+     * Returns: true if account exists
      */
-    public void addAccount(UserInfo u) {
-        if (u == null)
-            throw new IllegalArgumentException("Userinfo cannot be null");
-        addAccount(new Account(u));
+    private boolean accountExists(String userName) {
+        return !(getUserInfo(userName) == null);
+    }
+
+    /*
+     * getUserInfo
+     * Get the UserInfo for a username.
+     * Parameters:
+     *     @param username - The username for the requested account
+     * Return:
+     *     The UserInfo for the given username.
+     */
+    public UserInfo getUserInfo(String username) {
+        return DAS.getUserInfo(username);
     }
 
     /*
@@ -55,14 +63,13 @@ public class AccessAccount {
      *     @param usernameToUpdate - The user to update.
      *     @param userInfo - The info to update to.
      */
-    ///TODO Disambiguate between userinfo and days in account.
     public void updateUserInfo(String usernameToUpdate, UserInfo userInfo) {
-        if (usernameToUpdate == null || getAccount(usernameToUpdate) == null)
+        if (usernameToUpdate == null || getUserInfo(usernameToUpdate) == null)
             throw new NullPointerException("Username being updated doesn't exist in the database.");
         if (userInfo == null)
             throw new IllegalArgumentException("Account cannot be null");
         //if the account that is being updated is being updated with a username that already is in the db
-        if (!userInfo.username.equals(usernameToUpdate) && getAccount(userInfo.username) != null)
+        if (!userInfo.username.equals(usernameToUpdate) && getUserInfo(userInfo.username) != null)
             throw new IllegalArgumentException("Username already exists. Account cannot be updated");
         DAS.updateUserInfo(usernameToUpdate, userInfo);
     }
@@ -74,7 +81,7 @@ public class AccessAccount {
      *     @param a - The account to be removed.
      */
     public void removeAccount(String userName) {
-        if (userName == null || getAccount(userName) == null)
+        if (userName == null || getUserInfo(userName) == null)
             throw new NullPointerException("Username being removed doesn't exist in the database.");
         DAS.removeAccount(userName);
     }
@@ -86,12 +93,12 @@ public class AccessAccount {
      *     @param username - The username for the user.
      *     @param password - The password for the user.
      * Return:
-     *     The account if valid, null if not valid.
+     *     The UserInfo of account if valid, null if not valid.
      */
-    public Account validateLogin(String username, String password) {
-        Account acc = getAccount(username);
-        if (acc != null && acc.user.password.equals(password))
-            return acc;
+    public UserInfo validateLogin(String username, String password) {
+        UserInfo userInfo = getUserInfo(username);
+        if (userInfo != null && userInfo.password.equals(password))
+            return userInfo;
         return null;
     }
 
@@ -113,16 +120,29 @@ public class AccessAccount {
 
     /*
      * setDayToDefault
-     * set the default value for the day specified
+     * set the default value for the day specified. If default day does not
+     * exist then create it
      * Parameters:
      *     @param userName - The account to retrieve a day for
      *     @param day - The day of year to set the default for
      */
     private void setDayToDefault(String userName, int day) {
         DAS.addDay(userName, day);
+        if (!defaultDayExists(userName))
+            DAS.addDay(userName, Account.DEFAULT_DAY_NUM);
         Day defaultDayCopy = DAS.getDay(userName, Account.DEFAULT_DAY_NUM);
         defaultDayCopy.dayOfYear = day;
         DAS.updateDay(userName, defaultDayCopy);
+    }
+
+    /*
+     * defaultDayExists
+     * Parameters
+     *      @param userName - The username of the account to check
+     * Returns: true if the default day is tracked for the account tied to the username
+     */
+    private boolean defaultDayExists(String userName) {
+        return DAS.isDayTracked(userName, Account.DEFAULT_DAY_NUM);
     }
 
     /*
@@ -140,18 +160,6 @@ public class AccessAccount {
         if (!DAS.isDayTracked(userName, day.dayOfYear))
             DAS.addDay(userName, day.dayOfYear);
         DAS.updateDay(userName, day);
-    }
-
-    /*
-     * getAccount
-     * Get the account for a username.
-     * Parameters:
-     *     @param username - The username for the requested account
-     * Return:
-     *     The account for the given username.
-     */
-    public Account getAccount(String username) {
-        return DAS.getUserInfo(username);
     }
 
 

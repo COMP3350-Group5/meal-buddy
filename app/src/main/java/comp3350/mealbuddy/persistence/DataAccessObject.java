@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import comp3350.mealbuddy.objects.Account;
 import comp3350.mealbuddy.objects.Day;
 import comp3350.mealbuddy.objects.Exercise;
 import comp3350.mealbuddy.objects.UserInfo;
@@ -164,8 +163,7 @@ public class DataAccessObject implements DataAccess {
      *     @param account - the account to insert
      */
     @Override
-    public String addAccount(Account account) {
-        UserInfo ui = account.user;
+    public String addAccount(UserInfo ui) {
         String query = "INSERT INTO ACCOUNTS VALUES(" +
                 "'" + ui.username + "'," +
                 "'" + ui.password + "'," +
