@@ -5,9 +5,9 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import comp3350.mealbuddy.application.Main;
 import comp3350.mealbuddy.application.Services;
 import comp3350.mealbuddy.business.AccessLabel;
+import comp3350.mealbuddy.tests.persistence.DataAccessStub;
 
 public class AccessLabelTest {
     private static final String LABEL = "labeltest123";
@@ -15,7 +15,8 @@ public class AccessLabelTest {
 
     @Before
     public void initAccessLabelTests() {
-        Services.initializeDB(Main.DATABASE_NAME);
+        Services.createDataAccess(new DataAccessStub("Stub"));  //stub
+        //Services.createDataAccess(Main.DATABASE_NAME);    //hsql
         accessLabel = new AccessLabel();
         accessLabel.addLabel(LABEL);
     }
@@ -30,13 +31,6 @@ public class AccessLabelTest {
         }
     }
 
-    @Test
-    public void addLabel_multipleLabels_dontAdd() {
-        Assert.assertNotNull(accessLabel.getLabel(LABEL));
-        for (int x = 0; x < 100; x++)
-            accessLabel.addLabel(LABEL);
-        Assert.assertNotNull(accessLabel.getLabel(LABEL));
-    }
 
     @Test
     public void removeLabel_nullLabel_throwException() {
@@ -70,19 +64,6 @@ public class AccessLabelTest {
         }
     }
 
-    @Test
-    public void updateLabel_labelDoesntExist_throwException() {
-        try {
-            //confirm that it doesnt exist
-            Assert.assertNull(accessLabel.getLabel("Idontexist"));
-            //trying to update an account that doesnt exist
-            accessLabel.updateLabel("Idontexist", "newLabel");
-            Assert.fail();
-        } catch (IllegalArgumentException iae) {
-            //confirm that it wasnt added
-            Assert.assertNull(accessLabel.getLabel("Idontexist"));
-        }
-    }
 
     @Test
     public void updateLabel_nullValues_throwException() {
@@ -106,15 +87,6 @@ public class AccessLabelTest {
         }
     }
 
-    @Test
-    public void getLabel_nullValue_throwException() {
-        try {
-            accessLabel.getLabel(null);
-            Assert.fail();
-        } catch (NullPointerException iae) {
-            Assert.assertTrue(true);
-        }
-    }
 
     @After
     public void clean() {
@@ -122,6 +94,7 @@ public class AccessLabelTest {
             accessLabel.removeLabel(LABEL);
         } catch (IllegalArgumentException iae) {
         }
+        Services.closeDAS();
     }
 
 }
