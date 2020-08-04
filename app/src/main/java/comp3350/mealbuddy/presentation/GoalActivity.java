@@ -26,6 +26,7 @@ import comp3350.mealbuddy.business.AccessAccount;
 import comp3350.mealbuddy.business.AccessLabel;
 import comp3350.mealbuddy.business.Calculator;
 import comp3350.mealbuddy.business.GoalTracker;
+import comp3350.mealbuddy.business.RecommendedGoalFactory;
 import comp3350.mealbuddy.objects.Day;
 import comp3350.mealbuddy.objects.consumables.Edible;
 import comp3350.mealbuddy.objects.goals.CalorieGoal;
@@ -40,6 +41,7 @@ public class GoalActivity extends AppCompatActivity {
     private AccessAccount accessAccount;
     private String username;
     private int dayOfYear;
+    private Day day;
 
     /*
      * onCreate
@@ -60,7 +62,7 @@ public class GoalActivity extends AppCompatActivity {
 
         //Get the day, create a calculator
         AccessAccount accessAccount = new AccessAccount();
-        final Day day = accessAccount.getDay(username, dayOfYear);
+        day = accessAccount.getDay(username, dayOfYear);
         Calculator calculator = new Calculator(day);
 
         //Update Goals Card
@@ -91,7 +93,15 @@ public class GoalActivity extends AppCompatActivity {
         Button removeGoal = findViewById(R.id.btnRemove);
         removeGoal.setOnClickListener((view) -> showRemoveGoal());
 
-
+        Button setRecommendedGoals = findViewById(R.id.setDefaultGoals);
+        setRecommendedGoals.setOnClickListener((view) -> {
+            day.removeAllGoals();
+            List<Goal> goals = RecommendedGoalFactory.makeGoals(accessAccount.getUserInfo(username));
+            for (Goal g : goals)
+                day.addGoal(g);
+            accessAccount.updateDay(username, day);
+            ChangeActivityHelper.changeActivity(GoalActivity.this, GoalActivity.class, username, dayOfYear);
+        });
     }
 
     /*

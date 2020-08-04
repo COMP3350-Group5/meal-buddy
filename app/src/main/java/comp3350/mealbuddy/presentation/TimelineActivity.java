@@ -127,7 +127,7 @@ public class TimelineActivity extends AppCompatActivity {
             return true;
         });
 
-        // the "addFood" button to go to the AddFoodActivity
+        // Sets the current day as the default for new days
         Button setDefaultDay = findViewById(R.id.defaultDay);
 
         setDefaultDay.setOnClickListener((view) -> {
@@ -137,7 +137,7 @@ public class TimelineActivity extends AppCompatActivity {
             accessAccount.updateDay(userInfo.username, newDefault);
         });
 
-        // the "addFood" button to go to the AddFoodActivity
+        // resets the default day to empty day
         Button resetDefaultDay = findViewById(R.id.resetDefault);
 
         resetDefaultDay.setOnClickListener((view) -> {
