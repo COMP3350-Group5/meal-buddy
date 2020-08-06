@@ -99,18 +99,18 @@ public class DataAccessTest {
         quinoa = new Food(QUINOA_NAME);
         database.addEdible(quinoa);
         account = new Account(new UserInfo("Elon Musk", ACCOUNT_USERNAME, "T3sla", 280.0, 170.5, UserInfo.ActivityLevel.LOW, UserInfo.Sex.MALE, 40));
-        database.addAccount(account);
+        database.addAccount(account.user);
     }
 
     @Test
     public void addRemoveUpdateAccount() {
         //accont added in before method
-        Assert.assertEquals(account.user.username, database.getAccount(ACCOUNT_USERNAME).user.username);
+        Assert.assertEquals(account.user, database.getUserInfo(ACCOUNT_USERNAME));
         Account updatedAccount = new Account(new UserInfo("John Cena", UPDATED_ACC_NAME, "alwaysblue", 100.0, 180.0, UserInfo.ActivityLevel.LOW, UserInfo.Sex.MALE, 35));
-        database.updateAccount(ACCOUNT_USERNAME, updatedAccount);
-        Assert.assertEquals(updatedAccount.user.username, database.getAccount(UPDATED_ACC_NAME).user.username);
+        database.updateUserInfo(ACCOUNT_USERNAME, updatedAccount.user);
+        Assert.assertEquals(updatedAccount.user, database.getUserInfo(UPDATED_ACC_NAME));
         database.removeAccount(UPDATED_ACC_NAME);
-        Assert.assertNull(database.getAccount(UPDATED_ACC_NAME));
+        Assert.assertNull(database.getUserInfo(UPDATED_ACC_NAME));
     }
 
     @Test
@@ -172,15 +172,18 @@ public class DataAccessTest {
     public void daysTest() {
         Assert.assertFalse(database.isDayTracked(ACCOUNT_USERNAME, 1));
 
-        database.addDay(ACCOUNT_USERNAME, 1);
-        database.addDay(ACCOUNT_USERNAME, 2);
+        Day day1 = new Day(1);
+        Day day2 = new Day(2);
+        database.addDay(ACCOUNT_USERNAME, day1.dayOfYear);
+        database.addDay(ACCOUNT_USERNAME, day2.dayOfYear);
         Assert.assertTrue(database.isDayTracked(ACCOUNT_USERNAME, 1));
 
         Day newDay = database.getDay(ACCOUNT_USERNAME, 1);
         Assert.assertEquals(1, newDay.dayOfYear);
 
         List<Day> days = database.getDays(ACCOUNT_USERNAME);
-        Assert.assertEquals(3, days.size());    //+ for default day
+        Assert.assertTrue(days.contains(day1));
+        Assert.assertTrue(days.contains(day2));
 
         newDay = new Day(1);
 

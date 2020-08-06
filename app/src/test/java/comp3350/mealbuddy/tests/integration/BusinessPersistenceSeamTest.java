@@ -74,7 +74,7 @@ public class BusinessPersistenceSeamTest {
         quinoa = new Food(QUINOA_NAME);
         database.addEdible(quinoa);
         account = new Account(new UserInfo("Elon Musk", ACCOUNT_USERNAME, "T3sla", 280.0, 170.5, UserInfo.ActivityLevel.LOW, UserInfo.Sex.MALE, 40));
-        database.addAccount(account);
+        database.addAccount(account.user);
     }
 
     @After
@@ -135,8 +135,8 @@ public class BusinessPersistenceSeamTest {
         AccessAccount aa = new AccessAccount();
         //accont added in before method
         Assert.assertNull(aa.validateLogin("FAKE", "FAKE"));
-        Assert.assertEquals(account, aa.validateLogin(ACCOUNT_USERNAME, account.user.password));
-        Assert.assertEquals(account, aa.getAccount(ACCOUNT_USERNAME));
+        Assert.assertEquals(account.user, aa.validateLogin(ACCOUNT_USERNAME, account.user.password));
+        Assert.assertEquals(account.user, aa.getUserInfo(ACCOUNT_USERNAME));
 
 
         Day newDay = aa.getDay(ACCOUNT_USERNAME, 1);
@@ -201,10 +201,10 @@ public class BusinessPersistenceSeamTest {
         Assert.assertTrue(updatedCereal.containsEdible(CHEERIOS_NAME));
 
         Account updatedAccount = new Account(new UserInfo("John Cena", UPDATED_ACC_NAME, "alwaysblue", 100.0, 180.0, UserInfo.ActivityLevel.LOW, UserInfo.Sex.MALE, 35));
-        aa.updateAccount(ACCOUNT_USERNAME, updatedAccount);
-        Assert.assertEquals(updatedAccount.user.username, aa.getAccount(UPDATED_ACC_NAME).user.username);
+        aa.updateUserInfo(ACCOUNT_USERNAME, updatedAccount.user);
+        Assert.assertEquals(updatedAccount.user.username, aa.getUserInfo(UPDATED_ACC_NAME).username);
         aa.removeAccount(UPDATED_ACC_NAME);
-        Assert.assertNull(aa.getAccount(UPDATED_ACC_NAME));
+        Assert.assertNull(aa.getUserInfo(UPDATED_ACC_NAME));
     }
 
     @Test

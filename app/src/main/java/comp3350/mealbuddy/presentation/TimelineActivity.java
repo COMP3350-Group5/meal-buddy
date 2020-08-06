@@ -28,6 +28,7 @@ import comp3350.mealbuddy.business.AccessAccount;
 import comp3350.mealbuddy.business.Calculator;
 import comp3350.mealbuddy.objects.Account;
 import comp3350.mealbuddy.objects.Day;
+import comp3350.mealbuddy.objects.UserInfo;
 
 
 public class TimelineActivity extends AppCompatActivity {
@@ -130,18 +131,18 @@ public class TimelineActivity extends AppCompatActivity {
         Button setDefaultDay = findViewById(R.id.defaultDay);
 
         setDefaultDay.setOnClickListener((view) -> {
-            Account a = accessAccount.getAccount(username);
+            UserInfo userInfo = accessAccount.getUserInfo(username);
             Day newDefault = new Day(day);
             newDefault.dayOfYear = Account.DEFAULT_DAY_NUM;
-            accessAccount.updateDay(a.user.username, newDefault);
+            accessAccount.updateDay(userInfo.username, newDefault);
         });
 
         // the "resetDefaultDAy" button to reset the day to default
         Button resetDefaultDay = findViewById(R.id.resetDefault);
 
         resetDefaultDay.setOnClickListener((view) -> {
-            Account a = accessAccount.getAccount(username);
-            accessAccount.updateDay(a.user.username, new Day(Account.DEFAULT_DAY_NUM));
+            UserInfo userInfo = accessAccount.getUserInfo(username);
+            accessAccount.updateDay(userInfo.username, new Day(Account.DEFAULT_DAY_NUM));
         });
 
     }
@@ -231,7 +232,7 @@ public class TimelineActivity extends AppCompatActivity {
         TextView totalsEatenCals = (TextView) totalsLayout.getChildAt(1);
         totalsEatenCals.setText(calculator.getTotalCalories() + " Cals eaten");
         TextView netCals = (TextView) totalsLayout.getChildAt(2);
-        netCals.setText(calculator.getNetCalories(accessAccount.getAccount(username).user) + " net Cals");
+        netCals.setText(calculator.getNetCalories(accessAccount.getUserInfo(username)) + " net Cals");
     }
 
     /*
@@ -246,7 +247,7 @@ public class TimelineActivity extends AppCompatActivity {
         TextView txtExercise = (TextView) exerciseLayout.getChildAt(1);
         txtExercise.setText(day.getExerciseString());
         TextView exerciseCals = (TextView) exerciseLayout.getChildAt(2);
-        exerciseCals.setText(calculator.getTotalExerciseCalories(accessAccount.getAccount(username).user) + " Cals");
+        exerciseCals.setText(calculator.getTotalExerciseCalories(accessAccount.getUserInfo(username)) + " Cals");
     }
 
     /*

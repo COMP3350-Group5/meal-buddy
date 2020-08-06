@@ -22,7 +22,7 @@ import java.io.InputStreamReader;
 import comp3350.mealbuddy.R;
 import comp3350.mealbuddy.application.Main;
 import comp3350.mealbuddy.business.AccessAccount;
-import comp3350.mealbuddy.objects.Account;
+import comp3350.mealbuddy.objects.UserInfo;
 
 
 public class HomeActivity extends AppCompatActivity {
@@ -72,8 +72,8 @@ public class HomeActivity extends AppCompatActivity {
      *     @param pass
      */
     public void checkLogin(Editable user, Editable pass) {
-        Account account = accessAccount.validateLogin(user.toString(), pass.toString());
-        if (account != null)
+        UserInfo userInfo = accessAccount.validateLogin(user.toString(), pass.toString());
+        if (userInfo != null)
             ChangeActivityHelper.changeActivity(HomeActivity.this, TimelineActivity.class, user.toString());
         else {
             //reset the input fields.
