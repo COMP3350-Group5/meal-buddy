@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -25,6 +26,7 @@ import java.util.Calendar;
 import comp3350.mealbuddy.R;
 import comp3350.mealbuddy.business.AccessAccount;
 import comp3350.mealbuddy.business.Calculator;
+import comp3350.mealbuddy.objects.Account;
 import comp3350.mealbuddy.objects.Day;
 
 
@@ -124,6 +126,23 @@ public class TimelineActivity extends AppCompatActivity {
             return true;
         });
 
+        // the "setDefaultDay" button to set the current day values to default
+        Button setDefaultDay = findViewById(R.id.defaultDay);
+
+        setDefaultDay.setOnClickListener((view) -> {
+            Account a = accessAccount.getAccount(username);
+            Day newDefault = new Day(day);
+            newDefault.dayOfYear = Account.DEFAULT_DAY_NUM;
+            accessAccount.updateDay(a.user.username, newDefault);
+        });
+
+        // the "resetDefaultDAy" button to reset the day to default
+        Button resetDefaultDay = findViewById(R.id.resetDefault);
+
+        resetDefaultDay.setOnClickListener((view) -> {
+            Account a = accessAccount.getAccount(username);
+            accessAccount.updateDay(a.user.username, new Day(Account.DEFAULT_DAY_NUM));
+        });
 
     }
 

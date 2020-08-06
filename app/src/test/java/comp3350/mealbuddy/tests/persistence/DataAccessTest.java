@@ -180,7 +180,7 @@ public class DataAccessTest {
         Assert.assertEquals(1, newDay.dayOfYear);
 
         List<Day> days = database.getDays(ACCOUNT_USERNAME);
-        Assert.assertEquals(2, days.size());
+        Assert.assertEquals(3, days.size());    //+ for default day
 
         newDay = new Day(1);
 
