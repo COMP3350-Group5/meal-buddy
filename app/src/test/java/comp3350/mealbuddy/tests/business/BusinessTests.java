@@ -9,7 +9,9 @@ import org.junit.runners.Suite;
         CalculatorTest.class,
         AccessAccountTest.class,
         AccessLabelTest.class,
-        AccessEdibleTest.class
+        AccessEdibleTest.class,
+        RecommendedCalorieCalculatorTest.class,
+        RecommendedGoalFactorTest.class
 })
 
 public class BusinessTests {

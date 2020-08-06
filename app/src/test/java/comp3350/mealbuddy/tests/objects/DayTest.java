@@ -8,9 +8,11 @@ import java.util.Arrays;
 
 import comp3350.mealbuddy.objects.Day;
 import comp3350.mealbuddy.objects.Exercise;
+import comp3350.mealbuddy.objects.consumables.Edible;
 import comp3350.mealbuddy.objects.consumables.Food;
 import comp3350.mealbuddy.objects.goals.CalorieGoal;
 import comp3350.mealbuddy.objects.goals.Goal;
+import comp3350.mealbuddy.objects.goals.MicroGoal;
 
 public class DayTest {
 
@@ -364,6 +366,17 @@ public class DayTest {
         } catch (IndexOutOfBoundsException IAE) {
             Assert.assertTrue(true);
         }
+    }
+
+    @Test
+    public void removeAllGoal_goalsInDay_goalsRemoved() {
+        Day day = new Day(1);
+        day.addGoal(new CalorieGoal(1, 3));
+        day.addGoal(new MicroGoal(1, 3, Edible.Micros.Zinc));
+        day.removeAllGoals();
+        Assert.assertTrue(day.isGoalsEmpty());
+        day.removeAllGoals();   //dont throw error on empty list
+        Assert.assertTrue(day.isGoalsEmpty());
     }
 
 }

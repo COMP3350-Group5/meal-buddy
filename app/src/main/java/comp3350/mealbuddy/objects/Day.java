@@ -207,6 +207,14 @@ public class Day {
     }
 
     /*
+     * removeAllGoal
+     * remove all goals from a day
+     */
+    public void removeAllGoals() {
+        goals = new ArrayList<>();
+    }
+
+    /*
      * containsGoal
      * check if the goal is in the list
      * Parameters:
