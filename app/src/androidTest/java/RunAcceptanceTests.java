@@ -5,7 +5,10 @@ import comp3350.mealbuddy.acceptance.SampleAcceptanceTests;
 
 
 @RunWith(Suite.class)
-@Suite.SuiteClasses({SampleAcceptanceTests.class})
+@Suite.SuiteClasses({
+        SampleAcceptanceTests.class
+})
+
 public class RunAcceptanceTests
 {
     public RunAcceptanceTests()
