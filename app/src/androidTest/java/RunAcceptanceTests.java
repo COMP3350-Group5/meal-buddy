@@ -1,12 +1,12 @@
 import org.junit.runners.Suite;
 import org.junit.runner.RunWith;
 
-import comp3350.mealbuddy.acceptance.SampleAcceptanceTests;
+import comp3350.mealbuddy.acceptance.HomeTests;
 
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-        SampleAcceptanceTests.class
+        HomeTests.class
 })
 
 public class RunAcceptanceTests

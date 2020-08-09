@@ -24,7 +24,7 @@ import comp3350.mealbuddy.presentation.TimelineActivity;
 
 @RunWith(AndroidJUnit4ClassRunner.class)
 @LargeTest
-public class SampleAcceptanceTests {
+public class HomeTests {
 
     private String testString1;
     private String testString2;
@@ -32,6 +32,13 @@ public class SampleAcceptanceTests {
     @Rule
     public ActivityTestRule<HomeActivity> main = new ActivityTestRule<>(HomeActivity.class);
 
+    @Test
+    public void cantLogin() {
+        onView(withId(R.id.etUsername)).perform(typeText("admin"), ViewActions.closeSoftKeyboard());
+        onView(withId(R.id.etPassword)).perform(typeText("group6"), ViewActions.closeSoftKeyboard());
+        onView(withId(R.id.btnLogin)).perform(click());
+        onView(withText("Invalid Login.")).check(matches(isDisplayed()));
+    }
 
     @Test
     public void canLogin() {
