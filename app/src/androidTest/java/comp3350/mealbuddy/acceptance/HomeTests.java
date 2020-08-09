@@ -28,6 +28,7 @@ public class HomeTests {
 
     @Test
     public void cantLogin() {
+        Espresso.closeSoftKeyboard();
         onView(withId(R.id.etUsername)).perform(typeText("admin"), ViewActions.closeSoftKeyboard());
         onView(withId(R.id.etPassword)).perform(typeText("group6"), ViewActions.closeSoftKeyboard());
         onView(withId(R.id.btnLogin)).perform(click());
@@ -36,6 +37,7 @@ public class HomeTests {
 
     @Test
     public void canLogin() {
+        Espresso.closeSoftKeyboard();
         onView(withId(R.id.etUsername)).perform(typeText("admin"), ViewActions.closeSoftKeyboard());
         onView(withId(R.id.etPassword)).perform(typeText("group5"), ViewActions.closeSoftKeyboard());
         onView(withId(R.id.btnLogin)).perform(click());
@@ -45,6 +47,7 @@ public class HomeTests {
     public void canCreateAccount() {
         AccessAccount access = new AccessAccount();
 
+        Espresso.closeSoftKeyboard();
         onView(withId(R.id.btnCreateAccount)).perform(click());
         onView(withId(R.id.etFullName)).perform(typeText("testing tester"), ViewActions.closeSoftKeyboard());
         onView(withId(R.id.etUsername)).perform(typeText("tester"), ViewActions.closeSoftKeyboard());
