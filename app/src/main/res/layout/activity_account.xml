@@ -60,6 +60,15 @@
             android:focusable="true"
             app:srcCompat="@android:drawable/ic_menu_edit" />
 
+        <Button
+            android:id="@+id/logOut"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|left"
+            android:layout_marginLeft="50dp"
+            android:layout_marginBottom="10dp"
+            android:text="Log Out" />
+
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

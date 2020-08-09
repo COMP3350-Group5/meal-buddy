@@ -62,6 +62,9 @@ public class AccountActivity extends AppCompatActivity {
         fabEdit = findViewById(R.id.fabEdit);
         fabEdit.setOnClickListener((view) -> showPopUp());
 
+
+        Button setRecommendedGoals = findViewById(R.id.logOut);
+        setRecommendedGoals.setOnClickListener((view) -> ChangeActivityHelper.changeActivity(AccountActivity.this, HomeActivity.class));
     }
 
     /*
