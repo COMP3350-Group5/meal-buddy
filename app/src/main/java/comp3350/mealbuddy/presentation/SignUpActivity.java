@@ -57,19 +57,33 @@ public class SignUpActivity extends AppCompatActivity {
 
         //link the on click listeners
         createAccount.setOnClickListener((view) -> {
+            boolean success = true;
             if (TextUtils.isEmpty(username.getText())) {
                 username.setError("Username is required");
-            } else if (TextUtils.isEmpty(password.getText())) {
+                success = false;
+            }
+            if (TextUtils.isEmpty(password.getText())) {
                 password.setError("Password is required");
-            } else if (TextUtils.isEmpty(fullName.getText())) {
+                success = false;
+            }
+            if (TextUtils.isEmpty(fullName.getText())) {
                 fullName.setError("Full Name is required");
-            } else if (TextUtils.isEmpty(age.getText())) {
+                success = false;
+            }
+            if (TextUtils.isEmpty(age.getText())) {
                 age.setError("Age is required");
-            } else if (TextUtils.isEmpty(height.getText())) {
+                success = false;
+            }
+            if (TextUtils.isEmpty(height.getText())) {
                 height.setError("Height is required");
-            } else if (TextUtils.isEmpty(weight.getText())) {
+                success = false;
+            }
+            if (TextUtils.isEmpty(weight.getText())) {
                 weight.setError("Weight is required");
-            } else {
+                success = false;
+            }
+
+            if (success == true) {
                 UserInfo userInfo = new UserInfo(fullName.getText().toString(),
                         username.getText().toString(),
                         password.getText().toString(),

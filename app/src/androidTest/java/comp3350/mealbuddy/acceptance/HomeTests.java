@@ -64,12 +64,17 @@ public class HomeTests {
         access.removeAccount("tester");
     }
 
-    @Test public void emptyUserName() {
+    @Test public void emptyFields() {
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.btnCreateAccount)).perform(click());
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.btnCreateAccount)).perform(click());
         onView(withId(R.id.etUsername)).check(matches(hasErrorText("Username is required")));
+        onView(withId(R.id.etPassword)).check(matches(hasErrorText("Password is required")));
+        onView(withId(R.id.etFullName)).check(matches(hasErrorText("Full Name is required")));
+        onView(withId(R.id.etAge)).check(matches(hasErrorText("Age is required")));
+        onView(withId(R.id.etHeight)).check(matches(hasErrorText("Height is required")));
+        onView(withId(R.id.etWeight)).check(matches(hasErrorText("Weight is required")));
     }
 
 }
