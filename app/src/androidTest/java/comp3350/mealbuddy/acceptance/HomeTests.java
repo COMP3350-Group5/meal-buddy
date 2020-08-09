@@ -4,7 +4,6 @@ import org.junit.*;
 import org.junit.runner.RunWith;
 
 import androidx.test.espresso.Espresso;
-import androidx.test.espresso.ViewAction;
 import androidx.test.espresso.action.ViewActions;
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner;
 import androidx.test.filters.LargeTest;
@@ -12,17 +11,13 @@ import androidx.test.rule.ActivityTestRule;;
 
 import static androidx.test.espresso.Espresso.*;
 import static androidx.test.espresso.action.ViewActions.*;
-import static androidx.test.espresso.matcher.RootMatchers.withDecorView;
 import static androidx.test.espresso.matcher.ViewMatchers.*;
 import static androidx.test.espresso.assertion.ViewAssertions.*;
-
-import static org.hamcrest.Matchers.not;
 
 import comp3350.mealbuddy.business.AccessAccount;
 import comp3350.mealbuddy.presentation.HomeActivity;
 import comp3350.mealbuddy.R;
 import comp3350.mealbuddy.presentation.SignUpActivity;
-import comp3350.mealbuddy.presentation.TimelineActivity;
 
 @RunWith(AndroidJUnit4ClassRunner.class)
 @LargeTest
@@ -30,8 +25,6 @@ public class HomeTests {
 
     @Rule
     public ActivityTestRule<HomeActivity> main = new ActivityTestRule<>(HomeActivity.class);
-    public ActivityTestRule<SignUpActivity> main2 = new ActivityTestRule<>(SignUpActivity.class);
-
 
     @Test
     public void cantLogin() {
@@ -64,7 +57,16 @@ public class HomeTests {
         onView(withId(R.id.spnActivityLevel)).perform(click());
         onView(withText("Low")).perform(click());
         onView(withId(R.id.btnCreateAccount)).perform(click());
-        access.removeAccount("tester");
 
+        access.removeAccount("tester");
     }
+
+    @Test public void emptyUserName() {
+        Espresso.closeSoftKeyboard();
+        onView(withId(R.id.btnCreateAccount)).perform(click());
+        Espresso.closeSoftKeyboard();
+        onView(withId(R.id.btnCreateAccount)).perform(click());
+        onView(withId(R.id.etUsername)).check(matches(hasErrorText("Username is required")));
+    }
+
 }
