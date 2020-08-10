@@ -26,6 +26,7 @@ public class LabelActivity extends AppCompatActivity {
 
         ListView labelListView = findViewById(R.id.labelListView);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_single_choice, labels);
+        adapter.sort(String::compareTo);
         labelListView.setAdapter(adapter);
         labelListView.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
 
