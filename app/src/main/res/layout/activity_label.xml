@@ -45,40 +45,56 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/bottomCard"
         android:layout_width="500dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_height="210dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardTotals">
 
         <Button
             android:id="@+id/labelBtnAdd"
-            android:layout_width="wrap_content"
+            android:layout_width="160dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_gravity="left|center"
             android:text="Add Label" />
 
-        <Button
-            android:id="@+id/LabelBtnUpdate"
+        <EditText
+            android:id="@+id/labelAddLabelText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:text="Update Label" />
+            android:layout_gravity="center|left"
+            android:layout_marginLeft="185dp"
+            android:ems="10"
+            android:inputType="text"
+            android:hint="Label To Add" />
 
         <Button
-            android:id="@+id/LabelBtnRemove"
+            android:id="@+id/labelBtnUpdate"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:text="Update Label" />
+
+        <EditText
+            android:id="@+id/labelUpdateLabelText"
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="185dp"
+            android:ems="10"
+            android:inputType="text"
+            android:hint="Label To Update" />
+
+        <Button
+            android:id="@+id/labelBtnRemove"
+            android:layout_width="160dp"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
             android:text="Remove Label" />
+
+
     </androidx.cardview.widget.CardView>
 
-    <TextView
-        android:id="@+id/testtest"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        app:layout_constraintTop_toBottomOf="@+id/bottomCard"
-        tools:layout_editor_absoluteX="168dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

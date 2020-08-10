@@ -30,13 +30,43 @@ public class LabelActivity extends AppCompatActivity {
         labelListView.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
 
         // goes to label activity
-        Button addLabel = findViewById(R.id.labelBtnAdd);
+        Button addLabelBtn = findViewById(R.id.labelBtnAdd);
+        Button removeLabelBtn = findViewById(R.id.labelBtnRemove);
+        Button updateLabelBtn = findViewById(R.id.labelBtnUpdate);
 
-        addLabel.setOnClickListener((view) -> {
-            TextView test = findViewById(R.id.testtest);
-            String l = labelListView.getItemAtPosition(labelListView.getCheckedItemPosition()).toString();
-            test.setText(l);
+        addLabelBtn.setOnClickListener((view) -> {
+            TextView addText = findViewById(R.id.labelAddLabelText);
+            String newLabel = addText.getText().toString();
+            if (adapter.getPosition(newLabel) < 0) {
+                accessLabel.addLabel(newLabel);
+                adapter.add(newLabel);
+                adapter.sort(String::compareTo);
+                addText.setText("");
+            } else {
+                addText.setError("This Label Already Exists!");
+            }
         });
 
+        removeLabelBtn.setOnClickListener((view) -> {
+            String labelToRemove = labelListView.getItemAtPosition(labelListView.getCheckedItemPosition()).toString();
+            accessLabel.removeLabel(labelToRemove);
+            adapter.remove(labelToRemove);
+        });
+
+        updateLabelBtn.setOnClickListener((view) -> {
+            TextView updateText = findViewById(R.id.labelUpdateLabelText);
+            String oldName = labelListView.getItemAtPosition(labelListView.getCheckedItemPosition()).toString();
+            String newName = updateText.getText().toString();
+            if (adapter.getPosition(newName) < 0) {
+
+                accessLabel.updateLabel(oldName, newName);
+                adapter.remove(oldName);
+                adapter.add(newName);
+                adapter.sort(String::compareTo);
+                updateText.setText("");
+            } else {
+                updateText.setError("The Name To Be Updated To Is Already In Use!");
+            }
+        });
     }
 }
