@@ -816,13 +816,15 @@ public class DataAccessObject implements DataAccess {
         String edibleInMealName;
         Edible edibleInMeal;
         boolean isMeal;
+        int quantity;
         cmdString = query;
         ResultSet resultSet = st.executeQuery(cmdString);
         while (resultSet.next()) {
             isMeal = resultSet.getBoolean("IS_MEAL");
             edibleInMealName = resultSet.getString("EDIBLE_NAME");
             edibleInMeal = isMeal ? getEntireMeal(edibleInMealName) : getFoodFromRs(resultSet);
-            meal.add(edibleInMeal);
+            quantity = resultSet.getInt("QUANTITY");
+            meal.add(edibleInMeal, quantity);
         }
         resultSet.close();
         return meal;
