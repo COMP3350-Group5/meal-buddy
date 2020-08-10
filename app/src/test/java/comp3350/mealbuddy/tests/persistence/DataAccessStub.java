@@ -388,7 +388,7 @@ public class DataAccessStub implements DataAccess {
      * gets all labels from the db
      */
     @Override
-    public List<String> getLabels() {
+    public ArrayList<String> getLabels() {
         ArrayList<String> result = new ArrayList<>();
         result.addAll(labels);
         return result;

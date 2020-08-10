@@ -707,9 +707,9 @@ public class DataAccessObject implements DataAccess {
      * gets all labels from the db
      */
     @Override
-    public List<String> getLabels() {
+    public ArrayList<String> getLabels() {
         String query = "SELECT LABEL FROM LABELS";
-        List<String> labels = new ArrayList<>();
+        ArrayList<String> labels = new ArrayList<>();
         try {
             cmdString = query;
             ResultSet rs = st.executeQuery(cmdString);

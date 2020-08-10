@@ -6,6 +6,7 @@
 
 package comp3350.mealbuddy.persistence;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import comp3350.mealbuddy.objects.Day;
@@ -123,7 +124,7 @@ public interface DataAccess {
      * getLabels
      * gets all labels from the db
      */
-    List<String> getLabels();
+    ArrayList<String> getLabels();
 
     /*
      * addDay
