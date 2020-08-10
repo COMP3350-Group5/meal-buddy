@@ -70,6 +70,17 @@
         android:layout_height="50dp"
         android:entries="@array/macro_array" />
 
+    <EditText
+        android:id="@+id/addMacroGoalErrorBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="50dp"
+        android:layout_gravity="center"
+        android:textSize="15dp"
+        android:visibility="invisible"
+        android:maxLength="0"
+        android:text="" />
+
     <Button
         android:id="@+id/btnContinue"
         android:layout_width="wrap_content"
