@@ -57,13 +57,17 @@ public class CreateMealActivity extends AppCompatActivity {
         //OnSubmit
         addMeal.setOnClickListener((view) -> {
             String mealName = mealTitle.getText().toString();
-            Meal newMeal = new Meal(mealName);
-            SparseBooleanArray checkedItems = foodList.getCheckedItemPositions();
-            for (int i = 0; i < checkedItems.size(); i++) {
-                newMeal.add(edibles.get(checkedItems.keyAt(i)));
+            if (accessEdible.edibleExists(mealName)) {
+                mealTitle.setError("An edible with this name already exists!");
+            } else {
+                Meal newMeal = new Meal(mealName);
+                SparseBooleanArray checkedItems = foodList.getCheckedItemPositions();
+                for (int i = 0; i < checkedItems.size(); i++) {
+                    newMeal.add(edibles.get(checkedItems.keyAt(i)));
+                }
+                accessEdible.addEdible(newMeal);
+                ChangeActivityHelper.changeActivity(CreateMealActivity.this, SearchFoodActivity.class, username, dayOfYear);
             }
-            accessEdible.addEdible(newMeal);
-            ChangeActivityHelper.changeActivity(CreateMealActivity.this, SearchFoodActivity.class, username, dayOfYear);
         });
 
     }

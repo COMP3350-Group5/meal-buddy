@@ -37,6 +37,12 @@ public class AccessEdibleTest {
     }
 
     @Test
+    public void edibleExists_avgCases_trueIfExistsInDb() {
+        Assert.assertTrue(accessEdible.edibleExists(edible.name));
+        Assert.assertFalse(accessEdible.edibleExists("FAKE NAME"));
+    }
+
+    @Test
     public void addEdible_nullEdible_throwException() {
         try {
             accessEdible.addEdible(null);
@@ -112,6 +118,16 @@ public class AccessEdibleTest {
         } catch (NullPointerException npe) {
             Assert.assertTrue(true);
         }
+    }
+
+    @Test
+    public void getEdible_edibleInDb_returnsEdible() {
+        Assert.assertEquals(edible, accessEdible.getEdible(edible.name));
+    }
+
+    @Test
+    public void getEdible_edibleNotInDb_returnsNull() {
+        Assert.assertNull(accessEdible.getEdible("FAKE NAME"));
     }
 
     @After
