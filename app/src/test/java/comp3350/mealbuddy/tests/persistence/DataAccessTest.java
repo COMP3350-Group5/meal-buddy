@@ -245,8 +245,8 @@ public class DataAccessTest {
         Exercise exercise = new Exercise("Running", 30, Exercise.Intensity.High);
         newDay.addExercise(exercise);
 
-        newDay.breakfast.add(nestedMeal);
-        newDay.snack.add(durian);
+        newDay.breakfast.add(nestedMeal, 3);
+        newDay.snack.add(durian, 2);
         newDay.snack.add(quinoa);
 
         database.updateDay(ACCOUNT_USERNAME, newDay);
@@ -275,10 +275,12 @@ public class DataAccessTest {
         Assert.assertTrue(updatedDay.dinner.isEmpty());
         Meal updatedSnack = updatedDay.snack;
         Assert.assertTrue(updatedSnack.containsEdible(durian));
+        Assert.assertEquals(2, updatedSnack.getQuantity(durian));
         Assert.assertTrue(updatedSnack.containsEdible(quinoa));
 
         Meal updatedBreakfast = updatedDay.breakfast;
         Assert.assertTrue(updatedBreakfast.containsEdible(nestedMeal));
+        Assert.assertEquals(3, updatedBreakfast.getQuantity(nestedMeal));
 
         Meal updatedNestedMeal = (Meal) updatedBreakfast.getEdibleIntPair(nestedMeal).edible;
         Assert.assertTrue(updatedNestedMeal.containsEdible(EGG_NAME));
