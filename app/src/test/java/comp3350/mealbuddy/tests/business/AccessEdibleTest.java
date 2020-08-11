@@ -38,6 +38,12 @@ public class AccessEdibleTest {
     }
 
     @Test
+    public void edibleExists_avgCases_trueIfExistsInDb() {
+        Assert.assertTrue(accessEdible.edibleExists(edible.name));
+        Assert.assertFalse(accessEdible.edibleExists("FAKE NAME"));
+    }
+
+    @Test
     public void addEdible_nullEdible_throwException() {
         try {
             accessEdible.addEdible(null);

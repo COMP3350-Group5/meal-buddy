@@ -31,11 +31,22 @@ public class AccessEdible {
     public void addEdible(Edible e) {
         if (e == null)
             throw new NullPointerException("Edible can't be null");
-        if (getEdible(e.name) != null)
+        if (edibleExists(e.name))
             throw new IllegalArgumentException("Edible already exists");
         DAS.addEdible(e);
     }
 
+    /*
+     * edibleExists
+     * Checks if the edible is in the db
+     * Parameters:
+     *     @param name - the name of the edible to check
+     * Return:
+     *      True if the edible is in the db
+     */
+    public boolean edibleExists(String name) {
+        return (getEdible(name) != null);
+    }
 
     /*
      * updateEdible
