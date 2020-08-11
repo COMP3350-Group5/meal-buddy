@@ -7,6 +7,7 @@ package comp3350.mealbuddy.presentation;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -113,12 +114,14 @@ public class GoalActivity extends AppCompatActivity {
 
         Button btnContinue = dialog.findViewById(R.id.btnContinue);
         Spinner spinner = dialog.findViewById(R.id.spnGoalType);
+
         btnContinue.setOnClickListener((view) -> {
             String spnString = spinner.getSelectedItem().toString();
             //find the right goal popup
             switch (spnString) {
                 case "Calorie Goal":
-                    showCaloriePopUp();
+                    if (day.containsGoal(new CalorieGoal(1, 2)))
+                        showCaloriePopUp();
                     break;
                 case "Label Goal":
                     showLabelPopUp();
@@ -151,16 +154,37 @@ public class GoalActivity extends AppCompatActivity {
             } else if (TextUtils.isEmpty(upperBound.getText())) {
                 upperBound.setError("Upper bound is required");
             } else {
-                Day day = accessAccount.getDay(username, dayOfYear);
-                day.addGoal(new CalorieGoal(Integer.parseInt(lowerBound.getText().toString()), Integer.parseInt(upperBound.getText().toString())));
-                accessAccount.updateDay(username, day);
-
-                //Go back to the goal activity
-                ChangeActivityHelper.changeActivity(GoalActivity.this, GoalActivity.class, username, dayOfYear);
+                addCalorieGoal(lowerBound, upperBound);
             }
         });
 
         dialog.show();
+    }
+
+    /*
+     * addCalorieGoal
+     * Adds the Calorie goal to the account and returns to goal activity if successful
+     * Parameters
+     *      @lowerBound - the Field containing the lower bound of the goal
+     *      @upperBound - the Field containing the upper bound of the goal
+     */
+    private void addCalorieGoal(EditText lowerBound, EditText upperBound) {
+        EditText errorField = dialog.findViewById(R.id.addCalGoalErrorBox);
+        try {
+            Day day = accessAccount.getDay(username, dayOfYear);
+            CalorieGoal newGoal = new CalorieGoal(Integer.parseInt(lowerBound.getText().toString()), Integer.parseInt(upperBound.getText().toString()));
+            if (day.containsGoal(newGoal)) {
+                errorField.setVisibility(View.VISIBLE);
+                errorField.setError("Day already contains a calorie goal");
+            } else {
+                day.addGoal(newGoal);
+                accessAccount.updateDay(username, day);
+                //Go back to the goal activity
+                ChangeActivityHelper.changeActivity(GoalActivity.this, GoalActivity.class, username, dayOfYear);
+            }
+        } catch (IllegalArgumentException ie) {
+            lowerBound.setError(ie.getMessage());
+        }
     }
 
     /*
@@ -169,11 +193,6 @@ public class GoalActivity extends AppCompatActivity {
      */
     public void showLabelPopUp() {
         dialog.setContentView(R.layout.add_label_goal);
-
-        //Set up the objects on screen
-        EditText lowerBound = dialog.findViewById(R.id.lowerBound);
-        EditText upperBound = dialog.findViewById(R.id.upperBound);
-        Spinner goalType = dialog.findViewById(R.id.spnType);
         Spinner labelSpinner = dialog.findViewById(R.id.label);
 
         //Populate the labels
@@ -182,6 +201,11 @@ public class GoalActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, labels);
         labelSpinner.setAdapter(adapter);
 
+        //Set up the objects on screen
+        EditText lowerBound = dialog.findViewById(R.id.lowerBound);
+        EditText upperBound = dialog.findViewById(R.id.upperBound);
+
+
         //Submit the goal
         Button btnContinue = dialog.findViewById(R.id.btnContinue);
         btnContinue.setOnClickListener((view) -> {
@@ -189,17 +213,43 @@ public class GoalActivity extends AppCompatActivity {
                 lowerBound.setError("Lower bound is required");
             } else if (TextUtils.isEmpty(upperBound.getText())) {
                 upperBound.setError("Upper bound is required");
+            } else if (labels.size() == 0) {
+                lowerBound.setError("No foods exist with a label");
             } else {
-                Day day = accessAccount.getDay(username, dayOfYear);
-                day.addGoal(new LabelGoal(Integer.parseInt(lowerBound.getText().toString()), Integer.parseInt(upperBound.getText().toString()), Goal.GoalType.valueOf(goalType.getSelectedItem().toString()), labelSpinner.getSelectedItem().toString()));
-                accessAccount.updateDay(username, day);
-
-                //Go back to the goal activity
-                ChangeActivityHelper.changeActivity(GoalActivity.this, GoalActivity.class, username, dayOfYear);
+                addLabelGoal(lowerBound, upperBound, labelSpinner);
             }
         });
 
         dialog.show();
+    }
+
+    /*
+     * addLabelGoal
+     * Adds the Label goal to the account and returns to goal activity if successful
+     * Parameters
+     *      @lowerBound - the Field containing the lower bound of the goal
+     *      @upperBound - the Field containing the upper bound of the goal
+     *      @labelSpinner - the spinner holding the label
+     */
+    private void addLabelGoal(EditText lowerBound, EditText upperBound, Spinner labelSpinner) {
+        Spinner goalType = dialog.findViewById(R.id.spnType);
+        EditText errorField = dialog.findViewById(R.id.addLabelGoalErrorBox);
+
+        try {
+            Day day = accessAccount.getDay(username, dayOfYear);
+            LabelGoal newGoal = new LabelGoal(Integer.parseInt(lowerBound.getText().toString()), Integer.parseInt(upperBound.getText().toString()), Goal.GoalType.valueOf(goalType.getSelectedItem().toString()), labelSpinner.getSelectedItem().toString());
+            if (day.containsGoal(newGoal)) {
+                errorField.setVisibility(View.VISIBLE);
+                errorField.setError("This day already contains this label goal");
+            } else {
+                day.addGoal(newGoal);
+                accessAccount.updateDay(username, day);
+                //Go back to the goal activity
+                ChangeActivityHelper.changeActivity(GoalActivity.this, GoalActivity.class, username, dayOfYear);
+            }
+        } catch (IllegalArgumentException ie) {
+            lowerBound.setError(ie.getMessage());
+        }
     }
 
     /*
@@ -211,8 +261,6 @@ public class GoalActivity extends AppCompatActivity {
 
         EditText lowerBound = dialog.findViewById(R.id.lowerBound);
         EditText upperBound = dialog.findViewById(R.id.upperBound);
-        Spinner goalType = dialog.findViewById(R.id.spnType);
-        Spinner selectedMacro = dialog.findViewById(R.id.spnMacro);
 
         Button btnContinue = dialog.findViewById(R.id.btnContinue);
         btnContinue.setOnClickListener((view) -> {
@@ -221,17 +269,39 @@ public class GoalActivity extends AppCompatActivity {
             } else if (TextUtils.isEmpty(upperBound.getText())) {
                 upperBound.setError("Upper bound is required");
             } else {
-                // add goal
-                Day day = accessAccount.getDay(username, dayOfYear);
-                day.addGoal(new MacroGoal(Integer.parseInt(lowerBound.getText().toString()), Integer.parseInt(upperBound.getText().toString()), Goal.GoalType.valueOf(goalType.getSelectedItem().toString()), Edible.Macros.valueOf(selectedMacro.getSelectedItem().toString())));
-                accessAccount.updateDay(username, day);
+                addMacroGoal(lowerBound, upperBound);
+            }
+        });
+        dialog.show();
+    }
 
+    /*
+     * addMacroGoal
+     * Adds the Macro goal to the account and returns to goal activity if successful
+     * Parameters
+     *      @lowerBound - the Field containing the lower bound of the goal
+     *      @upperBound - the Field containing the upper bound of the goal
+     */
+    private void addMacroGoal(EditText lowerBound, EditText upperBound) {
+        Spinner goalType = dialog.findViewById(R.id.spnType);
+        Spinner selectedMacro = dialog.findViewById(R.id.spnMacro);
+        EditText errorField = dialog.findViewById(R.id.addMacroGoalErrorBox);
+
+        try {
+            Day day = accessAccount.getDay(username, dayOfYear);
+            MacroGoal newGoal = new MacroGoal(Integer.parseInt(lowerBound.getText().toString()), Integer.parseInt(upperBound.getText().toString()), Goal.GoalType.valueOf(goalType.getSelectedItem().toString()), Edible.Macros.valueOf(selectedMacro.getSelectedItem().toString()));
+            if (day.containsGoal(newGoal)) {
+                errorField.setVisibility(View.VISIBLE);
+                errorField.setError("Day already contains this macro goal");
+            } else {
+                day.addGoal(newGoal);
+                accessAccount.updateDay(username, day);
                 //Go back to the goal activity
                 ChangeActivityHelper.changeActivity(GoalActivity.this, GoalActivity.class, username, dayOfYear);
             }
-        });
-
-        dialog.show();
+        } catch (IllegalArgumentException ie) {
+            lowerBound.setError(ie.getMessage());
+        }
     }
 
     /*
@@ -243,7 +313,6 @@ public class GoalActivity extends AppCompatActivity {
 
         EditText lowerBound = dialog.findViewById(R.id.lowerBound);
         EditText upperBound = dialog.findViewById(R.id.upperBound);
-        Spinner spinner = dialog.findViewById(R.id.spnMicro);
 
         Button btnContinue = dialog.findViewById(R.id.btnContinue);
         btnContinue.setOnClickListener((view) -> {
@@ -252,17 +321,38 @@ public class GoalActivity extends AppCompatActivity {
             } else if (TextUtils.isEmpty(upperBound.getText())) {
                 upperBound.setError("Upper bound is required");
             } else {
-                // add goal
-                Day day = accessAccount.getDay(username, dayOfYear);
-                day.addGoal(new MicroGoal(Integer.parseInt(lowerBound.getText().toString()), Integer.parseInt(upperBound.getText().toString()), Edible.Micros.valueOf(spinner.getSelectedItem().toString())));
-                accessAccount.updateDay(username, day);
+                addMicroGoal(lowerBound, upperBound);
+            }
+        });
+        dialog.show();
+    }
 
+    /*
+     * addMicroGoal
+     * Adds the Micro goal to the account and returns to goal activity if successful
+     * Parameters
+     *      @lowerBound - the Field containing the lower bound of the goal
+     *      @upperBound - the Field containing the upper bound of the goal
+     */
+    private void addMicroGoal(EditText lowerBound, EditText upperBound) {
+        Spinner spinner = dialog.findViewById(R.id.spnMicro);
+        Day day = accessAccount.getDay(username, dayOfYear);
+        EditText errorField = dialog.findViewById(R.id.addMicroGoalErrorBox);
+
+        try {
+            MicroGoal newGoal = new MicroGoal(Integer.parseInt(lowerBound.getText().toString()), Integer.parseInt(upperBound.getText().toString()), Edible.Micros.valueOf(spinner.getSelectedItem().toString()));
+            if (day.containsGoal(newGoal)) {
+                errorField.setVisibility(View.VISIBLE);
+                errorField.setError("Day already contains this micro goal");
+            } else {
+                day.addGoal(newGoal);
+                accessAccount.updateDay(username, day);
                 //Go back to the goal activity
                 ChangeActivityHelper.changeActivity(GoalActivity.this, GoalActivity.class, username, dayOfYear);
             }
-        });
-
-        dialog.show();
+        } catch (IllegalArgumentException ie) {
+            lowerBound.setError(ie.getMessage());
+        }
     }
 
     /*
@@ -309,6 +399,5 @@ public class GoalActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         ChangeActivityHelper.changeActivity(GoalActivity.this, TimelineActivity.class, username, dayOfYear);
-
     }
 }
