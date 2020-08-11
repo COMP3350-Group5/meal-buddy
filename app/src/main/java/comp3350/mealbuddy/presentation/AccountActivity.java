@@ -62,6 +62,9 @@ public class AccountActivity extends AppCompatActivity {
         fabEdit = findViewById(R.id.fabEdit);
         fabEdit.setOnClickListener((view) -> showPopUp());
 
+
+        Button logOutButton = findViewById(R.id.logOut);
+        logOutButton.setOnClickListener((view) -> ChangeActivityHelper.changeActivity(AccountActivity.this, HomeActivity.class));
     }
 
     /*
