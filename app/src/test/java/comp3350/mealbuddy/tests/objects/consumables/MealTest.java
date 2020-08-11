@@ -137,6 +137,28 @@ public class MealTest {
 
 
     @Test
+    public void add_addItself_throwError() {
+        //arrange
+        Meal meal1 = new Meal("meal");
+        Meal meal2 = new Meal("meal");
+        //act
+        try {
+            meal1.add(meal2);
+        }//assert
+        catch (IllegalArgumentException e) {
+            Assert.assertTrue(true);
+        }
+        //act
+        try {
+            meal1.add(meal2, 4);
+        }//assert
+        catch (IllegalArgumentException e) {
+            Assert.assertTrue(true);
+        }
+    }
+
+
+    @Test
     public void add_foodNotContainedNegativeQuantity_throwException() {
         //arrange
         String name = "mealName";

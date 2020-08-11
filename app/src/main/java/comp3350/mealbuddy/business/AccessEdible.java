@@ -32,7 +32,7 @@ public class AccessEdible {
         if (e == null)
             throw new NullPointerException("Edible can't be null");
         if (getEdible(e.name) != null)
-            return;
+            throw new IllegalArgumentException("Edible already exists");
         DAS.addEdible(e);
     }
 
@@ -64,8 +64,6 @@ public class AccessEdible {
     public void removeEdible(String e) {
         if (e == null)
             throw new NullPointerException("Edible name can't be null");
-        if (getEdible(e) == null)
-            throw new IllegalArgumentException("Edible being removed doesn't exist");
         DAS.removeEdible(e);
     }
 
@@ -88,10 +86,10 @@ public class AccessEdible {
     public Edible getEdible(String name) {
         if (name == null)
             throw new NullPointerException("Edible name can't be null");
-        List<Edible> e = getEdibles();
-        for (Edible in : e) {
-            if (in.name.equals(name))
-                return in;
+        List<Edible> edibleList = getEdibles();
+        for (Edible edible : edibleList) {
+            if (edible.name.equals(name))
+                return edible;
         }
         return null;
     }

@@ -99,6 +99,8 @@ public class Meal extends Edible {
      *     @param amount - The amount to add
      */
     public void add(Edible edible, int amount) {
+        if (edible.equals(this))
+            throw new IllegalArgumentException("Meal cannot add itself to its edibles it contains");
         if (ediblesInMeal.contains(edible))
             setEdible(edible, getQuantity(edible) + amount);
         else

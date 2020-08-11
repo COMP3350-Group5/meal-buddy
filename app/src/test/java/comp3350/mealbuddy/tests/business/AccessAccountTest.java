@@ -53,25 +53,16 @@ public class AccessAccountTest {
     @Test
     public void addAccount_multipleAccounts_dontAdd() {
         Assert.assertNotNull(accessAccount.getUserInfo(userInfo.username));
-        //add it 100 times
-        for (int i = 0; i < 100; i++)
+        try {
             accessAccount.addAccount(userInfo);
+            Assert.fail();
+        } catch (IllegalArgumentException e) {
+            Assert.assertTrue(true);
+        }
         //check if the account is still the same
         Assert.assertEquals(accessAccount.getUserInfo(userInfo.username), account.user);
     }
 
-    @Test
-    public void addAccount_multipleUsername_dontAdd() {
-        Assert.assertEquals(userInfo, accessAccount.getUserInfo(ACCOUNT_USERNAME));
-        //create a new user with different info and try to add
-        UserInfo newUserInfo = new UserInfo(
-                "", ACCOUNT_USERNAME, "", 0, 0, UserInfo.ActivityLevel.LOW, UserInfo.Sex.MALE, 1
-        );
-        accessAccount.addAccount(newUserInfo);
-        //it shouldnt be the new user info, it should be the old one.
-        Assert.assertNotEquals(newUserInfo.password, accessAccount.getUserInfo(ACCOUNT_USERNAME).password);
-        Assert.assertEquals(userInfo, accessAccount.getUserInfo(ACCOUNT_USERNAME));
-    }
 
     @Test
     public void addAccount_nullAccount_throwException() {
@@ -166,13 +157,8 @@ public class AccessAccountTest {
     }
 
     @Test
-    public void removeAccount_usernameDoesntExist_throwException() {
-        try {
-            accessAccount.removeAccount("Idontexist");
-            Assert.fail();
-        } catch (NullPointerException npe) {
-            Assert.assertTrue(true);
-        }
+    public void removeAccount_usernameDoesntExist_nothingHappens() {
+        accessAccount.removeAccount("Idontexist");
     }
 
     @Test
@@ -186,14 +172,13 @@ public class AccessAccountTest {
     }
 
     @Test
-    public void getAndVerifyAccount_getUserInDb_returnAccount() {
+    public void getAndVerifyUserInfo_getUserInDb_returnAccount() {
         Assert.assertEquals(account.user, accessAccount.getUserInfo(ACCOUNT_USERNAME));
         Assert.assertEquals(account.user, accessAccount.validateLogin(ACCOUNT_USERNAME, ACCOUNT_PASSWORD));
-
     }
 
     @Test
-    public void getAndVerifyAccount_getUserNotInDb_returnNull() {
+    public void getAndVerifyUserInfo_getUserNotInDb_returnNull() {
         Assert.assertNull(accessAccount.getUserInfo("ThisDoesntExist"));
         Assert.assertNull(accessAccount.validateLogin("This doesntExist", "this doesnt exist"));
     }
@@ -204,7 +189,7 @@ public class AccessAccountTest {
     }
 
     @Test
-    public void getAndVerifyAccount_nullValues_returnNull() {
+    public void getAndVerifyUserInfo_nullValues_returnNull() {
         Assert.assertNull(accessAccount.getUserInfo(null));
         Assert.assertNull(accessAccount.validateLogin(ACCOUNT_USERNAME, null));
         Assert.assertNull(accessAccount.validateLogin(null, "password"));

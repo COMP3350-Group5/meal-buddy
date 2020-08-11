@@ -31,7 +31,8 @@ public class AccessLabel {
         if (l == null)
             throw new NullPointerException("Label cannot be null");
         if (getLabel(l) != null)
-            return;
+            throw new IllegalArgumentException("Label being added already exists in the DB.");
+        ;
         DAS.addLabel(l);
     }
 
@@ -45,7 +46,7 @@ public class AccessLabel {
         if (l == null)
             throw new NullPointerException("Label cannot be null");
         if (getLabel(l) == null)
-            throw new IllegalArgumentException("Label being removed doesn't exist in the DB.");
+            return; //not error squelching since this is idempotent operation
         DAS.removeLabel(l);
     }
 

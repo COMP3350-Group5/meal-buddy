@@ -31,8 +31,9 @@ public class AccessAccount {
     public void addAccount(UserInfo userInfo) {
         if (userInfo == null)
             throw new IllegalArgumentException("Account cannot be null");
-        if (!accountExists(userInfo.username))
-            DAS.addAccount(userInfo);
+        if (accountExists(userInfo.username))
+            throw new IllegalArgumentException("Username already taken for this account");
+        DAS.addAccount(userInfo);
     }
 
     /*
@@ -81,8 +82,8 @@ public class AccessAccount {
      *     @param a - The account to be removed.
      */
     public void removeAccount(String userName) {
-        if (userName == null || getUserInfo(userName) == null)
-            throw new NullPointerException("Username being removed doesn't exist in the database.");
+        if (userName == null)
+            throw new NullPointerException("Username being removed is null.");
         DAS.removeAccount(userName);
     }
 
