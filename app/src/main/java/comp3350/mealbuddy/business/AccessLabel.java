@@ -4,6 +4,7 @@
  ****************************************/
 package comp3350.mealbuddy.business;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import comp3350.mealbuddy.application.Main;
@@ -70,7 +71,7 @@ public class AccessLabel {
      * getLabels
      * Get all the labels from the database
      */
-    public List<String> getLabels() {
+    public ArrayList<String> getLabels() {
         return DAS.getLabels();
     }
 

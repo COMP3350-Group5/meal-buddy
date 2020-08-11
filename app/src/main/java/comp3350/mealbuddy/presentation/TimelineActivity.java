@@ -145,6 +145,13 @@ public class TimelineActivity extends AppCompatActivity {
             accessAccount.updateDay(userInfo.username, new Day(Account.DEFAULT_DAY_NUM));
         });
 
+        // goes to label activity
+        Button gotoLabels = findViewById(R.id.gotoLabels);
+
+        gotoLabels.setOnClickListener((view) -> {
+            ChangeActivityHelper.changeActivity(TimelineActivity.this, LabelActivity.class);
+        });
+
     }
 
     /*
