@@ -40,7 +40,7 @@ public class AccessAccount {
      * checks if account exists in db
      * Returns: true if account exists
      */
-    private boolean accountExists(String userName) {
+    public boolean accountExists(String userName) {
         return !(getUserInfo(userName) == null);
     }
 

@@ -39,6 +39,12 @@ public class AccessAccountTest {
     }
 
     @Test
+    public void accountExists_avgCases_returnTrueIfExists() {
+        Assert.assertTrue(accessAccount.accountExists(userInfo.username));
+        Assert.assertFalse(accessAccount.accountExists("FAKE ACCOUNT"));
+    }
+
+    @Test
     public void addAccount_oneNewAccount_add() {
         //verify that the account isnt in the database
         accessAccount.removeAccount(dummyUserInfo.username);

@@ -59,6 +59,8 @@ public class SignUpActivity extends AppCompatActivity {
         createAccount.setOnClickListener((view) -> {
             if (TextUtils.isEmpty(username.getText())) {
                 username.setError("Username is required");
+            } else if (accessAccount.accountExists(username.getText().toString())) {
+                username.setError("This username is taken select another one");
             } else if (TextUtils.isEmpty(password.getText())) {
                 password.setError("Password is required");
             } else if (TextUtils.isEmpty(fullName.getText())) {
