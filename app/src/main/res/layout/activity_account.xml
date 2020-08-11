@@ -67,7 +67,7 @@
             android:layout_gravity="bottom|left"
             android:layout_marginLeft="50dp"
             android:layout_marginBottom="10dp"
-            android:text="Log Out" />
+            android:text="Sign Out" />
 
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
