@@ -13,6 +13,7 @@ import comp3350.mealbuddy.business.AccessEdible;
 import comp3350.mealbuddy.business.AccessLabel;
 import comp3350.mealbuddy.objects.consumables.Edible;
 import comp3350.mealbuddy.objects.consumables.Food;
+import comp3350.mealbuddy.objects.consumables.Meal;
 import comp3350.mealbuddy.tests.persistence.DataAccessStub;
 
 @SuppressWarnings("CatchMayIgnoreException")
@@ -53,11 +54,24 @@ public class AccessEdibleTest {
     }
 
     @Test
-    public void addEdible_duplicateEdible_dontAdd() {
+    public void addEdible_avgCases_ediblesAdded() {
+        Food food = new Food("food");
+        Meal meal = new Meal("meal");
+        accessEdible.addEdible(food);
+        accessEdible.addEdible(meal);
+        Assert.assertTrue(accessEdible.getEdibles().contains(food));
+        Assert.assertTrue(accessEdible.getEdibles().contains(meal));
+    }
+
+    @Test
+    public void addEdible_duplicateEdible_throwError() {
         Assert.assertNotNull(accessEdible.getEdible(EDIBLE_NAME));
-        for (int x = 0; x < 100; x++)
+        try {
             accessEdible.addEdible(edible);
-        Assert.assertNotNull(accessEdible.getEdible(EDIBLE_NAME));
+            Assert.fail();
+        } catch (IllegalArgumentException e) {
+            Assert.assertTrue(true);
+        }
     }
 
     @Test
@@ -91,6 +105,26 @@ public class AccessEdibleTest {
     }
 
     @Test
+    public void updateEdible_foodInDb_foodUpdated() {
+        Food updatedFood = new Food("updatedFood");
+        accessEdible.updateEdible(edible.name, updatedFood);
+        Assert.assertEquals(updatedFood, accessEdible.getEdible(updatedFood.name));
+    }
+
+    @Test
+    public void removeEdible_avgCases_ediblesRemoved() {
+        Food food = new Food("food");
+        Meal meal = new Meal("meal");
+        accessEdible.addEdible(food);
+        accessEdible.addEdible(meal);
+        accessEdible.removeEdible(food.name);
+        accessEdible.removeEdible(meal.name);
+        Assert.assertFalse(accessEdible.getEdibles().contains(food));
+        Assert.assertFalse(accessEdible.getEdibles().contains(meal));
+    }
+
+
+    @Test
     public void removeEdible_nullFood_throwException() {
         try {
             accessEdible.removeEdible(null);
@@ -101,13 +135,8 @@ public class AccessEdibleTest {
     }
 
     @Test
-    public void removeEdible_foodDoesntExist_throwException() {
-        try {
-            accessEdible.removeEdible("edible name that doesnt exist");
-            Assert.fail();
-        } catch (IllegalArgumentException npe) {
-            Assert.assertTrue(true);
-        }
+    public void removeEdible_foodDoesntExist_nothingHappens() {
+        accessEdible.removeEdible("edible name that doesnt exist");
     }
 
     @Test
@@ -121,13 +150,33 @@ public class AccessEdibleTest {
     }
 
     @Test
-    public void getEdible_edibleInDb_returnsEdible() {
+    public void getEdible_foodInDb_returnFood() {
         Assert.assertEquals(edible, accessEdible.getEdible(edible.name));
     }
 
     @Test
-    public void getEdible_edibleNotInDb_returnsNull() {
-        Assert.assertNull(accessEdible.getEdible("FAKE NAME"));
+    public void getEdible_foodNotDb_nullReturned() {
+        Assert.assertNull(accessEdible.getEdible("Name Not In DB"));
+    }
+
+    @Test
+    public void getEdibles_foodNotDb_emptyListReturned() {
+        List<Edible> ediblesInDb = accessEdible.getEdibles();
+        for (Edible e : ediblesInDb) {
+            accessEdible.removeEdible(e.name);
+        }
+        Assert.assertEquals(0, accessEdible.getEdibles().size());
+    }
+
+    @Test
+    public void getEdibles_foodIn_allFoodReturned() {
+        Food food = new Food("food");
+        Meal meal = new Meal("meal");
+        accessEdible.addEdible(food);
+        accessEdible.addEdible(meal);
+        Assert.assertTrue(accessEdible.getEdibles().contains(food));
+        Assert.assertTrue(accessEdible.getEdibles().contains(meal));
+        Assert.assertTrue(accessEdible.getEdibles().contains(edible));
     }
 
     @After

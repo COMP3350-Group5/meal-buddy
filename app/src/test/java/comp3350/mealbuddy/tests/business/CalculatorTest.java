@@ -455,7 +455,7 @@ public class CalculatorTest {
     private Food makeBigMac() {
         ArrayList<String> labels = new ArrayList<>();
         labels.add("Super Size Me");
-        Food bigMac = new Food("Big Mac Meal", labels);
+        Food bigMac = new Food("Big Mac", labels);
         bigMac.updateMacro(Fat, 100);
         bigMac.updateMacro(Protein, 100);
         bigMac.updateMicro(Sodium, 200);

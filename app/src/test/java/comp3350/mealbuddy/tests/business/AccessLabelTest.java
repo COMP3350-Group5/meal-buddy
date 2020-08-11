@@ -31,6 +31,23 @@ public class AccessLabelTest {
         }
     }
 
+    @Test
+    public void addLabel_avgCase_labelAdded() {
+        accessLabel.addLabel("testLabel");
+        Assert.assertTrue(accessLabel.getLabels().contains("testLabel"));
+    }
+
+    @Test
+    public void addLabel_labelExists_throwException() {
+        try {
+            accessLabel.addLabel("label Name");
+            accessLabel.addLabel("label Name");
+            Assert.fail();
+        } catch (IllegalArgumentException npe) {
+            Assert.assertTrue(true);
+        }
+    }
+
 
     @Test
     public void removeLabel_nullLabel_throwException() {
@@ -43,13 +60,16 @@ public class AccessLabelTest {
     }
 
     @Test
-    public void removeLabel_labelDoesntExist_throwException() {
-        try {
-            accessLabel.removeLabel("label doesnt exist");
-            Assert.fail();
-        } catch (IllegalArgumentException npe) {
-            Assert.assertTrue(true);
-        }
+    public void removeLabel_avgCase_labelRemoved() {
+        accessLabel.addLabel("testLabel");
+        Assert.assertTrue(accessLabel.getLabels().contains("testLabel"));
+        accessLabel.removeLabel("testLabel");
+        Assert.assertFalse(accessLabel.getLabels().contains("testLabel"));
+    }
+
+    @Test
+    public void removeLabel_labelDoesntExist_nothingHappens() {
+        accessLabel.removeLabel("label doesnt exist");
     }
 
     @Test
