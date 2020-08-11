@@ -68,6 +68,8 @@ public class AddFoodActivity extends AppCompatActivity {
         submit.setOnClickListener((view) -> {
             if (TextUtils.isEmpty(name.getText())) {
                 name.setError("Name is required");
+            } else if (accessEdible.edibleExists(name.getText().toString())) {
+                name.setError("Edible already exists choose a different name");
             } else if (TextUtils.isEmpty(protein.getText())) {
                 protein.setError("Protein is required");
             } else if (TextUtils.isEmpty(fat.getText())) {
@@ -83,15 +85,17 @@ public class AddFoodActivity extends AppCompatActivity {
                     accessLabel.addLabel(label.trim());
                 }
                 //grab the food name and initialize with the labels
-                Food food = new Food(name.getText().toString(), labelList);
+                Food newFood = new Food(name.getText().toString(), labelList);
 
                 //grab the number values for weight and macros
-                food.setWeight(Integer.parseInt(weight.getText().toString()));
-                food.updateMacro(Edible.Macros.Protein, Integer.parseInt(protein.getText().toString()));
-                food.updateMacro(Edible.Macros.Fat, Integer.parseInt(fat.getText().toString()));
-                food.updateMacro(Edible.Macros.Carbohydrates, Integer.parseInt(carbs.getText().toString()));
+                newFood.setWeight(Integer.parseInt(weight.getText().toString()));
+                newFood.updateMacro(Edible.Macros.Protein, Integer.parseInt(protein.getText().toString()));
+                newFood.updateMacro(Edible.Macros.Fat, Integer.parseInt(fat.getText().toString()));
+                newFood.updateMacro(Edible.Macros.Carbohydrates, Integer.parseInt(carbs.getText().toString()));
 
-                showPopUp(food, username, dayOfYear);
+                accessEdible.addEdible(newFood); //this adds the food to the foods database.
+
+                ChangeActivityHelper.changeActivity(AddFoodActivity.this, SearchFoodActivity.class, username, dayOfYear);
             }
         });
     }
@@ -128,7 +132,6 @@ public class AddFoodActivity extends AppCompatActivity {
                 accessEdible.addEdible(edible); //this adds the food to the foods database.
 
                 //go back to the timeline activity and pass the username
-                ChangeActivityHelper.changeActivity(AddFoodActivity.this, TimelineActivity.class, username, dayOfYear);
             }
         });
 
