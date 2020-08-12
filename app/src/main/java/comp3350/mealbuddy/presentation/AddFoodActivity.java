@@ -53,7 +53,6 @@ public class AddFoodActivity extends AppCompatActivity {
         accessAccount = new AccessAccount();
         accessEdible = new AccessEdible(); //needed so we can add the food to the DB
         accessLabel = new AccessLabel();
-        final Day day = accessAccount.getDay(username, dayOfYear);
 
         //obtain all the UI components to grab values from
         Button submit = findViewById(R.id.btnAddFood);
@@ -90,72 +89,10 @@ public class AddFoodActivity extends AppCompatActivity {
                 food.updateMacro(Edible.Macros.Protein, Integer.parseInt(protein.getText().toString()));
                 food.updateMacro(Edible.Macros.Fat, Integer.parseInt(fat.getText().toString()));
                 food.updateMacro(Edible.Macros.Carbohydrates, Integer.parseInt(carbs.getText().toString()));
+                accessEdible.addEdible(food);
 
-                showPopUp(food, username, dayOfYear);
+                ChangeActivityHelper.changeActivity(this, SearchFoodActivity.class, username, dayOfYear);
             }
         });
-    }
-
-    /*
-     * showPopUp
-     * shows the pop up with the corresponding information.
-     * Parameters:
-     *      @param edible - the edible to show
-     *      @param username - the account to add to
-     *      @param dayOfYear - the day to add to
-     */
-    public void showPopUp(Edible edible, String username, int dayOfYear) {
-        dialog.setContentView(R.layout.pop_up_food);
-        //initialize dialog components
-        TextView titleText = dialog.findViewById(R.id.tvPopUpTitle);
-        Spinner spinner = dialog.findViewById(R.id.spnMealtimes);
-        Button btn = dialog.findViewById(R.id.btnConfirm);
-        EditText editText = dialog.findViewById(R.id.etQuantity);
-
-        btn.setOnClickListener((view) -> {
-            if (TextUtils.isEmpty(editText.getText())) {
-                editText.setError("Quantity is required");
-            } else {
-                //add the food
-                String spnString = spinner.getSelectedItem().toString();
-                //find the meal time
-                Day.MealTimeType MT = getMealTime(spnString);
-                Day day = accessAccount.getDay(username, dayOfYear);
-
-                //add the meal to the day and update the day in the user
-                day.addToMeal(MT, edible, Integer.parseInt(editText.getText().toString()));
-                accessAccount.updateDay(username, day);
-                accessEdible.addEdible(edible); //this adds the food to the foods database.
-
-                //go back to the timeline activity and pass the username
-                ChangeActivityHelper.changeActivity(AddFoodActivity.this, TimelineActivity.class, username, dayOfYear);
-            }
-        });
-
-        titleText.setText("Adding Food: " + edible.name);
-        dialog.show();
-    }
-
-    /*
-     * getMealTime
-     * returns the mealtime type from the string value
-     */
-    private Day.MealTimeType getMealTime(String value) {
-        Day.MealTimeType MT;
-        switch (value) {
-            case "Breakfast":
-                MT = Day.MealTimeType.BREAKFAST;
-                break;
-            case "Lunch":
-                MT = Day.MealTimeType.LUNCH;
-                break;
-            case "Dinner":
-                MT = Day.MealTimeType.DINNER;
-                break;
-            default:
-                MT = Day.MealTimeType.SNACK;
-                break;
-        }
-        return MT;
     }
 }
