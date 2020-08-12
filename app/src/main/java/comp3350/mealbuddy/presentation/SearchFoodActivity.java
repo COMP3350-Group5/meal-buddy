@@ -125,8 +125,11 @@ public class SearchFoodActivity extends AppCompatActivity {
 
         btn.setOnClickListener((view) -> {
             if (TextUtils.isEmpty(editText.getText())) {
-                editText.setError("Quantity is required");
-            } else {
+                editText.setError("Quantity is required.");
+            }
+            else if (Integer.parseInt(editText.getText().toString()) == 0) {
+                editText.setError("Quantity cannot be 0.");
+            }else {
                 //add the food
                 String spnString = spinner.getSelectedItem().toString();
                 //find the meal time

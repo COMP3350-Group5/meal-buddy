@@ -1,33 +1,22 @@
-/****************************************
- * CreateMealActivity
- * the meal activity
- ****************************************/
 package comp3350.mealbuddy.presentation;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.util.SparseBooleanArray;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Spinner;
-import android.widget.TextView;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import comp3350.mealbuddy.R;
 import comp3350.mealbuddy.business.AccessEdible;
-import comp3350.mealbuddy.objects.Day;
 import comp3350.mealbuddy.objects.consumables.Edible;
-import comp3350.mealbuddy.objects.consumables.Meal;
 
-public class CreateMealActivity extends AppCompatActivity {
+public class CreateMeal extends AppCompatActivity {
 
     Dialog dialog;
 
@@ -40,7 +29,7 @@ public class CreateMealActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_build_meal);
+        setContentView(R.layout.activity_create_meal);
 
 
         dialog = new Dialog(this);
@@ -62,29 +51,22 @@ public class CreateMealActivity extends AppCompatActivity {
             ediblesString.add(e.name);
         }
 
-        int[] edibleQuantites = new int[edibles.size()];
-
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_multiple_choice, ediblesString);
         foodList.setAdapter(adapter);
 
-        foodList.setOnItemClickListener((parent, view, pos, id) -> {showPopUp(pos, edibleQuantites);});
+        foodList.setOnItemClickListener((parent, view, pos, id) -> showPopUp());
 
         //OnSubmit
         addMeal.setOnClickListener((view) -> {
-            String mealName = mealTitle.getText().toString();
-            if (accessEdible.edibleExists(mealName)) {
-                mealTitle.setError("An edible with this name already exists!");
-            } else {
-                Meal newMeal = new Meal(mealName);
-                SparseBooleanArray checkedItems = foodList.getCheckedItemPositions();
-                for (int i = 0; i < checkedItems.size(); i++) {
-                    int ediblePosition = checkedItems.keyAt(i);
-                    int edibleQuantity = edibleQuantites[ediblePosition];
-                    newMeal.add(edibles.get(ediblePosition), edibleQuantity);
-                }
-                accessEdible.addEdible(newMeal);
-                ChangeActivityHelper.changeActivity(CreateMealActivity.this, SearchFoodActivity.class, username, dayOfYear);
-            }
+//            String mealName = mealTitle.getText().toString();
+//            Meal newMeal = new Meal(mealName);
+//            SparseBooleanArray checkedItems = foodList.getCheckedItemPositions();
+//            for (int i = 0; i < checkedItems.size(); i++) {
+//                newMeal.add(edibles.get(checkedItems.keyAt(i)));
+//            }
+//            accessEdible.addEdible(newMeal);
+//            ChangeActivityHelper.changeActivity(CreateMealActivity.this, SearchFoodActivity.class, username, dayOfYear);
+            showPopUp();
         });
 
     }
@@ -97,26 +79,16 @@ public class CreateMealActivity extends AppCompatActivity {
      *      @param username - the account to add to
      *      @param dayOfYear - the day to add to
      */
-    public void showPopUp(int pos, int[] quantities) {
+    public void showPopUp() {
         dialog.setContentView(R.layout.choose_quantites);
 
         EditText quantity = dialog.findViewById(R.id.edibleQuantity);
         Button confirmBtn = dialog.findViewById(R.id.confirmBtn);
 
-        confirmBtn.setOnClickListener((view) -> {
-            if (TextUtils.isEmpty(quantity.getText())) {
-                quantity.setError("Quantity is required.");
-            }
-            else if (Integer.parseInt(quantity.getText().toString()) == 0) {
-                quantity.setError("Quantity cannot be 0.");
-            }
-            else {
-                quantities[pos] = Integer.parseInt(quantity.getText().toString());
-                dialog.dismiss();
-            }
+        confirmBtn.setOnClickListener((dialog) -> {
+            quantity.setError("Error");
+            ChangeActivityHelper.changeActivity(CreateMeal.this, CreateMeal.class);
         });
         dialog.show();
     }
-
-
 }
