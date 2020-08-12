@@ -51,14 +51,7 @@ public class AddExerciseActivity extends AppCompatActivity {
 
         //on submit we want to create a new exercise
         submit.setOnClickListener((view) -> {
-            if (TextUtils.isEmpty(name.getText()) && TextUtils.isEmpty(duration.getText())) {
-                name.setError("Name is required");
-                duration.setError("Duration is required");
-            } else if (TextUtils.isEmpty(name.getText())) {
-                name.setError("Name is required");
-            } else if (TextUtils.isEmpty(duration.getText())) {
-                duration.setError("Duration is required");
-            } else {
+            if (checkInputs(name, duration)){
                 String spnString = spinner.getSelectedItem().toString();
                 Exercise.Intensity IT = getIntensity(spnString);
                 Exercise exercise = new Exercise(name.getText().toString(), Double.parseDouble(duration.getText().toString()), IT);
@@ -84,6 +77,25 @@ public class AddExerciseActivity extends AppCompatActivity {
         else
             IT = Exercise.Intensity.High;
         return IT;
+    }
+
+    /*
+     * Check if the input fields are valid.
+     */
+    private boolean checkInputs(EditText name, EditText duration) {
+        boolean inputsValid = true;
+
+        if (TextUtils.isEmpty(name.getText())) {
+            name.setError("Name is required");
+            inputsValid = false;
+        }
+
+        if (TextUtils.isEmpty(duration.getText())) {
+            duration.setError("Duration is required");
+            inputsValid = false;
+        }
+
+        return inputsValid;
     }
 
 }
