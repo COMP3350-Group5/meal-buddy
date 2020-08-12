@@ -108,12 +108,12 @@ public class LabelActivity extends AppCompatActivity {
         boolean inputsValid = true;
 
         if (TextUtils.isEmpty(updateText.getText())) {
-            updateText.setError("The Name To Be Updated To cannot be empty!");
+            updateText.setError("The name to be updated to cannot be empty!");
             inputsValid = false;
         }
 
-        if (adapter.getPosition(updateText.getText().toString()) < 0) {
-            updateText.setError("The Name To Be Updated To Is Already In Use!");
+        if (adapter.getPosition(updateText.getText().toString()) >= 0) {
+            updateText.setError("The name to be updated to is already in use!");
             inputsValid = false;
         }
 
