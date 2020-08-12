@@ -4,14 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.TimelineActivity">
+    tools:context=".presentation.TimelineActivity"
+    android:descendantFocusability="afterDescendants"
+    >
 
     <TextView
         android:id="@+id/txtBuilder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="Labels"
+        android:text="Test"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,8 +32,19 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <EditText
+                android:id="@+id/mealName"
+                android:layout_width="460dp"
+                android:layout_height="50dp"
+                android:ems="10"
+                android:hint="Enter Meal Name"
+                android:inputType="text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <ListView
-                android:id="@+id/labelListView"
+                android:id="@+id/foodList"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="50dp"
@@ -45,59 +58,18 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/bottomCard"
         android:layout_width="500dp"
-        android:layout_height="210dp"
-        android:layout_marginTop="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardTotals">
 
         <Button
-            android:id="@+id/labelBtnAdd"
-            android:layout_width="160dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="left|center"
-            android:text="Add Label" />
-
-
-        <EditText
-            android:id="@+id/labelAddLabelText"
+            android:id="@+id/btnAdd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center|left"
-            android:layout_marginLeft="185dp"
-            android:ems="10"
-            android:inputType="text"
-            android:hint="Name to Add" />
-
-        <Button
-            android:id="@+id/labelBtnUpdate"
-            android:layout_width="160dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:enabled="false"
-            android:text="Update Selected" />
-
-        <EditText
-            android:id="@+id/labelUpdateLabelText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_marginLeft="185dp"
-            android:ems="10"
-            android:inputType="text"
-            android:hint="Name to update to" />
-
-        <Button
-            android:id="@+id/labelBtnRemove"
-            android:layout_width="160dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            android:enabled="false"
-            android:text="Remove Label" />
-
-
+            android:layout_gravity="center"
+            android:text="Add Meal" />
     </androidx.cardview.widget.CardView>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

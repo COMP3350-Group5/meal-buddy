@@ -4,12 +4,17 @@
  ****************************************/
 package comp3350.mealbuddy.presentation;
 
+import android.app.Dialog;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.SparseBooleanArray;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -25,6 +30,8 @@ import comp3350.mealbuddy.objects.consumables.Meal;
 
 public class CreateMealActivity extends AppCompatActivity {
 
+    Dialog dialog;
+
     /*
      * onCreate
      * called when the activity is initially created
@@ -37,6 +44,9 @@ public class CreateMealActivity extends AppCompatActivity {
         setContentView(R.layout.activity_build_meal);
         AccessLabel accessLabel = new AccessLabel();
 
+
+
+        dialog = new Dialog(this);
 
         //get the items passed
         int dayOfYear = this.getIntent().getIntExtra("dayOfYear", -1);
@@ -56,8 +66,12 @@ public class CreateMealActivity extends AppCompatActivity {
             ediblesString.add(e.name);
         }
 
+        int[] edibleQuantites = new int[edibles.size()];
+
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_multiple_choice, ediblesString);
         foodList.setAdapter(adapter);
+
+        foodList.setOnItemClickListener((parent, view, pos, id) -> {showPopUp(pos, edibleQuantites);});
 
         //OnSubmit
         addMeal.setOnClickListener((view) -> {
@@ -73,13 +87,44 @@ public class CreateMealActivity extends AppCompatActivity {
                 Meal newMeal = new Meal(mealName, labelList);
                 SparseBooleanArray checkedItems = foodList.getCheckedItemPositions();
                 for (int i = 0; i < checkedItems.size(); i++) {
-                    newMeal.add(edibles.get(checkedItems.keyAt(i)));
+                    int ediblePosition = checkedItems.keyAt(i);
+                    int edibleQuantity = edibleQuantites[ediblePosition];
+                    newMeal.add(edibles.get(ediblePosition), edibleQuantity);
                 }
                 accessEdible.addEdible(newMeal);
                 ChangeActivityHelper.changeActivity(CreateMealActivity.this, SearchFoodActivity.class, username, dayOfYear);
             }
         });
 
+    }
+
+    /*
+     * showPopUp
+     * shows the pop up with the corresponding information.
+     * Parameters:
+     *      @param edible - the edible to show
+     *      @param username - the account to add to
+     *      @param dayOfYear - the day to add to
+     */
+    public void showPopUp(int pos, int[] quantities) {
+        dialog.setContentView(R.layout.choose_quantites);
+
+        EditText quantity = dialog.findViewById(R.id.edibleQuantity);
+        Button confirmBtn = dialog.findViewById(R.id.confirmBtn);
+
+        confirmBtn.setOnClickListener((view) -> {
+            if (TextUtils.isEmpty(quantity.getText())) {
+                quantity.setError("Quantity is required.");
+            }
+            else if (Integer.parseInt(quantity.getText().toString()) == 0) {
+                quantity.setError("Quantity cannot be 0.");
+            }
+            else {
+                quantities[pos] = Integer.parseInt(quantity.getText().toString());
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
     }
 
 
