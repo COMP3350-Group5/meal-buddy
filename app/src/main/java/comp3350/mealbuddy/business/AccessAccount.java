@@ -4,6 +4,8 @@
  ****************************************/
 package comp3350.mealbuddy.business;
 
+import java.util.List;
+
 import comp3350.mealbuddy.application.Main;
 import comp3350.mealbuddy.application.Services;
 import comp3350.mealbuddy.objects.Account;
@@ -118,6 +120,24 @@ public class AccessAccount {
         }
         return DAS.getDay(userName, day);
     }
+
+    /*
+     * getDays
+     * Get all the days in the account
+     * Parameters:
+     *     @param userName - The account to retrieve the days for
+     * Return:
+     *     The list of days
+     */
+    public List<Day> getDays(String userName) {
+        if (userName == null)
+            throw new NullPointerException("Username cannot be null");
+        if (!accountExists(userName))
+            throw new IllegalArgumentException("Username doesn't exist");
+
+        return DAS.getDays(userName);
+    }
+
 
     /*
      * setDayToDefault
