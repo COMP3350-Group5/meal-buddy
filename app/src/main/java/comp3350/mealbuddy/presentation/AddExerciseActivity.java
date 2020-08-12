@@ -51,7 +51,7 @@ public class AddExerciseActivity extends AppCompatActivity {
 
         //on submit we want to create a new exercise
         submit.setOnClickListener((view) -> {
-            if (checkInputs(name, duration)){
+            if (validateInput(name, duration)){
                 String spnString = spinner.getSelectedItem().toString();
                 Exercise.Intensity IT = getIntensity(spnString);
                 Exercise exercise = new Exercise(name.getText().toString(), Double.parseDouble(duration.getText().toString()), IT);
@@ -82,7 +82,7 @@ public class AddExerciseActivity extends AppCompatActivity {
     /*
      * Check if the input fields are valid.
      */
-    private boolean checkInputs(EditText name, EditText duration) {
+    private boolean validateInput(EditText name, EditText duration) {
         boolean inputsValid = true;
 
         if (TextUtils.isEmpty(name.getText())) {

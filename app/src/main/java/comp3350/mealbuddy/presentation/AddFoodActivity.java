@@ -66,24 +66,13 @@ public class AddFoodActivity extends AppCompatActivity {
 
         //on submit we want to create a new food
         submit.setOnClickListener((view) -> {
-            if (TextUtils.isEmpty(name.getText())) {
-                name.setError("Name is required");
-            } else if (accessEdible.edibleExists(name.getText().toString())) {
-                name.setError("Edible already exists choose a different name");
-            } else if (TextUtils.isEmpty(protein.getText())) {
-                protein.setError("Protein is required");
-            } else if (TextUtils.isEmpty(fat.getText())) {
-                fat.setError("Fat is required");
-            } else if (TextUtils.isEmpty(carbs.getText())) {
-                carbs.setError("Carbs are required");
-            } else if (TextUtils.isEmpty(weight.getText())) {
-                weight.setError("Weight is required");
-            } else {
+         if (validateInput(name, protein, fat, carbs, weight)) {
                 //get the labels from the label UI
                 ArrayList<String> labelList = new ArrayList<>(Arrays.asList(labels.getText().toString().split(",")));
                 for (String label : labelList) {
                     accessLabel.addLabel(label.trim());
                 }
+
                 //grab the food name and initialize with the labels
                 Food newFood = new Food(name.getText().toString(), labelList);
 
@@ -100,65 +89,44 @@ public class AddFoodActivity extends AppCompatActivity {
         });
     }
 
-    /*
-     * showPopUp
-     * shows the pop up with the corresponding information.
-     * Parameters:
-     *      @param edible - the edible to show
-     *      @param username - the account to add to
-     *      @param dayOfYear - the day to add to
-     */
-    public void showPopUp(Edible edible, String username, int dayOfYear) {
-        dialog.setContentView(R.layout.pop_up_food);
-        //initialize dialog components
-        TextView titleText = dialog.findViewById(R.id.tvPopUpTitle);
-        Spinner spinner = dialog.findViewById(R.id.spnMealtimes);
-        Button btn = dialog.findViewById(R.id.btnConfirm);
-        EditText editText = dialog.findViewById(R.id.etQuantity);
-
-        btn.setOnClickListener((view) -> {
-            if (TextUtils.isEmpty(editText.getText())) {
-                editText.setError("Quantity is required");
-            } else {
-                //add the food
-                String spnString = spinner.getSelectedItem().toString();
-                //find the meal time
-                Day.MealTimeType MT = getMealTime(spnString);
-                Day day = accessAccount.getDay(username, dayOfYear);
-
-                //add the meal to the day and update the day in the user
-                day.addToMeal(MT, edible, Integer.parseInt(editText.getText().toString()));
-                accessAccount.updateDay(username, day);
-                accessEdible.addEdible(edible); //this adds the food to the foods database.
-
-                //go back to the timeline activity and pass the username
-            }
-        });
-
-        titleText.setText("Adding Food: " + edible.name);
-        dialog.show();
-    }
 
     /*
-     * getMealTime
-     * returns the mealtime type from the string value
+     * Check if the input fields are valid.
      */
-    private Day.MealTimeType getMealTime(String value) {
-        Day.MealTimeType MT;
-        switch (value) {
-            case "Breakfast":
-                MT = Day.MealTimeType.BREAKFAST;
-                break;
-            case "Lunch":
-                MT = Day.MealTimeType.LUNCH;
-                break;
-            case "Dinner":
-                MT = Day.MealTimeType.DINNER;
-                break;
-            default:
-                MT = Day.MealTimeType.SNACK;
-                break;
-        }
-        return MT;
-    }
+  private boolean validateInput(EditText name, EditText protein, EditText fat, EditText carbs, EditText weight) {
+        boolean inputsValid = true;
+
+      if (TextUtils.isEmpty(name.getText())) {
+          name.setError("Name is required");
+          inputsValid = false;
+      }
+
+      if (accessEdible.edibleExists(name.getText().toString())) {
+          name.setError("Edible already exists choose a different name");
+          inputsValid = false;
+      }
+
+      if (TextUtils.isEmpty(protein.getText())) {
+          protein.setError("Protein is required");
+          inputsValid = false;
+      }
+
+      if (TextUtils.isEmpty(fat.getText())) {
+          fat.setError("Fat is required");
+          inputsValid = false;
+      }
+
+      if (TextUtils.isEmpty(carbs.getText())) {
+          carbs.setError("Carbs are required");
+          inputsValid = false;
+      }
+
+      if (TextUtils.isEmpty(weight.getText())) {
+          weight.setError("Weight is required");
+          inputsValid = false;
+      }
+
+      return inputsValid;
+  }
+
 }
