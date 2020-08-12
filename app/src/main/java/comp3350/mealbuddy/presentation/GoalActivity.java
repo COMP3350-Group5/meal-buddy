@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -103,6 +104,9 @@ public class GoalActivity extends AppCompatActivity {
             accessAccount.updateDay(username, day);
             ChangeActivityHelper.changeActivity(GoalActivity.this, GoalActivity.class, username, dayOfYear);
         });
+
+        BottomNavigationView nav = findViewById(R.id.bottom_navigation);
+        nav.setSelectedItemId(R.id.action_goals);
     }
 
     /*

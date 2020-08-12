@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import comp3350.mealbuddy.R;
@@ -65,6 +66,9 @@ public class AccountActivity extends AppCompatActivity {
 
         Button logOutButton = findViewById(R.id.logOut);
         logOutButton.setOnClickListener((view) -> ChangeActivityHelper.changeActivity(AccountActivity.this, HomeActivity.class));
+
+        BottomNavigationView nav = findViewById(R.id.bottom_navigation);
+        nav.setSelectedItemId(R.id.action_account);
     }
 
     /*

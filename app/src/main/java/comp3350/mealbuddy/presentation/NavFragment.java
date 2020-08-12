@@ -1,12 +1,20 @@
 package comp3350.mealbuddy.presentation;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import java.util.Calendar;
 
 import comp3350.mealbuddy.R;
 
@@ -57,5 +65,28 @@ public class NavFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_nav, container, false);
+    }
+
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        Activity activity = getActivity();
+        Calendar calendar = Calendar.getInstance();
+        int dayOfYear = activity.getIntent().getIntExtra("dayOfYear", calendar.get(Calendar.DAY_OF_YEAR));
+        String username = activity.getIntent().getStringExtra("username");
+        BottomNavigationView nav = getView().findViewById(R.id.bottom_navigation);
+        nav.setOnNavigationItemSelectedListener((MenuItem item) -> {
+            Intent intent;
+            switch (item.getItemId()) {
+                case R.id.action_goals:
+                    ChangeActivityHelper.changeActivity(activity, GoalActivity.class, username, dayOfYear);
+                    break;
+                case R.id.action_account:
+                    ChangeActivityHelper.changeActivity(activity, AccountActivity.class, username, dayOfYear);
+                    break;
+                case R.id.action_timeline:
+                    ChangeActivityHelper.changeActivity(activity, TimelineActivity.class, username, dayOfYear);
+                    break;
+            }
+            return true;
+        });
     }
 }
