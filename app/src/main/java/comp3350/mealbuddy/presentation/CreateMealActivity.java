@@ -19,11 +19,12 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import comp3350.mealbuddy.R;
 import comp3350.mealbuddy.business.AccessEdible;
-import comp3350.mealbuddy.objects.Day;
+import comp3350.mealbuddy.business.AccessLabel;
 import comp3350.mealbuddy.objects.consumables.Edible;
 import comp3350.mealbuddy.objects.consumables.Meal;
 
@@ -41,6 +42,8 @@ public class CreateMealActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_build_meal);
+        AccessLabel accessLabel = new AccessLabel();
+
 
 
         dialog = new Dialog(this);
@@ -51,6 +54,7 @@ public class CreateMealActivity extends AppCompatActivity {
 
         //Get the objects on the screen
         EditText mealTitle = findViewById(R.id.mealName);
+        EditText labels = findViewById(R.id.mealLabels);
         ListView foodList = findViewById(R.id.foodList);
         Button addMeal = findViewById(R.id.btnAdd);
 
@@ -75,7 +79,12 @@ public class CreateMealActivity extends AppCompatActivity {
             if (accessEdible.edibleExists(mealName)) {
                 mealTitle.setError("An edible with this name already exists!");
             } else {
-                Meal newMeal = new Meal(mealName);
+                ArrayList<String> labelList = new ArrayList<>(Arrays.asList(labels.getText().toString().split(",")));
+                for (String label : labelList) {
+                    accessLabel.addLabel(label.trim());
+                }
+
+                Meal newMeal = new Meal(mealName, labelList);
                 SparseBooleanArray checkedItems = foodList.getCheckedItemPositions();
                 for (int i = 0; i < checkedItems.size(); i++) {
                     int ediblePosition = checkedItems.keyAt(i);

@@ -59,6 +59,7 @@
             android:layout_gravity="left|center"
             android:text="Add Label" />
 
+
         <EditText
             android:id="@+id/labelAddLabelText"
             android:layout_width="wrap_content"
@@ -67,14 +68,15 @@
             android:layout_marginLeft="185dp"
             android:ems="10"
             android:inputType="text"
-            android:hint="Label To Add" />
+            android:hint="Name to Add" />
 
         <Button
             android:id="@+id/labelBtnUpdate"
             android:layout_width="160dp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:text="Update Label" />
+            android:enabled="false"
+            android:text="Update Selected" />
 
         <EditText
             android:id="@+id/labelUpdateLabelText"
@@ -84,13 +86,14 @@
             android:layout_marginLeft="185dp"
             android:ems="10"
             android:inputType="text"
-            android:hint="Label To Update" />
+            android:hint="Name to update to" />
 
         <Button
             android:id="@+id/labelBtnRemove"
             android:layout_width="160dp"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
+            android:enabled="false"
             android:text="Remove Label" />
 
 
