@@ -54,23 +54,15 @@ public class ViewStatsActivity extends AppCompatActivity {
         //set all the totals
         setTotalValues();
 
-        //set the component values properly
-        ((TextView)findViewById(R.id.tvStatsCaloriesValue)).setText(totalCalories);
-        ((TextView)findViewById(R.id.tvStatsCaloriesValueAvg)).setText(totalCalories/totalDaysTracked);
-        ((TextView)findViewById(R.id.tvStatsCaloriesBurnedValue)).setText(totalCaloriesBurned);
-        ((TextView)findViewById(R.id.tvStatsCaloriesBurnedValueAvg)).setText(totalCaloriesBurned/totalDaysTracked);
-        ((TextView)findViewById(R.id.tvStatsGoalsAchievedValue)).setText(totalGoalsAchieved);
-        ((TextView)findViewById(R.id.tvStatsGoalsAchievedValueAvg)).setText(totalGoalsAchieved/totalDaysTracked);
-        ((TextView)findViewById(R.id.tvStatsDaysTrackedValue)).setText(totalDaysTracked);
-        ((TextView)findViewById(R.id.tvStatsDaysTrackedValueAvg)).setText(totalDaysTracked/365);
-        ((TextView)findViewById(R.id.tvStatsMacroCarbsValue)).setText(totalCarbCalories);
-        ((TextView)findViewById(R.id.tvStatsMacroCarbsValueAvg)).setText(totalCarbCalories/totalCalories);
-        ((TextView)findViewById(R.id.tvStatsMacroProteinValue)).setText(totalProteinCalories);
-        ((TextView)findViewById(R.id.tvStatsMacroProteinValueAvg)).setText(totalProteinCalories/totalCalories);
-        ((TextView)findViewById(R.id.tvStatsMacroFatValue)).setText(totalFatCalories);
-        ((TextView)findViewById(R.id.tvStatsMacroFatValueAvg)).setText(totalFatCalories/totalCalories);
+        //set the components
+        setComponentValues();
+
     }
 
+    /*
+     * setTotalValues
+     * sets each of the total values for the components to use
+     */
     private void setTotalValues(){
         //get all the tracked days
         List<Day> listOfDays = accessAccount.getDays(username);
@@ -88,5 +80,82 @@ public class ViewStatsActivity extends AppCompatActivity {
             totalGoalsAchieved += GoalTracker.getPassedGoals(calculator, d.getGoals()).size();
         }
         totalDaysTracked = listSize == 0 ? 1 : listSize;
+    }
+
+    /*
+     * setComponentValues
+     * sets the components to the corresponding values
+     */
+    private void setComponentValues(){
+        //call helper methods to set the components
+        setComponentTotalValues();
+        setComponentAverageValues();
+        setComponentPercentValues();
+        setComponentDayValues();
+    }
+
+    /*
+     * setComponentTotalValues
+     * sets the components to the values. Handles the 'total' components.
+     */
+    private void setComponentTotalValues(){
+        Object[][] totalComponents = {
+            {R.id.tvStatsCaloriesValue, totalCalories},
+            {R.id.tvStatsCaloriesBurnedValue, totalCaloriesBurned},
+            {R.id.tvStatsGoalsAchievedValue, totalGoalsAchieved},
+            {R.id.tvStatsDaysTrackedValue, totalDaysTracked},
+            {R.id.tvStatsMacroCarbsValue, totalCarbCalories},
+            {R.id.tvStatsMacroProteinValue, totalProteinCalories},
+            {R.id.tvStatsMacroFatValue, totalFatCalories},
+        };
+        for (Object[] o : totalComponents){
+            TextView tv = findViewById((int)o[0]);
+            tv.setText(String.valueOf(o[1]));
+        }
+    }
+
+    /*
+     * setComponentAverageValues
+     * sets the components to the values. Handles the 'average' components.
+     */
+    private void setComponentAverageValues() {
+        Object[][] averagesComponents = {
+            {R.id.tvStatsCaloriesValueAvg, totalCalories, (double)totalDaysTracked},
+            {R.id.tvStatsCaloriesBurnedValueAvg, totalCaloriesBurned, (double)totalDaysTracked},
+            {R.id.tvStatsGoalsAchievedValueAvg, totalGoalsAchieved, (double)totalDaysTracked},
+        };
+        for (Object[] o : averagesComponents) {
+            TextView tv = findViewById((int) o[0]);
+            double val = Math.round(((int) o[1] / (double) o[2]) * 100) / 100.0;
+            tv.setText(String.format("%.02f per day", val));
+        }
+    }
+
+    /*
+     * setComponentPercentValues
+     * sets the components to the values. Handles the 'percentage' components.
+     */
+    private void setComponentPercentValues(){
+        Object[][] percentageComponents = {
+            {R.id.tvStatsMacroCarbsValueAvg, totalCarbCalories, (double)totalCalories},
+            {R.id.tvStatsMacroProteinValueAvg, totalProteinCalories, (double)totalCalories},
+            {R.id.tvStatsMacroFatValueAvg, totalFatCalories, (double)totalCalories},
+        };
+        for (Object[] o : percentageComponents){
+            TextView tv = findViewById((int)o[0]);
+            double val = Math.round(((int)o[1]/(double)o[2]) * 100);
+            tv.setText(String.format("%.02f% of total cal", val));
+        }
+    }
+
+    /*
+     * setComponentPercentValues
+     * sets the components to the values. Handles the 'percentage' components.
+     */
+    private void setComponentDayValues(){
+        TextView tv = findViewById(R.id.tvStatsDaysTrackedValueAvg);
+        double val = Math.round((totalDaysTracked/365.0) * 100);
+        tv.setText(String.format("%.02f% of year tracked", val));
+
     }
 }
