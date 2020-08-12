@@ -132,6 +132,9 @@ public class AccessAccount {
     public List<Day> getDays(String userName) {
         if (userName == null)
             throw new NullPointerException("Username cannot be null");
+        if (!accountExists(userName))
+            throw new IllegalArgumentException("Username doesn't exist");
+
         return DAS.getDays(userName);
     }
 
