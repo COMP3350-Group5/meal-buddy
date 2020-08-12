@@ -159,6 +159,7 @@ public class SearchFoodActivity extends AppCompatActivity {
         removeEdible.setOnClickListener((view) -> {
             accessEdible.removeEdible(edible.name);
             stringArrayAdapter.remove(edible.name);
+            listview.setAdapter(stringArrayAdapter);
             dialog.dismiss();
         });
 
