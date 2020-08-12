@@ -77,7 +77,7 @@
                 <ImageView
                     android:layout_width="75dp"
                     android:layout_height="75dp"
-                    android:src="@drawable/ic_baseline_fastfood_24"
+                    android:src="@drawable/ic_utensils_solid"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentBottom="true"
                     android:alpha=".6"
@@ -127,7 +127,7 @@
             <ImageView
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:src="@drawable/ic_baseline_fireplace_24"
+                android:src="@drawable/ic_fire"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentBottom="true"
                 android:alpha=".6"
@@ -178,7 +178,7 @@
                 <ImageView
                     android:layout_width="60dp"
                     android:layout_height="60dp"
-                    android:src="@drawable/ic_baseline_flag_24"
+                    android:src="@drawable/ic_bullseye_solid"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentBottom="true"
                     android:alpha=".6"
@@ -220,7 +220,7 @@
                 <ImageView
                     android:layout_width="60dp"
                     android:layout_height="60dp"
-                    android:src="@drawable/ic_baseline_today_24"
+                    android:src="@drawable/ic_calendar_day_solid"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentBottom="true"
                     android:alpha=".6"
@@ -285,7 +285,7 @@
                 <ImageView
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:src="@drawable/ic_baseline_fastfood_24"
+                    android:src="@drawable/ic_drumstick_bite_solid"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentBottom="true"
                     android:alpha=".6"
@@ -333,7 +333,7 @@
                 <ImageView
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:src="@drawable/ic_baseline_fastfood_24"
+                    android:src="@drawable/ic_bread_slice_solid"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentBottom="true"
                     android:alpha=".6"
@@ -382,7 +382,7 @@
                 <ImageView
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:src="@drawable/ic_baseline_fastfood_24"
+                    android:src="@drawable/ic_hamburger_solid"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentBottom="true"
                     android:alpha=".6"
