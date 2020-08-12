@@ -30,41 +30,50 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etFoodName" />
 
-    <EditText
-        android:id="@+id/etFat"
-        android:layout_width="460dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="50dp"
-        android:ems="10"
-        android:hint="Fat (g)"
-        android:inputType="number"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etLabels" />
 
-    <EditText
-        android:id="@+id/etCarbs"
+    <GridLayout
+        android:id="@+id/gridMacros"
         android:layout_width="460dp"
         android:layout_height="50dp"
         android:layout_marginTop="50dp"
-        android:ems="10"
-        android:hint="Carbs (g)"
-        android:inputType="number"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etFat" />
+        android:columnCount="3"
+        android:rowCount="1"
+        app:layout_constraintTop_toBottomOf="@+id/etLabels"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        >
 
-    <EditText
-        android:id="@+id/etProtein"
-        android:layout_width="460dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="50dp"
-        android:ems="10"
-        android:hint="Protein (g)"
-        android:inputType="number"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etCarbs" />
+        <EditText
+            android:id="@+id/etFat"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:ems="10"
+            android:hint="Fat (g)"
+            android:inputType="number" />
+
+        <EditText
+            android:id="@+id/etCarbs"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:ems="10"
+            android:hint="Carbs (g)"
+            android:inputType="number" />
+
+        <EditText
+            android:id="@+id/etProtein"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:ems="10"
+            android:hint="Protein (g)"
+            android:inputType="number" />
+
+    </GridLayout>
 
     <EditText
         android:id="@+id/etWeight"
@@ -77,8 +86,139 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etProtein" />
+        app:layout_constraintTop_toBottomOf="@+id/gridMacros" />
 
+    <GridLayout
+        android:id="@+id/gridMicros"
+        android:layout_width="460dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="50dp"
+        android:columnCount="3"
+        android:rowCount="4"
+        app:layout_constraintTop_toBottomOf="@+id/etWeight"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        >
+
+        <EditText
+            android:id="@+id/etIron"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:ems="10"
+            android:hint="Iron (mg)"
+            android:inputType="number" />
+
+        <EditText
+            android:id="@+id/etZinc"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:ems="10"
+            android:hint="Zinc (mg)"
+            android:inputType="number" />
+
+        <EditText
+            android:id="@+id/etVitA"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:ems="10"
+            android:hint="Vitamin A (mg)"
+            android:inputType="number" />
+        <EditText
+            android:id="@+id/etVitB12"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:ems="10"
+            android:hint="Vitamin B12 (mg)"
+            android:inputType="number" />
+
+        <EditText
+            android:id="@+id/etVitC"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:ems="10"
+            android:hint="Vitamin C (mg)"
+            android:inputType="number" />
+
+        <EditText
+            android:id="@+id/etVitE"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:ems="10"
+            android:hint="Vitamin E (mg)"
+            android:inputType="number" />
+
+        <EditText
+            android:id="@+id/etCalcium"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:ems="10"
+            android:hint="Calcium (mg)"
+            android:inputType="number" />
+
+        <EditText
+        android:id="@+id/etCholine"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_rowWeight="1"
+        android:layout_columnWeight="1"
+        android:ems="10"
+        android:hint="Choline (mg)"
+        android:inputType="number" />
+
+        <EditText
+            android:id="@+id/etMagnesium"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:ems="10"
+            android:hint="Magnesium (mg)"
+            android:inputType="number" />
+
+        <EditText
+            android:id="@+id/etSodium"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:ems="10"
+            android:hint="Sodium (mg)"
+            android:inputType="number" />
+
+        <EditText
+            android:id="@+id/etPotassium"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:ems="10"
+            android:hint="Potassium (mg)"
+            android:inputType="number" />
+
+        <EditText
+            android:id="@+id/etNiacin"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:ems="10"
+            android:hint="Niacin (mg)"
+            android:inputType="number" />
+    </GridLayout>
     <Button
         android:id="@+id/btnAddFood"
         android:layout_width="wrap_content"
