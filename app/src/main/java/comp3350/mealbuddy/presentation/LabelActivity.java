@@ -16,6 +16,10 @@ import comp3350.mealbuddy.business.AccessLabel;
 
 public class LabelActivity extends AppCompatActivity {
 
+    private Button removeLabelBtn;
+    private Button addLabelBtn;
+    private Button updateLabelBtn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,20 +29,27 @@ public class LabelActivity extends AppCompatActivity {
         ArrayList<String> labels = accessLabel.getLabels();
 
         ListView labelListView = findViewById(R.id.labelListView);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_single_choice, labels);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.select_dialog_singlechoice, labels);
         adapter.sort(String::compareTo);
         labelListView.setAdapter(adapter);
         labelListView.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
 
-        // goes to label activity
-        Button addLabelBtn = findViewById(R.id.labelBtnAdd);
-        Button removeLabelBtn = findViewById(R.id.labelBtnRemove);
-        Button updateLabelBtn = findViewById(R.id.labelBtnUpdate);
+        addLabelBtn = findViewById(R.id.labelBtnAdd);
+        removeLabelBtn = findViewById(R.id.labelBtnRemove);
+        updateLabelBtn = findViewById(R.id.labelBtnUpdate);
+
+
+        labelListView.setOnItemClickListener((parent, view, pos, id) -> {
+            enableButtons();
+        });
 
         addLabelBtn.setOnClickListener((view) -> {
             TextView addText = findViewById(R.id.labelAddLabelText);
             String newLabel = addText.getText().toString();
-            if (adapter.getPosition(newLabel) < 0) {
+            if (adapter.getPosition(newLabel) < 0) {    //make sure it doesnt already exist
+                if (adapter.getCount() == 0) {
+                    enableButtons();
+                }
                 accessLabel.addLabel(newLabel);
                 adapter.add(newLabel);
                 adapter.sort(String::compareTo);
@@ -52,6 +63,9 @@ public class LabelActivity extends AppCompatActivity {
             String labelToRemove = labelListView.getItemAtPosition(labelListView.getCheckedItemPosition()).toString();
             accessLabel.removeLabel(labelToRemove);
             adapter.remove(labelToRemove);
+            if (adapter.getCount() == 0) {
+                disableButtons();
+            }
         });
 
         updateLabelBtn.setOnClickListener((view) -> {
@@ -70,4 +84,25 @@ public class LabelActivity extends AppCompatActivity {
             }
         });
     }
+
+
+    /*
+     * disableButtons
+     * disables buttons that require a label selected
+     */
+    private void disableButtons() {
+        updateLabelBtn.setEnabled(false);
+        removeLabelBtn.setEnabled(false);
+    }
+
+
+    /*
+     * disableButtons
+     * disables buttons that require a label selected
+     */
+    private void enableButtons() {
+        updateLabelBtn.setEnabled(true);
+        removeLabelBtn.setEnabled(true);
+    }
+
 }
