@@ -76,24 +76,13 @@ public class AddFoodActivity extends AppCompatActivity {
 
         //on submit we want to create a new food
         submit.setOnClickListener((view) -> {
-            if (TextUtils.isEmpty(name.getText())) {
-                name.setError("Name is required");
-            } else if (accessEdible.edibleExists(name.getText().toString())) {
-                name.setError("Edible already exists choose a different name");
-            } else if (TextUtils.isEmpty(protein.getText())) {
-                protein.setError("Protein is required");
-            } else if (TextUtils.isEmpty(fat.getText())) {
-                fat.setError("Fat is required");
-            } else if (TextUtils.isEmpty(carbs.getText())) {
-                carbs.setError("Carbs are required");
-            } else if (TextUtils.isEmpty(weight.getText())) {
-                weight.setError("Weight is required");
-            } else {
+         if (validateInput(name, protein, fat, carbs, weight)) {
                 //get the labels from the label UI
                 ArrayList<String> labelList = new ArrayList<>(Arrays.asList(labels.getText().toString().split(",")));
                 for (String label : labelList) {
                     accessLabel.addLabel(label.trim());
                 }
+
                 //grab the food name and initialize with the labels
                 Food newFood = new Food(name.getText().toString(), labelList);
 
@@ -131,25 +120,42 @@ public class AddFoodActivity extends AppCompatActivity {
                 : Integer.parseInt(text.toString());
     }
     /*
-     * getMealTime
-     * returns the mealtime type from the string value
+     * Check if the input fields are valid.
      */
-    private Day.MealTimeType getMealTime(String value) {
-        Day.MealTimeType MT;
-        switch (value) {
-            case "Breakfast":
-                MT = Day.MealTimeType.BREAKFAST;
-                break;
-            case "Lunch":
-                MT = Day.MealTimeType.LUNCH;
-                break;
-            case "Dinner":
-                MT = Day.MealTimeType.DINNER;
-                break;
-            default:
-                MT = Day.MealTimeType.SNACK;
-                break;
-        }
-        return MT;
-    }
+  private boolean validateInput(EditText name, EditText protein, EditText fat, EditText carbs, EditText weight) {
+        boolean inputsValid = true;
+
+      if (TextUtils.isEmpty(name.getText())) {
+          name.setError("Name is required");
+          inputsValid = false;
+      }
+
+      if (accessEdible.edibleExists(name.getText().toString())) {
+          name.setError("Edible already exists choose a different name");
+          inputsValid = false;
+      }
+
+      if (TextUtils.isEmpty(protein.getText())) {
+          protein.setError("Protein is required");
+          inputsValid = false;
+      }
+
+      if (TextUtils.isEmpty(fat.getText())) {
+          fat.setError("Fat is required");
+          inputsValid = false;
+      }
+
+      if (TextUtils.isEmpty(carbs.getText())) {
+          carbs.setError("Carbs are required");
+          inputsValid = false;
+      }
+
+      if (TextUtils.isEmpty(weight.getText())) {
+          weight.setError("Weight is required");
+          inputsValid = false;
+      }
+
+      return inputsValid;
+  }
+
 }
