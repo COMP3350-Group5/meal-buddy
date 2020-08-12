@@ -84,6 +84,52 @@ public class DataAccessTest {
         dataAccessTest.init();
         dataAccessTest.daysTest();
         dataAccessTest.clean();
+
+        //ensure error causing situations return expected errors
+        System.out.println("**************************************************************");
+        System.out.println("Expecting Sql Errors printed to the console");
+        System.out.println("**************************************************************");
+        testDatabaseErrors(dataAccessTest);
+    }
+
+    private static void testDatabaseErrors(DataAccessTest dat) {
+        //the database returns a string if an error occurs or null if no errors occur
+        testAccountErrors(dat);
+        testLabelErrors(dat);
+        testDayErrors(dat);
+        testEdibleErrors(dat);
+    }
+
+    private static void testAccountErrors(DataAccessTest dat) {
+        dat.init();
+        UserInfo duplicate = new UserInfo("Elon Musk", ACCOUNT_USERNAME, "T3sla", 280.0, 170.5, UserInfo.ActivityLevel.LOW, UserInfo.Sex.MALE, 40);
+        Assert.assertNotNull(dat.database.addAccount(duplicate));
+        Assert.assertNotNull(dat.database.updateUserInfo("usernameNotInDataBase", duplicate));
+        Assert.assertNotNull(dat.database.removeAccount("UserNameNotInDataBase"));
+        dat.clean();
+    }
+
+    private static void testLabelErrors(DataAccessTest dat) {
+        dat.init();
+        Assert.assertNotNull(dat.database.addLabel(KETO_LABEL));    //duplicate label
+        Assert.assertNotNull(dat.database.removeLabel("LabelNotInDB"));    //label not in db
+        dat.clean();
+    }
+
+    private static void testDayErrors(DataAccessTest dat) {
+        dat.init();
+        Day notAddedDay = new Day(69);
+        dat.database.addDay(ACCOUNT_USERNAME, 69);
+        Assert.assertNotNull(dat.database.addDay(ACCOUNT_USERNAME, 69)); //duplicate day error
+        dat.clean();
+    }
+
+    private static void testEdibleErrors(DataAccessTest dat) {
+        dat.init();
+        Assert.assertNotNull(dat.database.addEdible(durian));   //duplicate food
+        Assert.assertNotNull(dat.database.updateEdible("EdibleNotInDb", durian));
+        Assert.assertNotNull(dat.database.removeEdible("EdibleNotInDB"));
+        dat.clean();
     }
 
     @Before
@@ -199,8 +245,8 @@ public class DataAccessTest {
         Exercise exercise = new Exercise("Running", 30, Exercise.Intensity.High);
         newDay.addExercise(exercise);
 
-        newDay.breakfast.add(nestedMeal);
-        newDay.snack.add(durian);
+        newDay.breakfast.add(nestedMeal, 3);
+        newDay.snack.add(durian, 2);
         newDay.snack.add(quinoa);
 
         database.updateDay(ACCOUNT_USERNAME, newDay);
@@ -229,10 +275,12 @@ public class DataAccessTest {
         Assert.assertTrue(updatedDay.dinner.isEmpty());
         Meal updatedSnack = updatedDay.snack;
         Assert.assertTrue(updatedSnack.containsEdible(durian));
+        Assert.assertEquals(2, updatedSnack.getQuantity(durian));
         Assert.assertTrue(updatedSnack.containsEdible(quinoa));
 
         Meal updatedBreakfast = updatedDay.breakfast;
         Assert.assertTrue(updatedBreakfast.containsEdible(nestedMeal));
+        Assert.assertEquals(3, updatedBreakfast.getQuantity(nestedMeal));
 
         Meal updatedNestedMeal = (Meal) updatedBreakfast.getEdibleIntPair(nestedMeal).edible;
         Assert.assertTrue(updatedNestedMeal.containsEdible(EGG_NAME));

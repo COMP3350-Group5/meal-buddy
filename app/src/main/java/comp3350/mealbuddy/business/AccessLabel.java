@@ -4,6 +4,7 @@
  ****************************************/
 package comp3350.mealbuddy.business;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import comp3350.mealbuddy.application.Main;
@@ -31,7 +32,8 @@ public class AccessLabel {
         if (l == null)
             throw new NullPointerException("Label cannot be null");
         if (getLabel(l) != null)
-            return;
+            throw new IllegalArgumentException("Label being added already exists in the DB.");
+        ;
         DAS.addLabel(l);
     }
 
@@ -45,7 +47,7 @@ public class AccessLabel {
         if (l == null)
             throw new NullPointerException("Label cannot be null");
         if (getLabel(l) == null)
-            throw new IllegalArgumentException("Label being removed doesn't exist in the DB.");
+            return; //not error squelching since this is idempotent operation
         DAS.removeLabel(l);
     }
 
@@ -70,7 +72,7 @@ public class AccessLabel {
      * getLabels
      * Get all the labels from the database
      */
-    public List<String> getLabels() {
+    public ArrayList<String> getLabels() {
         return DAS.getLabels();
     }
 

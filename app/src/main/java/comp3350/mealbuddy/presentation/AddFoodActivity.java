@@ -53,6 +53,7 @@ public class AddFoodActivity extends AppCompatActivity {
         accessAccount = new AccessAccount();
         accessEdible = new AccessEdible(); //needed so we can add the food to the DB
         accessLabel = new AccessLabel();
+        final Day day = accessAccount.getDay(username, dayOfYear);
 
         //obtain all the UI components to grab values from
         Button submit = findViewById(R.id.btnAddFood);
@@ -67,6 +68,8 @@ public class AddFoodActivity extends AppCompatActivity {
         submit.setOnClickListener((view) -> {
             if (TextUtils.isEmpty(name.getText())) {
                 name.setError("Name is required");
+            } else if (accessEdible.edibleExists(name.getText().toString())) {
+                name.setError("Edible already exists choose a different name");
             } else if (TextUtils.isEmpty(protein.getText())) {
                 protein.setError("Protein is required");
             } else if (TextUtils.isEmpty(fat.getText())) {
@@ -82,17 +85,80 @@ public class AddFoodActivity extends AppCompatActivity {
                     accessLabel.addLabel(label.trim());
                 }
                 //grab the food name and initialize with the labels
-                Food food = new Food(name.getText().toString(), labelList);
+                Food newFood = new Food(name.getText().toString(), labelList);
 
                 //grab the number values for weight and macros
-                food.setWeight(Integer.parseInt(weight.getText().toString()));
-                food.updateMacro(Edible.Macros.Protein, Integer.parseInt(protein.getText().toString()));
-                food.updateMacro(Edible.Macros.Fat, Integer.parseInt(fat.getText().toString()));
-                food.updateMacro(Edible.Macros.Carbohydrates, Integer.parseInt(carbs.getText().toString()));
-                accessEdible.addEdible(food);
+                newFood.setWeight(Integer.parseInt(weight.getText().toString()));
+                newFood.updateMacro(Edible.Macros.Protein, Integer.parseInt(protein.getText().toString()));
+                newFood.updateMacro(Edible.Macros.Fat, Integer.parseInt(fat.getText().toString()));
+                newFood.updateMacro(Edible.Macros.Carbohydrates, Integer.parseInt(carbs.getText().toString()));
 
-                ChangeActivityHelper.changeActivity(this, SearchFoodActivity.class, username, dayOfYear);
+                accessEdible.addEdible(newFood); //this adds the food to the foods database.
+
+                ChangeActivityHelper.changeActivity(AddFoodActivity.this, SearchFoodActivity.class, username, dayOfYear);
             }
         });
+    }
+
+    /*
+     * showPopUp
+     * shows the pop up with the corresponding information.
+     * Parameters:
+     *      @param edible - the edible to show
+     *      @param username - the account to add to
+     *      @param dayOfYear - the day to add to
+     */
+    public void showPopUp(Edible edible, String username, int dayOfYear) {
+        dialog.setContentView(R.layout.pop_up_food);
+        //initialize dialog components
+        TextView titleText = dialog.findViewById(R.id.tvPopUpTitle);
+        Spinner spinner = dialog.findViewById(R.id.spnMealtimes);
+        Button btn = dialog.findViewById(R.id.btnConfirm);
+        EditText editText = dialog.findViewById(R.id.etQuantity);
+
+        btn.setOnClickListener((view) -> {
+            if (TextUtils.isEmpty(editText.getText())) {
+                editText.setError("Quantity is required");
+            } else {
+                //add the food
+                String spnString = spinner.getSelectedItem().toString();
+                //find the meal time
+                Day.MealTimeType MT = getMealTime(spnString);
+                Day day = accessAccount.getDay(username, dayOfYear);
+
+                //add the meal to the day and update the day in the user
+                day.addToMeal(MT, edible, Integer.parseInt(editText.getText().toString()));
+                accessAccount.updateDay(username, day);
+                accessEdible.addEdible(edible); //this adds the food to the foods database.
+
+                //go back to the timeline activity and pass the username
+            }
+        });
+
+        titleText.setText("Adding Food: " + edible.name);
+        dialog.show();
+    }
+
+    /*
+     * getMealTime
+     * returns the mealtime type from the string value
+     */
+    private Day.MealTimeType getMealTime(String value) {
+        Day.MealTimeType MT;
+        switch (value) {
+            case "Breakfast":
+                MT = Day.MealTimeType.BREAKFAST;
+                break;
+            case "Lunch":
+                MT = Day.MealTimeType.LUNCH;
+                break;
+            case "Dinner":
+                MT = Day.MealTimeType.DINNER;
+                break;
+            default:
+                MT = Day.MealTimeType.SNACK;
+                break;
+        }
+        return MT;
     }
 }

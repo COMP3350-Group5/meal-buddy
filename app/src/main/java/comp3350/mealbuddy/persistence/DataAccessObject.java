@@ -707,9 +707,9 @@ public class DataAccessObject implements DataAccess {
      * gets all labels from the db
      */
     @Override
-    public List<String> getLabels() {
+    public ArrayList<String> getLabels() {
         String query = "SELECT LABEL FROM LABELS";
-        List<String> labels = new ArrayList<>();
+        ArrayList<String> labels = new ArrayList<>();
         try {
             cmdString = query;
             ResultSet rs = st.executeQuery(cmdString);
@@ -816,13 +816,15 @@ public class DataAccessObject implements DataAccess {
         String edibleInMealName;
         Edible edibleInMeal;
         boolean isMeal;
+        int quantity;
         cmdString = query;
         ResultSet resultSet = st.executeQuery(cmdString);
         while (resultSet.next()) {
             isMeal = resultSet.getBoolean("IS_MEAL");
             edibleInMealName = resultSet.getString("EDIBLE_NAME");
             edibleInMeal = isMeal ? getEntireMeal(edibleInMealName) : getFoodFromRs(resultSet);
-            meal.add(edibleInMeal);
+            quantity = resultSet.getInt("QUANTITY");
+            meal.add(edibleInMeal, quantity);
         }
         resultSet.close();
         return meal;

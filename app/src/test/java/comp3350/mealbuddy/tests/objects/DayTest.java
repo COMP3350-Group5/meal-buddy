@@ -18,6 +18,11 @@ public class DayTest {
 
 
     @Test
+    public void gfmltest() {
+
+    }
+
+    @Test
     public void constructor_outOfBounds_throwException() {
         //pass a day that doesn't exist i.e., not in 1-365
         //arrange

@@ -294,6 +294,15 @@
             android:text="Set Day As Default" />
 
         <Button
+            android:id="@+id/gotoLabels"
+            android:layout_width="220dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="50dp"
+            android:layout_marginBottom="70dp"
+            android:text="Labels" />
+
+        <Button
             android:id="@+id/resetDefault"
             android:layout_width="131dp"
             android:layout_height="wrap_content"
