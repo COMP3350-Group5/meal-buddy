@@ -1,6 +1,7 @@
 package comp3350.mealbuddy.presentation;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.widget.AbsListView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -72,15 +73,13 @@ public class LabelActivity extends AppCompatActivity {
             TextView updateText = findViewById(R.id.labelUpdateLabelText);
             String oldName = labelListView.getItemAtPosition(labelListView.getCheckedItemPosition()).toString();
             String newName = updateText.getText().toString();
-            if (adapter.getPosition(newName) < 0) {
 
+            if (validateInput(adapter, updateText)) {
                 accessLabel.updateLabel(oldName, newName);
                 adapter.remove(oldName);
                 adapter.add(newName);
                 adapter.sort(String::compareTo);
                 updateText.setText("");
-            } else {
-                updateText.setError("The Name To Be Updated To Is Already In Use!");
             }
         });
     }
@@ -103,6 +102,22 @@ public class LabelActivity extends AppCompatActivity {
     private void enableButtons() {
         updateLabelBtn.setEnabled(true);
         removeLabelBtn.setEnabled(true);
+    }
+
+    private boolean validateInput(ArrayAdapter<String> adapter, TextView updateText) {
+        boolean inputsValid = true;
+
+        if (TextUtils.isEmpty(updateText.getText())) {
+            updateText.setError("The name to be updated to cannot be empty!");
+            inputsValid = false;
+        }
+
+        if (adapter.getPosition(updateText.getText().toString()) >= 0) {
+            updateText.setError("The name to be updated to is already in use!");
+            inputsValid = false;
+        }
+
+        return inputsValid;
     }
 
 }
