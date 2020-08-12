@@ -260,6 +260,26 @@ public class AccessAccountTest {
         }
     }
 
+    @Test
+    public void getDays_nullUsername_throwException(){
+        try {
+            accessAccount.getDays(null);
+            Assert.fail();
+        } catch (NullPointerException IAE) {
+            Assert.assertTrue(true);
+        }
+    }
+
+    @Test
+    public void getDays_usernameDoesntExist_throwException(){
+        try {
+            accessAccount.getDays("i dont EXistt123");
+            Assert.fail();
+        } catch (IllegalArgumentException IAE) {
+            Assert.assertTrue(true);
+        }
+    }
+
     @After
     public void clean() {
         //remove if the accounts still exist
