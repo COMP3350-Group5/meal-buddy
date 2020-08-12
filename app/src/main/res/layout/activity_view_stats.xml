@@ -199,7 +199,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
                 <TextView
-                    android:id="@+id/cardStatsDaysTracked"
+                    android:id="@+id/tvStatsDaysTracked"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Days Tracked"
@@ -209,13 +209,22 @@
                     />
 
                 <TextView
-                    android:id="@+id/cardStatsDaysTrackedValue"
+                    android:id="@+id/tvStatsDaysTrackedValue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="[Days]"
                     android:textSize="40dp"
                     android:paddingTop="20dp"
-                    android:layout_below="@+id/cardStatsDaysTracked"
+                    android:layout_below="@+id/tvStatsDaysTracked"
+                    />
+                <TextView
+                    android:id="@+id/tvStatsDaysTrackedValueAvg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="[Num of Days / 365]"
+                    android:textSize="20dp"
+                    android:layout_below="@+id/tvStatsDaysTrackedValue"
+                    android:paddingTop="5dp"
                     />
                 <ImageView
                     android:layout_width="60dp"
