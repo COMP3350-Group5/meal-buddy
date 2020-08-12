@@ -7,6 +7,7 @@ package comp3350.mealbuddy.presentation;
 
 import android.app.Dialog;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.EditText;
@@ -31,7 +32,6 @@ public class AddFoodActivity extends AppCompatActivity {
     AccessAccount accessAccount;
     AccessEdible accessEdible;
     AccessLabel accessLabel;
-    Dialog dialog;
 
     /*
      * onCreate
@@ -43,17 +43,14 @@ public class AddFoodActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_food);
-        dialog = new Dialog(this);
 
         //get the passed values from the previous activity
         int dayOfYear = this.getIntent().getIntExtra("dayOfYear", -1);
         final String username = this.getIntent().getStringExtra("username");
 
         //get the day to display
-        accessAccount = new AccessAccount();
         accessEdible = new AccessEdible(); //needed so we can add the food to the DB
         accessLabel = new AccessLabel();
-        final Day day = accessAccount.getDay(username, dayOfYear);
 
         //obtain all the UI components to grab values from
         Button submit = findViewById(R.id.btnAddFood);
@@ -63,6 +60,19 @@ public class AddFoodActivity extends AppCompatActivity {
         final EditText fat = findViewById(R.id.etFat);
         final EditText carbs = findViewById(R.id.etCarbs);
         final EditText weight = findViewById(R.id.etWeight);
+
+        final EditText iron = findViewById(R.id.etIron);
+        final EditText zinc = findViewById(R.id.etZinc);
+        final EditText vitA = findViewById(R.id.etVitA);
+        final EditText vitB12 = findViewById(R.id.etVitB12);
+        final EditText vitC = findViewById(R.id.etVitC);
+        final EditText vitE = findViewById(R.id.etVitE);
+        final EditText calcium = findViewById(R.id.etCalcium);
+        final EditText choline = findViewById(R.id.etCholine);
+        final EditText magnesium = findViewById(R.id.etMagnesium);
+        final EditText sodium = findViewById(R.id.etSodium);
+        final EditText potassium = findViewById(R.id.etPotassium);
+        final EditText niacin = findViewById(R.id.etNiacin);
 
         //on submit we want to create a new food
         submit.setOnClickListener((view) -> {
@@ -82,6 +92,20 @@ public class AddFoodActivity extends AppCompatActivity {
                 newFood.updateMacro(Edible.Macros.Fat, Integer.parseInt(fat.getText().toString()));
                 newFood.updateMacro(Edible.Macros.Carbohydrates, Integer.parseInt(carbs.getText().toString()));
 
+                //update the micros when they exist
+                newFood.updateMicro(Edible.Micros.Iron, getMicroVal(iron.getText()));
+                newFood.updateMicro(Edible.Micros.Zinc, getMicroVal(zinc.getText()));
+                newFood.updateMicro(Edible.Micros.VitaminA, getMicroVal(vitA.getText()));
+                newFood.updateMicro(Edible.Micros.VitaminB12, getMicroVal(vitB12.getText()));
+                newFood.updateMicro(Edible.Micros.VitaminC, getMicroVal(vitC.getText()));
+                newFood.updateMicro(Edible.Micros.VitaminE, getMicroVal(vitE.getText()));
+                newFood.updateMicro(Edible.Micros.Calcium, getMicroVal(calcium.getText()));
+                newFood.updateMicro(Edible.Micros.Magnesium, getMicroVal(magnesium.getText()));
+                newFood.updateMicro(Edible.Micros.Choline, getMicroVal(choline.getText()));
+                newFood.updateMicro(Edible.Micros.Sodium, getMicroVal(sodium.getText()));
+                newFood.updateMicro(Edible.Micros.Potassium, getMicroVal(potassium.getText()));
+                newFood.updateMicro(Edible.Micros.Niacin, getMicroVal(niacin.getText()));
+
                 accessEdible.addEdible(newFood); //this adds the food to the foods database.
 
                 ChangeActivityHelper.changeActivity(AddFoodActivity.this, SearchFoodActivity.class, username, dayOfYear);
@@ -90,6 +114,11 @@ public class AddFoodActivity extends AppCompatActivity {
     }
 
 
+    private int getMicroVal(Editable text){
+        return TextUtils.isEmpty(text)
+                ? 0
+                : Integer.parseInt(text.toString());
+    }
     /*
      * Check if the input fields are valid.
      */
