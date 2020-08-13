@@ -1,18 +1,10 @@
 package comp3350.mealbuddy.acceptance;
 
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewParent;
-
-import org.hamcrest.Description;
-import org.hamcrest.Matcher;
-import org.hamcrest.TypeSafeMatcher;
 import org.junit.*;
 import org.junit.runner.RunWith;
 
 import androidx.test.espresso.Espresso;
 import androidx.test.espresso.ViewAction;
-import androidx.test.espresso.action.CoordinatesProvider;
 import androidx.test.espresso.action.GeneralClickAction;
 import androidx.test.espresso.action.Press;
 import androidx.test.espresso.action.Tap;
@@ -25,13 +17,10 @@ import static androidx.test.espresso.Espresso.*;
 import static androidx.test.espresso.action.ViewActions.*;
 import static androidx.test.espresso.matcher.ViewMatchers.*;
 import static androidx.test.espresso.assertion.ViewAssertions.*;
-import static org.hamcrest.Matchers.allOf;
 
 import comp3350.mealbuddy.business.AccessAccount;
 import comp3350.mealbuddy.presentation.HomeActivity;
 import comp3350.mealbuddy.R;
-import comp3350.mealbuddy.presentation.NavFragment;
-import comp3350.mealbuddy.presentation.SignUpActivity;
 
 @RunWith(AndroidJUnit4ClassRunner.class)
 @LargeTest
@@ -116,7 +105,7 @@ public class HomeTests {
         onView(withId(R.id.spnActivityLevel)).perform(click());
         onView(withText("Low")).perform(click());
         onView(withId(R.id.btnCreateAccount)).perform(click());
-        onView(withId(R.id.etUsername)).check(matches(hasErrorText("This username is taken select ")));
+        onView(withId(R.id.etUsername)).check(matches(hasErrorText("This username is taken select another one")));
     }
 
 
