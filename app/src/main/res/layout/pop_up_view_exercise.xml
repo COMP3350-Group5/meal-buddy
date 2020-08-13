@@ -2,7 +2,7 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="500dp"
+    android:layout_height="600dp"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_gravity="center">
 
@@ -18,21 +18,30 @@
     <ListView
         android:id="@+id/lvViewExercise"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="350dp"
         tools:listitem="@android:layout/simple_list_item_1"
         android:divider="@color/cardview_light_background"
         android:dividerHeight="1dp"
         android:layout_below="@+id/tvViewExercise"
         />
+    <Button
+        android:id="@+id/btnRemoveExercise"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_below="@+id/lvViewExercise"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp"
+        android:text="Remove Exercise"/>
 
     <TextView
         android:id="@+id/tvExerciseCalories"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
         android:text="Total Calories:"
         android:textColor="@color/colorAccent"
-        android:layout_below="@+id/lvViewExercise"
+        android:layout_below="@+id/btnRemoveExercise"
         android:textSize="30sp" />
 
 </RelativeLayout>

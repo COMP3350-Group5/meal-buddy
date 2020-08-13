@@ -43,28 +43,34 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/txtTotalCardTitle"
+                android:id="@+id/txtTotalsCalsEaten"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView"
-                android:textColor="@color/colorAccent"/>
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:textSize="30dp"
+                android:text="TextView" />
 
             <TextView
-                android:id="@+id/txtTotalsCals"
+                android:id="@+id/txtTotalsCalsBurned"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentBottom="true"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:textSize="30dp"
                 android:text="TextView" />
 
             <TextView
                 android:id="@+id/txtTotalsNetCals"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:textSize="30dp"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="20dp"
                 android:text="TextView" />
 
         </RelativeLayout>
