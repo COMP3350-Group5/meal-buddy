@@ -32,6 +32,18 @@ public class AddFoodActivity extends AppCompatActivity {
     private EditText fat;
     private EditText carbs;
     private EditText weight;
+    private EditText iron;
+    private EditText zinc;
+    private EditText vitA;
+    private EditText vitB12;
+    private EditText vitC;
+    private EditText vitE;
+    private EditText calcium;
+    private EditText choline;
+    private EditText magnesium;
+    private EditText sodium;
+    private EditText potassium;
+    private EditText niacin;
 
     /*
      * onCreate
@@ -76,7 +88,7 @@ public class AddFoodActivity extends AppCompatActivity {
 
         //on submit we want to create a new food
         submit.setOnClickListener((view) -> {
-         if (validateInput(name, protein, fat, carbs, weight)) {
+         if (validateInput()) {
                 //get the labels from the label UI
                 ArrayList<String> labelList = new ArrayList<>(Arrays.asList(labels.getText().toString().split(",")));
                 for (String label : labelList) {
@@ -116,23 +128,22 @@ public class AddFoodActivity extends AppCompatActivity {
     }
 
 
-    private int getMicroVal(Editable text){
-        return TextUtils.isEmpty(text)
+    private int getMicroVal(Editable micro){
+        return TextUtils.isEmpty(micro)
                 ? 0
-                : Integer.parseInt(text.toString());
+                : Integer.parseInt(micro.toString());
     }
+
     /*
      * Check if the input fields are valid.
      */
-  private boolean validateInput(EditText name, EditText protein, EditText fat, EditText carbs, EditText weight) {
+  private boolean validateInput() {
         boolean inputsValid = true;
 
       if (TextUtils.isEmpty(name.getText())) {
           name.setError("Name is required");
           inputsValid = false;
-      }
-
-      if (accessEdible.edibleExists(name.getText().toString())) {
+      } else if (accessEdible.edibleExists(name.getText().toString())) {
           name.setError("Edible already exists choose a different name");
           inputsValid = false;
       }
