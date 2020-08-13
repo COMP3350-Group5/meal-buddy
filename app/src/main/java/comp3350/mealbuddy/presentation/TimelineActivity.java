@@ -205,7 +205,7 @@ public class TimelineActivity extends AppCompatActivity {
                     e.edible.getMacroGrams(Edible.Macros.Protein),
                     e.edible.getMacroGrams(Edible.Macros.Carbohydrates));
 
-            String toAdd = String.format("%d%s%s\t\t\t\t\t%s", e.quantity, "x ", e.edible.name, macroString);
+            String toAdd = String.format("%s\t\t\t%s\t\t\tx %d", e.edible.name, macroString, e.quantity);
             foodNames.add(toAdd);
         }
         ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter<>(TimelineActivity.this, android.R.layout.simple_list_item_1, foodNames);
