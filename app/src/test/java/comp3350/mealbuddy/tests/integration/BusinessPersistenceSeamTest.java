@@ -160,7 +160,7 @@ public class BusinessPersistenceSeamTest {
 
         aa.updateDay(ACCOUNT_USERNAME, newDay);
         Day updatedDay = aa.getDay(ACCOUNT_USERNAME, 1);
-        Exercise updatedExercise = updatedDay.getExercise(exercise);
+        Exercise updatedExercise = updatedDay.getExercise(exercise.name);
         Assert.assertEquals("Running", updatedExercise.name);
         Assert.assertEquals(30.0, updatedExercise.duration, 0.1);
         Assert.assertEquals(Exercise.Intensity.High, updatedExercise.intensity);
