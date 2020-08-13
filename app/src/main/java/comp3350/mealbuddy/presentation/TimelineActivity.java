@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CalendarView;
@@ -183,7 +184,7 @@ public class TimelineActivity extends AppCompatActivity {
             CardView cvMeal = findViewById((int)mt[0]);
             cvMeal.setOnClickListener((view) -> showFoodPopUp(day.getMealTime((Day.MealTimeType)mt[2])));
             TextView tvMeal = findViewById((int)mt[1]);
-            String toDisplay = String.format("%d%s", calculator.getMealTimeCalories((Day.MealTimeType)mt[2]), " Cals");
+            String toDisplay = String.format("%d cals", calculator.getMealTimeCalories((Day.MealTimeType)mt[2]));
             tvMeal.setText(toDisplay);
         }
     }
@@ -204,7 +205,7 @@ public class TimelineActivity extends AppCompatActivity {
             String toAdd = String.format("%s\t\t\t%smin\t\t\tburned %d cals", exer.name, exer.duration, calculator.getExerciseCalories(exer, accessAccount.getUserInfo(username)));
             exerNames.add(toAdd);
         }
-        ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter<>(TimelineActivity.this, android.R.layout.simple_list_item_1, exerNames);
+        ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter(TimelineActivity.this, android.R.layout.simple_list_item_1, exerNames);
         //set the title
         TextView title = dialog.findViewById(R.id.tvViewExercise);
         title.setText("Exercise");
@@ -224,21 +225,42 @@ public class TimelineActivity extends AppCompatActivity {
         int carbTotal = 0;
         //set up the array adapter
         ArrayList<String> foodNames = new ArrayList<>();
+        ArrayList<String> foodLabels = new ArrayList<>();
+
+
         for (Iterator<EdibleIntPair> it = mealtime.getEdibleIntPairIterator(); it.hasNext(); ) {
             EdibleIntPair e = it.next();
+
+            //get the macros from the food and add food to the string
             String macroString = String.format("Fat: %dg\t\t|\t\tProtein: %dg\t\t|\t\tCarbs: %dg\t",
                     e.edible.getMacroGrams(Edible.Macros.Fat),
                     e.edible.getMacroGrams(Edible.Macros.Protein),
                     e.edible.getMacroGrams(Edible.Macros.Carbohydrates));
-
             String toAdd = String.format("%s\t\t\t%s\t\t\tx %d", e.edible.name, macroString, e.quantity);
             foodNames.add(toAdd);
+            //add the labels to the string
+            String labelToAdd = "";
+            for(String label : e.edible.labels)
+                labelToAdd += "<" + label + "> ";
+            foodLabels.add(labelToAdd);
+            //update the totals
             fatTotal += calculator.getMacroCalories(Edible.Macros.Fat);
             proteinTotal += calculator.getMacroCalories(Edible.Macros.Protein);
             carbTotal += calculator.getMacroCalories(Edible.Macros.Carbohydrates);
         }
 
-        ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter<>(TimelineActivity.this, android.R.layout.simple_list_item_1, foodNames);
+        ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter(TimelineActivity.this, android.R.layout.simple_list_item_1, android.R.id.text1, foodNames){
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                View view = super.getView(position, convertView, parent);
+                TextView text1 = view.findViewById(android.R.id.text1);
+                TextView text2 = view.findViewById(android.R.id.text2);
+
+                text1.setText(foodNames.get(position));
+                text2.setText(foodLabels.get(position));
+                return view;
+            }
+        };
         //set the title
         TextView title = dialog.findViewById(R.id.tvViewFood);
         title.setText(mealtime.name);
