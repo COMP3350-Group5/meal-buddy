@@ -5,9 +5,25 @@ import androidx.test.espresso.action.GeneralClickAction;
 import androidx.test.espresso.action.Press;
 import androidx.test.espresso.action.Tap;
 
-public class ClickXY {
+public class ClickNav {
 
-    public static ViewAction clickXY(final int x, final int y){
+    public static ViewAction clickTimeline() {
+        return clickXY(0, 0);
+    }
+
+    public static ViewAction clickGoals() {
+        return clickXY(300, 0);
+    }
+
+    public static ViewAction clickStats() {
+        return clickXY(600, 0);
+    }
+
+    public static ViewAction clickAccount() {
+        return clickXY(900, 0);
+    }
+
+    private static ViewAction clickXY(final int x, final int y){
         return new GeneralClickAction(
                 Tap.SINGLE,
                 view -> {

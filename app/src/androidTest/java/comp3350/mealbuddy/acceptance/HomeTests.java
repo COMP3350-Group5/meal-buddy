@@ -4,10 +4,6 @@ import org.junit.*;
 import org.junit.runner.RunWith;
 
 import androidx.test.espresso.Espresso;
-import androidx.test.espresso.ViewAction;
-import androidx.test.espresso.action.GeneralClickAction;
-import androidx.test.espresso.action.Press;
-import androidx.test.espresso.action.Tap;
 import androidx.test.espresso.action.ViewActions;
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner;
 import androidx.test.filters.LargeTest;
@@ -46,7 +42,7 @@ public class HomeTests {
         onView(withId(R.id.etPassword)).perform(typeText("group5"), ViewActions.closeSoftKeyboard());
         onView(withId(R.id.btnLogin)).perform(click());
         Espresso.closeSoftKeyboard();
-        onView(withId(R.id.bottom_navigation)).perform(ClickXY.clickXY(900, 0));
+        ClickNav.clickAccount();
         onView(withId(R.id.logOut)).perform(click());
     }
 
@@ -68,7 +64,7 @@ public class HomeTests {
         onView(withId(R.id.spnActivityLevel)).perform(click());
         onView(withText("Low")).perform(click());
         onView(withId(R.id.btnCreateAccount)).perform(click());
-        onView(withId(R.id.bottom_navigation)).perform(ClickXY.clickXY(900, 0));
+        ClickNav.clickAccount();
 
         onView(withText("Name: testing tester\n" +
                 "Username: tester\n" +
