@@ -249,13 +249,14 @@ public class TimelineActivity extends AppCompatActivity {
             carbTotal += calculator.getMacroCalories(Edible.Macros.Carbohydrates);
         }
 
+        //override the adapter to display both texts
         ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter(TimelineActivity.this, android.R.layout.simple_list_item_2, android.R.id.text1, foodNames){
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
                 View view = super.getView(position, convertView, parent);
                 TextView text1 = view.findViewById(android.R.id.text1);
                 TextView text2 = view.findViewById(android.R.id.text2);
-
+                //set the texts to the food and its labels
                 text1.setText(foodNames.get(position));
                 text2.setText(foodLabels.get(position));
                 return view;
@@ -266,11 +267,11 @@ public class TimelineActivity extends AppCompatActivity {
         title.setText(mealtime.name);
         //set the macro totals
         TextView fat = dialog.findViewById(R.id.tvViewFoodFat);
-        fat.setText(String.format("Fat: %d cal", fatTotal));
+        fat.setText(String.format("Fat: %dg", fatTotal));
         TextView protein = dialog.findViewById(R.id.tvViewFoodProtein);
-        protein.setText(String.format("Protein: %d cal", proteinTotal));
+        protein.setText(String.format("Protein: %dg", proteinTotal));
         TextView carbs = dialog.findViewById(R.id.tvViewFoodCarbs);
-        carbs.setText(String.format("Carbs: %d cal", carbTotal));
+        carbs.setText(String.format("Carbs: %dg", carbTotal));
 
         //set up the list view
         ListView lv = dialog.findViewById(R.id.lvViewFood);
