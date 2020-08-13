@@ -181,12 +181,12 @@ public class TimelineActivity extends AppCompatActivity {
     private void initializeTotals() {
         CardView totals = findViewById(R.id.cardTotals);
         RelativeLayout totalsLayout = (RelativeLayout) totals.getChildAt(0);
-        TextView cardTotalsTitle = (TextView) totalsLayout.getChildAt(0);
-        cardTotalsTitle.setText("Totals");
-        TextView totalsEatenCals = (TextView) totalsLayout.getChildAt(1);
-        totalsEatenCals.setText(calculator.getTotalCalories() + " Cals eaten");
+        TextView totalsEatenCals = (TextView) totalsLayout.getChildAt(0);
+        totalsEatenCals.setText(calculator.getTotalCalories() + " -");
+        TextView totalsBurnedCals = (TextView) totalsLayout.getChildAt(1);
+        totalsBurnedCals.setText(calculator.getTotalCalories() + " =");
         TextView netCals = (TextView) totalsLayout.getChildAt(2);
-        netCals.setText(calculator.getNetCalories(accessAccount.getUserInfo(username)) + " net Cals");
+        netCals.setText(calculator.getNetCalories(accessAccount.getUserInfo(username)) + " Cals");
     }
 
     private void initializePopOutCards(){
@@ -227,7 +227,7 @@ public class TimelineActivity extends AppCompatActivity {
         TextView title = dialog.findViewById(R.id.tvViewExercise);
         title.setText("Exercise");
         TextView cals = dialog.findViewById(R.id.tvExerciseCalories);
-        cals.setText(String.format("%s%d", "Calories burned " , calculator.getTotalExerciseCalories(accessAccount.getUserInfo(username))));
+        cals.setText(String.format("%s%d", "Calories burned: " , calculator.getTotalExerciseCalories(accessAccount.getUserInfo(username))));
 
         //set up the list view
         ListView lv = dialog.findViewById(R.id.lvViewExercise);
