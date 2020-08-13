@@ -118,7 +118,6 @@ public class TimelineActivity extends AppCompatActivity {
 
         BottomNavigationView nav = findViewById(R.id.bottom_navigation);
         nav.setOnNavigationItemSelectedListener((MenuItem item) -> {
-            Intent intent;
             switch (item.getItemId()) {
                 case R.id.action_goals:
                     ChangeActivityHelper.changeActivity(TimelineActivity.this, GoalActivity.class, username, dayOfYear);
