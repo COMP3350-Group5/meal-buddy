@@ -27,11 +27,13 @@ public class AccountActivity extends AppCompatActivity {
     private AccessAccount accessAccount;
     private String username;
     private Dialog dialog;
-    private EditText etNum;
-    private EditText etText;
+    private EditText updatedWeight;
+    private EditText updatedName;
+    private FloatingActionButton btnEdit;
     private Spinner spnActivityLevel;
-    private TextView userInfoTxt;
-    private TextView tvSpnTitle;
+    private TextView userInfo;
+    private TextView spinnerTitle;
+
 
     /*
      * onCreate
@@ -46,22 +48,18 @@ public class AccountActivity extends AppCompatActivity {
 
         dialog = new Dialog(this);
 
-        FloatingActionButton fabEdit = findViewById(R.id.fabEdit);
-
         //get the passed values from the previous activity
         accessAccount = new AccessAccount();
         int dayOfYear = this.getIntent().getIntExtra("dayOfYear", -1);
         username = this.getIntent().getStringExtra("username");
-
-        userInfoTxt = findViewById(R.id.txtUserInfo);
+        userInfo = findViewById(R.id.txtUserInfo);
 
         // display the user info
         updateUserInfo();
 
         //Add Edit Button
-        fabEdit = findViewById(R.id.fabEdit);
-        fabEdit.setOnClickListener((view) -> showPopUp());
-
+        btnEdit = findViewById(R.id.fabEdit);
+        btnEdit.setOnClickListener((view) -> showEditUserPopUp());
 
         Button logOutButton = findViewById(R.id.logOut);
         logOutButton.setOnClickListener((view) -> ChangeActivityHelper.changeActivity(AccountActivity.this, HomeActivity.class));
@@ -72,19 +70,20 @@ public class AccountActivity extends AppCompatActivity {
      * updates the user info
      */
     private void updateUserInfo() {
-        userInfoTxt.setText(accessAccount.getUserInfo(username).toString());
+        userInfo.setText(accessAccount.getUserInfo(username).toString());
     }
 
     /*
      * showPopup
      * Show the popup to edit info
      */
-    public void showPopUp() {
+    public void showEditUserPopUp() {
         dialog.setContentView(R.layout.pop_up_account);
-        etNum = dialog.findViewById(R.id.etNumber);
-        etText = dialog.findViewById(R.id.etText);
+
+        updatedWeight = dialog.findViewById(R.id.etNumber);
+        updatedName = dialog.findViewById(R.id.etText);
         spnActivityLevel = dialog.findViewById(R.id.spnActivityLevel);
-        tvSpnTitle = dialog.findViewById(R.id.tvSpnTitle);
+        spinnerTitle = dialog.findViewById(R.id.tvSpnTitle);
 
         Button btnUpdate = dialog.findViewById(R.id.btnUpdate);
         Spinner spinner = dialog.findViewById(R.id.spnUserInfo);
@@ -130,11 +129,11 @@ public class AccountActivity extends AppCompatActivity {
      * updates the weight
      */
     private void updateWeight() {
-        if (TextUtils.isEmpty(etNum.getText())) {
-            etNum.setError("Weight required");
+        if (TextUtils.isEmpty(updatedWeight.getText())) {
+            updatedWeight.setError("Weight required");
         } else {
             UserInfo newUserInfo = accessAccount.getUserInfo(username);
-            newUserInfo.weight = Double.parseDouble(etNum.getText().toString());
+            newUserInfo.weight = Double.parseDouble(updatedWeight.getText().toString());
             accessAccount.updateUserInfo(username, newUserInfo);
             hidePopUp();
         }
@@ -147,14 +146,14 @@ public class AccountActivity extends AppCompatActivity {
     private void updateActivityLevel() {
         UserInfo newUserInfo = accessAccount.getUserInfo(username);
         String activityLevelValue = spnActivityLevel.getSelectedItem().toString();
-        UserInfo.ActivityLevel ALT;
+        UserInfo.ActivityLevel newActivityLevel;
         if (activityLevelValue.equals("Low"))
-            ALT = UserInfo.ActivityLevel.LOW;
+            newActivityLevel = UserInfo.ActivityLevel.LOW;
         else if (activityLevelValue.equals("Medium"))
-            ALT = UserInfo.ActivityLevel.MEDIUM;
+            newActivityLevel = UserInfo.ActivityLevel.MEDIUM;
         else
-            ALT = UserInfo.ActivityLevel.HIGH;
-        newUserInfo.activityLevel = ALT;
+            newActivityLevel = UserInfo.ActivityLevel.HIGH;
+        newUserInfo.activityLevel = newActivityLevel;
         accessAccount.updateUserInfo(username, newUserInfo);
         hidePopUp();
     }
@@ -164,11 +163,11 @@ public class AccountActivity extends AppCompatActivity {
      * updates the name
      */
     private void updateName() {
-        if (TextUtils.isEmpty(etText.getText())) {
-            etText.setError("Name required");
+        if (TextUtils.isEmpty(updatedName.getText())) {
+            updatedName.setError("Name required");
         } else {
             UserInfo newUserInfo = accessAccount.getUserInfo(username);
-            newUserInfo.fullname = etText.getText().toString();
+            newUserInfo.fullname = updatedName.getText().toString();
             accessAccount.updateUserInfo(username, newUserInfo);
             hidePopUp();
         }
@@ -179,11 +178,11 @@ public class AccountActivity extends AppCompatActivity {
      * shows the name
      */
     private void showName() {
-        etNum.setVisibility(View.INVISIBLE);
+        updatedWeight.setVisibility(View.INVISIBLE);
         spnActivityLevel.setVisibility(View.INVISIBLE);
-        etText.setVisibility(View.VISIBLE);
-        tvSpnTitle.setVisibility(View.INVISIBLE);
-        etText.setHint("Name");
+        updatedName.setVisibility(View.VISIBLE);
+        spinnerTitle.setVisibility(View.INVISIBLE);
+        updatedName.setHint("Name");
     }
 
     /*
@@ -191,11 +190,11 @@ public class AccountActivity extends AppCompatActivity {
      * shows the weight
      */
     private void showWeight() {
-        etText.setVisibility(View.INVISIBLE);
+        updatedName.setVisibility(View.INVISIBLE);
         spnActivityLevel.setVisibility(View.INVISIBLE);
-        tvSpnTitle.setVisibility(View.INVISIBLE);
-        etNum.setVisibility(View.VISIBLE);
-        etNum.setHint("Weight (lbs)");
+        spinnerTitle.setVisibility(View.INVISIBLE);
+        updatedWeight.setVisibility(View.VISIBLE);
+        updatedWeight.setHint("Weight (lbs)");
     }
 
     /*
@@ -203,10 +202,10 @@ public class AccountActivity extends AppCompatActivity {
      * shows the activity level
      */
     private void showActivityLevel() {
-        etNum.setVisibility(View.INVISIBLE);
-        etText.setVisibility(View.INVISIBLE);
+        updatedWeight.setVisibility(View.INVISIBLE);
+        updatedName.setVisibility(View.INVISIBLE);
         spnActivityLevel.setVisibility(View.VISIBLE);
-        tvSpnTitle.setVisibility(View.VISIBLE);
+        spinnerTitle.setVisibility(View.VISIBLE);
     }
 
 }
