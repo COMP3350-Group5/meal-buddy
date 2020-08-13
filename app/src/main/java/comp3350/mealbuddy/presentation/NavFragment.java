@@ -79,6 +79,9 @@ public class NavFragment extends Fragment {
                 case R.id.action_goals:
                     ChangeActivityHelper.changeActivity(activity, GoalActivity.class, username, dayOfYear);
                     break;
+                case R.id.action_stats:
+                    ChangeActivityHelper.changeActivity(activity, ViewStatsActivity.class, username, dayOfYear);
+                    break;
                 case R.id.action_account:
                     ChangeActivityHelper.changeActivity(activity, AccountActivity.class, username, dayOfYear);
                     break;

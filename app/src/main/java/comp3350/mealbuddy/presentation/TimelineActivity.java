@@ -7,6 +7,7 @@ package comp3350.mealbuddy.presentation;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -135,8 +136,10 @@ public class TimelineActivity extends AppCompatActivity {
             ChangeActivityHelper.changeActivity(TimelineActivity.this, LabelActivity.class);
         });
 
-//        BottomNavigationView nav = findViewById(R.id.bottom_navigation);
-//        nav.selected(R.id.action_timeline);
+        BottomNavigationView nav = findViewById(R.id.bottom_navigation);
+        Menu menu = nav.getMenu();
+        menu.getItem(0).setChecked(true);
+        menu.getItem(0).setCheckable(false);
 
     }
 

@@ -7,6 +7,7 @@ package comp3350.mealbuddy.presentation;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.Menu;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -106,7 +107,9 @@ public class GoalActivity extends AppCompatActivity {
         });
 
         BottomNavigationView nav = findViewById(R.id.bottom_navigation);
-        nav.setSelectedItemId(R.id.action_goals);
+        Menu menu = nav.getMenu();
+        menu.getItem(1).setChecked(true);
+        menu.getItem(1).setCheckable(false);
     }
 
     /*
