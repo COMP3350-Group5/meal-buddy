@@ -28,7 +28,22 @@ import comp3350.mealbuddy.objects.consumables.Meal;
 public class CreateMealActivity extends AppCompatActivity {
 
     Dialog dialog;
+
+    //items passed
+    int dayOfYear;
+    String username;
+
+    //buttons on screen
+    EditText mealTitle;
+    EditText labels;
+    ListView foodList;
+    Button addMeal;
+
+    int[] edibleQuantites;
+    List<Edible> edibles;
     AccessEdible accessEdible;
+    AccessLabel accessLabel;
+    ArrayAdapter<String> adapter;
 
     /*
      * onCreate
@@ -40,34 +55,33 @@ public class CreateMealActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_build_meal);
-        AccessLabel accessLabel = new AccessLabel();
-
+        accessLabel = new AccessLabel();
 
 
         dialog = new Dialog(this);
         accessEdible = new AccessEdible();
 
         //get the items passed
-        int dayOfYear = this.getIntent().getIntExtra("dayOfYear", -1);
-        final String username = this.getIntent().getStringExtra("username");
+        dayOfYear = this.getIntent().getIntExtra("dayOfYear", -1);
+        username = this.getIntent().getStringExtra("username");
 
         //Get the objects on the screen
-        EditText mealTitle = findViewById(R.id.mealName);
-        EditText labels = findViewById(R.id.mealLabels);
-        ListView foodList = findViewById(R.id.foodList);
-        Button addMeal = findViewById(R.id.btnAdd);
+        mealTitle = findViewById(R.id.mealName);
+        labels = findViewById(R.id.mealLabels);
+        foodList = findViewById(R.id.foodList);
+        addMeal = findViewById(R.id.btnAdd);
 
         //Fill the list with edibles
-        AccessEdible accessEdible = new AccessEdible();
-        List<Edible> edibles = accessEdible.getEdibles();
+        accessEdible = new AccessEdible();
+        edibles = accessEdible.getEdibles();
         ArrayList<String> ediblesString = new ArrayList<>();
         for (Edible e : edibles) {
             ediblesString.add(e.name);
         }
 
-        int[] edibleQuantites = new int[edibles.size()];
+        edibleQuantites = new int[edibles.size()];
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_multiple_choice, ediblesString);
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_multiple_choice, ediblesString);
         foodList.setAdapter(adapter);
 
         foodList.setOnItemClickListener((parent, view, pos, id) -> {
@@ -77,26 +91,68 @@ public class CreateMealActivity extends AppCompatActivity {
 
         //OnSubmit
         addMeal.setOnClickListener((view) -> {
-
             if (validateInput(mealTitle)) {
                 String mealName = mealTitle.getText().toString();
-                ArrayList<String> labelList = new ArrayList<>(Arrays.asList(labels.getText().toString().split(",")));
-                for (String label : labelList) {
-                    if (!accessLabel.labelExists(label))
-                        accessLabel.addLabel(label.trim());
-                }
-                Meal newMeal = new Meal(mealName, labelList);
-                SparseBooleanArray checkedItems = foodList.getCheckedItemPositions();
-                for (int i = 0; i < checkedItems.size(); i++) {
-                    int ediblePosition = checkedItems.keyAt(i);
-                    int edibleQuantity = edibleQuantites[ediblePosition];
-                    newMeal.add(edibles.get(ediblePosition), edibleQuantity);
-                }
+                ArrayList<String> labelList = getLabels();
+                Meal newMeal = createNewMeal(mealName, labelList);
                 accessEdible.addEdible(newMeal);
-
                 ChangeActivityHelper.changeActivity(CreateMealActivity.this, SearchFoodActivity.class, username, dayOfYear);
             }
         });
+    }
+
+    /*
+     * getLabels
+     * gets the labels inputed by user.  These will only be the labesl the new meal has
+     * Also adds any labels not in db to db
+     * Return: list of labels
+     */
+    private ArrayList<String> getLabels() {
+        ArrayList<String> labelList = new ArrayList<>(Arrays.asList(labels.getText().toString().split(",")));
+        for (String label : labelList) {
+            if (!accessLabel.labelExists(label)) {
+                accessLabel.addLabel(label.trim());
+            }
+        }
+        return labelList;
+    }
+
+    /*
+     * createNewMeal
+     * creates the meal to add
+     * Parameters:
+     *      @param newMealName - new meal name
+     *      @param labelList - list of labels to add to meal
+     */
+    private Meal createNewMeal(String newMealName, List<String> labelList) {
+        Meal newMeal = new Meal(newMealName, labelList);
+        int quanitty;
+        List<Edible> ediblesSelected = getEdiblesSelected();
+        for (Edible e : ediblesSelected) {
+            quanitty = edibleQuantites[adapter.getPosition(e.name)];
+            newMeal.add(e, quanitty);
+        }
+        return newMeal;
+    }
+
+
+    /*
+     * getEdiblesSelected
+     * Return: returns a list of all edibles selected
+     */
+    private ArrayList<Edible> getEdiblesSelected() {
+        ArrayList<Edible> selectedEdibles = new ArrayList<>();
+        Edible edible;
+        SparseBooleanArray checkedItems = foodList.getCheckedItemPositions();
+        if (checkedItems != null && checkedItems.size() > 0) {
+            for (int i = 0; i < checkedItems.size(); i++) {
+                int ediblePos = checkedItems.keyAt(i);
+                edible = edibles.get(ediblePos);
+                if (checkedItems.get(ediblePos))
+                    selectedEdibles.add(edible);
+            }
+        }
+        return selectedEdibles;
     }
 
     /*

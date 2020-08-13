@@ -146,6 +146,10 @@ public class UpdateMeal extends AppCompatActivity {
     }
 
 
+    /*
+     * getEdiblesSelected
+     * Return: returns a list of all edibles selected
+     */
     private ArrayList<Edible> getEdiblesSelected() {
         ArrayList<Edible> selectedEdibles = new ArrayList<>();
         Edible edible;
