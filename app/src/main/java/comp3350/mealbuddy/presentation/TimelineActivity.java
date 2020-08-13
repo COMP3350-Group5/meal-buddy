@@ -184,7 +184,7 @@ public class TimelineActivity extends AppCompatActivity {
         TextView totalsEatenCals = (TextView) totalsLayout.getChildAt(0);
         totalsEatenCals.setText(calculator.getTotalCalories() + " -");
         TextView totalsBurnedCals = (TextView) totalsLayout.getChildAt(1);
-        totalsBurnedCals.setText(calculator.getTotalCalories() + " =");
+        totalsBurnedCals.setText(calculator.getTotalExerciseCalories(accessAccount.getUserInfo(username)) + " =");
         TextView netCals = (TextView) totalsLayout.getChildAt(2);
         netCals.setText(calculator.getNetCalories(accessAccount.getUserInfo(username)) + " Cals");
     }
