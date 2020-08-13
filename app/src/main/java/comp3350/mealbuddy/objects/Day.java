@@ -286,15 +286,16 @@ public class Day {
      * getExercise
      * get the exercise in the day or null if not in the day
      * Parameter:
-     *      @exercise - the exercise to retrieve form the day
+     *      @name - the exercise to retrieve form the day
      * Return:
      *     the exercise
      */
-    public Exercise getExercise(Exercise exercise) {
-        Exercise exerciseInList = null;
-        if (exercises.contains(exercise))
-            exerciseInList = exercises.get(exercises.indexOf(exercise));
-        return exerciseInList;
+    public Exercise getExercise(String name) {
+        for (Exercise e: exercises) {
+            if (e.name.equals(name))
+                return e;
+        }
+        return null;
     }
 
     /* getGoalString
