@@ -26,6 +26,7 @@ public class UpdateMeal extends AppCompatActivity {
 
     Dialog dialog;
 
+
     /*
      * onCreate
      * called when the activity is initially created
@@ -47,14 +48,13 @@ public class UpdateMeal extends AppCompatActivity {
         final String username = this.getIntent().getStringExtra("username");
         final String oldMealName = this.getIntent().getStringExtra("mealName");
 
-
         //Get the objects on the screen
         TextView mealNameTitle = findViewById(R.id.txtBuilder);
         mealNameTitle.setText("Updating: " + oldMealName);
-        EditText mealTitle = findViewById(R.id.mealName);
-        EditText labels = findViewById(R.id.mealLabels);
-        ListView foodList = findViewById(R.id.foodList);
-        Button addMeal = findViewById(R.id.btnAdd);
+        EditText mealTitle = findViewById(R.id.newMealName);
+        EditText labels = findViewById(R.id.meatUpdatingLabels);
+        ListView foodList = findViewById(R.id.foodListUpdating);
+        Button addMeal = findViewById(R.id.btnUpdateMeal);
 
         //Fill the list with edibles
         AccessEdible accessEdible = new AccessEdible();
@@ -70,7 +70,8 @@ public class UpdateMeal extends AppCompatActivity {
         foodList.setAdapter(adapter);
 
         foodList.setOnItemClickListener((parent, view, pos, id) -> {
-            showPopUp(pos, edibleQuantites);
+            if (foodList.isItemChecked(pos))
+                showPopUp(pos, edibleQuantites);
         });
 
         //OnSubmit

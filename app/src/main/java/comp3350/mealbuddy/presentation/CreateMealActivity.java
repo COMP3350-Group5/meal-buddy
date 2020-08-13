@@ -8,13 +8,10 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.SparseBooleanArray;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Spinner;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -71,7 +68,10 @@ public class CreateMealActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_multiple_choice, ediblesString);
         foodList.setAdapter(adapter);
 
-        foodList.setOnItemClickListener((parent, view, pos, id) -> {showPopUp(pos, edibleQuantites);});
+        foodList.setOnItemClickListener((parent, view, pos, id) -> {
+            if (foodList.isItemChecked(pos))
+                showPopUp(pos, edibleQuantites);
+        });
 
         //OnSubmit
         addMeal.setOnClickListener((view) -> {
@@ -83,7 +83,6 @@ public class CreateMealActivity extends AppCompatActivity {
                 for (String label : labelList) {
                     accessLabel.addLabel(label.trim());
                 }
-
                 Meal newMeal = new Meal(mealName, labelList);
                 SparseBooleanArray checkedItems = foodList.getCheckedItemPositions();
                 for (int i = 0; i < checkedItems.size(); i++) {
@@ -95,7 +94,6 @@ public class CreateMealActivity extends AppCompatActivity {
                 ChangeActivityHelper.changeActivity(CreateMealActivity.this, SearchFoodActivity.class, username, dayOfYear);
             }
         });
-
     }
 
     /*
