@@ -17,9 +17,11 @@ import static androidx.test.espresso.Espresso.*;
 import static androidx.test.espresso.action.ViewActions.*;
 import static androidx.test.espresso.matcher.ViewMatchers.*;
 import static androidx.test.espresso.assertion.ViewAssertions.*;
+import static org.hamcrest.Matchers.allOf;
 
 import comp3350.mealbuddy.business.AccessAccount;
 import comp3350.mealbuddy.business.AccessEdible;
+import comp3350.mealbuddy.business.Calculator;
 import comp3350.mealbuddy.objects.Account;
 import comp3350.mealbuddy.objects.Day;
 import comp3350.mealbuddy.objects.UserInfo;
@@ -38,12 +40,11 @@ public class ViewStatsTests {
     private Food DUMMY_FOOD;
     private UserInfo TESTER_INFO;
     private Day DAY;
+    private Calculator CALCULATOR;
 
     @Before
     public void init(){
-        try {
-            cleanup();
-        } catch (Exception e){ }
+        cleanup();
         System.err.println("INIT");
         ACCESS_ACCOUNT = new AccessAccount();
         ACCESS_EDIBLE = new AccessEdible();
@@ -59,13 +60,18 @@ public class ViewStatsTests {
         DAY = ACCESS_ACCOUNT.getDay(TESTER_INFO.username, Calendar.getInstance().get(Calendar.DAY_OF_YEAR));
         DAY.addToMeal(Day.MealTimeType.BREAKFAST, DUMMY_FOOD, 1);
         ACCESS_ACCOUNT.updateDay(TESTER_INFO.username, DAY);
+        CALCULATOR = new Calculator(DAY);
     }
 
     @After
     public void cleanup(){
         System.err.println("CLEANUP");
-        ACCESS_ACCOUNT.removeAccount(TESTER_INFO.username);
-        ACCESS_EDIBLE.removeEdible(DUMMY_FOOD.name);
+        try {
+            ACCESS_ACCOUNT.removeAccount(TESTER_INFO.username);
+        } catch (Exception e){}
+        try {
+            ACCESS_EDIBLE.removeEdible(DUMMY_FOOD.name);
+        } catch (Exception e){}
     }
 
     @Rule
@@ -80,7 +86,10 @@ public class ViewStatsTests {
         onView(withId(R.id.etPassword)).perform(typeText(TESTER_INFO.password), ViewActions.closeSoftKeyboard());
         onView(withId(R.id.btnLogin)).perform(click());
         //navigate to the view analytics page;
-        
+        onView(withId(R.id.action_stats)).perform(click()).check(matches(isDisplayed()));
+        onView(withId(R.id.tvStatsCaloriesValue)).check();
+        //go back to timeline
+
         cleanup();
     }
 
