@@ -18,7 +18,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
     <androidx.cardview.widget.CardView
         android:id="@+id/cardTotals"
         android:layout_width="500dp"
@@ -26,8 +25,7 @@
         android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtTimeline"
-        >
+        app:layout_constraintTop_toBottomOf="@+id/txtTimeline">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -369,8 +367,7 @@
         app:layout_constraintHorizontal_bias="0.105"
         app:layout_constraintStart_toEndOf="@+id/txtTimeline"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_calendar_day_solid"
-        android:tint="@color/colorPrimary"
+        app:srcCompat="@drawable/ic_calendar"
         tools:ignore="VectorDrawableCompat" />
 
     <androidx.constraintlayout.widget.Guideline
