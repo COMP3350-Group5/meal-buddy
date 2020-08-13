@@ -46,7 +46,7 @@ public class HomeTests {
         onView(withId(R.id.etPassword)).perform(typeText("group5"), ViewActions.closeSoftKeyboard());
         onView(withId(R.id.btnLogin)).perform(click());
         Espresso.closeSoftKeyboard();
-        onView(withId(R.id.bottom_navigation)).perform(clickXY(900, 0));
+        onView(withId(R.id.bottom_navigation)).perform(ClickXY.clickXY(900, 0));
         onView(withId(R.id.logOut)).perform(click());
     }
 
@@ -68,7 +68,7 @@ public class HomeTests {
         onView(withId(R.id.spnActivityLevel)).perform(click());
         onView(withText("Low")).perform(click());
         onView(withId(R.id.btnCreateAccount)).perform(click());
-        onView(withId(R.id.bottom_navigation)).perform(clickXY(900, 0));
+        onView(withId(R.id.bottom_navigation)).perform(ClickXY.clickXY(900, 0));
 
         onView(withText("Name: testing tester\n" +
                 "Username: tester\n" +
@@ -108,22 +108,4 @@ public class HomeTests {
         onView(withId(R.id.etUsername)).check(matches(hasErrorText("This username is taken select another one")));
     }
 
-
-
-    public static ViewAction clickXY(final int x, final int y){
-        return new GeneralClickAction(
-                Tap.SINGLE,
-                view -> {
-
-                    final int[] screenPos = new int[2];
-                    view.getLocationOnScreen(screenPos);
-
-                    final float screenX = screenPos[0] + x;
-                    final float screenY = screenPos[1] + y;
-                    float[] coordinates = {screenX, screenY};
-
-                    return coordinates;
-                },
-                Press.FINGER);
-    }
 }
