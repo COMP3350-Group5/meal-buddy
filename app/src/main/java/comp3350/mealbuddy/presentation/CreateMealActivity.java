@@ -28,6 +28,7 @@ import comp3350.mealbuddy.objects.consumables.Meal;
 public class CreateMealActivity extends AppCompatActivity {
 
     Dialog dialog;
+    AccessEdible accessEdible;
 
     /*
      * onCreate
@@ -44,6 +45,7 @@ public class CreateMealActivity extends AppCompatActivity {
 
 
         dialog = new Dialog(this);
+        accessEdible = new AccessEdible();
 
         //get the items passed
         int dayOfYear = this.getIntent().getIntExtra("dayOfYear", -1);
@@ -75,10 +77,9 @@ public class CreateMealActivity extends AppCompatActivity {
 
         //OnSubmit
         addMeal.setOnClickListener((view) -> {
-            String mealName = mealTitle.getText().toString();
-            if (accessEdible.edibleExists(mealName)) {
-                mealTitle.setError("An edible with this name already exists!");
-            } else {
+
+            if (validateInput(mealTitle)) {
+                String mealName = mealTitle.getText().toString();
                 ArrayList<String> labelList = new ArrayList<>(Arrays.asList(labels.getText().toString().split(",")));
                 for (String label : labelList) {
                     accessLabel.addLabel(label.trim());
@@ -91,6 +92,7 @@ public class CreateMealActivity extends AppCompatActivity {
                     newMeal.add(edibles.get(ediblePosition), edibleQuantity);
                 }
                 accessEdible.addEdible(newMeal);
+
                 ChangeActivityHelper.changeActivity(CreateMealActivity.this, SearchFoodActivity.class, username, dayOfYear);
             }
         });
@@ -123,6 +125,21 @@ public class CreateMealActivity extends AppCompatActivity {
             }
         });
         dialog.show();
+    }
+
+    private boolean validateInput(EditText name) {
+        boolean inputsValid = true;
+
+        if (TextUtils.isEmpty(name.getText())) {
+            name.setError("Meal name cannot be empty.");
+            inputsValid = false;
+        }
+        if (accessEdible.edibleExists(name.getText().toString())) {
+            name.setError("An edible with this name already exists!");
+            inputsValid = false;
+        }
+
+        return inputsValid;
     }
 
 

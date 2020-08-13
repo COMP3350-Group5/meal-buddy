@@ -131,7 +131,7 @@ public class SearchFoodActivity extends AppCompatActivity {
         TextView titleText = dialog.findViewById(R.id.tvPopUpTitle);
         Spinner spinner = dialog.findViewById(R.id.spnMealtimes);
         Button confirm = dialog.findViewById(R.id.btnConfirm);
-        EditText editText = dialog.findViewById(R.id.etQuantity);
+        EditText quantity = dialog.findViewById(R.id.etQuantity);
         Button removeEdible = dialog.findViewById(R.id.removeEdibleFromDb);
         Button updateMeal = dialog.findViewById(R.id.updateMeal);
 
@@ -139,11 +139,7 @@ public class SearchFoodActivity extends AppCompatActivity {
             updateMeal.setEnabled(true);
 
         confirm.setOnClickListener((view) -> {
-            if (TextUtils.isEmpty(editText.getText())) {
-                editText.setError("Quantity is required.");
-            } else if (Integer.parseInt(editText.getText().toString()) == 0) {
-                editText.setError("Quantity cannot be 0.");
-            } else {
+            if (validateInput(quantity)) {
                 //add the food
                 String spnString = spinner.getSelectedItem().toString();
                 //find the meal time
@@ -152,7 +148,7 @@ public class SearchFoodActivity extends AppCompatActivity {
                 Day day = accessAccount.getDay(username, dayOfYear);
 
                 //add the meal to the day and update the day in the user
-                day.addToMeal(MT, edible, Integer.parseInt(editText.getText().toString()));
+                day.addToMeal(MT, edible, Integer.parseInt(quantity.getText().toString()));
                 accessAccount.updateDay(username, day);
 
                 //go back to the timeline activity and pass the username
@@ -223,6 +219,21 @@ public class SearchFoodActivity extends AppCompatActivity {
                 break;
         }
         return MT;
+    }
+
+    private boolean validateInput(EditText quantity) {
+        boolean inputsValid = true;
+
+        if (TextUtils.isEmpty(quantity.getText())) {
+            quantity.setError("Quantity is required.");
+            inputsValid = false;
+        }
+        else if (Integer.parseInt(quantity.getText().toString()) == 0) {
+            quantity.setError("Quantity cannot be 0.");
+            inputsValid = false;
+        }
+
+        return inputsValid;
     }
 
     private void showFABMenu() {
