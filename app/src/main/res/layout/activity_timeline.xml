@@ -16,7 +16,8 @@
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardTotals"
@@ -35,7 +36,8 @@
                 android:id="@+id/txtTotalCardTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:text="TextView"
+                android:textColor="@color/colorAccent"/>
 
             <TextView
                 android:id="@+id/txtTotalsCals"
@@ -62,11 +64,12 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cardBreakfast"
         android:layout_width="500dp"
-        android:layout_height="100dp"
+        android:layout_height="50dp"
         android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardTotals">
+        app:layout_constraintTop_toBottomOf="@+id/cardTotals"
+        android:clickable="true">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -76,31 +79,22 @@
                 android:id="@+id/txtBreakfastCardTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView"
-
+                android:textSize="25sp"
+                android:textColor="@color/colorAccent"
+                android:alpha=".6"
+                android:text="Breakfast"
             />
-
-            <TextView
-                android:id="@+id/txtBreakfast"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="50dp"
-                android:layout_marginTop="25dp"
-                android:layout_marginRight="50dp"
-                android:text="TextView"
-                app:autoSizeMaxTextSize="18sp"
-                app:autoSizeMinTextSize="12sp"
-                app:autoSizeStepGranularity="1sp"
-                app:autoSizeTextType="uniform" />
 
             <TextView
                 android:id="@+id/txtBreakfastCals"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
+                android:textSize="25sp"
+                android:layout_alignParentTop="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentBottom="true"
-                android:text="TextView" />
+                android:text="[Calories]"
+                />
         </RelativeLayout>
 
 
@@ -109,54 +103,47 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cardLunch"
         android:layout_width="500dp"
-        android:layout_height="100dp"
+        android:layout_height="50dp"
         android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardBreakfast">
+        app:layout_constraintTop_toBottomOf="@+id/cardBreakfast"
+        android:clickable="true">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
             <TextView
                 android:id="@+id/txtLunchCardTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
-
-            <TextView
-                android:id="@+id/txtLunch"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="50dp"
-                android:layout_marginTop="25dp"
-                android:layout_marginRight="50dp"
-                android:text="TextView"
-                app:autoSizeMaxTextSize="18sp"
-                app:autoSizeMinTextSize="12sp"
-                app:autoSizeStepGranularity="1sp"
-                app:autoSizeTextType="uniform" />
+                android:textSize="25sp"
+                android:textColor="@color/colorAccent"
+                android:alpha=".6"
+                android:text="Lunch"
+                />
 
             <TextView
                 android:id="@+id/txtLunchCals"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
+                android:textSize="25sp"
+                android:layout_alignParentTop="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentBottom="true"
-                android:text="TextView" />
+                android:text="[Calories]" />
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardDinner"
         android:layout_width="500dp"
-        android:layout_height="100dp"
+        android:layout_height="50dp"
         android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardLunch">
+        app:layout_constraintTop_toBottomOf="@+id/cardLunch"
+        android:clickable="true">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -166,36 +153,28 @@
                 android:id="@+id/txtDinnerCardTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
-
-            <TextView
-                android:id="@+id/txtDinner"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="50dp"
-                android:layout_marginTop="25dp"
-                android:layout_marginRight="50dp"
-                android:text="TextView"
-                app:autoSizeMaxTextSize="18sp"
-                app:autoSizeMinTextSize="12sp"
-                app:autoSizeStepGranularity="1sp"
-                app:autoSizeTextType="uniform" />
+                android:textSize="25sp"
+                android:textColor="@color/colorAccent"
+                android:alpha=".6"
+                android:text="Dinner"
+                />
 
             <TextView
                 android:id="@+id/txtDinnerCals"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
+                android:textSize="25sp"
+                android:layout_alignParentTop="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentBottom="true"
-                android:text="TextView" />
+                android:text="[Calories]" />
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardSnacks"
         android:layout_width="500dp"
-        android:layout_height="100dp"
+        android:layout_height="50dp"
         android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -206,32 +185,25 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/txtSnacksCardTitle"
+                android:id="@+id/txtSnackCardTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:textSize="25sp"
+                android:textColor="@color/colorAccent"
+                android:alpha=".6"
+                android:text="Snack"
+            />
 
             <TextView
-                android:id="@+id/txtSnacks"
+                android:id="@+id/txtSnackCals"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="50dp"
-                android:layout_marginTop="25dp"
-                android:layout_marginRight="50dp"
-                android:text="TextView"
-                app:autoSizeMaxTextSize="18sp"
-                app:autoSizeMinTextSize="12sp"
-                app:autoSizeStepGranularity="1sp"
-                app:autoSizeTextType="uniform" />
-
-            <TextView
-                android:id="@+id/txtSnacksCals"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
+                android:textSize="25sp"
+                android:layout_alignParentTop="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentBottom="true"
-                android:text="TextView" />
+                android:text="[Calories]"
+            />
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 
