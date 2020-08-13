@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="500dp"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_gravity="center">
+
+    <TextView
+        android:id="@+id/tvViewExercise"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="Exercise:"
+        android:textColor="@color/colorAccent"
+        android:textSize="30sp" />
+
+    <ListView
+        android:id="@+id/lvViewExercise"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        tools:listitem="@android:layout/simple_list_item_1"
+        android:divider="@color/cardview_light_background"
+        android:dividerHeight="1dp"
+        android:layout_below="@+id/tvViewExercise"
+        />
+
+    <TextView
+        android:id="@+id/tvExerciseCalories"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="Total Calories:"
+        android:textColor="@color/colorAccent"
+        android:layout_below="@+id/lvViewExercise"
+        android:textSize="30sp" />
+
+</RelativeLayout>

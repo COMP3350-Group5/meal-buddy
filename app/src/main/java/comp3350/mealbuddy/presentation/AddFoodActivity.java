@@ -80,7 +80,9 @@ public class AddFoodActivity extends AppCompatActivity {
                 //get the labels from the label UI
                 ArrayList<String> labelList = new ArrayList<>(Arrays.asList(labels.getText().toString().split(",")));
                 for (String label : labelList) {
-                    accessLabel.addLabel(label.trim());
+                    if (!accessLabel.labelExists(label)) {
+                        accessLabel.addLabel(label.trim());
+                    }
                 }
 
                 //grab the food name and initialize with the labels

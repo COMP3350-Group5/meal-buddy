@@ -5,13 +5,15 @@
 package comp3350.mealbuddy.presentation;
 
 import android.app.Dialog;
-import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -21,14 +23,20 @@ import androidx.cardview.widget.CardView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Iterator;
 
 import comp3350.mealbuddy.R;
 import comp3350.mealbuddy.business.AccessAccount;
 import comp3350.mealbuddy.business.Calculator;
 import comp3350.mealbuddy.objects.Account;
 import comp3350.mealbuddy.objects.Day;
+import comp3350.mealbuddy.objects.Exercise;
 import comp3350.mealbuddy.objects.UserInfo;
+import comp3350.mealbuddy.objects.consumables.Edible;
+import comp3350.mealbuddy.objects.consumables.EdibleIntPair;
+import comp3350.mealbuddy.objects.consumables.Meal;
 
 
 public class TimelineActivity extends AppCompatActivity {
@@ -84,11 +92,7 @@ public class TimelineActivity extends AppCompatActivity {
                 Calendar newCalendar = Calendar.getInstance();
                 newCalendar.set(y, m, d);
                 int newDayOfYear = newCalendar.get(Calendar.DAY_OF_YEAR);
-                Intent intent = new Intent(TimelineActivity.this, TimelineActivity.class);
-                intent.putExtra("dayOfYear", newDayOfYear);
-                intent.putExtra("username", username);
-                TimelineActivity.this.startActivity(intent);
-
+                ChangeActivityHelper.changeActivity(TimelineActivity.this, TimelineActivity.class, username, dayOfYear);
             });
 
             dialog.show();
@@ -109,23 +113,6 @@ public class TimelineActivity extends AppCompatActivity {
         fabFood.setOnClickListener((view) -> ChangeActivityHelper.changeActivity(TimelineActivity.this, SearchFoodActivity.class, username, dayOfYear));
 
         fabExercise.setOnClickListener((view) -> ChangeActivityHelper.changeActivity(TimelineActivity.this, AddExerciseActivity.class, username, dayOfYear));
-
-        BottomNavigationView nav = findViewById(R.id.bottom_navigation);
-        nav.setOnNavigationItemSelectedListener((MenuItem item) -> {
-            Intent intent;
-            switch (item.getItemId()) {
-                case R.id.action_goals:
-                    ChangeActivityHelper.changeActivity(TimelineActivity.this, GoalActivity.class, username, dayOfYear);
-                    break;
-                case R.id.action_account:
-                    ChangeActivityHelper.changeActivity(TimelineActivity.this, AccountActivity.class, username, dayOfYear);
-                    break;
-                case R.id.action_timeline:
-                    // do nothing, this is where we are
-                    break;
-            }
-            return true;
-        });
 
         // Sets the current day as the default for new days
         Button setDefaultDay = findViewById(R.id.defaultDay);
@@ -152,6 +139,11 @@ public class TimelineActivity extends AppCompatActivity {
             ChangeActivityHelper.changeActivity(TimelineActivity.this, LabelActivity.class);
         });
 
+        BottomNavigationView nav = findViewById(R.id.bottom_navigation);
+        Menu menu = nav.getMenu();
+        menu.getItem(ChangeActivityHelper.TIMELINE).setChecked(true);
+        menu.getItem(ChangeActivityHelper.TIMELINE).setCheckable(false);
+
     }
 
     /*
@@ -159,73 +151,11 @@ public class TimelineActivity extends AppCompatActivity {
      * initializes the UI cards
      */
     private void initializeCards() {
-        initializeBreakfast();
-        initializeLunch();
-        initializeDinner();
-        initializeSnacks();
         initializeTotals();
-        initializeExercise();
+        initializePopOutCards();
+        initializeExerciseCard();
     }
 
-    /*
-     * initializeSnacks
-     * initializes the the snack card UI
-     */
-    private void initializeSnacks() {
-        CardView snacks = findViewById(R.id.cardSnacks);
-        RelativeLayout snacksLayout = (RelativeLayout) snacks.getChildAt(0);
-        TextView cardSnacksTitle = (TextView) snacksLayout.getChildAt(0);
-        cardSnacksTitle.setText("Snacks");
-        TextView txtSnacks = (TextView) snacksLayout.getChildAt(1);
-        txtSnacks.setText(day.getMealString(Day.MealTimeType.SNACK));
-        TextView txtSnackCals = (TextView) snacksLayout.getChildAt(2);
-        txtSnackCals.setText(calculator.getMealTimeCalories(Day.MealTimeType.SNACK) + " Cals");
-    }
-
-    /*
-     * initializeDinner
-     * initializes the dinner card UI
-     */
-    private void initializeDinner() {
-        CardView dinner = findViewById(R.id.cardDinner);
-        RelativeLayout dinnerLayout = (RelativeLayout) dinner.getChildAt(0);
-        TextView cardDinnerTitle = (TextView) dinnerLayout.getChildAt(0);
-        cardDinnerTitle.setText("Dinner");
-        TextView txtDinner = (TextView) dinnerLayout.getChildAt(1);
-        txtDinner.setText(day.getMealString(Day.MealTimeType.DINNER));
-        TextView txtDinnerCals = (TextView) dinnerLayout.getChildAt(2);
-        txtDinnerCals.setText(calculator.getMealTimeCalories(Day.MealTimeType.DINNER) + " Cals");
-    }
-
-    /*
-     * initializeLunch
-     * initializes the lunch card UI
-     */
-    private void initializeLunch() {
-        CardView lunch = findViewById(R.id.cardLunch);
-        RelativeLayout lunchLayout = (RelativeLayout) lunch.getChildAt(0);
-        TextView cardLunchTitle = (TextView) lunchLayout.getChildAt(0);
-        cardLunchTitle.setText("Lunch");
-        TextView txtLunch = (TextView) lunchLayout.getChildAt(1);
-        txtLunch.setText(day.getMealString(Day.MealTimeType.LUNCH));
-        TextView txtLunchCals = (TextView) lunchLayout.getChildAt(2);
-        txtLunchCals.setText(calculator.getMealTimeCalories(Day.MealTimeType.LUNCH) + " Cals");
-    }
-
-    /*
-     * initializeBreakfast
-     * initializes the breakfast card UI
-     */
-    private void initializeBreakfast() {
-        CardView breakfast = findViewById(R.id.cardBreakfast);
-        RelativeLayout breakfastLayout = (RelativeLayout) breakfast.getChildAt(0);
-        TextView cardBreakfastTitle = (TextView) breakfastLayout.getChildAt(0);
-        cardBreakfastTitle.setText("Breakfast");
-        TextView txtBreakfast = (TextView) breakfastLayout.getChildAt(1);
-        txtBreakfast.setText(day.getMealString(Day.MealTimeType.BREAKFAST));
-        TextView txtBreakfastCals = (TextView) breakfastLayout.getChildAt(2);
-        txtBreakfastCals.setText(calculator.getMealTimeCalories(Day.MealTimeType.BREAKFAST) + " Cals");
-    }
 
     /*
      * initializeTotals
@@ -242,19 +172,89 @@ public class TimelineActivity extends AppCompatActivity {
         netCals.setText(calculator.getNetCalories(accessAccount.getUserInfo(username)) + " net Cals");
     }
 
-    /*
-     * initializeTotals
-     * initializes the exercise card
-     */
-    private void initializeExercise() {
-        CardView exercise = findViewById(R.id.cardExercise);
-        RelativeLayout exerciseLayout = (RelativeLayout) exercise.getChildAt(0);
-        TextView cardExerciseTitle = (TextView) exerciseLayout.getChildAt(0);
-        cardExerciseTitle.setText("Exercise");
-        TextView txtExercise = (TextView) exerciseLayout.getChildAt(1);
-        txtExercise.setText(day.getExerciseString());
-        TextView exerciseCals = (TextView) exerciseLayout.getChildAt(2);
-        exerciseCals.setText(calculator.getTotalExerciseCalories(accessAccount.getUserInfo(username)) + " Cals");
+    private void initializePopOutCards(){
+        Object[][] mealtime = {
+            {R.id.cardBreakfast, R.id.txtBreakfastCals, Day.MealTimeType.BREAKFAST},
+            {R.id.cardLunch, R.id.txtLunchCals, Day.MealTimeType.LUNCH},
+            {R.id.cardDinner, R.id.txtDinnerCals, Day.MealTimeType.DINNER},
+            {R.id.cardSnacks, R.id.txtSnacksCals, Day.MealTimeType.SNACK},
+        };
+
+        for(Object[] mt : mealtime){
+            CardView cvMeal = findViewById((int)mt[0]);
+            cvMeal.setOnClickListener((view) -> showFoodPopUp(day.getMealTime((Day.MealTimeType)mt[2])));
+            TextView tvMeal = findViewById((int)mt[1]);
+            String toDisplay = String.format("%d%s", calculator.getMealTimeCalories((Day.MealTimeType)mt[2]), " Cals");
+            tvMeal.setText(toDisplay);
+        }
+    }
+
+    private void initializeExerciseCard(){
+        CardView exerCard = findViewById(R.id.cardExercise);
+        TextView exerciseCals = findViewById(R.id.txtExercisesCals);
+        exerciseCals.setText(String.format("%s%d%s", "Burned " , calculator.getTotalExerciseCalories(accessAccount.getUserInfo(username)), " cals"));
+        exerCard.setOnClickListener((view) -> showExercisePopUp());
+    }
+
+    private void showExercisePopUp(){
+        dialog.setContentView(R.layout.pop_up_view_exercise);
+        //set up the array adapter
+        ArrayList<String> exerNames = new ArrayList<>();
+        for (Iterator<Exercise> it = day.getExercises(); it.hasNext(); ) {
+            Exercise exer = it.next();
+            String toAdd = String.format("%s\t\t\t%smin\t\t\tburned %d cals", exer.name, exer.duration, calculator.getExerciseCalories(exer, accessAccount.getUserInfo(username)));
+            exerNames.add(toAdd);
+        }
+        ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter<>(TimelineActivity.this, android.R.layout.simple_list_item_1, exerNames);
+        //set the title
+        TextView title = dialog.findViewById(R.id.tvViewExercise);
+        title.setText("Exercise");
+        TextView cals = dialog.findViewById(R.id.tvExerciseCalories);
+        cals.setText(String.format("%s%d", "Calories burned " , calculator.getTotalExerciseCalories(accessAccount.getUserInfo(username))));
+
+        //set up the list view
+        ListView lv = dialog.findViewById(R.id.lvViewExercise);
+        lv.setAdapter(stringArrayAdapter);
+        dialog.show();
+    }
+
+    private void showFoodPopUp(Meal mealtime) {
+        dialog.setContentView(R.layout.pop_up_display_food);
+        int fatTotal = 0;
+        int proteinTotal = 0;
+        int carbTotal = 0;
+        //set up the array adapter
+        ArrayList<String> foodNames = new ArrayList<>();
+        for (Iterator<EdibleIntPair> it = mealtime.getEdibleIntPairIterator(); it.hasNext(); ) {
+            EdibleIntPair e = it.next();
+            String macroString = String.format("Fat: %dg\t\t|\t\tProtein: %dg\t\t|\t\tCarbs: %dg\t",
+                    e.edible.getMacroGrams(Edible.Macros.Fat),
+                    e.edible.getMacroGrams(Edible.Macros.Protein),
+                    e.edible.getMacroGrams(Edible.Macros.Carbohydrates));
+
+            String toAdd = String.format("%s\t\t\t%s\t\t\tx %d", e.edible.name, macroString, e.quantity);
+            foodNames.add(toAdd);
+            fatTotal += calculator.getMacroCalories(Edible.Macros.Fat);
+            proteinTotal += calculator.getMacroCalories(Edible.Macros.Protein);
+            carbTotal += calculator.getMacroCalories(Edible.Macros.Carbohydrates);
+        }
+
+        ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter<>(TimelineActivity.this, android.R.layout.simple_list_item_1, foodNames);
+        //set the title
+        TextView title = dialog.findViewById(R.id.tvViewFood);
+        title.setText(mealtime.name);
+        //set the macro totals
+        TextView fat = dialog.findViewById(R.id.tvViewFoodFat);
+        fat.setText(String.format("Fat: %d cal", fatTotal));
+        TextView protein = dialog.findViewById(R.id.tvViewFoodProtein);
+        protein.setText(String.format("Protein: %d cal", proteinTotal));
+        TextView carbs = dialog.findViewById(R.id.tvViewFoodCarbs);
+        carbs.setText(String.format("Carbs: %d cal", carbTotal));
+
+        //set up the list view
+        ListView lv = dialog.findViewById(R.id.lvViewFood);
+        lv.setAdapter(stringArrayAdapter);
+        dialog.show();
     }
 
     /*

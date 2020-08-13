@@ -48,6 +48,22 @@ public class AccessLabelTest {
         }
     }
 
+    @Test
+    public void labelExists_avgCases_trueIfLabelExists() {
+        String labelName = "new label";
+        accessLabel.addLabel(labelName);
+        Assert.assertTrue(accessLabel.labelExists(labelName));
+    }
+
+    @Test
+    public void labelExists_nullLabel_exceptionThrown() {
+        try {
+            accessLabel.labelExists(null);
+            Assert.fail();
+        } catch (NullPointerException npe) {
+            Assert.assertTrue(true);
+        }
+    }
 
     @Test
     public void removeLabel_nullLabel_throwException() {
