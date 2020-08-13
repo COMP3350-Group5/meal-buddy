@@ -6,6 +6,7 @@ package comp3350.mealbuddy.presentation;
 
 import android.app.Dialog;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -112,22 +113,6 @@ public class TimelineActivity extends AppCompatActivity {
 
         fabExercise.setOnClickListener((view) -> ChangeActivityHelper.changeActivity(TimelineActivity.this, AddExerciseActivity.class, username, dayOfYear));
 
-        BottomNavigationView nav = findViewById(R.id.bottom_navigation);
-        nav.setOnNavigationItemSelectedListener((MenuItem item) -> {
-            switch (item.getItemId()) {
-                case R.id.action_goals:
-                    ChangeActivityHelper.changeActivity(TimelineActivity.this, GoalActivity.class, username, dayOfYear);
-                    break;
-                case R.id.action_account:
-                    ChangeActivityHelper.changeActivity(TimelineActivity.this, AccountActivity.class, username, dayOfYear);
-                    break;
-                case R.id.action_timeline:
-                    // do nothing, this is where we are
-                    break;
-            }
-            return true;
-        });
-
         // Sets the current day as the default for new days
         Button setDefaultDay = findViewById(R.id.defaultDay);
 
@@ -152,6 +137,11 @@ public class TimelineActivity extends AppCompatActivity {
         gotoLabels.setOnClickListener((view) -> {
             ChangeActivityHelper.changeActivity(TimelineActivity.this, LabelActivity.class);
         });
+
+        BottomNavigationView nav = findViewById(R.id.bottom_navigation);
+        Menu menu = nav.getMenu();
+        menu.getItem(ChangeActivityHelper.TIMELINE).setChecked(true);
+        menu.getItem(ChangeActivityHelper.TIMELINE).setCheckable(false);
 
     }
 

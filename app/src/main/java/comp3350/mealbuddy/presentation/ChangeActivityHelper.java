@@ -9,6 +9,10 @@ import android.content.Intent;
 
 public class ChangeActivityHelper {
 
+    public static final int TIMELINE = 0;
+    public static final int GOALS = 1;
+    public static final int STATS = 2;
+    public static final int ACCOUNT = 3;
     /*
      * changeActivity
      * changes the activity to the destination class from the src context. passing the given parameters

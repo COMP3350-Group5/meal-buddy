@@ -10,8 +10,14 @@
     <item
         android:id="@+id/action_goals"
         android:enabled="true"
-        android:icon="@drawable/ic_goals"
+        android:icon="@drawable/ic_bullseye_black"
         android:title="Goals"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_stats"
+        android:enabled="true"
+        android:icon="@drawable/ic_goals"
+        android:title="Stats"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_account"
