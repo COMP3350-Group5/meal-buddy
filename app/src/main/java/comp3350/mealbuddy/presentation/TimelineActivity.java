@@ -23,6 +23,8 @@ import androidx.cardview.widget.CardView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
@@ -165,6 +167,7 @@ public class TimelineActivity extends AppCompatActivity {
     private void initializeCards() {
         initializeTotals();
         initializePopOutCards();
+        initializeExerciseCard();
     }
 
 
@@ -184,12 +187,26 @@ public class TimelineActivity extends AppCompatActivity {
     }
 
     private void initializePopOutCards(){
-        CardView breakfast = findViewById(R.id.cardBreakfast);
-        TextView breakfastCals = findViewById(R.id.txtBreakfastCals);
-        breakfastCals.setText(calculator.getMealTimeCalories(Day.MealTimeType.BREAKFAST));
-        breakfast.setOnClickListener((view) -> {
-            showFoodPopUp(day.getMealTime(Day.MealTimeType.BREAKFAST));
-        });
+        Object[][] mealtime = {
+            {R.id.cardBreakfast, R.id.txtBreakfastCals, Day.MealTimeType.BREAKFAST},
+            {R.id.cardLunch, R.id.txtLunchCals, Day.MealTimeType.LUNCH},
+            {R.id.cardDinner, R.id.txtDinnerCals, Day.MealTimeType.DINNER},
+            {R.id.cardSnacks, R.id.txtSnacksCals, Day.MealTimeType.SNACK},
+        };
+
+        for(Object[] mt : mealtime){
+            CardView cvMeal = findViewById((int)mt[0]);
+            cvMeal.setOnClickListener((view) -> showFoodPopUp(day.getMealTime((Day.MealTimeType)mt[2])));
+            TextView tvMeal = findViewById((int)mt[1]);
+            String toDisplay = String.format("%s%d", "Calories ", calculator.getMealTimeCalories((Day.MealTimeType)mt[2]));
+            tvMeal.setText(toDisplay);
+        }
+    }
+
+    private void initializeExerciseCard(){
+        TextView exercise = findViewById(R.id.txtExercisesCals);
+        String toDisplay = String.format("%s%d%s", "Burned ", calculator.getTotalExerciseCalories(accessAccount.getUserInfo(username)), " Cals");
+        exercise.setText(toDisplay);
     }
 
     private void showFoodPopUp(Meal mealtime) {
@@ -201,14 +218,16 @@ public class TimelineActivity extends AppCompatActivity {
             String toAdd = String.format("%d%s%s", e.quantity, "x ", e.edible.name);
             foodNames.add(toAdd);
         }
-        ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter<String>(TimelineActivity.this, android.R.layout.simple_list_item_1, foodNames);
+        ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter<>(TimelineActivity.this, android.R.layout.simple_list_item_1, foodNames);
         //set the title
         TextView title = dialog.findViewById(R.id.tvViewFood);
         title.setText(mealtime.name);
         //set up the list view
         ListView lv = dialog.findViewById(R.id.lvViewFood);
         lv.setAdapter(stringArrayAdapter);
+        dialog.show();
     }
+
     /*
      * showFABMenu
      * shows the floating action button menu
