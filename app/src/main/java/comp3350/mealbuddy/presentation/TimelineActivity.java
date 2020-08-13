@@ -227,7 +227,12 @@ public class TimelineActivity extends AppCompatActivity {
         ArrayList<String> foodNames = new ArrayList<>();
         for (Iterator<EdibleIntPair> it = mealtime.getEdibleIntPairIterator(); it.hasNext(); ) {
             EdibleIntPair e = it.next();
-            String toAdd = String.format("%d%s%s", e.quantity, "x ", e.edible.name);
+            String macroString = String.format("Fat: %dg\t\t|\t\tProtein: %dg\t\t|\t\tCarbs: %dg\t",
+                    e.edible.getMacroGrams(Edible.Macros.Fat),
+                    e.edible.getMacroGrams(Edible.Macros.Protein),
+                    e.edible.getMacroGrams(Edible.Macros.Carbohydrates));
+
+            String toAdd = String.format("%s\t\t\t%s\t\t\tx %d", e.edible.name, macroString, e.quantity);
             foodNames.add(toAdd);
             fatTotal += calculator.getMacroCalories(Edible.Macros.Fat);
             proteinTotal += calculator.getMacroCalories(Edible.Macros.Protein);
