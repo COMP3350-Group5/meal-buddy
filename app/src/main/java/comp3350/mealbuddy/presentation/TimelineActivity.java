@@ -32,6 +32,7 @@ import comp3350.mealbuddy.business.AccessAccount;
 import comp3350.mealbuddy.business.Calculator;
 import comp3350.mealbuddy.objects.Account;
 import comp3350.mealbuddy.objects.Day;
+import comp3350.mealbuddy.objects.Exercise;
 import comp3350.mealbuddy.objects.UserInfo;
 import comp3350.mealbuddy.objects.consumables.Edible;
 import comp3350.mealbuddy.objects.consumables.EdibleIntPair;
@@ -189,9 +190,32 @@ public class TimelineActivity extends AppCompatActivity {
     }
 
     private void initializeExerciseCard(){
-        TextView exercise = findViewById(R.id.txtExercisesCals);
-        String toDisplay = String.format("%s%d%s", "Burned ", calculator.getTotalExerciseCalories(accessAccount.getUserInfo(username)), " Cals");
-        exercise.setText(toDisplay);
+        CardView exerCard = findViewById(R.id.cardExercise);
+        TextView exerciseCals = findViewById(R.id.txtExercisesCals);
+        exerciseCals.setText(String.format("%s%d%s", "Burned " , calculator.getTotalExerciseCalories(accessAccount.getUserInfo(username)), " cals"));
+        exerCard.setOnClickListener((view) -> showExercisePopUp());
+    }
+
+    private void showExercisePopUp(){
+        dialog.setContentView(R.layout.pop_up_view_exercise);
+        //set up the array adapter
+        ArrayList<String> exerNames = new ArrayList<>();
+        for (Iterator<Exercise> it = day.getExercises(); it.hasNext(); ) {
+            Exercise exer = it.next();
+            String toAdd = String.format("%s\t\t\t%smin\t\t\tburned %d cals", exer.name, exer.duration, calculator.getExerciseCalories(exer, accessAccount.getUserInfo(username)));
+            exerNames.add(toAdd);
+        }
+        ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter<>(TimelineActivity.this, android.R.layout.simple_list_item_1, exerNames);
+        //set the title
+        TextView title = dialog.findViewById(R.id.tvViewExercise);
+        title.setText("Exercise");
+        TextView cals = dialog.findViewById(R.id.tvExerciseCalories);
+        cals.setText(String.format("%s%d", "Calories burned " , calculator.getTotalExerciseCalories(accessAccount.getUserInfo(username))));
+
+        //set up the list view
+        ListView lv = dialog.findViewById(R.id.lvViewExercise);
+        lv.setAdapter(stringArrayAdapter);
+        dialog.show();
     }
 
     private void showFoodPopUp(Meal mealtime) {
