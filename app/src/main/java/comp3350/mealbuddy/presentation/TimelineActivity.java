@@ -200,9 +200,8 @@ public class TimelineActivity extends AppCompatActivity {
 
     private void initializeExerciseCard(){
         CardView exerCard = findViewById(R.id.cardExercise);
-        TextView exercise = findViewById(R.id.txtExercisesCals);
-        String toDisplay = String.format("%s%d%s", "Burned ", calculator.getTotalExerciseCalories(accessAccount.getUserInfo(username)), " Cals");
-        exercise.setText(toDisplay);
+        TextView exerciseCals = findViewById(R.id.txtExercisesCals);
+        exerciseCals.setText(String.format("%s%d%s", "Burned " , calculator.getTotalExerciseCalories(accessAccount.getUserInfo(username)), " cals"));
         exerCard.setOnClickListener((view) -> showExercisePopUp());
     }
 
@@ -212,13 +211,16 @@ public class TimelineActivity extends AppCompatActivity {
         ArrayList<String> exerNames = new ArrayList<>();
         for (Iterator<Exercise> it = day.getExercises(); it.hasNext(); ) {
             Exercise exer = it.next();
-            String toAdd = exer.name + "\t" + exer.duration + "min\t burned " + calculator.getExerciseCalories(exer, accessAccount.getUserInfo(username));
+            String toAdd = String.format("%s\t\t\t%smin\t\t\tburned %d cals", exer.name, exer.duration, calculator.getExerciseCalories(exer, accessAccount.getUserInfo(username)));
             exerNames.add(toAdd);
         }
         ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter<>(TimelineActivity.this, android.R.layout.simple_list_item_1, exerNames);
         //set the title
         TextView title = dialog.findViewById(R.id.tvViewExercise);
         title.setText("Exercise");
+        TextView cals = dialog.findViewById(R.id.tvExerciseCalories);
+        cals.setText(String.format("%s%d", "Calories burned " , calculator.getTotalExerciseCalories(accessAccount.getUserInfo(username))));
+
         //set up the list view
         ListView lv = dialog.findViewById(R.id.lvViewExercise);
         lv.setAdapter(stringArrayAdapter);
