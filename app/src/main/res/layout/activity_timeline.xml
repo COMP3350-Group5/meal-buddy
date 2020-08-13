@@ -367,7 +367,8 @@
         app:layout_constraintHorizontal_bias="0.105"
         app:layout_constraintStart_toEndOf="@+id/txtTimeline"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_calendar"
+        app:srcCompat="@drawable/ic_calendar_day_solid"
+        android:tint="@color/colorPrimary"
         tools:ignore="VectorDrawableCompat" />
 
     <androidx.constraintlayout.widget.Guideline
