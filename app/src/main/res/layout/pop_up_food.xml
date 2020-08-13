@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="450dp"
-    android:layout_height="330dp"
+    android:layout_height="425dp"
     android:layout_gravity="center"
     android:orientation="vertical"
     android:padding="5dp"
@@ -55,5 +55,12 @@
         android:layout_gravity="center"
         android:text="Remove Edible From App" />
 
+    <Button
+        android:id="@+id/updateMeal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:enabled="false"
+        android:text="Update Meal" />
 
 </LinearLayout>
