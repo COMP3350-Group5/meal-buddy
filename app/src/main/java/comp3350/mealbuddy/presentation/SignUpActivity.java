@@ -57,21 +57,7 @@ public class SignUpActivity extends AppCompatActivity {
 
         //link the on click listeners
         createAccount.setOnClickListener((view) -> {
-            if (TextUtils.isEmpty(username.getText())) {
-                username.setError("Username is required");
-            } else if (accessAccount.accountExists(username.getText().toString())) {
-                username.setError("This username is taken select another one");
-            } else if (TextUtils.isEmpty(password.getText())) {
-                password.setError("Password is required");
-            } else if (TextUtils.isEmpty(fullName.getText())) {
-                fullName.setError("Full Name is required");
-            } else if (TextUtils.isEmpty(age.getText())) {
-                age.setError("Age is required");
-            } else if (TextUtils.isEmpty(height.getText())) {
-                height.setError("Height is required");
-            } else if (TextUtils.isEmpty(weight.getText())) {
-                weight.setError("Weight is required");
-            } else {
+            if (validateInput(username, password, fullName, age, height, weight)) {
                 UserInfo userInfo = new UserInfo(fullName.getText().toString(),
                         username.getText().toString(),
                         password.getText().toString(),
@@ -84,7 +70,46 @@ public class SignUpActivity extends AppCompatActivity {
 
                 ChangeActivityHelper.changeActivity(SignUpActivity.this, TimelineActivity.class, userInfo.username);
             }
-
         });
+    }
+
+    private boolean validateInput(EditText username, EditText password, EditText fullName, EditText age, EditText height, EditText weight) {
+        boolean inputsValid = true;
+
+        if (TextUtils.isEmpty(username.getText())) {
+            username.setError("Username is required");
+            inputsValid = false;
+        }
+
+        if (accessAccount.accountExists(username.getText().toString())) {
+            username.setError("This username is taken select another one");
+            inputsValid = false;
+        }
+
+        if (TextUtils.isEmpty(password.getText())) {
+            password.setError("Password is required");
+            inputsValid = false;
+        }
+
+        if (TextUtils.isEmpty(fullName.getText())) {
+            fullName.setError("Full Name is required");
+            inputsValid = false;
+        }
+        if (TextUtils.isEmpty(age.getText())) {
+            age.setError("Age is required");
+            inputsValid = false;
+        }
+
+        if (TextUtils.isEmpty(height.getText())) {
+            height.setError("Height is required");
+            inputsValid = false;
+        }
+
+        if (TextUtils.isEmpty(weight.getText())) {
+            weight.setError("Weight is required");
+            inputsValid = false;
+        }
+
+        return inputsValid;
     }
 }

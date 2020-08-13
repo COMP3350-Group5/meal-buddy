@@ -320,11 +320,7 @@ public class GoalActivity extends AppCompatActivity {
 
         Button btnContinue = dialog.findViewById(R.id.btnContinue);
         btnContinue.setOnClickListener((view) -> {
-            if (TextUtils.isEmpty(lowerBound.getText())) {
-                lowerBound.setError("Lower bound is required");
-            } else if (TextUtils.isEmpty(upperBound.getText())) {
-                upperBound.setError("Upper bound is required");
-            } else {
+            if (validateInput(lowerBound, upperBound)) {
                 addMicroGoal(lowerBound, upperBound);
             }
         });
@@ -394,6 +390,22 @@ public class GoalActivity extends AppCompatActivity {
         });
 
         dialog.show();
+    }
+
+    private boolean validateInput(EditText lowerBound, EditText upperBound) {
+        boolean inputsValid = true;
+
+        if (TextUtils.isEmpty(lowerBound.getText())) {
+            lowerBound.setError("Lower bound is required");
+            inputsValid = false;
+        }
+
+        if (TextUtils.isEmpty(upperBound.getText())) {
+            upperBound.setError("Upper bound is required");
+            inputsValid = false;
+        }
+
+        return inputsValid;
     }
 
     /*

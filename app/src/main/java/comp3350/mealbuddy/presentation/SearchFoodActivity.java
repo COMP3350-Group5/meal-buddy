@@ -25,6 +25,7 @@ import androidx.core.view.MenuItemCompat;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import comp3350.mealbuddy.R;
@@ -72,16 +73,7 @@ public class SearchFoodActivity extends AppCompatActivity {
         fabFood = findViewById(R.id.fabFood);
         fabMeal = findViewById(R.id.fabMeal);
 
-        //set up the list view
-        List<Edible> allEdibles = accessEdible.getEdibles();
-        listview = findViewById(R.id.lvSearchbar);
-        for (Edible e : allEdibles)
-            foodNames.add(e.name);
-
-        //set up the adapter
-        stringArrayAdapter = new ArrayAdapter<>(SearchFoodActivity.this, android.R.layout.simple_list_item_1, foodNames);
-        listview.setAdapter(stringArrayAdapter);
-
+        setListAdapterToDbEdibles();
         //call back for clicking a list item
         listview.setOnItemClickListener((parent, view, pos, id) -> showPopUp(accessEdible.getEdible(stringArrayAdapter.getItem(pos).trim()), username, dayOfYear));
 
@@ -94,6 +86,23 @@ public class SearchFoodActivity extends AppCompatActivity {
 
         fabMeal.setOnClickListener((view) -> ChangeActivityHelper.changeActivity(SearchFoodActivity.this, CreateMealActivity.class, username, dayOfYear));
     }
+
+    /*
+     * createEdibleList
+     * sets the list view's adapter to the list of edible names in db
+     */
+    private void setListAdapterToDbEdibles() {
+        List<Edible> allEdibles = accessEdible.getEdibles();
+        listview = findViewById(R.id.lvSearchbar);
+        for (Edible e : allEdibles)
+            foodNames.add(e.name);
+        Collections.sort(foodNames);
+
+        //set up the adapter
+        stringArrayAdapter = new ArrayAdapter<>(SearchFoodActivity.this, android.R.layout.simple_list_item_1, foodNames);
+        listview.setAdapter(stringArrayAdapter);
+    }
+
 
     /*
      * onCreateOptionsMenu
@@ -120,13 +129,12 @@ public class SearchFoodActivity extends AppCompatActivity {
         //initialize dialog components
         TextView titleText = dialog.findViewById(R.id.tvPopUpTitle);
         Spinner spinner = dialog.findViewById(R.id.spnMealtimes);
-        Button btn = dialog.findViewById(R.id.btnConfirm);
-        EditText editText = dialog.findViewById(R.id.etQuantity);
+        Button confirm = dialog.findViewById(R.id.btnConfirm);
+        EditText quantity = dialog.findViewById(R.id.etQuantity);
+        Button removeEdible = dialog.findViewById(R.id.removeEdibleFromDb);
 
-        btn.setOnClickListener((view) -> {
-            if (TextUtils.isEmpty(editText.getText())) {
-                editText.setError("Quantity is required");
-            } else {
+        confirm.setOnClickListener((view) -> {
+            if (validateInput(quantity)) {
                 //add the food
                 String spnString = spinner.getSelectedItem().toString();
                 //find the meal time
@@ -135,12 +143,19 @@ public class SearchFoodActivity extends AppCompatActivity {
                 Day day = accessAccount.getDay(username, dayOfYear);
 
                 //add the meal to the day and update the day in the user
-                day.addToMeal(MT, edible, Integer.parseInt(editText.getText().toString()));
+                day.addToMeal(MT, edible, Integer.parseInt(quantity.getText().toString()));
                 accessAccount.updateDay(username, day);
 
                 //go back to the timeline activity and pass the username
                 ChangeActivityHelper.changeActivity(SearchFoodActivity.this, TimelineActivity.class, username, dayOfYear);
             }
+        });
+
+        removeEdible.setOnClickListener((view) -> {
+            accessEdible.removeEdible(edible.name);
+            stringArrayAdapter.remove(edible.name);
+            listview.setAdapter(stringArrayAdapter);
+            dialog.dismiss();
         });
 
         titleText.setText("Adding Food: " + edible.name);
@@ -195,6 +210,21 @@ public class SearchFoodActivity extends AppCompatActivity {
                 break;
         }
         return MT;
+    }
+
+    private boolean validateInput(EditText quantity) {
+        boolean inputsValid = true;
+
+        if (TextUtils.isEmpty(quantity.getText())) {
+            quantity.setError("Quantity is required.");
+            inputsValid = false;
+        }
+        else if (Integer.parseInt(quantity.getText().toString()) == 0) {
+            quantity.setError("Quantity cannot be 0.");
+            inputsValid = false;
+        }
+
+        return inputsValid;
     }
 
     private void showFABMenu() {
