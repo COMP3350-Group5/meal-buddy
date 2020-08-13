@@ -6,23 +6,23 @@
         android:enabled="true"
         android:icon="@drawable/ic_timeline"
         android:title="Timeline"
-        app:showAsAction="always" />
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_goals"
         android:enabled="true"
         android:icon="@drawable/ic_bullseye_black"
         android:title="Goals"
-        app:showAsAction="always" />
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_stats"
         android:enabled="true"
         android:icon="@drawable/ic_goals"
         android:title="Stats"
-        app:showAsAction="always" />
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_account"
         android:enabled="true"
         android:icon="@drawable/ic_account"
         android:title="Account"
-        app:showAsAction="always" />
+        app:showAsAction="ifRoom" />
 </menu>
