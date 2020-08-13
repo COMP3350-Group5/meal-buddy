@@ -249,7 +249,7 @@ public class TimelineActivity extends AppCompatActivity {
             carbTotal += calculator.getMacroCalories(Edible.Macros.Carbohydrates);
         }
 
-        ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter(TimelineActivity.this, android.R.layout.simple_list_item_1, android.R.id.text1, foodNames){
+        ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter(TimelineActivity.this, android.R.layout.simple_list_item_2, android.R.id.text1, foodNames){
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
                 View view = super.getView(position, convertView, parent);
