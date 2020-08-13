@@ -108,8 +108,8 @@ public class GoalActivity extends AppCompatActivity {
 
         BottomNavigationView nav = findViewById(R.id.bottom_navigation);
         Menu menu = nav.getMenu();
-        menu.getItem(1).setChecked(true);
-        menu.getItem(1).setCheckable(false);
+        menu.getItem(ChangeActivityHelper.GOALS).setChecked(true);
+        menu.getItem(ChangeActivityHelper.GOALS).setCheckable(false);
     }
 
     /*

@@ -70,8 +70,8 @@ public class AccountActivity extends AppCompatActivity {
 
         BottomNavigationView nav = findViewById(R.id.bottom_navigation);
         Menu menu = nav.getMenu();
-        menu.getItem(2).setChecked(true);
-        menu.getItem(2).setCheckable(false);
+        menu.getItem(ChangeActivityHelper.ACCOUNT).setChecked(true);
+        menu.getItem(ChangeActivityHelper.ACCOUNT).setCheckable(false);
     }
 
     /*
