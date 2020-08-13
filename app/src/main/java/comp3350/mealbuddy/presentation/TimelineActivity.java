@@ -198,7 +198,7 @@ public class TimelineActivity extends AppCompatActivity {
             CardView cvMeal = findViewById((int)mt[0]);
             cvMeal.setOnClickListener((view) -> showFoodPopUp(day.getMealTime((Day.MealTimeType)mt[2])));
             TextView tvMeal = findViewById((int)mt[1]);
-            String toDisplay = String.format("%s%d", "Calories ", calculator.getMealTimeCalories((Day.MealTimeType)mt[2]));
+            String toDisplay = String.format("%d%s", calculator.getMealTimeCalories((Day.MealTimeType)mt[2]), " Cals");
             tvMeal.setText(toDisplay);
         }
     }
