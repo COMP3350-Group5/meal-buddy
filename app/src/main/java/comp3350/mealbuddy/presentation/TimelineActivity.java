@@ -138,8 +138,8 @@ public class TimelineActivity extends AppCompatActivity {
 
         BottomNavigationView nav = findViewById(R.id.bottom_navigation);
         Menu menu = nav.getMenu();
-        menu.getItem(0).setChecked(true);
-        menu.getItem(0).setCheckable(false);
+        menu.getItem(ChangeActivityHelper.TIMELINE).setChecked(true);
+        menu.getItem(ChangeActivityHelper.TIMELINE).setCheckable(false);
 
     }
 
