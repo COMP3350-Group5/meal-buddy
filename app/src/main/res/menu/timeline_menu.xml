@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_set_default_day"
+        android:enabled="true"
+        android:title="Set Day as Default"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_reset_default_day"
+        android:enabled="true"
+        android:title="Reset Default Day"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_labels"
+        android:enabled="true"
+        android:title="Labels"
+        app:showAsAction="ifRoom" />
+</menu>

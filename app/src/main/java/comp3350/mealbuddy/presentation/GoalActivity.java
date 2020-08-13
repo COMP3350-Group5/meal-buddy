@@ -8,14 +8,18 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.PopupMenu;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -93,23 +97,42 @@ public class GoalActivity extends AppCompatActivity {
         FloatingActionButton addGoal = findViewById(R.id.fabAddGoal);
         addGoal.setOnClickListener((view) -> showPopUp());
 
-        Button removeGoal = findViewById(R.id.btnRemove);
-        removeGoal.setOnClickListener((view) -> showRemoveGoal());
-
-        Button setRecommendedGoals = findViewById(R.id.setDefaultGoals);
-        setRecommendedGoals.setOnClickListener((view) -> {
-            day.removeAllGoals();
-            List<Goal> goals = RecommendedGoalFactory.makeGoals(accessAccount.getUserInfo(username));
-            for (Goal g : goals)
-                day.addGoal(g);
-            accessAccount.updateDay(username, day);
-            ChangeActivityHelper.changeActivity(GoalActivity.this, GoalActivity.class, username, dayOfYear);
-        });
-
         BottomNavigationView nav = findViewById(R.id.bottom_navigation);
         Menu menu = nav.getMenu();
         menu.getItem(ChangeActivityHelper.GOALS).setChecked(true);
         menu.getItem(ChangeActivityHelper.GOALS).setCheckable(false);
+
+        ImageButton btnMore = findViewById(R.id.btnMore);
+        btnMore.setOnClickListener( (view) -> {
+            showPopup(view);
+        });
+    }
+
+    private void showPopup(View view) {
+        PopupMenu popup = new PopupMenu(this, view);
+        MenuInflater inflater = popup.getMenuInflater();
+        inflater.inflate(R.menu.goals_menu, popup.getMenu());
+        popup.setOnMenuItemClickListener((MenuItem item) -> {
+            switch(item.getItemId()) {
+                case R.id.action_set_recommended_goals:
+                    setRecommendedGoals();
+                    break;
+                case R.id.action_remove_goal:
+                    showRemoveGoal();
+                    break;
+            }
+            return true;
+        });
+        popup.show();
+    }
+
+    private void setRecommendedGoals() {
+        day.removeAllGoals();
+        List<Goal> goals = RecommendedGoalFactory.makeGoals(accessAccount.getUserInfo(username));
+        for (Goal g : goals)
+            day.addGoal(g);
+        accessAccount.updateDay(username, day);
+        ChangeActivityHelper.changeActivity(GoalActivity.this, GoalActivity.class, username, dayOfYear);
     }
 
     /*
