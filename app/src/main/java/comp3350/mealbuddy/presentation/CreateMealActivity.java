@@ -82,7 +82,8 @@ public class CreateMealActivity extends AppCompatActivity {
                 String mealName = mealTitle.getText().toString();
                 ArrayList<String> labelList = new ArrayList<>(Arrays.asList(labels.getText().toString().split(",")));
                 for (String label : labelList) {
-                    accessLabel.addLabel(label.trim());
+                    if (!accessLabel.labelExists(label))
+                        accessLabel.addLabel(label.trim());
                 }
                 Meal newMeal = new Meal(mealName, labelList);
                 SparseBooleanArray checkedItems = foodList.getCheckedItemPositions();

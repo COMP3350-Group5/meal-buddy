@@ -20,12 +20,30 @@ import comp3350.mealbuddy.R;
 import comp3350.mealbuddy.business.AccessEdible;
 import comp3350.mealbuddy.business.AccessLabel;
 import comp3350.mealbuddy.objects.consumables.Edible;
+import comp3350.mealbuddy.objects.consumables.Food;
 import comp3350.mealbuddy.objects.consumables.Meal;
 
 public class UpdateMeal extends AppCompatActivity {
 
     Dialog dialog;
 
+    //items passed
+    int dayOfYear;
+    String username;
+    String oldMealName;
+
+    //buttons on screen
+    TextView mealNameTitle;
+    EditText newMealNameTitle;
+    EditText labels;
+    ListView foodList;
+    Button addMeal;
+
+    int[] edibleQuantites;
+    List<Edible> edibles;
+    AccessEdible accessEdible;
+    AccessLabel accessLabel;
+    ArrayAdapter<String> adapter;
 
     /*
      * onCreate
@@ -38,35 +56,35 @@ public class UpdateMeal extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_meal);
 
-        AccessLabel accessLabel = new AccessLabel();
+        accessLabel = new AccessLabel();
 
 
         dialog = new Dialog(this);
 
         //get the items passed
-        int dayOfYear = this.getIntent().getIntExtra("dayOfYear", -1);
-        final String username = this.getIntent().getStringExtra("username");
-        final String oldMealName = this.getIntent().getStringExtra("mealName");
+        dayOfYear = this.getIntent().getIntExtra("dayOfYear", -1);
+        username = this.getIntent().getStringExtra("username");
+        oldMealName = this.getIntent().getStringExtra("mealName");
 
         //Get the objects on the screen
-        TextView mealNameTitle = findViewById(R.id.txtBuilder);
+        mealNameTitle = findViewById(R.id.txtBuilder);
         mealNameTitle.setText("Updating: " + oldMealName);
-        EditText mealTitle = findViewById(R.id.newMealName);
-        EditText labels = findViewById(R.id.meatUpdatingLabels);
-        ListView foodList = findViewById(R.id.foodListUpdating);
-        Button addMeal = findViewById(R.id.btnUpdateMeal);
+        newMealNameTitle = findViewById(R.id.newMealName);
+        labels = findViewById(R.id.meatUpdatingLabels);
+        foodList = findViewById(R.id.foodListUpdating);
+        addMeal = findViewById(R.id.btnUpdateMeal);
 
         //Fill the list with edibles
-        AccessEdible accessEdible = new AccessEdible();
-        List<Edible> edibles = accessEdible.getEdibles();
+        accessEdible = new AccessEdible();
+        edibles = accessEdible.getEdibles();
         ArrayList<String> ediblesString = new ArrayList<>();
         for (Edible e : edibles) {
             ediblesString.add(e.name);
         }
 
-        int[] edibleQuantites = new int[edibles.size()];
+        edibleQuantites = new int[edibles.size()];
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_multiple_choice, ediblesString);
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_multiple_choice, ediblesString);
         foodList.setAdapter(adapter);
 
         foodList.setOnItemClickListener((parent, view, pos, id) -> {
@@ -76,28 +94,103 @@ public class UpdateMeal extends AppCompatActivity {
 
         //OnSubmit
         addMeal.setOnClickListener((view) -> {
-            String newMealName = mealTitle.getText().toString();
-            if (accessEdible.edibleExists(newMealName)) {
-                mealTitle.setError("An edible with this name already exists!");
-            } else {
-                ArrayList<String> labelList = new ArrayList<>(Arrays.asList(labels.getText().toString().split(",")));
-                for (String label : labelList) {
-                    accessLabel.addLabel(label.trim());
-                }
-
-                Meal newMeal = new Meal(newMealName, labelList);
-                SparseBooleanArray checkedItems = foodList.getCheckedItemPositions();
-                for (int i = 0; i < checkedItems.size(); i++) {
-                    int ediblePosition = checkedItems.keyAt(i);
-                    int edibleQuantity = edibleQuantites[ediblePosition];
-                    newMeal.add(edibles.get(ediblePosition), edibleQuantity);
-                }
+            String newMealName = newMealNameTitle.getText().toString();
+            if (isValidInputs(newMealName)) {
+                List<String> labelList = getLabels();
+                Meal newMeal = createUpdatedMeal(newMealName, labelList);
                 accessEdible.updateEdible(oldMealName, newMeal);
                 ChangeActivityHelper.changeActivity(this, SearchFoodActivity.class, username, dayOfYear);
             }
         });
 
     }
+
+    /*
+     * getLabels
+     * gets the labels inputed by user.  These will only be the labesl the updated meal has
+     * Return: list of labels
+     */
+    private List<String> getLabels() {
+        ArrayList<String> labelList = new ArrayList<>(Arrays.asList(labels.getText().toString().split(",")));
+        for (String label : labelList) {
+            if (!accessLabel.labelExists(label)) {
+                accessLabel.addLabel(label.trim());
+            }
+        }
+        return labelList;
+    }
+
+    /*
+     * isValidInputs
+     * checks if the inputs for the updated meal are valid. else it displays the error
+     * Parameters:
+     *      @param newMealName - the updated meal name
+     * Return: True if the inputs are valid
+     */
+    private boolean isValidInputs(String newMealName) {
+        boolean isValid = true;
+        if (TextUtils.isEmpty(newMealNameTitle.getText())) {
+            newMealNameTitle.setError("Meal must be given a name to update to");
+            isValid = false;
+        } else if (newMealName == null) {
+            newMealNameTitle.setError("Meal must be given a name to update to");
+            isValid = false;
+        } else if (accessEdible.edibleExists(newMealName) && !newMealName.equals(oldMealName)) {
+            newMealNameTitle.setError("An edible with this name already exists!");
+            isValid = false;
+        } else if (containsItself(oldMealName)) {
+            newMealNameTitle.setError("A Meal may not contain itself!");
+            isValid = false;
+        }
+        return isValid;
+    }
+
+
+    private ArrayList<Edible> getEdiblesSelected() {
+        ArrayList<Edible> selectedEdibles = new ArrayList<>();
+        Edible edible;
+        SparseBooleanArray checkedItems = foodList.getCheckedItemPositions();
+        if (checkedItems != null && checkedItems.size() > 0) {
+            for (int i = 0; i < checkedItems.size(); i++) {
+                int ediblePos = checkedItems.keyAt(i);
+                edible = edibles.get(ediblePos);
+                if (checkedItems.get(ediblePos))
+                    selectedEdibles.add(edible);
+            }
+        }
+        return selectedEdibles;
+    }
+
+    /*
+     * containsItself
+     * checks if a meal conatins itself
+     * Parameters:
+     *      @param newMealName - the updated meal name
+     * Return: True if we are trying to add a meal to itself
+     */
+    private boolean containsItself(String oldMealName) {
+        List<Edible> selectedEdibles = getEdiblesSelected();
+        return selectedEdibles.contains(new Food(oldMealName));
+    }
+
+    /*
+     * createUpdatedMeal
+     * creates the meal to update the old one to
+     * Parameters:
+     *      @param newMealName - new meal name
+     *      @param labelList - list of labels to add to meal
+     */
+    private Meal createUpdatedMeal(String newMealName, List<String> labelList) {
+        Meal newMeal = new Meal(newMealName, labelList);
+        int quanitty;
+        List<Edible> ediblesSelected = getEdiblesSelected();
+        for (Edible e : ediblesSelected) {
+            quanitty = edibleQuantites[adapter.getPosition(e.name)];
+            newMeal.add(e, quanitty);
+        }
+        return newMeal;
+    }
+
 
     /*
      * showPopUp
