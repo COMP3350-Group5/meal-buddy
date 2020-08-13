@@ -86,7 +86,7 @@ public class CreateMealActivity extends AppCompatActivity {
 
         foodList.setOnItemClickListener((parent, view, pos, id) -> {
             if (foodList.isItemChecked(pos))
-                showPopUp(pos);
+                showSelectQuantityPopup(pos);
         });
 
         //OnSubmit
@@ -156,12 +156,12 @@ public class CreateMealActivity extends AppCompatActivity {
     }
 
     /*
-     * showPopUp
-     * shows the pop up with the corresponding information.
+     * showSelectQuantityPopup
+     * shows the pop up to select quantity for edible clicked
      * Parameters:
-     *      @param pos - position of edible we clicked on
+     *      @param pos - position of edible we clicked on in list
      */
-    public void showPopUp(int pos) {
+    public void showSelectQuantityPopup(int pos) {
         dialog.setContentView(R.layout.choose_quantites);
 
         EditText quantity = dialog.findViewById(R.id.edibleQuantity);

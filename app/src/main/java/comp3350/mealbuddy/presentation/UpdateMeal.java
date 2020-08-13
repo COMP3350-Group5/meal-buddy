@@ -89,7 +89,7 @@ public class UpdateMeal extends AppCompatActivity {
 
         foodList.setOnItemClickListener((parent, view, pos, id) -> {
             if (foodList.isItemChecked(pos))
-                showPopUp(pos, edibleQuantites);
+                showSelectQuantityPopup(pos);
         });
 
         //OnSubmit
@@ -198,13 +198,11 @@ public class UpdateMeal extends AppCompatActivity {
 
     /*
      * showPopUp
-     * shows the pop up with the corresponding information.
+     * shows the pop up with the edible to select quantity
      * Parameters:
-     *      @param edible - the edible to show
-     *      @param username - the account to add to
-     *      @param dayOfYear - the day to add to
+     *      @param pos - pos of edible we selected in list
      */
-    public void showPopUp(int pos, int[] quantities) {
+    public void showSelectQuantityPopup(int pos) {
         dialog.setContentView(R.layout.choose_quantites);
 
         EditText quantity = dialog.findViewById(R.id.edibleQuantity);
@@ -216,7 +214,7 @@ public class UpdateMeal extends AppCompatActivity {
             } else if (Integer.parseInt(quantity.getText().toString()) == 0) {
                 quantity.setError("Quantity cannot be 0.");
             } else {
-                quantities[pos] = Integer.parseInt(quantity.getText().toString());
+                edibleQuantites[pos] = Integer.parseInt(quantity.getText().toString());
                 dialog.dismiss();
             }
         });
