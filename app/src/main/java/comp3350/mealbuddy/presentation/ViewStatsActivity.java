@@ -7,8 +7,11 @@ package comp3350.mealbuddy.presentation;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.Menu;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.List;
 
@@ -60,6 +63,11 @@ public class ViewStatsActivity extends AppCompatActivity {
 
         //set the components
         setComponentValues();
+
+        BottomNavigationView nav = findViewById(R.id.bottom_navigation);
+        Menu menu = nav.getMenu();
+        menu.getItem(ChangeActivityHelper.STATS).setChecked(true);
+        menu.getItem(ChangeActivityHelper.STATS).setCheckable(false);
 
     }
 
