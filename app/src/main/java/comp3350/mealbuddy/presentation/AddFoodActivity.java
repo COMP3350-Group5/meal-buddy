@@ -5,14 +5,11 @@
 
 package comp3350.mealbuddy.presentation;
 
-import android.app.Dialog;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -20,18 +17,21 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import comp3350.mealbuddy.R;
-import comp3350.mealbuddy.business.AccessAccount;
 import comp3350.mealbuddy.business.AccessEdible;
 import comp3350.mealbuddy.business.AccessLabel;
-import comp3350.mealbuddy.objects.Day;
 import comp3350.mealbuddy.objects.consumables.Edible;
 import comp3350.mealbuddy.objects.consumables.Food;
 
 public class AddFoodActivity extends AppCompatActivity {
 
-    AccessAccount accessAccount;
-    AccessEdible accessEdible;
-    AccessLabel accessLabel;
+    private AccessEdible accessEdible;
+    private AccessLabel accessLabel;
+    private EditText name;
+    private EditText labels;
+    private EditText protein;
+    private EditText fat;
+    private EditText carbs;
+    private EditText weight;
 
     /*
      * onCreate
@@ -54,25 +54,25 @@ public class AddFoodActivity extends AppCompatActivity {
 
         //obtain all the UI components to grab values from
         Button submit = findViewById(R.id.btnAddFood);
-        final EditText name = findViewById(R.id.etFoodName);
-        final EditText labels = findViewById(R.id.etLabels);
-        final EditText protein = findViewById(R.id.etProtein);
-        final EditText fat = findViewById(R.id.etFat);
-        final EditText carbs = findViewById(R.id.etCarbs);
-        final EditText weight = findViewById(R.id.etWeight);
+        name = findViewById(R.id.etFoodName);
+        labels = findViewById(R.id.etLabels);
+        protein = findViewById(R.id.etProtein);
+        fat = findViewById(R.id.etFat);
+        carbs = findViewById(R.id.etCarbs);
+        weight = findViewById(R.id.etWeight);
 
-        final EditText iron = findViewById(R.id.etIron);
-        final EditText zinc = findViewById(R.id.etZinc);
-        final EditText vitA = findViewById(R.id.etVitA);
-        final EditText vitB12 = findViewById(R.id.etVitB12);
-        final EditText vitC = findViewById(R.id.etVitC);
-        final EditText vitE = findViewById(R.id.etVitE);
-        final EditText calcium = findViewById(R.id.etCalcium);
-        final EditText choline = findViewById(R.id.etCholine);
-        final EditText magnesium = findViewById(R.id.etMagnesium);
-        final EditText sodium = findViewById(R.id.etSodium);
-        final EditText potassium = findViewById(R.id.etPotassium);
-        final EditText niacin = findViewById(R.id.etNiacin);
+        iron = findViewById(R.id.etIron);
+        zinc = findViewById(R.id.etZinc);
+        vitA = findViewById(R.id.etVitA);
+        vitB12 = findViewById(R.id.etVitB12);
+        vitC = findViewById(R.id.etVitC);
+        vitE = findViewById(R.id.etVitE);
+        calcium = findViewById(R.id.etCalcium);
+        choline = findViewById(R.id.etCholine);
+        magnesium = findViewById(R.id.etMagnesium);
+        sodium = findViewById(R.id.etSodium);
+        potassium = findViewById(R.id.etPotassium);
+        niacin = findViewById(R.id.etNiacin);
 
         //on submit we want to create a new food
         submit.setOnClickListener((view) -> {

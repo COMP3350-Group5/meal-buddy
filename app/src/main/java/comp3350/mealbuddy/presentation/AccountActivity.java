@@ -26,6 +26,7 @@ public class AccountActivity extends AppCompatActivity {
 
     private AccessAccount accessAccount;
     private String username;
+    private int dayOfYear;
     private Dialog dialog;
     private EditText updatedWeight;
     private EditText updatedName;
@@ -50,7 +51,7 @@ public class AccountActivity extends AppCompatActivity {
 
         //get the passed values from the previous activity
         accessAccount = new AccessAccount();
-        int dayOfYear = this.getIntent().getIntExtra("dayOfYear", -1);
+        dayOfYear = this.getIntent().getIntExtra("dayOfYear", -1);
         username = this.getIntent().getStringExtra("username");
         userInfo = findViewById(R.id.txtUserInfo);
 
@@ -119,7 +120,7 @@ public class AccountActivity extends AppCompatActivity {
      * hidePopup
      * hide pop up and updates the user info
      */
-    private void hidePopUp() {
+    private void hideEditInfoPopup() {
         dialog.hide();
         updateUserInfo();
     }
@@ -135,7 +136,7 @@ public class AccountActivity extends AppCompatActivity {
             UserInfo newUserInfo = accessAccount.getUserInfo(username);
             newUserInfo.weight = Double.parseDouble(updatedWeight.getText().toString());
             accessAccount.updateUserInfo(username, newUserInfo);
-            hidePopUp();
+            hideEditInfoPopup();
         }
     }
 
@@ -155,7 +156,7 @@ public class AccountActivity extends AppCompatActivity {
             newActivityLevel = UserInfo.ActivityLevel.HIGH;
         newUserInfo.activityLevel = newActivityLevel;
         accessAccount.updateUserInfo(username, newUserInfo);
-        hidePopUp();
+        hideEditInfoPopup();
     }
 
     /*
@@ -169,7 +170,7 @@ public class AccountActivity extends AppCompatActivity {
             UserInfo newUserInfo = accessAccount.getUserInfo(username);
             newUserInfo.fullname = updatedName.getText().toString();
             accessAccount.updateUserInfo(username, newUserInfo);
-            hidePopUp();
+            hideEditInfoPopup();
         }
     }
 
