@@ -34,6 +34,7 @@ import comp3350.mealbuddy.objects.Account;
 import comp3350.mealbuddy.objects.Day;
 import comp3350.mealbuddy.objects.Exercise;
 import comp3350.mealbuddy.objects.UserInfo;
+import comp3350.mealbuddy.objects.consumables.Edible;
 import comp3350.mealbuddy.objects.consumables.EdibleIntPair;
 import comp3350.mealbuddy.objects.consumables.Meal;
 
@@ -219,17 +220,32 @@ public class TimelineActivity extends AppCompatActivity {
 
     private void showFoodPopUp(Meal mealtime) {
         dialog.setContentView(R.layout.pop_up_display_food);
+        int fatTotal = 0;
+        int proteinTotal = 0;
+        int carbTotal = 0;
         //set up the array adapter
         ArrayList<String> foodNames = new ArrayList<>();
         for (Iterator<EdibleIntPair> it = mealtime.getEdibleIntPairIterator(); it.hasNext(); ) {
             EdibleIntPair e = it.next();
             String toAdd = String.format("%d%s%s", e.quantity, "x ", e.edible.name);
             foodNames.add(toAdd);
+            fatTotal += calculator.getMacroCalories(Edible.Macros.Fat);
+            proteinTotal += calculator.getMacroCalories(Edible.Macros.Protein);
+            carbTotal += calculator.getMacroCalories(Edible.Macros.Carbohydrates);
         }
+
         ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter<>(TimelineActivity.this, android.R.layout.simple_list_item_1, foodNames);
         //set the title
         TextView title = dialog.findViewById(R.id.tvViewFood);
         title.setText(mealtime.name);
+        //set the macro totals
+        TextView fat = dialog.findViewById(R.id.tvViewFoodFat);
+        fat.setText(String.format("Fat: %d cal", fatTotal));
+        TextView protein = dialog.findViewById(R.id.tvViewFoodProtein);
+        protein.setText(String.format("Protein: %d cal", proteinTotal));
+        TextView carbs = dialog.findViewById(R.id.tvViewFoodCarbs);
+        carbs.setText(String.format("Carbs: %d cal", carbTotal));
+
         //set up the list view
         ListView lv = dialog.findViewById(R.id.lvViewFood);
         lv.setAdapter(stringArrayAdapter);
