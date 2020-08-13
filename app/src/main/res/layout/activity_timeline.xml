@@ -185,17 +185,17 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/txtSnackCardTitle"
+                android:id="@+id/txtSnacksCardTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="25sp"
                 android:textColor="@color/colorAccent"
                 android:alpha=".6"
-                android:text="Snack"
+                android:text="Snacks"
             />
 
             <TextView
-                android:id="@+id/txtSnackCals"
+                android:id="@+id/txtSnacksCals"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="25sp"
@@ -210,7 +210,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cardExercise"
         android:layout_width="500dp"
-        android:layout_height="100dp"
+        android:layout_height="50dp"
         android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -221,32 +221,25 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/txtExerciseCardTitle"
+                android:id="@+id/txtExercisesCardTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:textSize="25sp"
+                android:textColor="@color/colorAccent"
+                android:alpha=".6"
+                android:text="Exercises"
+                />
 
             <TextView
-                android:id="@+id/txtExercise"
+                android:id="@+id/txtExercisesCals"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="50dp"
-                android:layout_marginTop="25dp"
-                android:layout_marginRight="50dp"
-                android:text="TextView"
-                app:autoSizeMaxTextSize="18sp"
-                app:autoSizeMinTextSize="12sp"
-                app:autoSizeStepGranularity="1sp"
-                app:autoSizeTextType="uniform" />
-
-            <TextView
-                android:id="@+id/txtExerciseCals"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
+                android:textSize="25sp"
+                android:layout_alignParentTop="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentBottom="true"
-                android:text="TextView" />
+                android:text="[Calories Burned]"
+                />
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 
