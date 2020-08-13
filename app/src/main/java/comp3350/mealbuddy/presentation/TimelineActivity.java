@@ -33,6 +33,7 @@ import comp3350.mealbuddy.business.Calculator;
 import comp3350.mealbuddy.objects.Account;
 import comp3350.mealbuddy.objects.Day;
 import comp3350.mealbuddy.objects.UserInfo;
+import comp3350.mealbuddy.objects.consumables.Edible;
 import comp3350.mealbuddy.objects.consumables.EdibleIntPair;
 import comp3350.mealbuddy.objects.consumables.Meal;
 
@@ -199,7 +200,12 @@ public class TimelineActivity extends AppCompatActivity {
         ArrayList<String> foodNames = new ArrayList<>();
         for (Iterator<EdibleIntPair> it = mealtime.getEdibleIntPairIterator(); it.hasNext(); ) {
             EdibleIntPair e = it.next();
-            String toAdd = String.format("%d%s%s", e.quantity, "x ", e.edible.name);
+            String macroString = String.format("Fat: %dg\t\t|\t\tProtein: %dg\t\t|\t\tCarbs: %dg\t",
+                    e.edible.getMacroGrams(Edible.Macros.Fat),
+                    e.edible.getMacroGrams(Edible.Macros.Protein),
+                    e.edible.getMacroGrams(Edible.Macros.Carbohydrates));
+
+            String toAdd = String.format("%d%s%s\t\t\t\t\t%s", e.quantity, "x ", e.edible.name, macroString);
             foodNames.add(toAdd);
         }
         ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter<>(TimelineActivity.this, android.R.layout.simple_list_item_1, foodNames);
