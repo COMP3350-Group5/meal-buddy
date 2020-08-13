@@ -86,7 +86,7 @@ public class CreateMealActivity extends AppCompatActivity {
 
         foodList.setOnItemClickListener((parent, view, pos, id) -> {
             if (foodList.isItemChecked(pos))
-                showPopUp(pos, edibleQuantites);
+                showPopUp(pos);
         });
 
         //OnSubmit
@@ -159,11 +159,9 @@ public class CreateMealActivity extends AppCompatActivity {
      * showPopUp
      * shows the pop up with the corresponding information.
      * Parameters:
-     *      @param edible - the edible to show
-     *      @param username - the account to add to
-     *      @param dayOfYear - the day to add to
+     *      @param pos - position of edible we clicked on
      */
-    public void showPopUp(int pos, int[] quantities) {
+    public void showPopUp(int pos) {
         dialog.setContentView(R.layout.choose_quantites);
 
         EditText quantity = dialog.findViewById(R.id.edibleQuantity);
@@ -172,12 +170,11 @@ public class CreateMealActivity extends AppCompatActivity {
         confirmBtn.setOnClickListener((view) -> {
             if (TextUtils.isEmpty(quantity.getText())) {
                 quantity.setError("Quantity is required.");
-            }
-            else if (Integer.parseInt(quantity.getText().toString()) == 0) {
+            } else if (Integer.parseInt(quantity.getText().toString()) == 0) {
                 quantity.setError("Quantity cannot be 0.");
             }
             else {
-                quantities[pos] = Integer.parseInt(quantity.getText().toString());
+                edibleQuantites[pos] = Integer.parseInt(quantity.getText().toString());
                 dialog.dismiss();
             }
         });

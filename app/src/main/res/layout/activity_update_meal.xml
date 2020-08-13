@@ -44,7 +44,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
-                android:id="@+id/meatUpdatingLabels"
+                android:id="@+id/mealUpdatingLabels"
                 android:layout_width="460dp"
                 android:layout_height="50dp"
                 android:ems="10"

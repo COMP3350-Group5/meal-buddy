@@ -70,7 +70,7 @@ public class UpdateMeal extends AppCompatActivity {
         mealNameTitle = findViewById(R.id.txtBuilder);
         mealNameTitle.setText("Updating: " + oldMealName);
         newMealNameTitle = findViewById(R.id.newMealName);
-        labels = findViewById(R.id.meatUpdatingLabels);
+        labels = findViewById(R.id.mealUpdatingLabels);
         foodList = findViewById(R.id.foodListUpdating);
         addMeal = findViewById(R.id.btnUpdateMeal);
 
