@@ -33,6 +33,7 @@ import comp3350.mealbuddy.business.AccessAccount;
 import comp3350.mealbuddy.business.AccessEdible;
 import comp3350.mealbuddy.objects.Day;
 import comp3350.mealbuddy.objects.consumables.Edible;
+import comp3350.mealbuddy.objects.consumables.Meal;
 
 public class SearchFoodActivity extends AppCompatActivity {
 
@@ -132,14 +133,17 @@ public class SearchFoodActivity extends AppCompatActivity {
         Button confirm = dialog.findViewById(R.id.btnConfirm);
         EditText editText = dialog.findViewById(R.id.etQuantity);
         Button removeEdible = dialog.findViewById(R.id.removeEdibleFromDb);
+        Button updateMeal = dialog.findViewById(R.id.updateMeal);
+
+        if (edible instanceof Meal)
+            updateMeal.setEnabled(true);
 
         confirm.setOnClickListener((view) -> {
             if (TextUtils.isEmpty(editText.getText())) {
                 editText.setError("Quantity is required.");
-            }
-            else if (Integer.parseInt(editText.getText().toString()) == 0) {
+            } else if (Integer.parseInt(editText.getText().toString()) == 0) {
                 editText.setError("Quantity cannot be 0.");
-            }else {
+            } else {
                 //add the food
                 String spnString = spinner.getSelectedItem().toString();
                 //find the meal time
@@ -161,6 +165,10 @@ public class SearchFoodActivity extends AppCompatActivity {
             stringArrayAdapter.remove(edible.name);
             listview.setAdapter(stringArrayAdapter);
             dialog.dismiss();
+        });
+
+        updateMeal.setOnClickListener((view) -> {
+            ChangeActivityHelper.changeActivity(SearchFoodActivity.this, UpdateMeal.class, username, dayOfYear, edible.name);
         });
 
         titleText.setText("Adding Food: " + edible.name);

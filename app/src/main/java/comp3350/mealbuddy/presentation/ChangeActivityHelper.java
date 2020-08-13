@@ -15,6 +15,22 @@ public class ChangeActivityHelper {
      * Parameters:
      *      @param username - the username to be passed
      *      @param day - the day to be passed as day of year
+     *      @param mealName - the meal to be passed to be updated
+     */
+    public static void changeActivity(Context src, Class dest, String username, int day, String mealName) {
+        Intent intent = new Intent(src, dest);
+        intent.putExtra("dayOfYear", day);
+        intent.putExtra("username", username);
+        intent.putExtra("mealName", mealName);
+        src.startActivity(intent);
+    }
+
+    /*
+     * changeActivity
+     * changes the activity to the destination class from the src context. passing the given parameters
+     * Parameters:
+     *      @param username - the username to be passed
+     *      @param day - the day to be passed as day of year
      */
     public static void changeActivity(Context src, Class dest, String username, int day) {
         Intent intent = new Intent(src, dest);
