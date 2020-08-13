@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CalendarView;
@@ -35,7 +36,9 @@ import comp3350.mealbuddy.business.AccessAccount;
 import comp3350.mealbuddy.business.Calculator;
 import comp3350.mealbuddy.objects.Account;
 import comp3350.mealbuddy.objects.Day;
+import comp3350.mealbuddy.objects.Exercise;
 import comp3350.mealbuddy.objects.UserInfo;
+import comp3350.mealbuddy.objects.consumables.Edible;
 import comp3350.mealbuddy.objects.consumables.EdibleIntPair;
 import comp3350.mealbuddy.objects.consumables.Meal;
 
@@ -92,8 +95,7 @@ public class TimelineActivity extends AppCompatActivity {
             cv.setOnDateChangeListener((calendarView, y, m, d) -> {
                 Calendar newCalendar = Calendar.getInstance();
                 newCalendar.set(y, m, d);
-                int newDayOfYear = newCalendar.get(Calendar.DAY_OF_YEAR);
-                ChangeActivityHelper.changeActivity(TimelineActivity.this, TimelineActivity.class, username, dayOfYear);
+                ChangeActivityHelper.changeActivity(TimelineActivity.this, TimelineActivity.class, username, newCalendar.get(Calendar.DAY_OF_YEAR));
             });
 
             dialog.show();
@@ -199,30 +201,95 @@ public class TimelineActivity extends AppCompatActivity {
             CardView cvMeal = findViewById((int)mt[0]);
             cvMeal.setOnClickListener((view) -> showFoodPopUp(day.getMealTime((Day.MealTimeType)mt[2])));
             TextView tvMeal = findViewById((int)mt[1]);
-            String toDisplay = String.format("%d%s", calculator.getMealTimeCalories((Day.MealTimeType)mt[2]), " Cals");
+            String toDisplay = String.format("%d cals", calculator.getMealTimeCalories((Day.MealTimeType)mt[2]));
             tvMeal.setText(toDisplay);
         }
     }
 
     private void initializeExerciseCard(){
-        TextView exercise = findViewById(R.id.txtExercisesCals);
-        String toDisplay = String.format("%s%d%s", "Burned ", calculator.getTotalExerciseCalories(accessAccount.getUserInfo(username)), " Cals");
-        exercise.setText(toDisplay);
+        CardView exerCard = findViewById(R.id.cardExercise);
+        TextView exerciseCals = findViewById(R.id.txtExercisesCals);
+        exerciseCals.setText(String.format("%s%d%s", "Burned " , calculator.getTotalExerciseCalories(accessAccount.getUserInfo(username)), " cals"));
+        exerCard.setOnClickListener((view) -> showExercisePopUp());
+    }
+
+    private void showExercisePopUp(){
+        dialog.setContentView(R.layout.pop_up_view_exercise);
+        //set up the array adapter
+        ArrayList<String> exerNames = new ArrayList<>();
+        for (Iterator<Exercise> it = day.getExercises(); it.hasNext(); ) {
+            Exercise exer = it.next();
+            String toAdd = String.format("%s\t\t\t%smin\t\t\tburned %d cals", exer.name, exer.duration, calculator.getExerciseCalories(exer, accessAccount.getUserInfo(username)));
+            exerNames.add(toAdd);
+        }
+        ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter(TimelineActivity.this, android.R.layout.simple_list_item_1, exerNames);
+        //set the title
+        TextView title = dialog.findViewById(R.id.tvViewExercise);
+        title.setText("Exercise");
+        TextView cals = dialog.findViewById(R.id.tvExerciseCalories);
+        cals.setText(String.format("%s%d", "Calories burned " , calculator.getTotalExerciseCalories(accessAccount.getUserInfo(username))));
+
+        //set up the list view
+        ListView lv = dialog.findViewById(R.id.lvViewExercise);
+        lv.setAdapter(stringArrayAdapter);
+        dialog.show();
     }
 
     private void showFoodPopUp(Meal mealtime) {
         dialog.setContentView(R.layout.pop_up_display_food);
+        int fatTotal = 0;
+        int proteinTotal = 0;
+        int carbTotal = 0;
         //set up the array adapter
         ArrayList<String> foodNames = new ArrayList<>();
+        ArrayList<String> foodLabels = new ArrayList<>();
+
+
         for (Iterator<EdibleIntPair> it = mealtime.getEdibleIntPairIterator(); it.hasNext(); ) {
             EdibleIntPair e = it.next();
-            String toAdd = String.format("%d%s%s", e.quantity, "x ", e.edible.name);
+
+            //get the macros from the food and add food to the string
+            String macroString = String.format("Fat: %dg\t\t|\t\tProtein: %dg\t\t|\t\tCarbs: %dg\t",
+                    e.edible.getMacroGrams(Edible.Macros.Fat),
+                    e.edible.getMacroGrams(Edible.Macros.Protein),
+                    e.edible.getMacroGrams(Edible.Macros.Carbohydrates));
+            String toAdd = String.format("%s\t\t\t%s\t\t\tx %d", e.edible.name, macroString, e.quantity);
             foodNames.add(toAdd);
+            //add the labels to the string
+            String labelToAdd = "";
+            for(String label : e.edible.labels)
+                labelToAdd += "<" + label + "> ";
+            foodLabels.add(labelToAdd);
+            //update the totals
+            fatTotal += calculator.getMacroCalories(Edible.Macros.Fat);
+            proteinTotal += calculator.getMacroCalories(Edible.Macros.Protein);
+            carbTotal += calculator.getMacroCalories(Edible.Macros.Carbohydrates);
         }
-        ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter<>(TimelineActivity.this, android.R.layout.simple_list_item_1, foodNames);
+
+        //override the adapter to display both texts
+        ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter(TimelineActivity.this, android.R.layout.simple_list_item_2, android.R.id.text1, foodNames){
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                View view = super.getView(position, convertView, parent);
+                TextView text1 = view.findViewById(android.R.id.text1);
+                TextView text2 = view.findViewById(android.R.id.text2);
+                //set the texts to the food and its labels
+                text1.setText(foodNames.get(position));
+                text2.setText(foodLabels.get(position));
+                return view;
+            }
+        };
         //set the title
         TextView title = dialog.findViewById(R.id.tvViewFood);
         title.setText(mealtime.name);
+        //set the macro totals
+        TextView fat = dialog.findViewById(R.id.tvViewFoodFat);
+        fat.setText(String.format("Fat: %dg", fatTotal));
+        TextView protein = dialog.findViewById(R.id.tvViewFoodProtein);
+        protein.setText(String.format("Protein: %dg", proteinTotal));
+        TextView carbs = dialog.findViewById(R.id.tvViewFoodCarbs);
+        carbs.setText(String.format("Carbs: %dg", carbTotal));
+
         //set up the list view
         ListView lv = dialog.findViewById(R.id.lvViewFood);
         lv.setAdapter(stringArrayAdapter);

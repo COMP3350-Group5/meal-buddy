@@ -165,10 +165,10 @@ public class DayTest {
         Day newDay = new Day(1);
         Exercise exercise = new Exercise("run", 1, Exercise.Intensity.High);
 
-        Assert.assertNull(newDay.getExercise(exercise));
+        Assert.assertNull(newDay.getExercise(exercise.name));
 
         newDay.addExercise(exercise);
-        Assert.assertEquals(exercise, newDay.getExercise(exercise));
+        Assert.assertEquals(exercise, newDay.getExercise(exercise.name));
     }
 
 
@@ -192,11 +192,11 @@ public class DayTest {
         //confirm that exercises is empty
         Assert.assertTrue(newDay.isExerciseEmpty());
         newDay.addExercise(exer);
-        Exercise exAdded = newDay.getExercise(exer);
+        Exercise exAdded = newDay.getExercise(exer.name);
         Assert.assertEquals(exAdded, exer);
         Assert.assertEquals(1, exAdded.duration, 0.0);
         newDay.addExercise(exer); //add it again
-        exAdded = newDay.getExercise(exer);
+        exAdded = newDay.getExercise(exer.name);
         Assert.assertEquals(2, exAdded.duration, 0.0);
     }
 
@@ -262,7 +262,7 @@ public class DayTest {
         Assert.assertTrue(newDay.isExerciseEmpty());
         newDay.addExercise(exer);
         //check that its added
-        Assert.assertEquals(newDay.getExercise(exer), exer);
+        Assert.assertEquals(newDay.getExercise(exer.name), exer);
         //remove the item
         newDay.removeExercise(exer);
         //check if the item is removed
