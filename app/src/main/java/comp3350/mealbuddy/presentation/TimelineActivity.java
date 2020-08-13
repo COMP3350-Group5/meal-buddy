@@ -18,6 +18,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,6 +31,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
+import java.util.List;
 
 import comp3350.mealbuddy.R;
 import comp3350.mealbuddy.business.AccessAccount;
@@ -41,6 +43,7 @@ import comp3350.mealbuddy.objects.UserInfo;
 import comp3350.mealbuddy.objects.consumables.Edible;
 import comp3350.mealbuddy.objects.consumables.EdibleIntPair;
 import comp3350.mealbuddy.objects.consumables.Meal;
+import comp3350.mealbuddy.objects.goals.Goal;
 
 
 public class TimelineActivity extends AppCompatActivity {
@@ -126,6 +129,8 @@ public class TimelineActivity extends AppCompatActivity {
         btnMore.setOnClickListener( (view) -> {
             showPopup(view);
         });
+
+
 
 
 
@@ -232,6 +237,46 @@ public class TimelineActivity extends AppCompatActivity {
         //set up the list view
         ListView lv = dialog.findViewById(R.id.lvViewExercise);
         lv.setAdapter(stringArrayAdapter);
+        dialog.show();
+
+        Button btnRemoveExercise = dialog.findViewById(R.id.btnRemoveExercise);
+        btnRemoveExercise.setOnClickListener((dialog) -> showRemoveExercise());
+    }
+
+    /*
+     * showRemoveGoal
+     * Show the popup to remove an exercise
+     */
+    public void showRemoveExercise() {
+        dialog.setContentView(R.layout.remove_exercise);
+        Day day = accessAccount.getDay(username, dayOfYear);
+
+        //Populate the spinner with the exercises
+        Spinner exerciseSpinner = dialog.findViewById(R.id.spnExercises);
+        List<String> exerciseList = new ArrayList<>();
+        Iterator<Exercise> dayExercises = day.getExercises();
+        Exercise g;
+        while (dayExercises.hasNext()) {
+            g = dayExercises.next();
+            exerciseList.add(g.toString());
+        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, exerciseList);
+        exerciseSpinner.setAdapter(adapter);
+
+        //Remove an exercise
+        Button button = dialog.findViewById(R.id.btnContinue);
+        button.setOnClickListener((view) -> {
+            String selected = exerciseSpinner.getSelectedItem().toString();
+            int index = exerciseList.indexOf(selected);
+            exerciseList.remove(index);
+            day.removeExercise(index);
+            accessAccount.updateDay(username, day);
+
+            //Back to timeline activity
+            ChangeActivityHelper.changeActivity(TimelineActivity.this, TimelineActivity.class, username, dayOfYear);
+
+        });
+
         dialog.show();
     }
 

@@ -167,6 +167,18 @@ public class Day {
     }
 
     /*
+     * removeExercise
+     * remove an exercise from the day
+     * Parameters:
+     *     @param index - the index of the exercise to remove
+     */
+    public void removeExercise(int index) {
+        if (index < 0 || index >= exercises.size())
+            throw new IndexOutOfBoundsException("Index out of bounds in exercise list");
+        exercises.remove(index);
+    }
+
+    /*
      * addGoal
      * add a goal to the day
      * Parameters:
