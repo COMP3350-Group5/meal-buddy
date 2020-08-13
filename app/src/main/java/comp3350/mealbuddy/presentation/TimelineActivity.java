@@ -91,8 +91,7 @@ public class TimelineActivity extends AppCompatActivity {
             cv.setOnDateChangeListener((calendarView, y, m, d) -> {
                 Calendar newCalendar = Calendar.getInstance();
                 newCalendar.set(y, m, d);
-                int newDayOfYear = newCalendar.get(Calendar.DAY_OF_YEAR);
-                ChangeActivityHelper.changeActivity(TimelineActivity.this, TimelineActivity.class, username, dayOfYear);
+                ChangeActivityHelper.changeActivity(TimelineActivity.this, TimelineActivity.class, username, newCalendar.get(Calendar.DAY_OF_YEAR));
             });
 
             dialog.show();
