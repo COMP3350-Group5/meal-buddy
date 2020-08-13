@@ -7,6 +7,7 @@ package comp3350.mealbuddy.presentation;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.Menu;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -103,6 +105,11 @@ public class GoalActivity extends AppCompatActivity {
             accessAccount.updateDay(username, day);
             ChangeActivityHelper.changeActivity(GoalActivity.this, GoalActivity.class, username, dayOfYear);
         });
+
+        BottomNavigationView nav = findViewById(R.id.bottom_navigation);
+        Menu menu = nav.getMenu();
+        menu.getItem(ChangeActivityHelper.GOALS).setChecked(true);
+        menu.getItem(ChangeActivityHelper.GOALS).setCheckable(false);
     }
 
     /*
