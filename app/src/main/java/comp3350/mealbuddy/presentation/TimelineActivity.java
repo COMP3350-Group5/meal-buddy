@@ -216,11 +216,11 @@ public class TimelineActivity extends AppCompatActivity {
         title.setText(mealtime.name);
         //set the macro totals
         TextView fat = dialog.findViewById(R.id.tvViewFoodFat);
-        fat.setText(String.valueOf(fatTotal));
+        fat.setText(String.format("Fat: %d cal", fatTotal));
         TextView protein = dialog.findViewById(R.id.tvViewFoodProtein);
-        protein.setText(String.valueOf(proteinTotal));
+        protein.setText(String.format("Protein: %d cal", proteinTotal));
         TextView carbs = dialog.findViewById(R.id.tvViewFoodCarbs);
-        carbs.setText(String.valueOf(carbTotal));
+        carbs.setText(String.format("Carbs: %d cal", carbTotal));
 
         //set up the list view
         ListView lv = dialog.findViewById(R.id.lvViewFood);
