@@ -5,14 +5,11 @@
 
 package comp3350.mealbuddy.presentation;
 
-import android.app.Dialog;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -23,7 +20,6 @@ import comp3350.mealbuddy.R;
 import comp3350.mealbuddy.business.AccessAccount;
 import comp3350.mealbuddy.business.AccessEdible;
 import comp3350.mealbuddy.business.AccessLabel;
-import comp3350.mealbuddy.objects.Day;
 import comp3350.mealbuddy.objects.consumables.Edible;
 import comp3350.mealbuddy.objects.consumables.Food;
 
@@ -80,7 +76,9 @@ public class AddFoodActivity extends AppCompatActivity {
                 //get the labels from the label UI
                 ArrayList<String> labelList = new ArrayList<>(Arrays.asList(labels.getText().toString().split(",")));
                 for (String label : labelList) {
-                    accessLabel.addLabel(label.trim());
+                    if (!accessLabel.labelExists(label)) {
+                        accessLabel.addLabel(label.trim());
+                    }
                 }
 
                 //grab the food name and initialize with the labels
