@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_set_recommended_goals"
+        android:enabled="true"
+        android:title="Set Recommended Goals"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_remove_goal"
+        android:enabled="true"
+        android:title="Remove Goal"
+        app:showAsAction="ifRoom" />
+</menu>

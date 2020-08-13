@@ -7,18 +7,21 @@ package comp3350.mealbuddy.presentation;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CalendarView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.PopupMenu;
 import androidx.cardview.widget.CardView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -114,38 +117,52 @@ public class TimelineActivity extends AppCompatActivity {
 
         fabExercise.setOnClickListener((view) -> ChangeActivityHelper.changeActivity(TimelineActivity.this, AddExerciseActivity.class, username, dayOfYear));
 
-        // Sets the current day as the default for new days
-        Button setDefaultDay = findViewById(R.id.defaultDay);
-
-        setDefaultDay.setOnClickListener((view) -> {
-            UserInfo userInfo = accessAccount.getUserInfo(username);
-            Day newDefault = new Day(day);
-            newDefault.dayOfYear = Account.DEFAULT_DAY_NUM;
-            accessAccount.updateDay(userInfo.username, newDefault);
-        });
-
-        // resets the default day to empty day
-        Button resetDefaultDay = findViewById(R.id.resetDefault);
-
-        resetDefaultDay.setOnClickListener((view) -> {
-            UserInfo userInfo = accessAccount.getUserInfo(username);
-            accessAccount.updateDay(userInfo.username, new Day(Account.DEFAULT_DAY_NUM));
-        });
-
-        // goes to label activity
-        Button gotoLabels = findViewById(R.id.gotoLabels);
-
-        gotoLabels.setOnClickListener((view) -> {
-            ChangeActivityHelper.changeActivity(TimelineActivity.this, LabelActivity.class);
-        });
-
         BottomNavigationView nav = findViewById(R.id.bottom_navigation);
         Menu menu = nav.getMenu();
         menu.getItem(ChangeActivityHelper.TIMELINE).setChecked(true);
         menu.getItem(ChangeActivityHelper.TIMELINE).setCheckable(false);
 
+        ImageButton btnMore = findViewById(R.id.btnMore);
+        btnMore.setOnClickListener( (view) -> {
+            showPopup(view);
+        });
+
+
+
     }
 
+    public void showPopup(View v) {
+        PopupMenu popup = new PopupMenu(this, v);
+        MenuInflater inflater = popup.getMenuInflater();
+        inflater.inflate(R.menu.timeline_menu, popup.getMenu());
+        popup.setOnMenuItemClickListener((MenuItem item) -> {
+            switch(item.getItemId()) {
+                case R.id.action_set_default_day:
+                    setDefaultDay();
+                    break;
+                case R.id.action_reset_default_day:
+                    resetDefaultDay();
+                    break;
+                case R.id.action_labels:
+                    ChangeActivityHelper.changeActivity(TimelineActivity.this, LabelActivity.class);
+                    break;
+            }
+            return true;
+        });
+        popup.show();
+    }
+
+    private void setDefaultDay() {
+        UserInfo userInfo = accessAccount.getUserInfo(username);
+        Day newDefault = new Day(day);
+        newDefault.dayOfYear = Account.DEFAULT_DAY_NUM;
+        accessAccount.updateDay(userInfo.username, newDefault);
+    }
+
+    private void resetDefaultDay() {
+        UserInfo userInfo = accessAccount.getUserInfo(username);
+        accessAccount.updateDay(userInfo.username, new Day(Account.DEFAULT_DAY_NUM));
+    }
     /*
      * initializeCards
      * initializes the UI cards
