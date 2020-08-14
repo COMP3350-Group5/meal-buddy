@@ -4,12 +4,11 @@
  ****************************************/
 package comp3350.mealbuddy.presentation;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.view.Menu;
-import android.widget.EditText;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -24,11 +23,13 @@ import comp3350.mealbuddy.objects.consumables.Edible;
 
 public class ViewStatsActivity extends AppCompatActivity {
 
+    private static final String PERCENTAGE_SUFFIX = "% of total cal";
+    private static final String DAY_SUFFIX = "% of year";
+    private static final String AVG_SUFFIX = " per day";
     private AccessAccount accessAccount;
     private Calculator calculator;
     private String username;
     private int dayOfYear;
-
     private int totalCalories;
     private int totalProteinCalories;
     private int totalFatCalories;
@@ -36,10 +37,6 @@ public class ViewStatsActivity extends AppCompatActivity {
     private int totalCaloriesBurned;
     private int totalGoalsAchieved;
     private int totalDaysTracked;
-
-    private static final String PERCENTAGE_SUFFIX = "% of total cal";
-    private static final String DAY_SUFFIX = "% of year";
-    private static final String AVG_SUFFIX = " per day";
 
     /*
      * onCreate
@@ -75,12 +72,12 @@ public class ViewStatsActivity extends AppCompatActivity {
      * setTotalValues
      * sets each of the total values for the components to use
      */
-    private void setTotalValues(){
+    private void setTotalValues() {
         //get all the tracked days
         List<Day> listOfDays = accessAccount.getDays(username);
         int listSize = listOfDays.size();
         //total the calories, calories burned, macro calories, goals achieved
-        for (Day d : listOfDays){
+        for (Day d : listOfDays) {
             calculator = new Calculator(d);
             //total the calories
             totalCalories += calculator.getTotalCalories();
@@ -98,7 +95,7 @@ public class ViewStatsActivity extends AppCompatActivity {
      * setComponentValues
      * sets the components to the corresponding values
      */
-    private void setComponentValues(){
+    private void setComponentValues() {
         //call helper methods to set the components
         setComponentTotalValues();
         setComponentAverageValues(AVG_SUFFIX);
@@ -110,18 +107,18 @@ public class ViewStatsActivity extends AppCompatActivity {
      * setComponentTotalValues
      * sets the components to the values. Handles the 'total' components.
      */
-    private void setComponentTotalValues(){
+    private void setComponentTotalValues() {
         Object[][] totalComponents = {
-            {R.id.tvStatsCaloriesValue, totalCalories},
-            {R.id.tvStatsCaloriesBurnedValue, totalCaloriesBurned},
-            {R.id.tvStatsGoalsAchievedValue, totalGoalsAchieved},
-            {R.id.tvStatsDaysTrackedValue, totalDaysTracked},
-            {R.id.tvStatsMacroCarbsValue, totalCarbCalories},
-            {R.id.tvStatsMacroProteinValue, totalProteinCalories},
-            {R.id.tvStatsMacroFatValue, totalFatCalories},
+                {R.id.tvStatsCaloriesValue, totalCalories},
+                {R.id.tvStatsCaloriesBurnedValue, totalCaloriesBurned},
+                {R.id.tvStatsGoalsAchievedValue, totalGoalsAchieved},
+                {R.id.tvStatsDaysTrackedValue, totalDaysTracked},
+                {R.id.tvStatsMacroCarbsValue, totalCarbCalories},
+                {R.id.tvStatsMacroProteinValue, totalProteinCalories},
+                {R.id.tvStatsMacroFatValue, totalFatCalories},
         };
-        for (Object[] o : totalComponents){
-            TextView tv = findViewById((int)o[0]);
+        for (Object[] o : totalComponents) {
+            TextView tv = findViewById((int) o[0]);
             tv.setText(String.valueOf(o[1]));
         }
     }
@@ -132,9 +129,9 @@ public class ViewStatsActivity extends AppCompatActivity {
      */
     private void setComponentAverageValues(String suffix) {
         Object[][] averagesComponents = {
-            {R.id.tvStatsCaloriesValueAvg, totalCalories, (double)totalDaysTracked},
-            {R.id.tvStatsCaloriesBurnedValueAvg, totalCaloriesBurned, (double)totalDaysTracked},
-            {R.id.tvStatsGoalsAchievedValueAvg, totalGoalsAchieved, (double)totalDaysTracked},
+                {R.id.tvStatsCaloriesValueAvg, totalCalories, (double) totalDaysTracked},
+                {R.id.tvStatsCaloriesBurnedValueAvg, totalCaloriesBurned, (double) totalDaysTracked},
+                {R.id.tvStatsGoalsAchievedValueAvg, totalGoalsAchieved, (double) totalDaysTracked},
         };
         for (Object[] o : averagesComponents) {
             TextView tv = findViewById((int) o[0]);
@@ -147,15 +144,15 @@ public class ViewStatsActivity extends AppCompatActivity {
      * setComponentPercentValues
      * sets the components to the values. Handles the 'percentage' components.
      */
-    private void setComponentPercentValues(String suffix){
+    private void setComponentPercentValues(String suffix) {
         Object[][] percentageComponents = {
-            {R.id.tvStatsMacroCarbsValueAvg, totalCarbCalories, (double)totalCalories},
-            {R.id.tvStatsMacroProteinValueAvg, totalProteinCalories, (double)totalCalories},
-            {R.id.tvStatsMacroFatValueAvg, totalFatCalories, (double)totalCalories},
+                {R.id.tvStatsMacroCarbsValueAvg, totalCarbCalories, (double) totalCalories},
+                {R.id.tvStatsMacroProteinValueAvg, totalProteinCalories, (double) totalCalories},
+                {R.id.tvStatsMacroFatValueAvg, totalFatCalories, (double) totalCalories},
         };
-        for (Object[] o : percentageComponents){
-            TextView tv = findViewById((int)o[0]);
-            double val = Math.round(((int)o[1]/(double)o[2]) * 100);
+        for (Object[] o : percentageComponents) {
+            TextView tv = findViewById((int) o[0]);
+            double val = Math.round(((int) o[1] / (double) o[2]) * 100);
             tv.setText(String.format("%.02f%s", val, suffix));
         }
     }
@@ -164,9 +161,9 @@ public class ViewStatsActivity extends AppCompatActivity {
      * setComponentPercentValues
      * sets the components to the values. Handles the 'percentage' components.
      */
-    private void setComponentDayValues(String suffix){
+    private void setComponentDayValues(String suffix) {
         TextView tv = findViewById(R.id.tvStatsDaysTrackedValueAvg);
-        double val = Math.round((totalDaysTracked/365.0) * 100);
+        double val = Math.round((totalDaysTracked / 365.0) * 100);
         tv.setText(String.format("%.02f%s", val, suffix));
 
     }

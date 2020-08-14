@@ -261,7 +261,7 @@ public class AccessAccountTest {
     }
 
     @Test
-    public void getDays_nullUsername_throwException(){
+    public void getDays_nullUsername_throwException() {
         try {
             accessAccount.getDays(null);
             Assert.fail();
@@ -271,7 +271,7 @@ public class AccessAccountTest {
     }
 
     @Test
-    public void getDays_usernameDoesntExist_throwException(){
+    public void getDays_usernameDoesntExist_throwException() {
         try {
             accessAccount.getDays("i dont EXistt123");
             Assert.fail();

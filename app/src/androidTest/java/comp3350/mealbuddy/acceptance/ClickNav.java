@@ -23,7 +23,7 @@ public class ClickNav {
         return clickXY(900, 0);
     }
 
-    private static ViewAction clickXY(final int x, final int y){
+    private static ViewAction clickXY(final int x, final int y) {
         return new GeneralClickAction(
                 Tap.SINGLE,
                 view -> {

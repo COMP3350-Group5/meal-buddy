@@ -221,14 +221,19 @@ public class SearchFoodActivity extends AppCompatActivity {
         return MT;
     }
 
+    /*
+     * validateInput
+     * Ensures the input when selecting quantity is valid
+     * Parameters
+     *      @quantity - the edit text containing the quantity of food to add
+     */
     private boolean validateInput(EditText quantity) {
         boolean inputsValid = true;
 
         if (TextUtils.isEmpty(quantity.getText())) {
             quantity.setError("Quantity is required.");
             inputsValid = false;
-        }
-        else if (Integer.parseInt(quantity.getText().toString()) == 0) {
+        } else if (Integer.parseInt(quantity.getText().toString()) == 0) {
             quantity.setError("Quantity cannot be 0.");
             inputsValid = false;
         }
@@ -236,6 +241,10 @@ public class SearchFoodActivity extends AppCompatActivity {
         return inputsValid;
     }
 
+    /*
+     * showFABMenu
+     * shows the menu of the floating action button
+     */
     private void showFABMenu() {
         isFabOpen = true;
         fabFood.setVisibility(View.VISIBLE);
@@ -244,6 +253,10 @@ public class SearchFoodActivity extends AppCompatActivity {
         fabMeal.animate().translationY(-getResources().getDimension(R.dimen.standard_130));
     }
 
+    /*
+     * showFABMenu
+     * hides the menu of the floating action button
+     */
     private void closeFABMenu() {
         isFabOpen = false;
         fabFood.animate().translationY(0);

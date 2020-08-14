@@ -95,7 +95,7 @@ public class GoalActivity extends AppCompatActivity {
 
         //Add Goal Button
         FloatingActionButton addGoal = findViewById(R.id.fabAddGoal);
-        addGoal.setOnClickListener((view) -> showPopUp());
+        addGoal.setOnClickListener((view) -> showAddGoalPopup());
 
         BottomNavigationView nav = findViewById(R.id.bottom_navigation);
         Menu menu = nav.getMenu();
@@ -103,17 +103,23 @@ public class GoalActivity extends AppCompatActivity {
         menu.getItem(ChangeActivityHelper.GOALS).setCheckable(false);
 
         ImageButton btnMore = findViewById(R.id.btnMore);
-        btnMore.setOnClickListener( (view) -> {
-            showPopup(view);
+        btnMore.setOnClickListener((view) -> {
+            showGoalMenuPopup(view);
         });
     }
 
-    private void showPopup(View view) {
+    /*
+     * showGoalMenuPopup
+     * Show the popup for setting recomended goals and removing goals
+     * Paramters
+     *      @View - the currrent view
+     */
+    private void showGoalMenuPopup(View view) {
         PopupMenu popup = new PopupMenu(this, view);
         MenuInflater inflater = popup.getMenuInflater();
         inflater.inflate(R.menu.goals_menu, popup.getMenu());
         popup.setOnMenuItemClickListener((MenuItem item) -> {
-            switch(item.getItemId()) {
+            switch (item.getItemId()) {
                 case R.id.action_set_recommended_goals:
                     setRecommendedGoals();
                     break;
@@ -126,6 +132,11 @@ public class GoalActivity extends AppCompatActivity {
         popup.show();
     }
 
+
+    /*
+     * setRecommendedGoals
+     * calculates and sets the set of recomended goals based on accounts user info
+     */
     private void setRecommendedGoals() {
         day.removeAllGoals();
         List<Goal> goals = RecommendedGoalFactory.makeGoals(accessAccount.getUserInfo(username));
@@ -136,10 +147,10 @@ public class GoalActivity extends AppCompatActivity {
     }
 
     /*
-     * showPopup
+     * showAddGoalPopup
      * Show the popup to add a goal
      */
-    public void showPopUp() {
+    public void showAddGoalPopup() {
         dialog.setContentView(R.layout.pop_up_goal);
 
         Button btnContinue = dialog.findViewById(R.id.btnContinue);
@@ -168,7 +179,7 @@ public class GoalActivity extends AppCompatActivity {
     }
 
     /*
-     * showMicroPopup
+     * showCaloriePopup
      * Show the popup to add a calorie goal
      */
     public void showCaloriePopUp() {
@@ -417,6 +428,14 @@ public class GoalActivity extends AppCompatActivity {
         dialog.show();
     }
 
+    /*
+     * validateInput
+     * ensures the input is valid when creating a goal.  If not valid it sets the
+     * corresponding error message
+     * Parameters
+     *      @lowerBound - the edit text containing the goals lower bound
+     *      @upperBound - the edit text containing the goals upper bound
+     */
     private boolean validateInput(EditText lowerBound, EditText upperBound) {
         boolean inputsValid = true;
 

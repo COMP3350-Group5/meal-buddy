@@ -1,24 +1,22 @@
 package comp3350.mealbuddy.acceptance;
 
-import org.junit.*;
-import org.junit.runner.RunWith;
-
 import androidx.test.espresso.Espresso;
 import androidx.test.espresso.action.ViewActions;
-import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner;
 import androidx.test.filters.LargeTest;
+import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner;
 import androidx.test.rule.ActivityTestRule;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 
-import static androidx.test.espresso.Espresso.*;
-import static androidx.test.espresso.action.ViewActions.*;
-import static androidx.test.espresso.matcher.ViewMatchers.*;
-import static androidx.test.espresso.assertion.ViewAssertions.*;
-import static org.hamcrest.Matchers.anything;
-
+import comp3350.mealbuddy.R;
 import comp3350.mealbuddy.business.AccessAccount;
 import comp3350.mealbuddy.business.AccessEdible;
 import comp3350.mealbuddy.business.Calculator;
@@ -28,12 +26,23 @@ import comp3350.mealbuddy.objects.UserInfo;
 import comp3350.mealbuddy.objects.consumables.Edible;
 import comp3350.mealbuddy.objects.consumables.Food;
 import comp3350.mealbuddy.presentation.HomeActivity;
-import comp3350.mealbuddy.R;
+
+import static androidx.test.espresso.Espresso.onData;
+import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.action.ViewActions.typeText;
+import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withText;
+import static org.hamcrest.Matchers.anything;
 
 @RunWith(AndroidJUnit4ClassRunner.class)
 @LargeTest
 public class ViewStatsTests {
 
+    @Rule
+    public ActivityTestRule<HomeActivity> main = new ActivityTestRule<>(HomeActivity.class);
     private Account TEST_ACCOUNT;
     private AccessEdible ACCESS_EDIBLE;
     private AccessAccount ACCESS_ACCOUNT;
@@ -43,7 +52,7 @@ public class ViewStatsTests {
     private Calculator CALCULATOR;
 
     @Before
-    public void init(){
+    public void init() {
         cleanup();
         System.err.println("INIT");
         ACCESS_ACCOUNT = new AccessAccount();
@@ -64,21 +73,20 @@ public class ViewStatsTests {
     }
 
     @After
-    public void cleanup(){
+    public void cleanup() {
         System.err.println("CLEANUP");
         try {
             ACCESS_ACCOUNT.removeAccount(TESTER_INFO.username);
-        } catch (Exception e){}
+        } catch (Exception e) {
+        }
         try {
             ACCESS_EDIBLE.removeEdible(DUMMY_FOOD.name);
-        } catch (Exception e){}
+        } catch (Exception e) {
+        }
     }
 
-    @Rule
-    public ActivityTestRule<HomeActivity> main = new ActivityTestRule<>(HomeActivity.class);
-
     @Test
-    public void viewTotalAnalytics(){
+    public void viewTotalAnalytics() {
         init();
         //login
         Espresso.closeSoftKeyboard();
@@ -99,13 +107,13 @@ public class ViewStatsTests {
         onView(withId(R.id.btnConfirm)).perform(click());
         //navigate to the view analytics page
         onView(withId(R.id.bottom_navigation)).perform(ClickNav.clickStats()).check(matches(isDisplayed()));
-        CALCULATOR = new Calculator(ACCESS_ACCOUNT.getDay(TESTER_INFO.username,Calendar.getInstance().get(Calendar.DAY_OF_YEAR)));
+        CALCULATOR = new Calculator(ACCESS_ACCOUNT.getDay(TESTER_INFO.username, Calendar.getInstance().get(Calendar.DAY_OF_YEAR)));
         onView(withId(R.id.tvStatsCaloriesValue)).check(matches(withText(String.valueOf(CALCULATOR.getTotalCalories()))));
         cleanup();
     }
 
     @Test
-    public void viewMealAnalytics(){
+    public void viewMealAnalytics() {
         init();
         //login
         Espresso.closeSoftKeyboard();
@@ -126,7 +134,7 @@ public class ViewStatsTests {
         onView(withId(R.id.etQuantity)).perform(typeText("1"));
         onView(withId(R.id.btnConfirm)).perform(click());
 
-        CALCULATOR = new Calculator(ACCESS_ACCOUNT.getDay(TESTER_INFO.username,Calendar.getInstance().get(Calendar.DAY_OF_YEAR)));
+        CALCULATOR = new Calculator(ACCESS_ACCOUNT.getDay(TESTER_INFO.username, Calendar.getInstance().get(Calendar.DAY_OF_YEAR)));
 
         onView(withId(R.id.cardBreakfast)).perform(click());
         onView(withId(R.id.tvViewFoodFat)).check(matches(withText("Fat: " + CALCULATOR.getMealTimeMacroCalories(Day.MealTimeType.BREAKFAST, Edible.Macros.Fat) + "g")));

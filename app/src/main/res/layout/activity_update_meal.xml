@@ -4,9 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.TimelineActivity"
     android:descendantFocusability="afterDescendants"
-    >
+    tools:context=".presentation.TimelineActivity">
 
     <TextView
         android:id="@+id/txtBuilder"
@@ -60,9 +59,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="450dp"
                 android:layout_marginTop="50dp"
+                android:choiceMode="multipleChoice"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/meatUpdatingLabels"
-                android:choiceMode="multipleChoice" />
+                app:layout_constraintTop_toBottomOf="@+id/mealUpdatingLabels" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

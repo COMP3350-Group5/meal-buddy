@@ -104,6 +104,13 @@ public class LabelActivity extends AppCompatActivity {
         removeLabelBtn.setEnabled(true);
     }
 
+    /*
+     * validateInput
+     * ensures the input is valid when updating a label
+     * Parameters
+     *      @adapter - the adapter array holding the labels in the list
+     *      @updateText - the updateText that holds the label being updated to
+     */
     private boolean validateInput(ArrayAdapter<String> adapter, TextView updateText) {
         boolean inputsValid = true;
 
