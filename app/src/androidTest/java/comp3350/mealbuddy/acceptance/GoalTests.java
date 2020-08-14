@@ -2,7 +2,6 @@ package comp3350.mealbuddy.acceptance;
 
 
 import androidx.test.espresso.action.ViewActions;
-import androidx.test.espresso.contrib.PickerActions;
 import androidx.test.filters.LargeTest;
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner;
 import androidx.test.rule.ActivityTestRule;
@@ -30,6 +29,7 @@ import static org.hamcrest.Matchers.allOf;
 public class GoalTests {
 
     AccessAccount accessAccount;
+
     @Rule
     public ActivityTestRule<HomeActivity> homeTest = new ActivityTestRule<>(HomeActivity.class);
 
