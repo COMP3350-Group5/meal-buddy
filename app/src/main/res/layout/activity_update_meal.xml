@@ -61,7 +61,7 @@
                 android:layout_marginTop="50dp"
                 android:choiceMode="multipleChoice"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/meatUpdatingLabels" />
+                app:layout_constraintTop_toBottomOf="@+id/mealUpdatingLabels" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
