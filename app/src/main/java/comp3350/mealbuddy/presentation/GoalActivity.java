@@ -150,8 +150,7 @@ public class GoalActivity extends AppCompatActivity {
             //find the right goal popup
             switch (spnString) {
                 case "Calorie Goal":
-                    if (day.containsGoal(new CalorieGoal(1, 2)))
-                        showCaloriePopUp();
+                    showCaloriePopUp();
                     break;
                 case "Label Goal":
                     showLabelPopUp();
