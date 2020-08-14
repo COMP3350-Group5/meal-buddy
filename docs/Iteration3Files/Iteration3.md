@@ -70,4 +70,4 @@ Link to the private github repository:
 
 Application was tested on Nexus 7 emulator Marshmellow API level (23)<br>
 [emulator: Nexus 7 Api 23 | Android 6.0]<br>
-_Note: the application has some code that relies on Java8, this is a dependenacy in the project.
+_Note: the application has some code that relies on Java8, this is a dependenacy in the project._
