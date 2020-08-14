@@ -18,7 +18,6 @@ import comp3350.mealbuddy.presentation.HomeActivity;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
-import static androidx.test.espresso.action.ViewActions.scrollTo;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
@@ -28,11 +27,11 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
 public class LabelTests {
 
+    @Rule
+    public ActivityTestRule<HomeActivity> homeTest = new ActivityTestRule<>(HomeActivity.class);
     AccessAccount accessAccount;
     AccessEdible accessEdible;
     AccessLabel accessLabel;
-    @Rule
-    public ActivityTestRule<HomeActivity> homeTest = new ActivityTestRule<>(HomeActivity.class);
 
     @Before
     public void init() {
@@ -87,7 +86,6 @@ public class LabelTests {
         onView(withText("Breakfast")).perform(click());
         onView(withText("<Vegetarian> ")).check(matches(isDisplayed()));
     }
-
 
 
     @After

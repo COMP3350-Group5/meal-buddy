@@ -1,28 +1,23 @@
 package comp3350.mealbuddy.acceptance.acceptance;
 
-import org.junit.*;
-import org.junit.runner.RunWith;
-
 import androidx.test.espresso.Espresso;
 import androidx.test.espresso.action.ViewActions;
-import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner;
 import androidx.test.filters.LargeTest;
+import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner;
 import androidx.test.rule.ActivityTestRule;
+
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 
-import static androidx.test.espresso.Espresso.*;
-import static androidx.test.espresso.action.ViewActions.*;
-import static androidx.test.espresso.matcher.ViewMatchers.*;
-import static androidx.test.espresso.assertion.ViewAssertions.*;
-import static org.hamcrest.Matchers.allOf;
-import static org.hamcrest.Matchers.anything;
-import static org.hamcrest.Matchers.instanceOf;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.not;
-
+import comp3350.mealbuddy.R;
 import comp3350.mealbuddy.business.AccessAccount;
 import comp3350.mealbuddy.business.AccessEdible;
 import comp3350.mealbuddy.business.Calculator;
@@ -32,12 +27,27 @@ import comp3350.mealbuddy.objects.UserInfo;
 import comp3350.mealbuddy.objects.consumables.Edible;
 import comp3350.mealbuddy.objects.consumables.Food;
 import comp3350.mealbuddy.presentation.HomeActivity;
-import comp3350.mealbuddy.R;
+
+import static androidx.test.espresso.Espresso.onData;
+import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.action.ViewActions.typeText;
+import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.ViewMatchers.hasErrorText;
+import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withText;
+import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.instanceOf;
+import static org.hamcrest.Matchers.is;
 
 @RunWith(AndroidJUnit4ClassRunner.class)
 @LargeTest
 public class LogFoodTests {
 
+    private final String NEW_FOOD_NAME = "Lobster Tails";
+    @Rule
+    public ActivityTestRule<HomeActivity> main = new ActivityTestRule<>(HomeActivity.class);
     private Account TEST_ACCOUNT;
     private AccessEdible ACCESS_EDIBLE;
     private AccessAccount ACCESS_ACCOUNT;
@@ -45,10 +55,9 @@ public class LogFoodTests {
     private UserInfo TESTER_INFO;
     private Day DAY;
     private Calculator CALCULATOR;
-    private final String NEW_FOOD_NAME = "Lobster Tails";
 
     @Before
-    public void init(){
+    public void init() {
         cleanup();
         System.err.println("INIT");
         ACCESS_ACCOUNT = new AccessAccount();
@@ -69,21 +78,21 @@ public class LogFoodTests {
     }
 
     @After
-    public void cleanup(){
+    public void cleanup() {
         System.err.println("CLEANUP");
         try {
             ACCESS_ACCOUNT.removeAccount(TESTER_INFO.username);
-        } catch (Exception e){}
+        } catch (Exception e) {
+        }
         try {
             ACCESS_EDIBLE.removeEdible(DUMMY_FOOD.name);
-        } catch (Exception e){}
+        } catch (Exception e) {
+        }
         try {
             ACCESS_EDIBLE.removeEdible(NEW_FOOD_NAME);
-        } catch (Exception e){}
+        } catch (Exception e) {
+        }
     }
-
-    @Rule
-    public ActivityTestRule<HomeActivity> main = new ActivityTestRule<>(HomeActivity.class);
 
     @Test
     public void testAddFoodToMealTime() {
@@ -106,7 +115,7 @@ public class LogFoodTests {
         // Check to make sure the food is added to breakfast and the calories are correct
         try {
             onData(allOf(is(instanceOf(String.class)), is("Honey")));
-        } catch (Exception e){
+        } catch (Exception e) {
             Assert.fail();
         }
         cleanup();
@@ -127,7 +136,7 @@ public class LogFoodTests {
         onView(withId(R.id.etQuantity)).perform(typeText("3"), ViewActions.closeSoftKeyboard());
         onView(withId(R.id.btnConfirm)).perform(click());
         onView(withId(R.id.bottom_navigation)).perform(ClickNav.clickTimeline());
-        CALCULATOR = new Calculator(ACCESS_ACCOUNT.getDay(TESTER_INFO.username,Calendar.getInstance().get(Calendar.DAY_OF_YEAR)));
+        CALCULATOR = new Calculator(ACCESS_ACCOUNT.getDay(TESTER_INFO.username, Calendar.getInstance().get(Calendar.DAY_OF_YEAR)));
 
         // Check to make sure the total Calories for the day is updated
         onView(withId(R.id.txtBreakfastCals)).check(matches(withText(CALCULATOR.getMealTimeCalories(Day.MealTimeType.BREAKFAST) + " cals")));
@@ -168,7 +177,7 @@ public class LogFoodTests {
         onView(withId(R.id.etQuantity)).perform(typeText("3"), ViewActions.closeSoftKeyboard());
         onView(withId(R.id.btnConfirm)).perform(click());
 
-        CALCULATOR = new Calculator(ACCESS_ACCOUNT.getDay(TESTER_INFO.username,Calendar.getInstance().get(Calendar.DAY_OF_YEAR)));
+        CALCULATOR = new Calculator(ACCESS_ACCOUNT.getDay(TESTER_INFO.username, Calendar.getInstance().get(Calendar.DAY_OF_YEAR)));
         // Check to make sure the total Calories for the day is updated
         onView(withId(R.id.txtBreakfastCals)).check(matches(withText(CALCULATOR.getMealTimeCalories(Day.MealTimeType.BREAKFAST) + " cals")));
 
@@ -177,10 +186,10 @@ public class LogFoodTests {
         onView(withId(R.id.fabFood)).perform(click()).check(matches(isDisplayed()));
         onData(allOf(is(instanceOf(String.class)), is(NEW_FOOD_NAME))).perform(click());
         onView(withId(R.id.removeEdibleFromDb)).perform(click());
-        try{
+        try {
             onData(allOf(is(instanceOf(String.class)), is(NEW_FOOD_NAME))).perform(click());
             Assert.fail();
-        } catch (Exception e){
+        } catch (Exception e) {
             Assert.assertTrue(true);
         }
         cleanup();

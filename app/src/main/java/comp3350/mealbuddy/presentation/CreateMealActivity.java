@@ -27,23 +27,23 @@ import comp3350.mealbuddy.objects.consumables.Meal;
 
 public class CreateMealActivity extends AppCompatActivity {
 
-    Dialog dialog;
+    private Dialog dialog;
 
     //items passed
-    int dayOfYear;
-    String username;
+    private int dayOfYear;
+    private String username;
 
     //buttons on screen
-    EditText mealTitle;
-    EditText labels;
-    ListView foodList;
-    Button addMeal;
+    private EditText mealTitle;
+    private EditText labels;
+    private ListView foodList;
+    private Button btnAddMeal;
 
-    int[] edibleQuantites;
-    List<Edible> edibles;
-    AccessEdible accessEdible;
-    AccessLabel accessLabel;
-    ArrayAdapter<String> adapter;
+    private int[] edibleQuantites;
+    private List<Edible> edibles;
+    private AccessEdible accessEdible;
+    private AccessLabel accessLabel;
+    private ArrayAdapter<String> adapter;
 
     /*
      * onCreate
@@ -57,7 +57,6 @@ public class CreateMealActivity extends AppCompatActivity {
         setContentView(R.layout.activity_build_meal);
         accessLabel = new AccessLabel();
 
-
         dialog = new Dialog(this);
         accessEdible = new AccessEdible();
 
@@ -69,7 +68,7 @@ public class CreateMealActivity extends AppCompatActivity {
         mealTitle = findViewById(R.id.mealName);
         labels = findViewById(R.id.mealLabels);
         foodList = findViewById(R.id.foodList);
-        addMeal = findViewById(R.id.btnAdd);
+        btnAddMeal = findViewById(R.id.btnAdd);
 
         //Fill the list with edibles
         accessEdible = new AccessEdible();
@@ -90,7 +89,7 @@ public class CreateMealActivity extends AppCompatActivity {
         });
 
         //OnSubmit
-        addMeal.setOnClickListener((view) -> {
+        btnAddMeal.setOnClickListener((view) -> {
             if (validateInput(mealTitle)) {
                 String mealName = mealTitle.getText().toString();
                 ArrayList<String> labelList = getLabels();
@@ -172,8 +171,7 @@ public class CreateMealActivity extends AppCompatActivity {
                 quantity.setError("Quantity is required.");
             } else if (Integer.parseInt(quantity.getText().toString()) == 0) {
                 quantity.setError("Quantity cannot be 0.");
-            }
-            else {
+            } else {
                 edibleQuantites[pos] = Integer.parseInt(quantity.getText().toString());
                 dialog.dismiss();
             }
@@ -181,6 +179,14 @@ public class CreateMealActivity extends AppCompatActivity {
         dialog.show();
     }
 
+    /*
+     * validateInput
+     * ensures the input for creating a meal is valid. If false displays the
+     *          corresponding error message
+     * Parameters:
+     *      @param pos - position of edible we clicked on in list
+     * Returns: - true if the inputs are valid.
+     */
     private boolean validateInput(EditText name) {
         boolean inputsValid = true;
 

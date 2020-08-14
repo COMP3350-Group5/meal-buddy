@@ -21,17 +21,17 @@ import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
-import static androidx.test.espresso.matcher.ViewMatchers.*;
-import static org.hamcrest.Matchers.allOf;
+import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
 @RunWith(AndroidJUnit4ClassRunner.class)
 @LargeTest
 public class RecommendationTests {
 
-    AccessAccount accessAccount;
-
     @Rule
     public ActivityTestRule<HomeActivity> homeTest = new ActivityTestRule<>(HomeActivity.class);
+    AccessAccount accessAccount;
 
     @Before
     public void init() {

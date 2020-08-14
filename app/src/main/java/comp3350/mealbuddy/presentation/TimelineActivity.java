@@ -125,22 +125,23 @@ public class TimelineActivity extends AppCompatActivity {
         menu.getItem(ChangeActivityHelper.TIMELINE).setCheckable(false);
 
         ImageButton btnMore = findViewById(R.id.btnMore);
-        btnMore.setOnClickListener( (view) -> {
-            showPopup(view);
+        btnMore.setOnClickListener((view) -> {
+            showDefaultDaysPopup(view);
         });
-
-
-
-
-
     }
 
-    public void showPopup(View v) {
+    /*
+     * showDefaultDaysPopup
+     * shows options in regards to setting/resettign default days
+     * Parameters
+     *      @View - the current view
+     */
+    public void showDefaultDaysPopup(View v) {
         PopupMenu popup = new PopupMenu(this, v);
         MenuInflater inflater = popup.getMenuInflater();
         inflater.inflate(R.menu.timeline_menu, popup.getMenu());
         popup.setOnMenuItemClickListener((MenuItem item) -> {
-            switch(item.getItemId()) {
+            switch (item.getItemId()) {
                 case R.id.action_set_default_day:
                     setDefaultDay();
                     break;
@@ -156,6 +157,10 @@ public class TimelineActivity extends AppCompatActivity {
         popup.show();
     }
 
+    /*
+     * setDefuaultDay
+     * sets the current day as the default day for the current account
+     */
     private void setDefaultDay() {
         UserInfo userInfo = accessAccount.getUserInfo(username);
         Day newDefault = new Day(day);
@@ -163,10 +168,15 @@ public class TimelineActivity extends AppCompatActivity {
         accessAccount.updateDay(userInfo.username, newDefault);
     }
 
+    /*
+     * resetDefaultDay
+     * resets the default day for the current account
+     */
     private void resetDefaultDay() {
         UserInfo userInfo = accessAccount.getUserInfo(username);
         accessAccount.updateDay(userInfo.username, new Day(Account.DEFAULT_DAY_NUM));
     }
+
     /*
      * initializeCards
      * initializes the UI cards
@@ -193,31 +203,43 @@ public class TimelineActivity extends AppCompatActivity {
         netCals.setText(calculator.getNetCalories(accessAccount.getUserInfo(username)) + " Cals");
     }
 
-    private void initializePopOutCards(){
+    /*
+     * initializePopOutCards
+     * initialize all of the pop out cards with proper values and calculations
+     */
+    private void initializePopOutCards() {
         Object[][] mealtime = {
-            {R.id.cardBreakfast, R.id.txtBreakfastCals, Day.MealTimeType.BREAKFAST},
-            {R.id.cardLunch, R.id.txtLunchCals, Day.MealTimeType.LUNCH},
-            {R.id.cardDinner, R.id.txtDinnerCals, Day.MealTimeType.DINNER},
-            {R.id.cardSnacks, R.id.txtSnacksCals, Day.MealTimeType.SNACK},
+                {R.id.cardBreakfast, R.id.txtBreakfastCals, Day.MealTimeType.BREAKFAST},
+                {R.id.cardLunch, R.id.txtLunchCals, Day.MealTimeType.LUNCH},
+                {R.id.cardDinner, R.id.txtDinnerCals, Day.MealTimeType.DINNER},
+                {R.id.cardSnacks, R.id.txtSnacksCals, Day.MealTimeType.SNACK},
         };
 
-        for(Object[] mt : mealtime){
-            CardView cvMeal = findViewById((int)mt[0]);
-            cvMeal.setOnClickListener((view) -> showFoodPopUp(day.getMealTime((Day.MealTimeType)mt[2])));
-            TextView tvMeal = findViewById((int)mt[1]);
-            String toDisplay = String.format("%d cals", calculator.getMealTimeCalories((Day.MealTimeType)mt[2]));
+        for (Object[] mt : mealtime) {
+            CardView cvMeal = findViewById((int) mt[0]);
+            cvMeal.setOnClickListener((view) -> showFoodPopUp(day.getMealTime((Day.MealTimeType) mt[2])));
+            TextView tvMeal = findViewById((int) mt[1]);
+            String toDisplay = String.format("%d cals", calculator.getMealTimeCalories((Day.MealTimeType) mt[2]));
             tvMeal.setText(toDisplay);
         }
     }
 
-    private void initializeExerciseCard(){
+    /*
+     * initializeExerciseCard
+     * initialize the exercise card view
+     */
+    private void initializeExerciseCard() {
         CardView exerCard = findViewById(R.id.cardExercise);
         TextView exerciseCals = findViewById(R.id.txtExercisesCals);
-        exerciseCals.setText(String.format("%s%d%s", "Burned " , calculator.getTotalExerciseCalories(accessAccount.getUserInfo(username)), " cals"));
+        exerciseCals.setText(String.format("%s%d%s", "Burned ", calculator.getTotalExerciseCalories(accessAccount.getUserInfo(username)), " cals"));
         exerCard.setOnClickListener((view) -> showExercisePopUp());
     }
 
-    private void showExercisePopUp(){
+    /*
+     * showExercisePopup()
+     * initialize the exercise card view
+     */
+    private void showExercisePopUp() {
         dialog.setContentView(R.layout.pop_up_view_exercise);
         //set up the array adapter
         ArrayList<String> exerNames = new ArrayList<>();
@@ -231,7 +253,7 @@ public class TimelineActivity extends AppCompatActivity {
         TextView title = dialog.findViewById(R.id.tvViewExercise);
         title.setText("Exercise");
         TextView cals = dialog.findViewById(R.id.tvExerciseCalories);
-        cals.setText(String.format("%s%d", "Calories burned: " , calculator.getTotalExerciseCalories(accessAccount.getUserInfo(username))));
+        cals.setText(String.format("%s%d", "Calories burned: ", calculator.getTotalExerciseCalories(accessAccount.getUserInfo(username))));
 
         //set up the list view
         ListView lv = dialog.findViewById(R.id.lvViewExercise);
@@ -279,6 +301,10 @@ public class TimelineActivity extends AppCompatActivity {
         dialog.show();
     }
 
+    /*
+     * showFoodPopup
+     * displays the food popup
+     */
     private void showFoodPopUp(Meal mealtime) {
         dialog.setContentView(R.layout.pop_up_display_food);
         int fatTotal = 0;
@@ -301,7 +327,7 @@ public class TimelineActivity extends AppCompatActivity {
             foodNames.add(toAdd);
             //add the labels to the string
             String labelToAdd = "";
-            for(String label : e.edible.labels)
+            for (String label : e.edible.labels)
                 labelToAdd += "<" + label + "> ";
             foodLabels.add(labelToAdd);
             //update the totals
@@ -311,7 +337,7 @@ public class TimelineActivity extends AppCompatActivity {
         }
 
         //override the adapter to display both texts
-        ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter(TimelineActivity.this, android.R.layout.simple_list_item_2, android.R.id.text1, foodNames){
+        ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter(TimelineActivity.this, android.R.layout.simple_list_item_2, android.R.id.text1, foodNames) {
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
                 View view = super.getView(position, convertView, parent);
