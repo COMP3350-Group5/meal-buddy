@@ -45,6 +45,7 @@ public class LogFoodTests {
     private UserInfo TESTER_INFO;
     private Day DAY;
     private Calculator CALCULATOR;
+    private String NEW_FOOD_NAME = "Lobster Tails";
 
     @Before
     public void init(){
@@ -75,6 +76,9 @@ public class LogFoodTests {
         } catch (Exception e){}
         try {
             ACCESS_EDIBLE.removeEdible(DUMMY_FOOD.name);
+        } catch (Exception e){}
+        try {
+            ACCESS_EDIBLE.removeEdible(NEW_FOOD_NAME);
         } catch (Exception e){}
     }
 
@@ -131,7 +135,7 @@ public class LogFoodTests {
     }
 
     @Test
-    public void addNewFoodToDB() {
+    public void logFoodtoDb() {
         init();
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.etUsername)).perform(typeText(TESTER_INFO.username), ViewActions.closeSoftKeyboard());
@@ -145,7 +149,7 @@ public class LogFoodTests {
         onView(withId(R.id.fabFood)).perform(click());
 
         Espresso.closeSoftKeyboard();
-        onView(withId(R.id.etFoodName)).perform(typeText("Lobster Tails"), ViewActions.closeSoftKeyboard());
+        onView(withId(R.id.etFoodName)).perform(typeText(NEW_FOOD_NAME), ViewActions.closeSoftKeyboard());
         onView(withId(R.id.etLabels)).perform(typeText("Gluten friendly"), ViewActions.closeSoftKeyboard());
         onView(withId(R.id.etFat)).perform(typeText("2"), ViewActions.closeSoftKeyboard());
         onView(withId(R.id.etCarbs)).perform(typeText("3"), ViewActions.closeSoftKeyboard());
@@ -158,6 +162,7 @@ public class LogFoodTests {
         onView(withId(R.id.etIron)).perform(typeText("7"), ViewActions.closeSoftKeyboard());
 
         onView(withId(R.id.btnAddFood)).perform(click());
+        Espresso.closeSoftKeyboard();
 
         onData(allOf(is(instanceOf(String.class)), is("Lobster Tails"))).perform(click());
         onView(withId(R.id.etQuantity)).perform(typeText("3"), ViewActions.closeSoftKeyboard());
@@ -166,6 +171,18 @@ public class LogFoodTests {
         CALCULATOR = new Calculator(ACCESS_ACCOUNT.getDay(TESTER_INFO.username,Calendar.getInstance().get(Calendar.DAY_OF_YEAR)));
         // Check to make sure the total Calories for the day is updated
         onView(withId(R.id.txtBreakfastCals)).check(matches(withText(CALCULATOR.getMealTimeCalories(Day.MealTimeType.BREAKFAST) + " cals")));
+
+        //remove the food
+        onView(withId(R.id.fabAdd)).perform(click());
+        onView(withId(R.id.fabFood)).perform(click()).check(matches(isDisplayed()));
+        onData(allOf(is(instanceOf(String.class)), is("Lobster Tails"))).perform(click());
+        onView(withId(R.id.removeEdibleFromDb)).perform(click());
+        try{
+            onData(allOf(is(instanceOf(String.class)), is("Lobster Tails"))).perform(click());
+            Assert.fail();
+        } catch (Exception e){
+            System.err.println(e);
+        }
         cleanup();
     }
 
@@ -186,11 +203,12 @@ public class LogFoodTests {
         Espresso.closeSoftKeyboard();
 
         onView(withId(R.id.btnAddFood)).perform(click());
+        Espresso.closeSoftKeyboard();
 
         onView(withId(R.id.etFoodName)).check(matches(hasErrorText("Name is required")));
-        onView(withId(R.id.etProtein)).check(matches(hasErrorText("Protein is required")));
         onView(withId(R.id.etFat)).check(matches(hasErrorText("Fat is required")));
-        onView(withId(R.id.etCarbs)).check(matches(hasErrorText("Carbs is required")));
+        onView(withId(R.id.etCarbs)).check(matches(hasErrorText("Carbs are required")));
+        onView(withId(R.id.etProtein)).check(matches(hasErrorText("Protein is required")));
         onView(withId(R.id.etWeight)).check(matches(hasErrorText("Weight is required")));
 
         Espresso.closeSoftKeyboard();
