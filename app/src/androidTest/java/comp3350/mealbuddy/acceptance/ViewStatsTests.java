@@ -17,7 +17,6 @@ import static androidx.test.espresso.Espresso.*;
 import static androidx.test.espresso.action.ViewActions.*;
 import static androidx.test.espresso.matcher.ViewMatchers.*;
 import static androidx.test.espresso.assertion.ViewAssertions.*;
-import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.anything;
 
 import comp3350.mealbuddy.business.AccessAccount;
@@ -125,15 +124,14 @@ public class ViewStatsTests {
         //add 123test123 to the food
         onData(anything()).inAdapterView(withId(R.id.lvSearchbar)).atPosition(0).perform(click());
         onView(withId(R.id.etQuantity)).perform(typeText("1"));
-        onView(withId(R.id.spnMealtimes)).perform(click());
-        onView(withText("Lunch")).perform(click());
         onView(withId(R.id.btnConfirm)).perform(click());
+
         CALCULATOR = new Calculator(ACCESS_ACCOUNT.getDay(TESTER_INFO.username,Calendar.getInstance().get(Calendar.DAY_OF_YEAR)));
 
-        onView(withId(R.id.cardLunch)).perform(click());
-        onView(withId(R.id.tvViewFoodFat)).check(matches(withText("Fat: " + CALCULATOR.getMealTimeMacroCalories(Day.MealTimeType.LUNCH, Edible.Macros.Fat) + "g")));
-        onView(withId(R.id.tvViewFoodCarbs)).check(matches(withText("Carbs: " + CALCULATOR.getMealTimeMacroCalories(Day.MealTimeType.LUNCH, Edible.Macros.Carbohydrates) + "g")));
-        onView(withId(R.id.tvViewFoodProtein)).check(matches(withText("Protein: " + CALCULATOR.getMealTimeMacroCalories(Day.MealTimeType.LUNCH, Edible.Macros.Protein) + "g")));
+        onView(withId(R.id.cardBreakfast)).perform(click());
+        onView(withId(R.id.tvViewFoodFat)).check(matches(withText("Fat: " + CALCULATOR.getMealTimeMacroCalories(Day.MealTimeType.BREAKFAST, Edible.Macros.Fat) + "g")));
+        onView(withId(R.id.tvViewFoodCarbs)).check(matches(withText("Carbs: " + CALCULATOR.getMealTimeMacroCalories(Day.MealTimeType.BREAKFAST, Edible.Macros.Carbohydrates) + "g")));
+        onView(withId(R.id.tvViewFoodProtein)).check(matches(withText("Protein: " + CALCULATOR.getMealTimeMacroCalories(Day.MealTimeType.BREAKFAST, Edible.Macros.Protein) + "g")));
         cleanup();
     }
 
