@@ -45,7 +45,7 @@ public class LogFoodTests {
     private UserInfo TESTER_INFO;
     private Day DAY;
     private Calculator CALCULATOR;
-    private String NEW_FOOD_NAME = "Lobster Tails";
+    private final String NEW_FOOD_NAME = "Lobster Tails";
 
     @Before
     public void init(){
@@ -164,7 +164,7 @@ public class LogFoodTests {
         onView(withId(R.id.btnAddFood)).perform(click());
         Espresso.closeSoftKeyboard();
 
-        onData(allOf(is(instanceOf(String.class)), is("Lobster Tails"))).perform(click());
+        onData(allOf(is(instanceOf(String.class)), is(NEW_FOOD_NAME))).perform(click());
         onView(withId(R.id.etQuantity)).perform(typeText("3"), ViewActions.closeSoftKeyboard());
         onView(withId(R.id.btnConfirm)).perform(click());
 
@@ -175,13 +175,13 @@ public class LogFoodTests {
         //remove the food
         onView(withId(R.id.fabAdd)).perform(click());
         onView(withId(R.id.fabFood)).perform(click()).check(matches(isDisplayed()));
-        onData(allOf(is(instanceOf(String.class)), is("Lobster Tails"))).perform(click());
+        onData(allOf(is(instanceOf(String.class)), is(NEW_FOOD_NAME))).perform(click());
         onView(withId(R.id.removeEdibleFromDb)).perform(click());
         try{
-            onData(allOf(is(instanceOf(String.class)), is("Lobster Tails"))).perform(click());
+            onData(allOf(is(instanceOf(String.class)), is(NEW_FOOD_NAME))).perform(click());
             Assert.fail();
         } catch (Exception e){
-            System.err.println(e);
+            Assert.assertTrue(true);
         }
         cleanup();
     }
