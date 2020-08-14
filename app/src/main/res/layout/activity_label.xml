@@ -67,8 +67,8 @@
             android:layout_gravity="center|left"
             android:layout_marginLeft="185dp"
             android:ems="10"
-            android:inputType="text"
-            android:hint="Name to Add" />
+            android:hint="Name to Add"
+            android:inputType="text" />
 
         <Button
             android:id="@+id/labelBtnUpdate"
@@ -85,8 +85,8 @@
             android:layout_gravity="bottom"
             android:layout_marginLeft="185dp"
             android:ems="10"
-            android:inputType="text"
-            android:hint="Name to update to" />
+            android:hint="Name to update to"
+            android:inputType="text" />
 
         <Button
             android:id="@+id/labelBtnRemove"

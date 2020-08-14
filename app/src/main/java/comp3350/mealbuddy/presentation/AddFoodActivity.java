@@ -88,7 +88,7 @@ public class AddFoodActivity extends AppCompatActivity {
 
         //on submit we want to create a new food
         submit.setOnClickListener((view) -> {
-         if (validateInput()) {
+            if (validateInput()) {
                 //get the labels from the label UI
                 ArrayList<String> labelList = new ArrayList<>(Arrays.asList(labels.getText().toString().split(",")));
                 for (String label : labelList) {
@@ -117,13 +117,13 @@ public class AddFoodActivity extends AppCompatActivity {
                 newFood.updateMicro(Edible.Micros.Magnesium, getMicroVal(magnesium.getText()));
                 newFood.updateMicro(Edible.Micros.Choline, getMicroVal(choline.getText()));
                 newFood.updateMicro(Edible.Micros.Sodium, getMicroVal(sodium.getText()));
-             newFood.updateMicro(Edible.Micros.Potassium, getMicroVal(potassium.getText()));
-             newFood.updateMicro(Edible.Micros.Niacin, getMicroVal(niacin.getText()));
+                newFood.updateMicro(Edible.Micros.Potassium, getMicroVal(potassium.getText()));
+                newFood.updateMicro(Edible.Micros.Niacin, getMicroVal(niacin.getText()));
 
-             accessEdible.addEdible(newFood); //this adds the food to the foods database.
+                accessEdible.addEdible(newFood); //this adds the food to the foods database.
 
-             ChangeActivityHelper.changeActivity(AddFoodActivity.this, SearchFoodActivity.class, username, dayOfYear);
-         }
+                ChangeActivityHelper.changeActivity(AddFoodActivity.this, SearchFoodActivity.class, username, dayOfYear);
+            }
         });
     }
 
@@ -142,35 +142,35 @@ public class AddFoodActivity extends AppCompatActivity {
     private boolean validateInput() {
         boolean inputsValid = true;
 
-      if (TextUtils.isEmpty(name.getText())) {
-          name.setError("Name is required");
-          inputsValid = false;
-      } else if (accessEdible.edibleExists(name.getText().toString())) {
-          name.setError("Edible already exists choose a different name");
-          inputsValid = false;
-      }
+        if (TextUtils.isEmpty(name.getText())) {
+            name.setError("Name is required");
+            inputsValid = false;
+        } else if (accessEdible.edibleExists(name.getText().toString())) {
+            name.setError("Edible already exists choose a different name");
+            inputsValid = false;
+        }
 
-      if (TextUtils.isEmpty(protein.getText())) {
-          protein.setError("Protein is required");
-          inputsValid = false;
-      }
+        if (TextUtils.isEmpty(protein.getText())) {
+            protein.setError("Protein is required");
+            inputsValid = false;
+        }
 
-      if (TextUtils.isEmpty(fat.getText())) {
-          fat.setError("Fat is required");
-          inputsValid = false;
-      }
+        if (TextUtils.isEmpty(fat.getText())) {
+            fat.setError("Fat is required");
+            inputsValid = false;
+        }
 
-      if (TextUtils.isEmpty(carbs.getText())) {
-          carbs.setError("Carbs are required");
-          inputsValid = false;
-      }
+        if (TextUtils.isEmpty(carbs.getText())) {
+            carbs.setError("Carbs are required");
+            inputsValid = false;
+        }
 
-      if (TextUtils.isEmpty(weight.getText())) {
-          weight.setError("Weight is required");
-          inputsValid = false;
-      }
+        if (TextUtils.isEmpty(weight.getText())) {
+            weight.setError("Weight is required");
+            inputsValid = false;
+        }
 
-      return inputsValid;
-  }
+        return inputsValid;
+    }
 
 }

@@ -11,9 +11,9 @@ import java.util.List;
 
 public class Account {
 
+    public static final int DEFAULT_DAY_NUM = 0;
     public UserInfo user;
     private ArrayList<Day> daysTracked;
-    public static final int DEFAULT_DAY_NUM = 0;
 
     /*
      * Constructor

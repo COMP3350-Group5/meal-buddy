@@ -38,8 +38,8 @@
         android:layout_gravity="center"
         android:hint="Quantity"
         android:inputType="number"
-        android:textColorHint="@color/cardview_light_background"
-        android:maxLength="2" />
+        android:maxLength="2"
+        android:textColorHint="@color/cardview_light_background" />
 
     <Button
         android:id="@+id/btnConfirm"

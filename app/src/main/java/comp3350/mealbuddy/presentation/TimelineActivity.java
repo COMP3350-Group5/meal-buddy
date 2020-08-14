@@ -253,7 +253,7 @@ public class TimelineActivity extends AppCompatActivity {
         TextView title = dialog.findViewById(R.id.tvViewExercise);
         title.setText("Exercise");
         TextView cals = dialog.findViewById(R.id.tvExerciseCalories);
-        cals.setText(String.format("%s%d", "Calories burned: " , calculator.getTotalExerciseCalories(accessAccount.getUserInfo(username))));
+        cals.setText(String.format("%s%d", "Calories burned: ", calculator.getTotalExerciseCalories(accessAccount.getUserInfo(username))));
 
         //set up the list view
         ListView lv = dialog.findViewById(R.id.lvViewExercise);
@@ -327,7 +327,7 @@ public class TimelineActivity extends AppCompatActivity {
             foodNames.add(toAdd);
             //add the labels to the string
             String labelToAdd = "";
-            for(String label : e.edible.labels)
+            for (String label : e.edible.labels)
                 labelToAdd += "<" + label + "> ";
             foodLabels.add(labelToAdd);
             //update the totals
@@ -337,7 +337,7 @@ public class TimelineActivity extends AppCompatActivity {
         }
 
         //override the adapter to display both texts
-        ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter(TimelineActivity.this, android.R.layout.simple_list_item_2, android.R.id.text1, foodNames){
+        ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter(TimelineActivity.this, android.R.layout.simple_list_item_2, android.R.id.text1, foodNames) {
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
                 View view = super.getView(position, convertView, parent);
