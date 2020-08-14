@@ -1,6 +1,4 @@
-package comp3350.mealbuddy.acceptance;
-import android.content.Context;
-import android.content.Intent;
+package comp3350.mealbuddy.acceptance.acceptance;
 
 import org.hamcrest.Matchers;
 import org.junit.*;

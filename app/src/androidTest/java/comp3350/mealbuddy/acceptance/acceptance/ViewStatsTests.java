@@ -1,4 +1,4 @@
-package comp3350.mealbuddy.acceptance;
+package comp3350.mealbuddy.acceptance.acceptance;
 
 import org.junit.*;
 import org.junit.runner.RunWith;
@@ -19,6 +19,8 @@ import static androidx.test.espresso.matcher.ViewMatchers.*;
 import static androidx.test.espresso.assertion.ViewAssertions.*;
 import static org.hamcrest.Matchers.anything;
 
+import comp3350.mealbuddy.R;
+import comp3350.mealbuddy.acceptance.acceptance.ClickNav;
 import comp3350.mealbuddy.business.AccessAccount;
 import comp3350.mealbuddy.business.AccessEdible;
 import comp3350.mealbuddy.business.Calculator;

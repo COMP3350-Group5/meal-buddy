@@ -1,4 +1,4 @@
-package comp3350.mealbuddy.acceptance;
+package comp3350.mealbuddy.acceptance.acceptance;
 
 
 import androidx.test.espresso.action.ViewActions;

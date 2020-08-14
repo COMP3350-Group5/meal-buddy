@@ -1,4 +1,4 @@
-package comp3350.mealbuddy.acceptance;
+package comp3350.mealbuddy.acceptance.acceptance;
 
 import org.junit.*;
 import org.junit.runner.RunWith;
