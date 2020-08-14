@@ -1,7 +1,6 @@
 import org.junit.runners.Suite;
 import org.junit.runner.RunWith;
 
-import comp3350.mealbuddy.acceptance.EdibleTests;
 import comp3350.mealbuddy.acceptance.ExerciseTests;
 import comp3350.mealbuddy.acceptance.HomeTests;
 import comp3350.mealbuddy.acceptance.LabelTests;
@@ -12,7 +11,6 @@ import comp3350.mealbuddy.acceptance.ViewStatsTests;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-        EdibleTests.class,
         ExerciseTests.class,
         HomeTests.class,
         LabelTests.class,
