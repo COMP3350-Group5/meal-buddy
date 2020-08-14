@@ -30,7 +30,7 @@ import comp3350.mealbuddy.objects.UserInfo;
 import comp3350.mealbuddy.presentation.HomeActivity;
 @RunWith(AndroidJUnit4ClassRunner.class)
 @LargeTest
-public class ExerciseTest {
+public class ExerciseTests {
     private AccessAccount ACCESS_ACCOUNT;
     private UserInfo TESTER_INFO;
     private Day DAY;
@@ -56,6 +56,7 @@ public class ExerciseTest {
     public ActivityTestRule<HomeActivity> main = new ActivityTestRule<HomeActivity>(HomeActivity.class);
     @Test
     public void testAddSingleExercise() {
+        init();
         login();
         onView(withId(R.id.fabAdd)).perform(click());
         onView(withId(R.id.fabExercise)).check(matches(isDisplayed()));

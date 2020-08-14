@@ -26,7 +26,7 @@ import static org.hamcrest.Matchers.allOf;
 
 @RunWith(AndroidJUnit4ClassRunner.class)
 @LargeTest
-public class GoalTests {
+public class RecommendationTests {
 
     AccessAccount accessAccount;
 
