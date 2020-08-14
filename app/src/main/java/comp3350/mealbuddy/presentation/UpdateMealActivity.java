@@ -23,7 +23,7 @@ import comp3350.mealbuddy.objects.consumables.Edible;
 import comp3350.mealbuddy.objects.consumables.Food;
 import comp3350.mealbuddy.objects.consumables.Meal;
 
-public class UpdateMeal extends AppCompatActivity {
+public class UpdateMealActivity extends AppCompatActivity {
 
     Dialog dialog;
 
