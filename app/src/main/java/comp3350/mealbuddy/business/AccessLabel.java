@@ -33,7 +33,6 @@ public class AccessLabel {
             throw new NullPointerException("Label cannot be null");
         if (labelExists(l))
             throw new IllegalArgumentException("Label being added already exists in the DB.");
-        ;
         DAS.addLabel(l);
     }
 

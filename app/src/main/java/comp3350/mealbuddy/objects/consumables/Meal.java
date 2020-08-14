@@ -118,7 +118,7 @@ public class Meal extends Edible {
         if (ediblesInMeal.contains(edible)) {
             EdibleIntPair eip = getEdibleIntPair(edible);
             if (eip.quantity == 1)
-                ediblesInMeal.remove(ediblesInMeal.indexOf(eip));
+                ediblesInMeal.remove(eip);
             else
                 setEdible(edible, getQuantity(edible) - 1);
         }

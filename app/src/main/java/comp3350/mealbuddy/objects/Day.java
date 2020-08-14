@@ -303,7 +303,7 @@ public class Day {
      *     the exercise
      */
     public Exercise getExercise(String name) {
-        for (Exercise e: exercises) {
+        for (Exercise e : exercises) {
             if (e.name.equals(name))
                 return e;
         }

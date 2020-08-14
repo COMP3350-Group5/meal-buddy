@@ -20,8 +20,15 @@ import comp3350.mealbuddy.objects.Exercise;
 
 public class AddExerciseActivity extends AppCompatActivity {
 
-    AccessAccount accessAccount;
-    Dialog dialog;
+    private AccessAccount accessAccount;
+    private Dialog dialog;
+    private Day day;
+    private int dayOfYear;
+    private String username;
+    private Button submit;
+    private Spinner intensitySpinner;
+    private EditText exerciseName;
+    private EditText duration;
 
     /*
      * onCreate
@@ -33,32 +40,34 @@ public class AddExerciseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_exercise);
+
         dialog = new Dialog(this);
+
         //get the passed values from the previous activity
-        int dayOfYear = this.getIntent().getIntExtra("dayOfYear", -1);
-        final String username = this.getIntent().getStringExtra("username");
+        dayOfYear = this.getIntent().getIntExtra("dayOfYear", -1);
+        username = this.getIntent().getStringExtra("username");
 
         //get the day to display
         accessAccount = new AccessAccount();
-        final Day day = accessAccount.getDay(username, dayOfYear);
+        day = accessAccount.getDay(username, dayOfYear);
 
         //obtain all the UI components to grab values from
-        Button submit = findViewById(R.id.btnAddExercise);
-        final EditText name = findViewById(R.id.etExerciseName);
-        Spinner spinner = findViewById(R.id.spnIntensity);
-        final EditText duration = findViewById(R.id.etDuration);
+        submit = findViewById(R.id.btnAddExercise);
+        exerciseName = findViewById(R.id.etExerciseName);
+        intensitySpinner = findViewById(R.id.spnIntensity);
+        duration = findViewById(R.id.etDuration);
 
 
         //on submit we want to create a new exercise
         submit.setOnClickListener((view) -> {
-            if (validateInput(name, duration)){
-                String spnString = spinner.getSelectedItem().toString();
-                Exercise.Intensity IT = getIntensity(spnString);
-                Exercise exercise = new Exercise(name.getText().toString(), Double.parseDouble(duration.getText().toString()), IT);
+            if (validateInput()) {
+                String spnString = intensitySpinner.getSelectedItem().toString();
+                Exercise.Intensity intensity = getIntensity(spnString);
+                Exercise exercise = new Exercise(exerciseName.getText().toString(), Double.parseDouble(duration.getText().toString()), intensity);
                 day.addExercise(exercise);
                 accessAccount.updateDay(username, day);
 
-                //go back to the timeline activity and pass the username
+                //go back to the timeline activity and pass the username and day of year
                 ChangeActivityHelper.changeActivity(AddExerciseActivity.this, TimelineActivity.class, username, dayOfYear);
             }
         });
@@ -82,16 +91,20 @@ public class AddExerciseActivity extends AppCompatActivity {
     /*
      * Check if the input fields are valid.
      */
-    private boolean validateInput(EditText name, EditText duration) {
+    private boolean validateInput() {
         boolean inputsValid = true;
 
-        if (TextUtils.isEmpty(name.getText())) {
-            name.setError("Name is required");
+        if (TextUtils.isEmpty(exerciseName.getText())) {
+            exerciseName.setError("An exercise name is required");
             inputsValid = false;
         }
 
+
         if (TextUtils.isEmpty(duration.getText())) {
-            duration.setError("Duration is required");
+            duration.setError("A duration is required");
+            inputsValid = false;
+        } else if (Double.parseDouble(duration.getText().toString()) == 0.0) {
+            duration.setError("Duration must be larger than zero.");
             inputsValid = false;
         }
 

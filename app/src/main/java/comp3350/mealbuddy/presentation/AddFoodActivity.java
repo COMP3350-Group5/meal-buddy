@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import comp3350.mealbuddy.R;
-import comp3350.mealbuddy.business.AccessAccount;
 import comp3350.mealbuddy.business.AccessEdible;
 import comp3350.mealbuddy.business.AccessLabel;
 import comp3350.mealbuddy.objects.consumables.Edible;
@@ -25,9 +24,26 @@ import comp3350.mealbuddy.objects.consumables.Food;
 
 public class AddFoodActivity extends AppCompatActivity {
 
-    AccessAccount accessAccount;
-    AccessEdible accessEdible;
-    AccessLabel accessLabel;
+    private AccessEdible accessEdible;
+    private AccessLabel accessLabel;
+    private EditText name;
+    private EditText labels;
+    private EditText protein;
+    private EditText fat;
+    private EditText carbs;
+    private EditText weight;
+    private EditText iron;
+    private EditText zinc;
+    private EditText vitA;
+    private EditText vitB12;
+    private EditText vitC;
+    private EditText vitE;
+    private EditText calcium;
+    private EditText choline;
+    private EditText magnesium;
+    private EditText sodium;
+    private EditText potassium;
+    private EditText niacin;
 
     /*
      * onCreate
@@ -50,29 +66,29 @@ public class AddFoodActivity extends AppCompatActivity {
 
         //obtain all the UI components to grab values from
         Button submit = findViewById(R.id.btnAddFood);
-        final EditText name = findViewById(R.id.etFoodName);
-        final EditText labels = findViewById(R.id.etLabels);
-        final EditText protein = findViewById(R.id.etProtein);
-        final EditText fat = findViewById(R.id.etFat);
-        final EditText carbs = findViewById(R.id.etCarbs);
-        final EditText weight = findViewById(R.id.etWeight);
+        name = findViewById(R.id.etFoodName);
+        labels = findViewById(R.id.etLabels);
+        protein = findViewById(R.id.etProtein);
+        fat = findViewById(R.id.etFat);
+        carbs = findViewById(R.id.etCarbs);
+        weight = findViewById(R.id.etWeight);
 
-        final EditText iron = findViewById(R.id.etIron);
-        final EditText zinc = findViewById(R.id.etZinc);
-        final EditText vitA = findViewById(R.id.etVitA);
-        final EditText vitB12 = findViewById(R.id.etVitB12);
-        final EditText vitC = findViewById(R.id.etVitC);
-        final EditText vitE = findViewById(R.id.etVitE);
-        final EditText calcium = findViewById(R.id.etCalcium);
-        final EditText choline = findViewById(R.id.etCholine);
-        final EditText magnesium = findViewById(R.id.etMagnesium);
-        final EditText sodium = findViewById(R.id.etSodium);
-        final EditText potassium = findViewById(R.id.etPotassium);
-        final EditText niacin = findViewById(R.id.etNiacin);
+        iron = findViewById(R.id.etIron);
+        zinc = findViewById(R.id.etZinc);
+        vitA = findViewById(R.id.etVitA);
+        vitB12 = findViewById(R.id.etVitB12);
+        vitC = findViewById(R.id.etVitC);
+        vitE = findViewById(R.id.etVitE);
+        calcium = findViewById(R.id.etCalcium);
+        choline = findViewById(R.id.etCholine);
+        magnesium = findViewById(R.id.etMagnesium);
+        sodium = findViewById(R.id.etSodium);
+        potassium = findViewById(R.id.etPotassium);
+        niacin = findViewById(R.id.etNiacin);
 
         //on submit we want to create a new food
         submit.setOnClickListener((view) -> {
-         if (validateInput(name, protein, fat, carbs, weight)) {
+            if (validateInput()) {
                 //get the labels from the label UI
                 ArrayList<String> labelList = new ArrayList<>(Arrays.asList(labels.getText().toString().split(",")));
                 for (String label : labelList) {
@@ -111,49 +127,50 @@ public class AddFoodActivity extends AppCompatActivity {
         });
     }
 
-
-    private int getMicroVal(Editable text){
-        return TextUtils.isEmpty(text)
+    /* GetMicroVal
+     * get the micro val from the text view
+     */
+    private int getMicroVal(Editable micro) {
+        return TextUtils.isEmpty(micro)
                 ? 0
-                : Integer.parseInt(text.toString());
+                : Integer.parseInt(micro.toString());
     }
+
     /*
      * Check if the input fields are valid.
      */
-  private boolean validateInput(EditText name, EditText protein, EditText fat, EditText carbs, EditText weight) {
+    private boolean validateInput() {
         boolean inputsValid = true;
 
-      if (TextUtils.isEmpty(name.getText())) {
-          name.setError("Name is required");
-          inputsValid = false;
-      }
+        if (TextUtils.isEmpty(name.getText())) {
+            name.setError("Name is required");
+            inputsValid = false;
+        } else if (accessEdible.edibleExists(name.getText().toString())) {
+            name.setError("Edible already exists choose a different name");
+            inputsValid = false;
+        }
 
-      if (accessEdible.edibleExists(name.getText().toString())) {
-          name.setError("Edible already exists choose a different name");
-          inputsValid = false;
-      }
+        if (TextUtils.isEmpty(protein.getText())) {
+            protein.setError("Protein is required");
+            inputsValid = false;
+        }
 
-      if (TextUtils.isEmpty(protein.getText())) {
-          protein.setError("Protein is required");
-          inputsValid = false;
-      }
+        if (TextUtils.isEmpty(fat.getText())) {
+            fat.setError("Fat is required");
+            inputsValid = false;
+        }
 
-      if (TextUtils.isEmpty(fat.getText())) {
-          fat.setError("Fat is required");
-          inputsValid = false;
-      }
+        if (TextUtils.isEmpty(carbs.getText())) {
+            carbs.setError("Carbs are required");
+            inputsValid = false;
+        }
 
-      if (TextUtils.isEmpty(carbs.getText())) {
-          carbs.setError("Carbs are required");
-          inputsValid = false;
-      }
+        if (TextUtils.isEmpty(weight.getText())) {
+            weight.setError("Weight is required");
+            inputsValid = false;
+        }
 
-      if (TextUtils.isEmpty(weight.getText())) {
-          weight.setError("Weight is required");
-          inputsValid = false;
-      }
-
-      return inputsValid;
-  }
+        return inputsValid;
+    }
 
 }
