@@ -42,6 +42,7 @@ public class LabelTests {
         accessAccount.addAccount(new UserInfo("Goal Test", "goaltest", "goaltest", 100.0, 100.0, UserInfo.ActivityLevel.LOW, UserInfo.Sex.FEMALE, 2));
     }
 
+    //Test adding, updating, and removing a label, as well as creating a food with a label
     @Test
     public void labelTest() {
         onView(withId(R.id.etUsername)).perform(typeText("goaltest"), ViewActions.closeSoftKeyboard());
