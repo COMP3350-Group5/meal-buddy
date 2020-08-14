@@ -42,7 +42,7 @@ public class HomeTests {
         onView(withId(R.id.etPassword)).perform(typeText("group5"), ViewActions.closeSoftKeyboard());
         onView(withId(R.id.btnLogin)).perform(click());
         Espresso.closeSoftKeyboard();
-        ClickNav.clickAccount();
+        onView(withId(R.id.bottom_navigation)).perform(ClickNav.clickAccount());
         onView(withId(R.id.logOut)).perform(click());
     }
 
@@ -64,7 +64,7 @@ public class HomeTests {
         onView(withId(R.id.spnActivityLevel)).perform(click());
         onView(withText("Low")).perform(click());
         onView(withId(R.id.btnCreateAccount)).perform(click());
-        ClickNav.clickAccount();
+        onView(withId(R.id.bottom_navigation)).perform(ClickNav.clickAccount());
 
         onView(withText("Name: testing tester\n" +
                 "Username: tester\n" +
