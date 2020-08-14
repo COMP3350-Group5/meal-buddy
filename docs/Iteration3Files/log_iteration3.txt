@@ -1,0 +1,317 @@
+Developer’s Logs
+
+Emmanuel’s Log
+
+Added ability to add quantities of edibles when creating a meal
+Time Allocated: 2 hours
+Time taken: 1 hour
+Linked Issue: https://github.com/COMP3350-Group5/meal-buddy/issues/180 
+Completed on August 12th
+
+Allow adding labels to new meals created
+Time Allocated: 1 hour
+Time taken: 2 hours
+Linked Issue: https://github.com/COMP3350-Group5/meal-buddy/issues/184 
+Completed on August 12th
+
+
+Move error handling in front end to separate methods
+Time Allocated: 1 hour
+Time taken: 1 hour
+Linked Issue: https://github.com/COMP3350-Group5/meal-buddy/issues/201 
+Completed August 12th
+
+Acceptance Test Save User Info
+Time Allocated: 3 hours
+Time Taken: 4 hours
+Linked Issue: https://github.com/COMP3350-Group5/meal-buddy/issues/167 
+Completed on August 13th
+
+
+
+Acceptance Test Recommendations
+Time Allocated: 3 hours
+Time taken: 2 hours
+Linked Issue: https://github.com/COMP3350-Group5/meal-buddy/issues/174 
+Completed on August 13th
+
+Task: Acceptance Test Add Common Meals
+Time Allocated: 3 hours
+Time Took: 2 hours
+Linked Issue: https://github.com/COMP3350-Group5/meal-buddy/issues/173 
+Completed on August 13th
+
+Task: General Refactoring/Updating Comments
+Time Allocated: 3 hours
+Time Took: 2 hours
+Linked Issue: https://github.com/COMP3350-Group5/meal-buddy/issues/212 
+Completed on August 13th
+
+Task: Fix issues in acceptance tests
+Time Allocated: 1 hour
+Time Took: <1 hour
+Linked Issue: https://github.com/COMP3350-Group5/meal-buddy/issues/240 
+Completed on August 13th
+
+
+Caden’s Log
+Task: Add Nav Bar to Every Page
+Time Allocated: 3 hours
+Time Took: 4 hours
+Linked Issue: https://github.com/COMP3350-Group5/meal-buddy/issues/149 
+Completed on August 13th
+
+Task: Fix Buttons UI
+Time Allocated: 2 hours
+Time Took: 2 hours
+Linked Issue: https://github.com/COMP3350-Group5/meal-buddy/issues/146 
+Completed on August 13th
+
+Task: Fix Totals UI
+Time Allocated: 1 hour
+Time Took: 1 hour
+Linked Issue: https://github.com/COMP3350-Group5/meal-buddy/issues/146 
+Completed on August 13th
+
+Task: Add ability to remove exercises
+Time Allocated: 2 hours
+Time Took: 2 hours
+Linked Issue: https://github.com/COMP3350-Group5/meal-buddy/issues/154 
+Completed on August 13th
+
+Task: Acceptance Test for Logging Exercise
+Time Allocated: 3 hours
+Time Took: 3 hours
+Linked Issue: https://github.com/COMP3350-Group5/meal-buddy/issues/170 
+Completed on August 13th
+
+Task: Acceptance Test for Custom Goals
+Time Allocated: 3 hours
+Time Took: 3 hours
+Linked Issue: https://github.com/COMP3350-Group5/meal-buddy/issues/172 
+Completed on August 13th
+
+Task: Plan and record project presentation
+In progress
+
+
+Amin’s Log
+
+Task: Acceptance Test Written Scripts Guidelines
+Time Allocated: 1 hours
+Time Took: 1 hours
+Completed on August 13th
+
+Task: Start Acceptance Tests 
+Time Allocated: 5 hours
+Time took: 5 hours
+Completed on August 13th
+
+Arvind’s Log
+
+Task: Create View Activity
+Time Allocated: 5 hours
+Time Took: 5 hours
+Linked Issue: https://github.com/COMP3350-Group5/meal-buddy/issues/86 
+Completed on August 12th
+
+Task: Add Micros to Food
+Time Allocated: 2 hours
+Time Took: 1 hour
+Linked Issue: https://github.com/COMP3350-Group5/meal-buddy/issues/157 
+Completed on August 12th
+
+Task: Allow users to interact with mealtimes in timeline
+Time Allocated: 4 hours
+Time Took: 6 hour: 
+Linked Issue: https://github.com/COMP3350-Group5/meal-buddy/issues/225 
+Completed on August 12th
+
+Task: Allow users to interact with exercise in timeline
+Time Allocated: 2 hours
+Time Took: 2 hours
+Linked Issue: https://github.com/COMP3350-Group5/meal-buddy/issues/218 
+Completed on August 13th
+
+Task: resolved Add food button covers micros [HOTFIX]
+Time Allocated: 2 hours
+Time Took: 1 hour
+Linked Issue: https://github.com/COMP3350-Group5/meal-buddy/issues/215 
+Completed on August 13th
+
+Task: resolved Add labels to food view components
+Time Allocated: 2 hours
+Time Took: 1 hour
+Linked Issue: https://github.com/COMP3350-Group5/meal-buddy/issues/176 
+Completed on August 13th
+
+Task: Add macro to food components
+Time Allocated: 2 hours
+Time Took: 1 hour
+Linked Issue: https://github.com/COMP3350-Group5/meal-buddy/issues/225 
+Completed on August 13th
+
+Task: Add users to see details of an edible they have logged
+Time Allocated: 3 hours
+Time Took: 2 hours
+Linked Issue: https://github.com/COMP3350-Group5/meal-buddy/issues/200 
+Completed on August 13th
+
+Task: Access Tests -> View Stats
+Time Allocated: 3 hours
+Time Took: 4 hours
+Completed on August 13th
+Linked Issue: https://github.com/COMP3350-Group5/meal-buddy/issues/171
+
+Task: Access Tests -> Log Food
+Pair programmed with Amin
+Time Allocated: 3 hours
+Time Took: 3 hours
+Completed on August 13th
+Linked Issue: https://github.com/COMP3350-Group5/meal-buddy/issues/168
+
+Task: Fix issues in acceptance tests
+Time Allocated: 1 hours
+Time Took: 1 hour
+Completed on August 13th
+Linked Issue: https://github.com/COMP3350-Group5/meal-buddy/issues/240
+
+
+Task: Iteration 3 Documentation
+Time Allocated: 1 hours
+Time Took: 1 hour
+Completed on August 13th
+Linked Issue: https://github.com/COMP3350-Group5/meal-buddy/issues/241
+
+
+
+Mark’s Log
+
+Task: implement iterators to days
+Completed July 31
+Time Assigned: 1 Hour
+Time took: 1 hour
+Linked Issue: https://github.com/COMP3350-Group5/meal-buddy/issues/139
+Notes: Days now return an iterator over it’s lists rather than returning the whole list.
+ 
+Task: Fixing database label propagation issues
+Completed August 1
+Time Assigned: 2 Hour
+Time took: 3 hours, 
+Linked Issue: https://github.com/COMP3350-Group5/meal-buddy/issues/140
+Notes: Modifying/deleting labels now affects corresponding label goals. 
+ 
+Task: Retrospective Write Up
+Completed: August 2
+Time took: 2 hours
+Linked Issue:  
+Notes:
+ 
+Task: Integration Testing
+Completed: August 2, August 7
+Time Assigned: 2 Hour
+Time took: 2 hours, 1 hour (hotfix)
+Linked Issue: https://github.com/COMP3350-Group5/meal-buddy/issues/159
+Notes: (Aug 2) Completed Initial pass of integration tests. (Aug 7) Went back and added handling errors as expected. 
+ 
+ 
+Task: Allow users to set default values for a new day
+Completed August 3
+Time Assigned: 3 Hour
+
+Time took: 3.5 hours
+Linked Issue: https://github.com/COMP3350-Group5/meal-buddy/issues/142
+Notes: User’s can now click save as default for a day. This will be the new default when a user goes to a new day.  A user can reset the default to an empty day by clicking the reset default button.  It is implemented by having each account have a day they have tracked with a special id.  This id is 0 so no day of the year will replace it.  This allowed us to reuse the already existing infrastructure in the persistence and business layer to easily implement this.  We save this day to the account as day 0 and any time we go to a new day we just copy the day values over.  
+ 
+Task: Refactor Data Access Interface
+Completed August 3
+Time Assigned: 2 Hour
+Time took: 3 hours
+Linked Issue: https://github.com/COMP3350-Group5/meal-buddy/issues/164
+Notes: Refactored the persistence layer function names and business layer method names.  Access account has two aspects to it: user info and days that are tracked.  To modify days has the expected methods such as updateDay or addDay.  However for user info we had misleading names such as updateAccount which really only updated the user info.  Furthermore many of these methods took an account parameter when all was used was the user info in account.  Now they only take the user info as a parameter if we only use the data of user info in the account.  These changes then were modified when they were called so all tests passed.  This took longer than expected as there were lots of places that called this code that needed to be updated.
+ 
+Task: Refactor Showing Front End Errors For Duplicate Foods
+Completed: August 9
+Time Assigned: 1 Hour
+Time took: 0.5 hours
+Linked Issue: https://github.com/COMP3350-Group5/meal-buddy/issues/181
+Notes:
+
+Task: Show Errors When Users Make Invalid Goals
+Completed: August 9
+Time Assigned: 1 Hour
+Time took: 2 hours
+Linked Issue: https://github.com/COMP3350-Group5/meal-buddy/issues/183
+Notes: Show errors on front end when user inputs invalid data for making goals
+ 
+Task:  Fix Error Where Proper Quantity of Food is not Added To The Day
+Completed: August 9
+Time Assigned: 1 Hour
+Time took: 2 hours
+Linked Issue: https://github.com/COMP3350-Group5/meal-buddy/issues/192
+Notes: Turned out to be a backend issue.  When we update the day we always set all the food in the day to have 1 quantity in the database. Short Pr but took a long time to track down the bug
+ 
+Task:  Signing Up with a Already Taken Username Shows an Error
+Completed: August 9
+Time Assigned: 1 Hour
+Time took: 0.5 hours
+Linked Issue: https://github.com/COMP3350-Group5/meal-buddy/issues/178
+Notes:
+ 
+ 
+Task:  Add a Logout Button
+Completed: August 9
+Time Assigned: 1 Hour
+Time took: 0.5 hours
+Linked Issue: https://github.com/COMP3350-Group5/meal-buddy/issues/177
+Notes:
+ 
+Task:  Create Label Activity
+Completed: August 10
+Time Assigned: 2 Hour
+Time took: 2.5 hours
+Linked Issue: https://github.com/COMP3350-Group5/meal-buddy/issues/195  
+Notes: This shows all the labels in the app.  You can add/remove/update any label you choose.
+ 
+ 
+Task:  Fix Error Squelching
+Completed: August 11
+Time Assigned: 1 Hour
+Time took: 1.5 Hour
+Linked Issue: https://github.com/COMP3350-Group5/meal-buddy/issues/198  
+Notes: Especially in access classes often if we try to add a duplicate we simply return from the function and not add it.  Also if we tried to remove an item that didn’t exist we would get an error.  This is somewhat backwards as removing an item that doesn’t exist is not a problem as remove is idempotent but adding a duplicate definitely is not so in that case we now throw an error. Also adjusted ui to also handle this accordingly.
+ 
+ Task:  Allow User to Remove Edibles
+Completed: August 12
+Time Assigned: 1 Hour
+Time took: 1.5 hours
+Linked Issue: https://github.com/COMP3350-Group5/meal-buddy/issues/182
+Notes: Can now remove edibles or meals from the data base in the app on the user interface side
+ 
+ Task:  Allow Users to Enter Quantity of Food when Creating a Meal
+Completed: August 12
+Time Assigned: 2 Hour
+Time took: 2 hours
+Linked Issue: https://github.com/COMP3350-Group5/meal-buddy/issues/180
+Notes: Mark (Navigator) Pair Programed with Emmanuel (Driver)
+ 
+ Task: Prevent Users from Entering Invalid States In Label Activity (Hotfix)
+Completed: August 12
+Time Assigned: 1 Hour
+Time took: 1 hours
+Linked Issue: https://github.com/COMP3350-Group5/meal-buddy/issues/202  
+Notes: Buttons get disabled when they don’t make sense to click
+ 
+Task:  Fix Timeline Calculations.
+Completed: August 12
+Time Assigned: 1 Hour
+Time took: 1 hours
+Linked Issue: https://github.com/COMP3350-Group5/meal-buddy/issues/211
+Notes: Refactored Calculator business class and fixed an error in the calculator where it didn’t account for the quantity of a edible properly because we were calling a depreciated method from previous iteration before edibles were turned into composite objects.
+ 
+Task: Update Meal
+Completed: August 12
+Time Assigned: 3 Hour
+Time took: 4 hours
+Linked Issue: https://github.com/COMP3350-Group5/meal-buddy/issues/158
+Notes: Users can now update a meal already in the database. Also completed a few related refactoring’s.

@@ -164,7 +164,7 @@ public class SearchFoodActivity extends AppCompatActivity {
         });
 
         updateMeal.setOnClickListener((view) -> {
-            ChangeActivityHelper.changeActivity(SearchFoodActivity.this, UpdateMeal.class, username, dayOfYear, edible.name);
+            ChangeActivityHelper.changeActivity(SearchFoodActivity.this, UpdateMealActivity.class, username, dayOfYear, edible.name);
         });
 
         titleText.setText("Adding Food: " + edible.name);
