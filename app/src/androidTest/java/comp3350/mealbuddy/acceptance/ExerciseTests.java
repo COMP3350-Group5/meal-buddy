@@ -190,9 +190,9 @@ public class ExerciseTests {
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.btnAddExercise)).perform(click());
         onView(withId(R.id.etExerciseName)).check(matches(hasErrorText("An exercise name is required")));
-        onView(withId(R.id.etDuration)).check(matches(hasErrorText("Duration is required")));
+        onView(withId(R.id.etDuration)).check(matches(hasErrorText("A duration is required")));
         onView(withId(R.id.etExerciseName)).perform(typeText("Bike"), ViewActions.closeSoftKeyboard());
-        onView(withId(R.id.etDuration)).check(matches(hasErrorText("Duration is required")));
+        onView(withId(R.id.etDuration)).check(matches(hasErrorText("A duration is required")));
         onView(withId(R.id.btnAddExercise)).perform(click());
         onView(withId(R.id.etExerciseName)).perform(clearText(), ViewActions.closeSoftKeyboard());
         onView(withId(R.id.etDuration)).perform(typeText("25"), ViewActions.closeSoftKeyboard());
