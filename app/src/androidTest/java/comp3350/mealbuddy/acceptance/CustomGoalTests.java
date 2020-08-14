@@ -119,7 +119,7 @@ public class CustomGoalTests {
     }
 
     @Test
-    public void removeGoals() {
+    public void removeGoal() {
         init();
         login();
         //navigate to the view analytics page;
@@ -132,7 +132,9 @@ public class CustomGoalTests {
         onView(withId(R.id.btnContinue)).perform(click());
         onView(withId(R.id.txtPassedGoals)).check(matches(withText(containsString("Calorie"))));
         onView(withId(R.id.btnMore)).perform(click());
-
+        onView(withText("Remove Goal")).perform(click());
+        onView(withId(R.id.btnContinue)).perform(click());
+        onView(withText("Calorie")).check(doesNotExist());
     }
 
     @Test
@@ -153,7 +155,6 @@ public class CustomGoalTests {
     }
 
     private void login() {
-        //login
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.etUsername)).perform(typeText(TESTER_INFO.username), ViewActions.closeSoftKeyboard());
         onView(withId(R.id.etPassword)).perform(typeText(TESTER_INFO.password), ViewActions.closeSoftKeyboard());
