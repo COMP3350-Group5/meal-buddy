@@ -19,7 +19,7 @@ import comp3350.mealbuddy.presentation.HomeActivity;
 
 @RunWith(AndroidJUnit4ClassRunner.class)
 @LargeTest
-public class MealTest {
+public class MealTests {
     @Rule
     public ActivityTestRule<HomeActivity> main = new ActivityTestRule<>(HomeActivity.class);
 
