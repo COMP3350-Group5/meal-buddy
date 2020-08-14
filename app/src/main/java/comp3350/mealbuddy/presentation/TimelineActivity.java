@@ -43,7 +43,6 @@ import comp3350.mealbuddy.objects.UserInfo;
 import comp3350.mealbuddy.objects.consumables.Edible;
 import comp3350.mealbuddy.objects.consumables.EdibleIntPair;
 import comp3350.mealbuddy.objects.consumables.Meal;
-import comp3350.mealbuddy.objects.goals.Goal;
 
 
 public class TimelineActivity extends AppCompatActivity {
