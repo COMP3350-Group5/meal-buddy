@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".presentation.ViewStatsActivity" />
-        <activity android:name=".presentation.UpdateMeal" />
+        <activity android:name=".presentation.UpdateMealActivity" />
         <activity android:name=".presentation.LabelActivity" />
         <activity android:name=".presentation.AccountActivity" />
         <activity android:name=".presentation.AddExerciseActivity" />
