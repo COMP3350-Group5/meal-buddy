@@ -2,11 +2,11 @@ package comp3350.mealbuddy.acceptance;
 
 
 import androidx.test.espresso.action.ViewActions;
+import androidx.test.espresso.contrib.PickerActions;
 import androidx.test.filters.LargeTest;
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner;
 import androidx.test.rule.ActivityTestRule;
 
-import org.hsqldb.User;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -15,7 +15,6 @@ import org.junit.runner.RunWith;
 
 import comp3350.mealbuddy.R;
 import comp3350.mealbuddy.business.AccessAccount;
-import comp3350.mealbuddy.objects.Account;
 import comp3350.mealbuddy.objects.UserInfo;
 import comp3350.mealbuddy.presentation.HomeActivity;
 
@@ -24,6 +23,7 @@ import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.*;
+import static org.hamcrest.Matchers.allOf;
 
 @RunWith(AndroidJUnit4ClassRunner.class)
 @LargeTest
@@ -63,6 +63,7 @@ public class GoalTests {
                 "MicroGoal{id=VitaminE, lowerBound=15mg, upperBound=100mg}\n" +
                 "MicroGoal{id=Zinc, lowerBound=10mg, upperBound=40mg}\n")).check(matches(isDisplayed()));
     }
+
 
     @After
     public void cleanup() {
