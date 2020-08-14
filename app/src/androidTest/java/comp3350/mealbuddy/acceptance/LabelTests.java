@@ -69,7 +69,7 @@ public class LabelTests {
         onView(withId(R.id.fabAdd)).perform(click());
         onView(withId(R.id.fabFood)).perform(click());
         Espresso.closeSoftKeyboard();
-        onView(withId(R.id.etFoodName)).perform(typeText("One single blade of grass"), ViewActions.closeSoftKeyboard());
+        onView(withId(R.id.etFoodName)).perform(typeText("A single blade of grass"), ViewActions.closeSoftKeyboard());
         onView(withId(R.id.etLabels)).perform(typeText("Vegetarian"), ViewActions.closeSoftKeyboard());
         onView(withId(R.id.etFat)).perform(typeText("2"), ViewActions.closeSoftKeyboard());
         onView(withId(R.id.etCarbs)).perform(typeText("3"), ViewActions.closeSoftKeyboard());
@@ -80,9 +80,11 @@ public class LabelTests {
         onView(withId(R.id.etCalcium)).perform(typeText("15"), ViewActions.closeSoftKeyboard());
         onView(withId(R.id.etIron)).perform(typeText("7"), ViewActions.closeSoftKeyboard());
         onView(withId(R.id.btnAddFood)).perform(click());
-        onView(withText("One single blade of grass")).perform(scrollTo(), click());
-
-
+        onView(withText("A single blade of grass")).perform(click());
+        onView(withId(R.id.etQuantity)).perform(typeText("1"), ViewActions.closeSoftKeyboard());
+        onView(withId(R.id.btnConfirm)).perform(click());
+        onView(withText("Breakfast")).perform(click());
+        onView(withText("<Vegetarian> ")).check(matches(isDisplayed()));
     }
 
 
@@ -92,7 +94,7 @@ public class LabelTests {
         accessAccount.removeAccount("goaltest");
         accessLabel.removeLabel("Vegan");
         accessLabel.removeLabel("Vegetarian");
-        accessEdible.removeEdible("One single blade of grass");
+        accessEdible.removeEdible("A single blade of grass");
     }
 
 }
