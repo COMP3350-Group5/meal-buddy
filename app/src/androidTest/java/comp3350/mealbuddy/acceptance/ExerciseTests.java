@@ -179,7 +179,7 @@ public class ExerciseTests {
         onView(withId(R.id.fabExercise)).perform(click());
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.btnAddExercise)).perform(click());
-        onView(withId(R.id.etExerciseName)).check(matches(hasErrorText("Name is required")));
+        onView(withId(R.id.etExerciseName)).check(matches(hasErrorText("An exercise name is required")));
         onView(withId(R.id.etDuration)).check(matches(hasErrorText("Duration is required")));
         onView(withId(R.id.etExerciseName)).perform(typeText("Bike"), ViewActions.closeSoftKeyboard());
         onView(withId(R.id.etDuration)).check(matches(hasErrorText("Duration is required")));
@@ -187,7 +187,7 @@ public class ExerciseTests {
         onView(withId(R.id.etExerciseName)).perform(clearText(), ViewActions.closeSoftKeyboard());
         onView(withId(R.id.etDuration)).perform(typeText("25"), ViewActions.closeSoftKeyboard());
         onView(withId(R.id.btnAddExercise)).perform(click());
-        onView(withId(R.id.etExerciseName)).check(matches(hasErrorText("Name is required")));
+        onView(withId(R.id.etExerciseName)).check(matches(hasErrorText("An exercise name is required")));
         Espresso.pressBack();
         onView(withId(R.id.txtTotalsCalsBurned)).check(matches(withText(containsString("0"))));
         onView(withId(R.id.txtExercisesCals)).check(matches(withText(containsString("0 cals"))));
