@@ -132,7 +132,7 @@ public class CustomGoalTests {
         onView(withId(R.id.btnContinue)).perform(click());
         onView(withId(R.id.txtPassedGoals)).check(matches(withText(containsString("Calorie"))));
         onView(withId(R.id.btnMore)).perform(click());
-        
+
     }
 
     @Test
