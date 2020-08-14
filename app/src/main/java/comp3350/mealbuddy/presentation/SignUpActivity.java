@@ -73,6 +73,18 @@ public class SignUpActivity extends AppCompatActivity {
         });
     }
 
+    /*
+     * validateInput
+     * Ensure that the input for creating a new account is valid
+     * If it isnt valid it displays the error message
+     * Parameters
+     *      @username - username to add
+     *      @password - password of new account
+     *      @fullName - name of account to add
+     *      @age - the age of the account to add
+     *      @height - height of person to add
+     *      @weight - weight of new account
+     */
     private boolean validateInput(EditText username, EditText password, EditText fullName, EditText age, EditText height, EditText weight) {
         boolean inputsValid = true;
 

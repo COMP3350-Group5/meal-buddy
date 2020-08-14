@@ -171,8 +171,7 @@ public class CreateMealActivity extends AppCompatActivity {
                 quantity.setError("Quantity is required.");
             } else if (Integer.parseInt(quantity.getText().toString()) == 0) {
                 quantity.setError("Quantity cannot be 0.");
-            }
-            else {
+            } else {
                 edibleQuantites[pos] = Integer.parseInt(quantity.getText().toString());
                 dialog.dismiss();
             }
@@ -180,6 +179,14 @@ public class CreateMealActivity extends AppCompatActivity {
         dialog.show();
     }
 
+    /*
+     * validateInput
+     * ensures the input for creating a meal is valid. If false displays the
+     *          corresponding error message
+     * Parameters:
+     *      @param pos - position of edible we clicked on in list
+     * Returns: - true if the inputs are valid.
+     */
     private boolean validateInput(EditText name) {
         boolean inputsValid = true;
 

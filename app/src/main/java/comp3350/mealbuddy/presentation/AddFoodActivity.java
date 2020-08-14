@@ -117,18 +117,20 @@ public class AddFoodActivity extends AppCompatActivity {
                 newFood.updateMicro(Edible.Micros.Magnesium, getMicroVal(magnesium.getText()));
                 newFood.updateMicro(Edible.Micros.Choline, getMicroVal(choline.getText()));
                 newFood.updateMicro(Edible.Micros.Sodium, getMicroVal(sodium.getText()));
-                newFood.updateMicro(Edible.Micros.Potassium, getMicroVal(potassium.getText()));
-                newFood.updateMicro(Edible.Micros.Niacin, getMicroVal(niacin.getText()));
+             newFood.updateMicro(Edible.Micros.Potassium, getMicroVal(potassium.getText()));
+             newFood.updateMicro(Edible.Micros.Niacin, getMicroVal(niacin.getText()));
 
-                accessEdible.addEdible(newFood); //this adds the food to the foods database.
+             accessEdible.addEdible(newFood); //this adds the food to the foods database.
 
-                ChangeActivityHelper.changeActivity(AddFoodActivity.this, SearchFoodActivity.class, username, dayOfYear);
-            }
+             ChangeActivityHelper.changeActivity(AddFoodActivity.this, SearchFoodActivity.class, username, dayOfYear);
+         }
         });
     }
 
-
-    private int getMicroVal(Editable micro){
+    /* GetMicroVal
+     * get the micro val from the text view
+     */
+    private int getMicroVal(Editable micro) {
         return TextUtils.isEmpty(micro)
                 ? 0
                 : Integer.parseInt(micro.toString());
@@ -137,7 +139,7 @@ public class AddFoodActivity extends AppCompatActivity {
     /*
      * Check if the input fields are valid.
      */
-  private boolean validateInput() {
+    private boolean validateInput() {
         boolean inputsValid = true;
 
       if (TextUtils.isEmpty(name.getText())) {
