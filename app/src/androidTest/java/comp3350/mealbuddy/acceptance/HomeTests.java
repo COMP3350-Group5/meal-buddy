@@ -25,6 +25,14 @@ public class HomeTests {
     @Rule
     public ActivityTestRule<HomeActivity> homeTest = new ActivityTestRule<>(HomeActivity.class);
 
+    @Test
+    public void test() {
+        Espresso.closeSoftKeyboard();
+        onView(withId(R.id.etUsername)).perform(typeText("admin"), ViewActions.closeSoftKeyboard());
+        onView(withId(R.id.etPassword)).perform(typeText("group5"), ViewActions.closeSoftKeyboard());
+        onView(withId(R.id.btnLogin)).perform(click());
+        onView(withId(R.id.bottom_navigation)).perform(ClickNav.clickAccount());
+    }
 
     @Test
     public void cantLogin() {
