@@ -1,4 +1,4 @@
-package comp3350.mealbuddy.acceptance;
+package comp3350.mealbuddy.acceptance.acceptance;
 
 import androidx.test.espresso.Espresso;
 import androidx.test.espresso.action.ViewActions;
@@ -15,6 +15,7 @@ import org.junit.runner.RunWith;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+
 
 import comp3350.mealbuddy.R;
 import comp3350.mealbuddy.business.AccessAccount;
