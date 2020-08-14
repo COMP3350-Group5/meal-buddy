@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="500dp"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_gravity="center">
 
     <TextView
@@ -18,51 +18,50 @@
         android:id="@+id/lvViewFood"
         android:layout_width="match_parent"
         android:layout_height="400dp"
-        tools:listitem="@android:layout/simple_list_item_2"
+        android:layout_below="@+id/tvViewFood"
         android:divider="@color/cardview_light_background"
         android:dividerHeight="1dp"
-        android:layout_below="@+id/tvViewFood"
-        />
+        tools:listitem="@android:layout/simple_list_item_2" />
+
     <GridLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:rowCount="1"
+        android:layout_below="@+id/lvViewFood"
         android:columnCount="3"
-        android:layout_below="@+id/lvViewFood">
+        android:rowCount="1">
 
         <TextView
             android:id="@+id/tvViewFoodFat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="[Fat]"
-            android:textColor="@color/colorAccent"
-            android:textSize="30sp"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
             android:layout_gravity="center"
-            />
+            android:text="[Fat]"
+            android:textColor="@color/colorAccent"
+            android:textSize="30sp" />
+
         <TextView
             android:id="@+id/tvViewFoodProtein"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="[Protein]"
-            android:textColor="@color/colorAccent"
-            android:textSize="30sp"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
             android:layout_gravity="center"
-            />
+            android:text="[Protein]"
+            android:textColor="@color/colorAccent"
+            android:textSize="30sp" />
+
         <TextView
             android:id="@+id/tvViewFoodCarbs"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="[Carbs]"
-            android:textColor="@color/colorAccent"
-            android:textSize="30sp"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
             android:layout_gravity="center"
-            />
+            android:text="[Carbs]"
+            android:textColor="@color/colorAccent"
+            android:textSize="30sp" />
     </GridLayout>
 
 </RelativeLayout>

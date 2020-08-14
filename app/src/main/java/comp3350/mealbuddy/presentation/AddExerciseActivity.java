@@ -100,7 +100,6 @@ public class AddExerciseActivity extends AppCompatActivity {
         }
 
 
-
         if (TextUtils.isEmpty(duration.getText())) {
             duration.setError("A duration is required");
             inputsValid = false;

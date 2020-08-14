@@ -1,5 +1,5 @@
-import org.junit.runners.Suite;
 import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
 import comp3350.mealbuddy.acceptance.HomeTests;
 
@@ -9,10 +9,8 @@ import comp3350.mealbuddy.acceptance.HomeTests;
         HomeTests.class
 })
 
-public class RunAcceptanceTests
-{
-    public RunAcceptanceTests()
-    {
+public class RunAcceptanceTests {
+    public RunAcceptanceTests() {
         System.out.println("Sample Acceptance tests");
     }
 }
